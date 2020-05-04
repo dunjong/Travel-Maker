@@ -1,105 +1,229 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<style>
-	body{
-		padding-top:50px;
-	}
-</style>
-<script>
-	function isLogin(){
-		//ajax요청
-		$.ajax({
-			url:"<c:url value='/OneMemo/Auth/IsLogin.bbs'/>",
-			dataType:'json',
-			success:function(data){
-				console.log(typeof data);
-				console.log(JSON.stringify(data));
-				if(data.IsLogin=='YES'){//로그인 되었다면
-					//목록페이지로 이동]
-					location.replace("<c:url value='/OneMemo/BBS/List.bbs'/>");
-				} 
-				else{//로그인이 안됬다면
-					alert('로그인후 이용하세요');
-					location.replace("<c:url value='/OneMemo/Auth/Login.bbs'/>");
-				}
-			},
-			error:function(e){
-				console.log('에러:',e);
-			}
-			
-			
-		});
-	}
-</script>
-<nav class="navbar navbar-default navbar-fixed-top">
-	<!-- 상단메뉴 시작 -->
-	<div class="container-fluid">
-		<!--화면 크기가 작을때 보여지는 네비게이션바(모바일용)  -->
-		<div class="navbar-header">
-			<button class="navbar-toggle collapsed" data-toggle="collapse"
-				data-target="#collapse-menu">
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span>
-			</button>			
-			<a class="navbar-brand" href='<c:url value="/DataRoom/Index.kosmo"/>'>
-				<span class="glyphicon glyphicon-ok"></span>
-				BBST
-			</a>
+
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="header_content d-flex flex-row align-items-center justify-content-start">
+						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
+							<div class="logo"><a href="<c:url value="/"/>">TravelMaker</a></div>
+							<nav class="main_nav">
+								<ul class="d-flex flex-row align-items-start justify-content-start">
+									<li><a class="active" href="<c:url value="/"/>">Home</a></li>
+									<li>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">SEARCH<span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="#">항공권 찾기</a></li>
+											<li><a href="<c:url value='/TravelMaker/hotelview.kosmo'/>">호텔 찾기</a></li>
+											<li><a href="#">사진으로 찾기</a></li>
+										</ul>
+									</li>
+									<li>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">MEMBER<span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="#">회원정보수정</a></li>
+											<li><a href="#">즐겨찾기</a></li>
+											<li><a href="#">나의 플래너</a></li>
+											<li><a href="#">나의 리뷰</a></li>
+										</ul>
+									</li>
+									<li>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">관광정보<span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="#">관광정보메인</a></li>
+											<li><a href="#">지도형메인</a></li>
+											<li><a href="#">리스트형메인</a></li>
+											<li><a href="#">관광리스트</a></li>
+											<li><a href="#">맛집,숙박리스트</a></li>
+											<li><a href="#">리스트보기</a></li>
+											<li><a href="#">맛집,숙박상세보기</a></li>
+											<li><a href="#">관광정보상세보기</a></li>
+											<li><a href="#">리뷰정보상세보기</a></li>
+										</ul>
+									</li>
+									<li>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">PLANNER<span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="#">지역 및 일정선택</a></li>
+											<li><a href="#">여행 루트설정</a></li>
+											<li><a href="#">세부 일정</a></li>
+											<li><a href="#">예약관리</a></li>
+											<li><a href="#">플래너 요약</a></li>
+										</ul>
+									</li>
+									<li>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="#">리뷰 작성</a></li>
+											<li><a href="#">리뷰 미리보기</a></li>
+											<li><a href="#">포토북 내보내기</a></li>
+											<li><a href="#">포토북 자동완성</a></li>
+											<li><a href="#">포토북 완성</a></li>
+										</ul>
+									</li>
+									<li>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer Service<span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="#">공지사항</a></li>
+											<li><a href="#">QnA</a></li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+							<!--  <div class="header_phone ml-auto">Call us:010-7928-1552</div>-->
+							
+							<!-- Hamburger -->
+
+							<div class="hamburger ml-auto">
+								<i class="fa fa-bars" aria-hidden="true"></i>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<!-- navbar-header -->
-
-		<!-- 화면 크기가 클때 상단에 보여지는 메뉴(데스크탑용) -->
-		<div class="collapse navbar-collapse" id="collapse-menu">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href='<c:url value="/"/>'>메인</a></li>
-				<!-- 스프링 씨큐러티 사용하지 않을때 -->
-				<%-- 
-				<c:if test="${empty sessionScope.id }" var="isNotLogin">
-				<li><a href="<c:url value="/OneMemo/Auth/Login.bbs"/>">로그인</a></li>
-				</c:if>
-				<c:if test="${not  isNotLogin}">
-				<li><a href="<c:url value="/OneMemo/Auth/Logout.bbs"/>">로그아웃</a></li>
-				</c:if>
-				--%>
-				<!-- 
-				     스프링 씨큐리티 사용시 :단,<security:csrf disabled="false" />
-				     설정시 로그아웃을 GET방식이 아닌 POST방식으로 해야한다
-				   true로 지정시에는 GET방식이어도 상관없다(CSRF공격은 막지 못한다)
-				-->
-				<sec:authorize access="isAnonymous()">
-					<li><a href="<c:url value="/OneMemo/Auth/Login.bbs"/>">로그인</a></li>
-				</sec:authorize>
-				<sec:authorize access="isAuthenticated()">
-					<li><a href="javascript:logout();">로그아웃</a></li>
-				</sec:authorize>
-				
-				<!-- ajax로 로그인 여부 판단 -->
-				<li><a href="javascript:isLogin();">게시판</a></li>
-				<!--  
-				<li><a href='<c:url value="/OneMemo/BBS/List.bbs"/>'>한줄 댓글 게시판</a></li>
-				-->
+		<div class="header_social d-flex flex-row align-items-center justify-content-start">
+			<ul class="d-flex flex-row align-items-start justify-content-start">
+				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
 			</ul>
 		</div>
-		<!-- /.navbar-collapse -->
+	</header>
+	
+	<!-- Home -->
 
+	<div class="home">
+		
+		<!-- Home Slider -->
+		<div class="home_slider_container">
+			<div class="owl-carousel owl-theme home_slider">
+				<!-- Slide -->
+				<div class="owl-item">
+					<div class="background_image"></div>
+					<div class="home_slider_content_container">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="home_slider_content">
+										<div class="home_title"><h3>ONLY YOU NEED JUST <span>'COURAGE'</span></h3></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="home_page_nav">
+				<ul class="d-flex flex-column align-items-end justify-content-end">
+					<li><a href="#" data-scroll-to="#destinations">추천지<span>01</span></a></li>
+					<li><a href="#" data-scroll-to="#testimonials">리뷰<span>02</span></a></li>
+					<li><a href="#" data-scroll-to="#news">특별 상품<span>03</span></a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
-	<!-- /.container-fluid -->
-</nav>
-<!--  상단 메뉴 끝 -->
-<!-- action 은 스프링 씨큐리티의 security-context.xml의
-     <security:logout태그의 logout-url속성에 지정한 값과 일치
-          시킨다
- -->
-<form id="logoutForm" method="post" action="<c:url value='/OneMemo/Auth/Logout.bbs'/>">
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-</form>
-<script>
-	//csrf사용시에만 아래 함수 필요
-	function logout(){
-		$('#logoutForm').submit();	
-	}
-</script>
+	
+	<div class="menu">
+		<div class="menu_header d-flex flex-row align-items-center justify-content-start">
+			<div class="menu_logo"><a href="index.html">TravelMaker</a></div>
+			<div class="menu_close_container ml-auto"><div class="menu_close"><div></div><div></div></div></div>
+		</div>
+		<div class="menu_content">
+			<ul>
+				<li><a class="active" href="#">Home</a></li>
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">SEARCH<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">항공권 찾기</a></li>
+								<li><a href="<c:url value='/TravelMaker/hotelview.kosmo'/>">호텔 찾기</a></li>
+								<li><a href="#">사진으로 찾기</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">MEMBER<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">회원정보수정</a></li>
+								<li><a href="#">즐겨찾기</a></li>
+								<li><a href="#">나의 플래너</a></li>
+								<li><a href="#">나의 리뷰</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">관광정보<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">관광정보메인</a></li>
+								<li><a href="#">지도형메인</a></li>
+								<li><a href="#">리스트형메인</a></li>
+								<li><a href="#">관광리스트</a></li>
+								<li><a href="#">맛집,숙박리스트</a></li>
+								<li><a href="#">리스트보기</a></li>
+								<li><a href="#">맛집,숙박상세보기</a></li>
+								<li><a href="#">관광정보상세보기</a></li>
+								<li><a href="#">리뷰정보상세보기</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">PLANNER<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">지역 및 일정선택</a></li>
+								<li><a href="#">여행 루트설정</a></li>
+								<li><a href="#">세부 일정</a></li>
+								<li><a href="#">예약관리</a></li>
+								<li><a href="#">플래너 요약</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">리뷰 작성</a></li>
+								<li><a href="#">리뷰 미리보기</a></li>
+								<li><a href="#">포토북 내보내기</a></li>
+								<li><a href="#">포토북 자동완성</a></li>
+								<li><a href="#">포토북 완성</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer Service<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">공지사항</a></li>
+								<li><a href="#">QnA</a></li>
+							</ul>
+						</li>
+			</ul>
+		</div>
+		<div class="menu_social">
+			<div class="menu_phone ml-auto">Call us: 00-56 445 678 33</div>
+			<ul class="d-flex flex-row align-items-start justify-content-start">
+				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+			</ul>
+		</div>
+	</div>
+	
+	
+	
