@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 	$(function(){
 		//option을 {}객체(json)로 줄때는 함수의 인자로 처음부터 주거나
@@ -52,18 +52,9 @@
 			<div class="row">
 				<div class="col">
 					<div class="home_search_container">
-						<div class="home_search_title">항공권 검색</div>
+						<div class="home_search_title">관광플랜 리스트형</div>
 						<div class="home_search_content">
-							<form action="#" class="home_search_form" id="home_search_form">
-								<div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<input type="text" id="start" class="search_input search_input_1" placeholder="출발지" required="required">
-									<input type="text" class="search_input search_input_2" placeholder="도착지" required="required">
-									<input type="text" id="datepicker" class="search_input search_input_3" placeholder="가는날" required="required">
-									<input type="text" id="datepicker1" class="search_input search_input_4" placeholder="오는날" required="required">
-									<input type="text" class="search_input search_input_5" placeholder="좌석 등급 및 승객" required="required">
-									<button class="home_search_button" style="center;">항공권 검색</button>
-								</div>							
-							</form>
+							
 						</div>
 					</div>
 				</div>

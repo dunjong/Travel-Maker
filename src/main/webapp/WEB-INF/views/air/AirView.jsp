@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 	$(function(){
 		//option을 {}객체(json)로 줄때는 함수의 인자로 처음부터 주거나
@@ -73,7 +73,7 @@
 
 	<!-- Intro -->
 
-	<div class="intro">
+<div class="intro">
 		<div class="intro_background"></div>
 		<div class="container">
 			<div class="row">
@@ -120,6 +120,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<!-- Destinations -->
 

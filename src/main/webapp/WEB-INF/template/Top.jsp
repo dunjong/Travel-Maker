@@ -17,63 +17,58 @@
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">SEARCH<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
-											<li><a href="#">항공권 찾기</a></li>
-											<li><a href="<c:url value='/TravelMaker/hotelview.kosmo'/>">호텔 찾기</a></li>
-											<li><a href="#">사진으로 찾기</a></li>
+											<li><a href="<c:url value='/TravelMaker/AirSearch.kosmo'/>">항공권 찾기</a></li>
+											<li><a href="<c:url value='/TravelMaker/HotelSearch.kosmo'/>">호텔 찾기</a></li>
+											<li><a href="<c:url value='/TravelMaker/Vision.kosmo'/>">사진으로 찾기</a></li>
 										</ul>
 									</li>
 									<li>
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">MEMBER<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
-											<li><a href="#">회원정보수정</a></li>
-											<li><a href="#">즐겨찾기</a></li>
-											<li><a href="#">나의 플래너</a></li>
-											<li><a href="#">나의 리뷰</a></li>
+											<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
+											<li><a href="<c:url value='/TravelMaker/MyInfoEdit.kosmo'/>">회원정보수정</a></li>
+											<li><a href="<c:url value='/TravelMaker/BookMark.kosmo'/>">즐겨찾기</a></li>
+											<li><a href="<c:url value='/TravelMaker/SignIn.kosmo'/>">로그인</a></li>
+											<li><a href="<c:url value='/TravelMaker/SignUp.kosmo'/>">회원가입</a></li>
+											<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo'/>">나의플랜</a></li>
+											<li><a href="<c:url value='/TravelMaker/MyReview.kosmo'/>">나의리뷰</a></li>
 										</ul>
 									</li>
 									<li>
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">관광정보<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
-											<li><a href="#">관광정보메인</a></li>
-											<li><a href="#">지도형메인</a></li>
-											<li><a href="#">리스트형메인</a></li>
-											<li><a href="#">관광리스트</a></li>
-											<li><a href="#">맛집,숙박리스트</a></li>
-											<li><a href="#">리스트보기</a></li>
-											<li><a href="#">맛집,숙박상세보기</a></li>
-											<li><a href="#">관광정보상세보기</a></li>
-											<li><a href="#">리뷰정보상세보기</a></li>
+											
+											<li><a href="<c:url value='/TravelMaker/SpotList.kosmo'/>">관광지리스트</a></li>
+											<li><a href="<c:url value='/TravelMaker/SpotView.kosmo'/>">관광지상세보기</a></li>
+											<li><a href="<c:url value='/TravelMaker/RestaurantList.kosmo'/>">맛집리스트</a></li>
+											<li><a href="<c:url value='/TravelMaker/RestaurantView.kosmo'/>">맛집상세보기</a></li>
 										</ul>
 									</li>
 									<li>
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">PLANNER<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
-											<li><a href="#">지역 및 일정선택</a></li>
-											<li><a href="#">여행 루트설정</a></li>
-											<li><a href="#">세부 일정</a></li>
-											<li><a href="#">예약관리</a></li>
-											<li><a href="#">플래너 요약</a></li>
+											<li><a href="<c:url value='/TravelMaker/TouristMain.kosmo'/>">관광정보메인</a></li>
+											<li><a href="<c:url value='/TravelMaker/TouristMap.kosmo'/>">지도형메인</a></li>
+											<li><a href="<c:url value='/TravelMaker/TouristList.kosmo'/>">리스트형메인</a></li>
 										</ul>
 									</li>
 									<li>
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
+											<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">리뷰 리스트</a></li>
+											<li><a href="<c:url value='/TravelMaker/ReviewView.kosmo'/>">리뷰 보기</a></li>
 											<li><a href="#">리뷰 작성</a></li>
-											<li><a href="#">리뷰 미리보기</a></li>
-											<li><a href="#">포토북 내보내기</a></li>
-											<li><a href="#">포토북 자동완성</a></li>
-											<li><a href="#">포토북 완성</a></li>
 										</ul>
 									</li>
 									<li>
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer Service<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
-											<li><a href="#">공지사항</a></li>
+											<li><a href="<c:url value='/TravelMaker/CustomerService.kosmo'/>">공지사항</a></li>
 											<li><a href="#">QnA</a></li>
 										</ul>
 									</li>
