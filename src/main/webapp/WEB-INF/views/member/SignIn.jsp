@@ -14,10 +14,25 @@
 						<div class="home_search_title">로그인</div>
 						<div class="home_search_content">
 							<form action="#" class="home_search_form" id="home_search_form">
-								<div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<input type="text" class="form-control" placeholder="아이디" required="required">
-									<input type="text" class="form-control" placeholder="비밀번호" required="required">
-									<button class="home_search_button" style="center;">로그인</button>
+								<div class="form-group">
+									<label for="id" class="col-sm-2  control-label">ID</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" name="id" id="id"
+											placeholder="ID">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="pwd" class="col-sm-2  control-label">PASSWORD</label>
+									<div class="col-sm-8">
+										<input type="password" class="form-control" id="pwd" name="pwd"
+											placeholder="PASSWORD">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-danger">LOGIN</button>
+									</div>
 								</div>							
 							</form>
 						</div>
