@@ -12,7 +12,7 @@
 							<div class="logo"><a href="<c:url value="/"/>">TravelMaker</a></div>
 							<nav class="main_nav">
 								<ul class="d-flex flex-row align-items-start justify-content-start">
-									<li><a class="active" href="<c:url value="/"/>">Home</a></li>
+									<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 									<li>
 										<a href="<c:url value='/TravelMaker/MyPlanner.kosmo'/>" >PLANNER</a>
 									</li>
@@ -114,18 +114,12 @@
 		</div>
 		<div class="menu_content">
 			<ul>
-				<li><a class="active" href="<c:url value="/"/>">Home</a></li>
+				<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 				<li>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">PLANNER<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="<c:url value='/TravelMaker/TouristMain.kosmo'/>">관광정보메인</a></li>
-						<li><a href="<c:url value='/TravelMaker/TouristMap.kosmo'/>">지도형메인</a></li>
-						<li><a href="<c:url value='/TravelMaker/TouristList.kosmo'/>">리스트형메인</a></li>
-					</ul>
+					<a href="<c:url value='/TravelMaker/MyPlanner.kosmo'/>" >PLANNER</a>
 				</li>
 				<li>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEWS<span class="caret"></span>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">리뷰 리스트</a></li>
