@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/TravelMaker/")
 public class PlannerController {
 
-	@RequestMapping("MyPlanner.kosmo")
-	public String Myplanner() {
-		return "planner/MyPlanner.tiles";
+	@RequestMapping("Planner.kosmo")
+	public String Planner() {
+		return "planner/Planner.tiles";
 	}
-	@RequestMapping("TouristMain.kosmo")
-	public String TouristMain() {
-		return "planner/TouristMain.tiles";
+	@RequestMapping("Plan.kosmo")
+	public String Plan() {
+		return "planner/Plan.tiles";
 	}
-	@RequestMapping("TouristList.kosmo")
-	public String TouristList() {
-		return "planner/TouristList.tiles";
+	@RequestMapping("CitySearch.kosmo")
+	public String CitySearch() {
+		return "planner/CitySearch.tiles";
 	}
-	@RequestMapping("TouristMap.kosmo")
-	public String TouristMap() {
-		return "planner/TouristMap.tiles";
+	@RequestMapping("Tag.kosmo")
+	public String Tag() {
+		return "planner/Tag.tiles";
 	}
 	@RequestMapping("SpotList.kosmo")
 	public String SpotList() {

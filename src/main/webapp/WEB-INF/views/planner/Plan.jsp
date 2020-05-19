@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 	
 
 	<!-- Search -->
@@ -11,7 +12,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="home_search_container">
-						<div class="home_search_title">관광명소 상세보기</div>
+						<div class="home_search_title">관광플랜 맵형</div>
 						<div class="home_search_content">
 							
 						</div>
@@ -73,8 +74,8 @@
 
 
 	<!-- Destinations -->
-<!-- Destinations -->
-<div class="destinations" id="destinations">
+
+	<div class="destinations" id="destinations">
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
@@ -89,7 +90,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="<c:url value='/images/destination_1.jpg'/>" alt="">
+								<img src="images/destination_1.jpg" alt="">
 								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
 							</div>
 							<div class="destination_content">
@@ -102,7 +103,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="<c:url value='/images/destination_2.jpg'/>" alt="">
+								<img src="images/destination_2.jpg" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
@@ -114,7 +115,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="<c:url value='/images/destination_3.jpg'/>" alt="">
+								<img src="images/destination_3.jpg" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">San Francisco</a></div>
@@ -126,7 +127,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="<c:url value='/images/destination_4.jpg'/>" alt="">
+								<img src="images/destination_4.jpg" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Paris</a></div>
@@ -138,7 +139,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="<c:url value='/images/destination_5.jpg'/>" alt="">
+								<img src="images/destination_5.jpg" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Phi Phi Island</a></div>
@@ -150,7 +151,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="<c:url value='/images/destination_6.jpg'/>" alt="">
+								<img src="images/destination_6.jpg" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Mykonos</a></div>
@@ -164,7 +165,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<!-- Testimonials -->
 

@@ -49,9 +49,9 @@
           addMarker(event.latLng);
           haightAshbury=event.latLng;
           placesList=$('#places');
-          child=$('li');
-          img=$('img');
-          br=$('br');
+          child=$('#places li');
+          img=$('#places img');
+          br=$('#places br');
           child.remove();
           img.remove();
           br.remove();
@@ -71,6 +71,7 @@
               if (status !== 'OK') return;
               
               createMarkers(results);
+              
             });
         
         

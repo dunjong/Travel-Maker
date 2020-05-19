@@ -14,7 +14,7 @@
 								<ul class="d-flex flex-row align-items-start justify-content-start">
 									<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 									<li>
-										<a href="<c:url value='/TravelMaker/MyPlanner.kosmo'/>" >PLANNER</a>
+										<a href="<c:url value='/TravelMaker/Planner.kosmo'/>" >PLANNER</a>
 									</li>
 									<li>
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span>
@@ -34,8 +34,8 @@
 											<li><a href="<c:url value='/TravelMaker/BookMark.kosmo'/>">즐겨찾기</a></li>
 											<li><a href="<c:url value='/TravelMaker/SignIn.kosmo'/>">로그인</a></li>
 											<li><a href="<c:url value='/TravelMaker/SignUp.kosmo'/>">회원가입</a></li>
-											<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo'/>">나의플랜</a></li>
-											<li><a href="<c:url value='/TravelMaker/MyReview.kosmo'/>">나의리뷰</a></li>
+											<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
+											<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">나의리뷰</a></li>
 										</ul>
 									</li>
 									<li>
@@ -116,7 +116,7 @@
 			<ul>
 				<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 				<li>
-					<a href="<c:url value='/TravelMaker/MyPlanner.kosmo'/>" >PLANNER</a>
+					<a href="<c:url value='/TravelMaker/Planner.kosmo'/>" >PLANNER</a>
 				</li>
 				<li>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span>
@@ -136,8 +136,8 @@
 						<li><a href="<c:url value='/TravelMaker/BookMark.kosmo'/>">즐겨찾기</a></li>
 						<li><a href="<c:url value='/TravelMaker/SignIn.kosmo'/>">로그인</a></li>
 						<li><a href="<c:url value='/TravelMaker/SignUp.kosmo'/>">회원가입</a></li>
-						<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo'/>">나의플랜</a></li>
-						<li><a href="<c:url value='/TravelMaker/MyReview.kosmo'/>">나의리뷰</a></li>
+						<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
+						<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">나의리뷰</a></li>
 					</ul>
 				</li>
 				<li>

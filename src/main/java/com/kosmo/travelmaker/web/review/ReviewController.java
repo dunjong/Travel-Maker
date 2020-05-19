@@ -18,9 +18,9 @@ public class ReviewController {
 		return "review/ReviewList.tiles";
 	}
 			
-	@RequestMapping("MyReview.kosmo")
+	@RequestMapping("ReviewSearch.kosmo")
 	public String MyReview() {
-		return "review/MyReview.tiles";
+		return "review/ReviewSearch.tiles";
 	}
 	
 }

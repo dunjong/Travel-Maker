@@ -1,4 +1,4 @@
-package com.kosmo.travelmaker.web.vision;
+package com.kosmo.travelmaker.web.planner;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

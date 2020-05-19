@@ -78,33 +78,7 @@
 	</div>
 </div>
 
-<div class="container">
-	<div class="alert alert-success">
-		<div class="row">
-			<c:forEach begin="1" end="5" var="airList">
-				<div class="col-sm-8" style="height: 150px; width: 100px; border: 1px red solid">
-					<div class="row" style="text-align:center">
-						<div class="col-sm-3" style="height: 90px; width: 40px">이미지</div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><Strong>오전8:30</Strong><br>ICN</div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><small>4시간30분</small></div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><Strong>오후12:00</Strong><br>CEB</div>
-						
-						<div class="col-sm-3" style="height: 90px; width: 40px">이미지</div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><Strong>오후1:00</Strong><br>CEB</div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><small>4시간30분</small></div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><Strong>오후6:30</Strong><br>ICN</div>
-						
-					</div>
-				</div>
-				<div class="col-sm-4" style="height: 150px; width: 100px; border: 1px red solid">
-					<div class="col-sm-12" style="height: 90px; width: 40px; text-align:center">div1</div>
-					<div class="col-sm-12" style="height: 90px; width: 40px; text-align:center">div1</div>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
 
-</div>
 
 <!-- Intro -->
 

@@ -81,6 +81,7 @@
 		</div>
 	</div>
 
+
 	<!-- Destinations -->
 
 	<div class="destinations" id="destinations">
@@ -177,7 +178,7 @@
 	<!-- Testimonials -->
 
 	<div class="testimonials" id="testimonials">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/testimonials.jpg" data-speed="0.8"></div>
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="<c:url value='/images/testimonials.jpg'/>" data-speed="0.8"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
@@ -313,7 +314,7 @@
 				<!-- News Sidebar -->
 				<div class="col-xl-4">
 					<div class="travello">
-						<div class="background_image" style="background-image:url(images/travello.jpg)"></div>
+						<div class="background_image" style="background-image:url(<c:url value='/images/travello.jpg'/>)"></div>
 						<div class="travello_content">
 							<div class="travello_content_inner">
 								<div></div>

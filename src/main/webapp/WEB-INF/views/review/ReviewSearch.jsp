@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 	
 
 	<!-- Search -->
@@ -11,7 +12,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="home_search_container">
-						<div class="home_search_title">관광명소 상세보기</div>
+						<div class="home_search_title">나의 리뷰</div>
 						<div class="home_search_content">
 							
 						</div>
@@ -73,7 +74,6 @@
 
 
 	<!-- Destinations -->
-<!-- Destinations -->
 <div class="destinations" id="destinations">
 		<div class="container">
 			<div class="row">
@@ -164,7 +164,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<!-- Testimonials -->
 

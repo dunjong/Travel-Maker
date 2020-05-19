@@ -21,5 +21,8 @@ public class AirController {
 	public String AirView() {
 		return "air/AirView.tiles";
 	}
-	
+	@RequestMapping("AirRes.kosmo")
+	public String AirRes() {
+		return "air/AirRes.tiles";
+	}
 }

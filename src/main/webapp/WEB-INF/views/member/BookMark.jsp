@@ -22,8 +22,7 @@
 	</div>
 
 	<!-- Intro -->
-
-	<div class="intro">
+<div class="intro">
 		<div class="intro_background"></div>
 		<div class="container">
 			<div class="row">
@@ -71,9 +70,10 @@
 		</div>
 	</div>
 
+
 	<!-- Destinations -->
 
-	<div class="destinations" id="destinations">
+<div class="destinations" id="destinations">
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
@@ -88,7 +88,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_1.jpg" alt="">
+								<img src="<c:url value='/images/destination_1.jpg'/>" alt="">
 								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
 							</div>
 							<div class="destination_content">
@@ -101,7 +101,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_2.jpg" alt="">
+								<img src="<c:url value='/images/destination_2.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
@@ -113,7 +113,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_3.jpg" alt="">
+								<img src="<c:url value='/images/destination_3.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">San Francisco</a></div>
@@ -125,7 +125,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_4.jpg" alt="">
+								<img src="<c:url value='/images/destination_4.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Paris</a></div>
@@ -137,7 +137,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_5.jpg" alt="">
+								<img src="<c:url value='/images/destination_5.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Phi Phi Island</a></div>
@@ -149,7 +149,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_6.jpg" alt="">
+								<img src="<c:url value='/images/destination_6.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Mykonos</a></div>
@@ -167,7 +167,7 @@
 	<!-- Testimonials -->
 
 	<div class="testimonials" id="testimonials">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/testimonials.jpg" data-speed="0.8"></div>
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="<c:url value='/images/testimonials.jpg'/>" data-speed="0.8"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
@@ -303,7 +303,7 @@
 				<!-- News Sidebar -->
 				<div class="col-xl-4">
 					<div class="travello">
-						<div class="background_image" style="background-image:url(images/travello.jpg)"></div>
+						<div class="background_image" style="background-image:url(<c:url value='/images/travello.jpg'/>)"></div>
 						<div class="travello_content">
 							<div class="travello_content_inner">
 								<div></div>

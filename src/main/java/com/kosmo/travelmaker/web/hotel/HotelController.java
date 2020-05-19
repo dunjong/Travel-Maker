@@ -22,5 +22,9 @@ public class HotelController {
 	public String HotelView() {
 		return "hotel/HotelView.tiles";
 	}
+	@RequestMapping("HotelRes.kosmo")
+	public String HotelRes() {
+		return "hotel/HotelRes.tiles";
+	}
 	
 }

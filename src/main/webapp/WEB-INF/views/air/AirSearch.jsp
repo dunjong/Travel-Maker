@@ -213,7 +213,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Testimonials -->
 
 	<div class="testimonials" id="testimonials">
