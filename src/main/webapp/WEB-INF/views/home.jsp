@@ -89,9 +89,9 @@
 						<div class="col-md-3" style="height: 90px; width: 40px"><Strong>오후12:00</Strong><br>CEB</div>
 						
 						<div class="col-md-3" style="height: 90px; width: 40px">이미지</div>
-						<div class="col-md-3" style="height: 90px; width: 40px">div2</div>
-						<div class="col-md-3" style="height: 90px; width: 40px">div1</div>
-						<div class="col-md-3" style="height: 90px; width: 40px">div1</div>
+						<div class="col-md-3" style="height: 90px; width: 40px"><Strong>오후1:00</Strong><br>CEB</div>
+						<div class="col-md-3" style="height: 90px; width: 40px"><small>4시간30분</small></div>
+						<div class="col-md-3" style="height: 90px; width: 40px"><Strong>오후6:30</Strong><br>ICN</div>
 						
 					</div>
 				</div>

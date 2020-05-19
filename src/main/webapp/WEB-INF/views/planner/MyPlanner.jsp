@@ -70,7 +70,7 @@
 		</div>
 	</div>
 
-	<!-- Destinations -->
+		<!-- Destinations -->
 
 	<div class="destinations" id="destinations">
 		<div class="container">
@@ -87,7 +87,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_1.jpg" alt="">
+								<img src="<c:url value='/images/destination_1.jpg'/>" alt="">
 								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
 							</div>
 							<div class="destination_content">
@@ -100,7 +100,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_2.jpg" alt="">
+								<img src="<c:url value='/images/destination_2.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
@@ -112,7 +112,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_3.jpg" alt="">
+								<img src="<c:url value='/images/destination_3.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">San Francisco</a></div>
@@ -124,7 +124,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_4.jpg" alt="">
+								<img src="<c:url value='/images/destination_4.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Paris</a></div>
@@ -136,7 +136,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_5.jpg" alt="">
+								<img src="<c:url value='/images/destination_5.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Phi Phi Island</a></div>
@@ -148,7 +148,7 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="images/destination_6.jpg" alt="">
+								<img src="<c:url value='/images/destination_6.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Mykonos</a></div>
@@ -166,7 +166,7 @@
 	<!-- Testimonials -->
 
 	<div class="testimonials" id="testimonials">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/testimonials.jpg" data-speed="0.8"></div>
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="<c:url value='/images/testimonials.jpg'/>" data-speed="0.8"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
@@ -238,7 +238,7 @@
 						
 						<!-- News Post -->
 						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="images/news_1.jpg" alt=""></div>
+							<div class="news_post_image"><img src="<c:url value='/images/news_1.jpg'/>" alt=""></div>
 							<div class="news_post_content">
 								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
 									<div>02</div>
@@ -258,7 +258,7 @@
 
 						<!-- News Post -->
 						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="images/news_2.jpg" alt=""></div>
+							<div class="news_post_image"><img src="<c:url value='/images/news_2.jpg'/>" alt=""></div>
 							<div class="news_post_content">
 								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
 									<div>01</div>
@@ -278,7 +278,7 @@
 
 						<!-- News Post -->
 						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="images/news_3.jpg" alt=""></div>
+							<div class="news_post_image"><img src="<c:url value='/images/news_3.jpg'/>" alt=""></div>
 							<div class="news_post_content">
 								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
 									<div>29</div>
@@ -302,7 +302,7 @@
 				<!-- News Sidebar -->
 				<div class="col-xl-4">
 					<div class="travello">
-						<div class="background_image" style="background-image:url(images/travello.jpg)"></div>
+						<div class="background_image" style="background-image:url(<c:url value='/images/travello.jpg'/>)"></div>
 						<div class="travello_content">
 							<div class="travello_content_inner">
 								<div></div>
