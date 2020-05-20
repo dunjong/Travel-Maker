@@ -14,7 +14,7 @@
 								<ul class="d-flex flex-row align-items-start justify-content-start">
 									<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 									<li>
-										<a href="<c:url value='/TravelMaker/Planner.kosmo'/>" >PLANNER</a>
+										<a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>" >PLANNER</a>
 									</li>
 									<li>
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span>
@@ -116,7 +116,7 @@
 			<ul>
 				<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 				<li>
-					<a href="<c:url value='/TravelMaker/Planner.kosmo'/>" >PLANNER</a>
+					<a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>" >PLANNER</a>
 				</li>
 				<li>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span>

@@ -39,7 +39,7 @@
         
     	
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 13,
+          zoom: 12,
           center: haightAshbury
         });
         
@@ -181,7 +181,7 @@
 			var settings = {
 		    		"async": true,
 		    		"crossDomain": true,
-		    		"url": "https://tripadvisor1.p.rapidapi.com/hotels/list-by-latlng?lang=ko_KR&hotel_class=1%252C2%252C3&limit=30&adults=1&rooms=1&currency=USD&latitude=-8.672062&longitude=115.231609",
+		    		"url": "https://tripadvisor1.p.rapidapi.com/hotels/list-by-latlng?lang=ko_KR&hotel_class=1%252C2%252C3&limit=30&adults=1&rooms=1&currency=USD&latitude="+haightAshbury.lat+"&longitude="+haightAshbury.lng,
 		    		"method": "GET",
 		    		"headers": {
 		    			"x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
