@@ -176,7 +176,30 @@
         }
       
     </script>
-    
+    <script>
+	$(function(){
+		$('#ad').click(function(){
+			var settings = {
+		    		"async": true,
+		    		"crossDomain": true,
+		    		"url": "https://tripadvisor1.p.rapidapi.com/hotels/list-by-latlng?lang=ko_KR&hotel_class=1%252C2%252C3&limit=30&adults=1&rooms=1&currency=USD&latitude=-8.672062&longitude=115.231609",
+		    		"method": "GET",
+		    		"headers": {
+		    			"x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
+		    			"x-rapidapi-key": "9095c68cdcmshe3e836ea4f7917bp1fa2a1jsn44f214b94ffc"
+		    		}
+		    	}
+
+		    	$.ajax(settings).done(function (response) {
+		    		console.log(response.data[0])
+		    		$('#div1').text(response.data[0].name);
+		    		$('#img1').prop("src", response.data[0].photo.images.thumbnail.url);
+		    	});
+			
+		})
+		
+	})
+</script>
 
 	<!-- Search -->
 
@@ -209,9 +232,11 @@
 				</div>
 				<div class="col-sm-4" style="height: 800px; width: 30px; border: 1px red solid">
 					<h3 style="text-align:center">주변 명소</h3>
+					
 				</div>
 				<div class="col-sm-4" style="height: 800px; width: 30px; border: 1px red solid">
 					<h3 style="text-align:center">주변 호텔</h3>
+					<div id="div1"><img id="img1"/></div>
 				</div>
 			</div>
 			
