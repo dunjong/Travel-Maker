@@ -178,7 +178,6 @@
     </script>
     <script>
 	$(function(){
-		$('#ad').click(function(){
 			var settings = {
 		    		"async": true,
 		    		"crossDomain": true,
@@ -189,15 +188,11 @@
 		    			"x-rapidapi-key": "9095c68cdcmshe3e836ea4f7917bp1fa2a1jsn44f214b94ffc"
 		    		}
 		    	}
-
 		    	$.ajax(settings).done(function (response) {
 		    		console.log(response.data[0])
 		    		$('#div1').text(response.data[0].name);
 		    		$('#img1').prop("src", response.data[0].photo.images.thumbnail.url);
 		    	});
-			
-		})
-		
 	})
 </script>
 
