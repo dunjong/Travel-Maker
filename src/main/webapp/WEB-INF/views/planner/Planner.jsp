@@ -114,7 +114,8 @@
     	  initMap();
 	  }
 	  function remove(){
-		  child=$('#places table');
+		  
+		  child=$('#places div');
           child.remove();
 	  }
       
@@ -152,56 +153,51 @@
             	img.src=place.photos[0].getUrl({maxWidth: 300, maxHeight: 200})
             	
             }
-            var table=document.createElement('table');
-            var table2=document.createElement('table');
-            var tr=document.createElement('TR');
-            var tr2=document.createElement('TR');
-            var tr3=document.createElement('TR');
-            var tr4=document.createElement('TR');
-            var tr5=document.createElement('TR');
-            var tr6=document.createElement('TR');
-            var td=document.createElement('TD');
-            var td2=document.createElement('TD');
+            var div=document.createElement('div');
+            div.className='col-sm-6';
+            var div2=document.createElement('div');
+            div2.className='col-sm-6';
+            var div3=document.createElement('div');
+            div3.className='col-sm-12';
+            div3.textContent='=========================================================================================================================';
+            var row=document.createElement('div');
+            row.className='row';
             
-            var td_name = document.createElement('td');
-            var td_rating = document.createElement('td');
-            var td_location = document.createElement('td');
-            var td_id = document.createElement('td');
-            var td_price_level =document.createElement('td');
+            var div_name = document.createElement('div');
+            div_name.className='col-sm-12';
+            var div_rating = document.createElement('div');
+            div_rating.className='col-sm-12';
+            var div_location = document.createElement('div');
+            div_location.className='col-sm-12';
+            var div_id = document.createElement('div');
+            div_id.className='col-sm-12';
+            var div_price_level =document.createElement('div');
+            div_price_level.className='col-sm-12';
             
-            td_name.textContent = '식당이름: '+place.name;
-            td_rating.textContent='평점:'+place.rating+'점';
-            td_location.textContent='위치정보(경도,위도): '+place.geometry.location;
-            td_id.textContent='위치아이디: '+place.place_id;
-            td_price_level.textContent='가격수준: '+place.price_level;
+            div_name.textContent = '식당이름: '+place.name;
+            div_rating.textContent='평점:'+place.rating+'점';
+            div_location.textContent='위치정보(경도,위도): '+place.geometry.location;
+            div_id.textContent='위치아이디: '+place.place_id;
+            div_price_level.textContent='가격수준: '+place.price_level;
             
             br=document.createElement('br');
+           
+            
+            
+            placesList.appendChild(div);
+           	div.appendChild(img);
+           	placesList.appendChild(div2);
+           	div2.appendChild(row);
+           	row.appendChild(div_name);
+           	row.appendChild(div_rating);
+           	row.appendChild(div_location);
+           	row.appendChild(div_id);
+           	row.appendChild(div_price_level);
+           	placesList.appendChild(div3);
            	
-            td.colSpan='5';
-           
-            
-            placesList.appendChild(table);
-            table.appendChild(tr);
-            tr.appendChild(td);
-            td.appendChild(img);
-            tr.appendChild(td2);
-            td2.appendChild(table2);
-            
-            table2.appendChild(tr2);
-            tr2.appendChild(td_name);
-            table2.appendChild(tr3);
-            tr3.appendChild(td_rating);
-            table2.appendChild(tr4);
-            tr4.appendChild(td_location);
-            table2.appendChild(tr5);
-            tr5.appendChild(td_price_level);
-            table2.appendChild(tr6);
-            tr6.appendChild(td_id);
-           
-            
           }
-          $('table').css('background-color','yellow');
-         
+          $('#places img').css({width:'250px',height:'200px'})
+          $('#places .row').css({textAlign:'left',marginTop:'40px',color:'black',weight:'border'})
           map.fitBounds(bounds);
         }
       
@@ -248,7 +244,7 @@
 			<div class="row">
 				<div class="col-sm-12" style="height: 800px; border: 1px red solid; overflow:scroll; ">
 					
-					<div id="places">
+					<div class="row" id="places">
 					
 					</div>
 					
