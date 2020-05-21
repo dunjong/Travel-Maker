@@ -32,9 +32,13 @@
       var markers = [];
       var haightAshbury = {lat: -8.672062, lng: 115.231609};//발리 덴파사르
       var placesList;
+      var imageList;
       var child;
       var img;
       var br;
+      var settings;
+      var spot='restaurant';
+      
       function initMap() {
         
     	
@@ -43,18 +47,16 @@
           center: haightAshbury
         });
         
+       
+        
 
         // This event listener will call addMarker() when the map is clicked.
         map.addListener('click', function(event) {
           addMarker(event.latLng);
           haightAshbury=event.latLng;
+          imageList=$('#images');
           placesList=$('#places');
-          child=$('#places li');
-          img=$('#places img');
-          br=$('#places br');
-          child.remove();
-          img.remove();
-          br.remove();
+          remove();
           initMap();
         });
 
@@ -66,18 +68,13 @@
         // Create the places service.
         var service = new google.maps.places.PlacesService(map);
         service.nearbySearch(
-            {location: haightAshbury, radius: 1000, type: ['restaurant']},
+            {location: haightAshbury, radius: 1000, type: [spot]},
             function(results, status, pagination) {
               if (status !== 'OK') return;
               
               createMarkers(results);
               
             });
-        
-        
-        
-	  
-	  
 	  
 	  
         
@@ -101,16 +98,30 @@
         }
       }
       // Deletes all markers in the array by removing references to them.
-      function deleteMarkers() {
-    	setMapOnAll(null);
-        markers = [];
+      function food() {
+    	  remove();
+    	  spot='restaurant';
+    	  initMap();
       }
+	  function hotel() {
+		  remove();
+		  spot='lodging';
+    	  initMap();
+      }
+	  function tour() {
+		  remove();
+		  spot='night_club';
+    	  initMap();
+	  }
+	  function remove(){
+		  child=$('#places table');
+          child.remove();
+	  }
       
       function createMarkers(places) {
           var bounds = new google.maps.LatLngBounds();
           placesList = document.getElementById('places');
-
-          
+          imageList = document.getElementById('images');
           
           for (var i = 0, place; place = places[i]; i++) {
             var image = {
@@ -135,66 +146,66 @@
             
             
             
-            
-            
-            var li_name = document.createElement('li');
-            var li_rating = document.createElement('li');
-            var li_location = document.createElement('li');
-            var li_id = document.createElement('li');
-            var li_price_level =document.createElement('li');
-            
-            li_name.textContent = '식당이름: '+place.name;
-            li_rating.textContent='평점:'+place.rating+'점';
-            li_location.textContent='위치정보(경도,위도): '+place.geometry.location;
-            li_id.textContent='위치아이디: '+place.place_id;
-            li_price_level.textContent='가격수준: '+place.price_level;
-            
-            
-            if(place.photos==null){
-            	  continue;
-              }
             img = document.createElement('img');
             img.alt='no image';
-            img.src=place.photos[0].getUrl({maxWidth: 300, maxHeight: 200})
-           	$('img').css({height:'200px',width:'250px'});
-            $('#places li').css({border: '1px black solid',color:'black'});
+            if(place.photos!=null){
+            	img.src=place.photos[0].getUrl({maxWidth: 300, maxHeight: 200})
+            	
+            }
+            var table=document.createElement('table');
+            var table2=document.createElement('table');
+            var tr=document.createElement('TR');
+            var tr2=document.createElement('TR');
+            var tr3=document.createElement('TR');
+            var tr4=document.createElement('TR');
+            var tr5=document.createElement('TR');
+            var tr6=document.createElement('TR');
+            var td=document.createElement('TD');
+            var td2=document.createElement('TD');
+            
+            var td_name = document.createElement('td');
+            var td_rating = document.createElement('td');
+            var td_location = document.createElement('td');
+            var td_id = document.createElement('td');
+            var td_price_level =document.createElement('td');
+            
+            td_name.textContent = '식당이름: '+place.name;
+            td_rating.textContent='평점:'+place.rating+'점';
+            td_location.textContent='위치정보(경도,위도): '+place.geometry.location;
+            td_id.textContent='위치아이디: '+place.place_id;
+            td_price_level.textContent='가격수준: '+place.price_level;
             
             br=document.createElement('br');
+           	
+            td.colSpan='5';
+           
             
-            placesList.appendChild(img);
-            placesList.appendChild(li_name);
-            placesList.appendChild(li_rating);
-            placesList.appendChild(li_location);
-            placesList.appendChild(li_price_level);
-            placesList.appendChild(li_id);
+            placesList.appendChild(table);
+            table.appendChild(tr);
+            tr.appendChild(td);
+            td.appendChild(img);
+            tr.appendChild(td2);
+            td2.appendChild(table2);
             
-            placesList.appendChild(br);
-            placesList.appendChild(br);
+            table2.appendChild(tr2);
+            tr2.appendChild(td_name);
+            table2.appendChild(tr3);
+            tr3.appendChild(td_rating);
+            table2.appendChild(tr4);
+            tr4.appendChild(td_location);
+            table2.appendChild(tr5);
+            tr5.appendChild(td_price_level);
+            table2.appendChild(tr6);
+            tr6.appendChild(td_id);
+           
             
           }
+          $('table').css('background-color','yellow');
+         
           map.fitBounds(bounds);
         }
       
     </script>
-    <script>
-	$(function(){
-			var settings = {
-		    		"async": true,
-		    		"crossDomain": true,
-		    		"url": "https://tripadvisor1.p.rapidapi.com/hotels/list-by-latlng?lang=ko_KR&hotel_class=1%252C2%252C3&limit=30&adults=1&rooms=1&currency=USD&latitude="+haightAshbury.lat+"&longitude="+haightAshbury.lng,
-		    		"method": "GET",
-		    		"headers": {
-		    			"x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
-		    			"x-rapidapi-key": "9095c68cdcmshe3e836ea4f7917bp1fa2a1jsn44f214b94ffc"
-		    		}
-		    	}
-		    	$.ajax(settings).done(function (response) {
-		    		console.log(response.data[0])
-		    		$('#div1').text(response.data[0].name);
-		    		$('#img1').prop("src", response.data[0].photo.images.thumbnail.url);
-		    	});
-	})
-</script>
 
 	<!-- Search -->
 
@@ -218,20 +229,29 @@
 					<div class="col-sm-12" style="height: 300px; width: 100px; border: 1px red solid">
 						<div class="row" id="map"></div>
 					</div>
-					
 			</div>
 			<div class="row">
-				<div class="col-sm-4" style="height: 800px; width: 30px; border: 1px red solid; overflow:scroll; ">
-					<h3 style="text-align:center">주변 맛집</h3>
-					<ul id="places"></ul>
+				<div class="col-sm-4" style="border: 1px red solid;">
+					<img alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
 				</div>
-				<div class="col-sm-4" style="height: 800px; width: 30px; border: 1px red solid">
-					<h3 style="text-align:center">주변 명소</h3>
+				<div class="col-sm-4" style="border: 1px red solid;">
+					<img alt="" src="<c:url value='/images/tours.jpg'/>" onclick="hotel();">
+				</div>
+				<div class="col-sm-4" style="border: 1px red solid;">
+					<img alt="" src="<c:url value='/images/hotels.jpg'/>" onclick="tour();">
+				</div>
+			</div>
+			
+			
+			
+			
+			<div class="row">
+				<div class="col-sm-12" style="height: 800px; border: 1px red solid; overflow:scroll; ">
 					
-				</div>
-				<div class="col-sm-4" style="height: 800px; width: 30px; border: 1px red solid">
-					<h3 style="text-align:center">주변 호텔</h3>
-					<div id="div1"><img id="img1"/></div>
+					<div id="places">
+					
+					</div>
+					
 				</div>
 			</div>
 			
