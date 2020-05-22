@@ -108,7 +108,8 @@
 				<div class="row">
 					<div class="col">
 						<div class="home_search_container">
-							<div class="home_search_title">호텔 검색</div>
+							<div class="home_search_title"><a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a></div>
+							<div class="home_search_title" ><a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a></div>
 							<div class="home_search_content">
 								<form action="#" class="home_search_form" id="home_search_form">
 									<div
@@ -135,7 +136,6 @@
 		<div class="intro">
 			<div class="intro_container">
 				<div id="places" class="alert alert-success">
-					
 				</div>
 			</div>
 		</div>

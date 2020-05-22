@@ -147,57 +147,54 @@
             
             
             
-            img = document.createElement('img');
-            img.alt='no image';
-            if(place.photos!=null){
-            	img.src=place.photos[0].getUrl({maxWidth: 300, maxHeight: 200})
-            	
-            }
-            var div=document.createElement('div');
-            div.className='col-sm-6';
-            var div2=document.createElement('div');
-            div2.className='col-sm-6';
-            var div3=document.createElement('div');
-            div3.className='col-sm-12';
-            div3.textContent='=========================================================================================================================';
-            var row=document.createElement('div');
-            row.className='row';
-            
-            var div_name = document.createElement('div');
-            div_name.className='col-sm-12';
-            var div_rating = document.createElement('div');
-            div_rating.className='col-sm-12';
-            var div_location = document.createElement('div');
-            div_location.className='col-sm-12';
-            var div_id = document.createElement('div');
-            div_id.className='col-sm-12';
-            var div_price_level =document.createElement('div');
-            div_price_level.className='col-sm-12';
-            
-            div_name.textContent = '식당이름: '+place.name;
-            div_rating.textContent='평점:'+place.rating+'점';
-            div_location.textContent='위치정보(경도,위도): '+place.geometry.location;
-            div_id.textContent='위치아이디: '+place.place_id;
-            div_price_level.textContent='가격수준: '+place.price_level;
-            
-            br=document.createElement('br');
-           
-            
-            
-            placesList.appendChild(div);
-           	div.appendChild(img);
-           	placesList.appendChild(div2);
-           	div2.appendChild(row);
-           	row.appendChild(div_name);
-           	row.appendChild(div_rating);
-           	row.appendChild(div_location);
-           	row.appendChild(div_id);
-           	row.appendChild(div_price_level);
-           	placesList.appendChild(div3);
-           	
-          }
-          $('#places img').css({width:'250px',height:'200px'})
-          $('#places .row').css({textAlign:'left',marginTop:'40px',color:'black',weight:'border'})
+				img = document.createElement('img');
+	            img.alt='no image';
+	            if(place.photos!=null){
+	            	img.src=place.photos[0].getUrl({maxWidth: 300, maxHeight: 200})
+	            }
+	            var div=document.createElement('div');
+	            div.className='col-sm-6';
+	            var div2=document.createElement('div');
+	            div2.className='col-sm-6';
+	            
+	            var row=document.createElement('div');
+	            row.className='row';
+	            var row2=document.createElement('div');
+	            row2.className='row';
+	            
+	            var div_name = document.createElement('div');
+	            div_name.className='col-sm-12';
+	            var div_rating = document.createElement('div');
+	            div_rating.className='col-sm-12';
+	            var div_location = document.createElement('div');
+	            div_location.className='col-sm-12';
+				var div_id = document.createElement('div');
+  				div_id.className='col-sm-12';
+	            var div_price_level =document.createElement('div');
+	            div_price_level.className='col-sm-12';
+	            
+	            div_name.textContent = '이름: '+place.name;
+	   			div_rating.textContent='평점:'+place.rating+'점';
+	    		div_location.textContent='위치정보(경도,위도): '+place.geometry.location;
+	    		div_id.textContent='위치아이디: '+place.place_id;
+	    		div_price_level.textContent='가격수준: '+place.price_level;
+	           
+	            
+	            
+	          	placesList.appendChild(row);
+	            row.appendChild(div);
+	           	div.appendChild(img);
+	           	row.appendChild(div2);
+	           	div2.appendChild(row2);
+	           	row2.appendChild(div_name);
+	           	row2.appendChild(div_rating);
+	           	row2.appendChild(div_location);
+				row2.appendChild(div_id);
+	           	row2.appendChild(div_price_level);
+	           	
+	          }
+	          $('#places img').css({width:'250px',height:'200px'});
+	    	  $('#places .row').css({width: '95%',height: '100%',margin:'10px', padding:'20px', backgroundColor:'white',boxShadow:'1px 1px 1px 1px gray',borderRadius:'11px /11px'})
           map.fitBounds(bounds);
         }
       
@@ -219,41 +216,30 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div class="alert alert-normal">
+	
+	
+	<div class="intro">
+		<div class="intro_container" style="margin-left:50px;width:80%">
 			<div class="row">
-					<div class="col-sm-12" style="height: 300px; width: 100px; border: 1px red solid">
+					<div class="col-sm-12" style="height: 300px; width: 100px;margin-bottom:20px">
 						<div class="row" id="map"></div>
 					</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-4" style="border: 1px red solid;">
+				<div class="col-sm-4">
 					<img alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
 				</div>
-				<div class="col-sm-4" style="border: 1px red solid;">
+				<div class="col-sm-4">
 					<img alt="" src="<c:url value='/images/tours.jpg'/>" onclick="hotel();">
 				</div>
-				<div class="col-sm-4" style="border: 1px red solid;">
+				<div class="col-sm-4">
 					<img alt="" src="<c:url value='/images/hotels.jpg'/>" onclick="tour();">
 				</div>
 			</div>
-			
-			
-			
-			
-			<div class="row">
-				<div class="col-sm-12" style="height: 800px; border: 1px red solid; overflow:scroll; ">
-					
-					<div class="row" id="places">
-					
-					</div>
-					
-				</div>
+			<div id="places" class="alert alert-success" style="padding-right:100px">
 			</div>
-			
 		</div>
 	</div>
-	
 	
 	
 	
