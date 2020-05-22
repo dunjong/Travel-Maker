@@ -72,37 +72,39 @@
 	</div>
 	
 	<div class="container">
-	<div class="alert alert-success">
-		<div class="row">
-			<c:forEach begin="1" end="5" var="airList">
-				<div class="col-sm-8" style="height: 150px; width: 100px; border: 1px red solid">
-					<div class="row" style="text-align:center">
-						<div class="col-sm-3" style="height: 90px; width: 40px">이미지</div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><Strong>오전8:30</Strong><br>ICN</div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><small>4시간30분</small></div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><Strong>오후12:00</Strong><br>CEB</div>
-						
-						<div class="col-sm-3" style="height: 90px; width: 40px">이미지</div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><Strong>오후1:00</Strong><br>CEB</div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><small>4시간30분</small></div>
-						<div class="col-sm-3" style="height: 90px; width: 40px"><Strong>오후6:30</Strong><br>ICN</div>
-						
-					</div>
-				</div>
-				<div class="col-sm-4" style="height: 150px; width: 100px; border: 1px red solid">
-					<div class="col-sm-12" style="height: 90px; width: 40px; text-align:center">div1</div>
-					<div class="col-sm-12" style="height: 90px; width: 40px; text-align:center">div1</div>
-				</div>
-			</c:forEach>
-		</div>
+	   <div class="alert alert-success">
+	   	<c:forEach begin="0" end="4">
+	      <div class="row">
+	            <div class="col-sm-8" style="height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;">
+	               <div class="row" style="text-align:center">
+	                  <div class="col-md-2" style="height: 90px; width: 40px"><img src="<c:url value='/images/travelmaker1.png'/>" style="height:60px;width:130px"alt=""></div>
+	                  <div class="col-md-3" style="height: 90px; width: 40px; text-align:right"><Strong>오전8:30</Strong><br>ICN</div>
+	                  <div class="col-md-4" style="height: 90px; width: 40px"><small>4시간30분</small><br><img src="<c:url value='/images/줄비행기.PNG'/>" alt=""><br>직항</div>
+	                  <span class="glyphicon glyphicon-minus"></span>
+	                  <div class="col-md-3" style="height: 90px; width: 40px; text-align:left"><Strong>오후12:00</Strong><br>CEB</div>
+	                  
+	                  <div class="col-md-2" style="height: 90px; width: 40px"><img src="<c:url value='/images/travelmaker2.png'/>" style="height:60px;width:130px"alt=""></div>
+	                  <div class="col-md-3" style="height: 90px; width: 40px; text-align:right"><Strong>오후11:40</Strong><br>CEB</div>
+	                  <div class="col-md-4" style="height: 90px; width: 40px"><small>5시간10분</small><br><img src="<c:url value='/images/줄비행기.PNG'/>" alt=""><br>직항</div>
+	                  <div class="col-md-3" style="height: 90px; width: 40px; text-align:left"><Strong>오전8:30</Strong><br>ICN</div>
+	                  
+	               </div>
+	            </div>
+	            <div class="col-sm-4" style="height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;">
+	               <div class="col-md-12" style="height: 90px; padding:20px; font-size:1.7em;text-align:center;"><Strong>￦435,740</Strong><br><small>총 가격￦892,704</small></div><br>
+	               <a href="#"><button type="button" class="btn btn-success btn-lg" style="cursor:pointer;"><Strong>선택 →</Strong></button></a>
+	               
+	            <!-- <div class="col-md-12" style="height: 90px; width: 40px; text-align:center; font-size: 0.2em;">
+	             -->
+	            </div>
+	       </div>
+	       </c:forEach>
+	   </div>
 	</div>
-
-</div>
 
 	<!-- Intro -->
 
 	<div class="intro">
-		<div class="intro_background"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col">

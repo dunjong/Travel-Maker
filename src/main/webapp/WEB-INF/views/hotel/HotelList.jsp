@@ -53,11 +53,11 @@
   		            div.className='col-sm-6';
   		            var div2=document.createElement('div');
   		            div2.className='col-sm-6';
-  		            var div3=document.createElement('div');
-  		            div3.className='col-sm-12';
-  		            div3.textContent='=========================================================================================================================';
+  		            
   		            var row=document.createElement('div');
   		            row.className='row';
+  		            var row2=document.createElement('div');
+  		            row2.className='row';
   		            
   		            var div_name = document.createElement('div');
   		            div_name.className='col-sm-12';
@@ -65,8 +65,6 @@
   		            div_rating.className='col-sm-12';
   		            var div_location = document.createElement('div');
   		            div_location.className='col-sm-12';
-  		            var div_id = document.createElement('div');
-  		            div_id.className='col-sm-12';
   		            var div_price_level =document.createElement('div');
   		            div_price_level.className='col-sm-12';
   		            
@@ -79,22 +77,19 @@
   		           
   		            
   		            
-  		            placesList.appendChild(div);
+  		          	placesList.appendChild(row);
+  		            row.appendChild(div);
   		           	div.appendChild(img);
-  		           	placesList.appendChild(div2);
-  		           	div2.appendChild(row);
-  		           	row.appendChild(div_name);
-  		           	row.appendChild(div_rating);
-  		           	row.appendChild(div_location);
-  		           	row.appendChild(div_id);
-  		           	row.appendChild(div_price_level);
-  		           	placesList.appendChild(div3);
+  		           	row.appendChild(div2);
+  		           	div2.appendChild(row2);
+  		           	row2.appendChild(div_name);
+  		           	row2.appendChild(div_rating);
+  		           	row2.appendChild(div_location);
+  		           	row2.appendChild(div_price_level);
   		           	
   		          }
   		          $('#places img').css({width:'250px',height:'200px'});
-  		          $('#places .row').css({textAlign:'left',marginTop:'40px',color:'black',weight:'border'});
-  		    	
-  		    		
+  		    	  $('#places .row').css({width: '70%',height: '100%',margin:'10px', padding:'20px', backgroundColor:'white',boxShadow:'1px 1px 1px 1px gray',borderRadius:'11px /11px'})
   		    		
   		    	});
   	      })
@@ -107,39 +102,45 @@
 </script>
 
 
-<!-- Search -->
-<div class="home_search">
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<div class="home_search_container">
-					<div class="home_search_title">호텔 검색</div>
-					<div class="home_search_content">
-						<form action="#" class="home_search_form" id="home_search_form">
-							<div
-								class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-								<input type="text" class="search_input search_input_1"
-									placeholder="위치" required="required"> <input
-									type="text" id="datepicker" class="search_input search_input_3"
-									placeholder="check in" required="required"> <input
-									type="text" id="datepicker1"
-									class="search_input search_input_4" placeholder="check out"
-									required="required"> <input type="text"
-									class="search_input search_input_5" placeholder="인원"
-									required="required">
-								<button class="home_search_button" style="">호텔 검색</button>
+		<!-- Search -->
+		<div class="home_search">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="home_search_container">
+							<div class="home_search_title">호텔 검색</div>
+							<div class="home_search_content">
+								<form action="#" class="home_search_form" id="home_search_form">
+									<div
+										class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+										<input type="text" class="search_input search_input_1"
+											placeholder="위치" required="required"> <input
+											type="text" id="datepicker" class="search_input search_input_3"
+											placeholder="check in" required="required"> <input
+											type="text" id="datepicker1"
+											class="search_input search_input_4" placeholder="check out"
+											required="required"> <input type="text"
+											class="search_input search_input_5" placeholder="인원"
+											required="required">
+										<button class="home_search_button" style="">호텔 검색</button>
+									</div>
+								</form>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-<div class="">
-	<div class="container">
-				<div class="row" id="places"></div>
-	</div>
-</div>
+
+		<div class="intro">
+			<div class="intro_container">
+				<div id="places" class="alert alert-success">
+					
+				</div>
+			</div>
+		</div>
+
+
+	
 <!-- Footer -->
 
