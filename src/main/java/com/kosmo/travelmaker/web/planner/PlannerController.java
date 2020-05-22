@@ -20,10 +20,6 @@ public class PlannerController {
 	public String CitySearch() {
 		return "planner/CitySearch.tiles";
 	}
-	@RequestMapping("Tag.kosmo")
-	public String Tag() {
-		return "planner/Tag.tiles";
-	}
 	@RequestMapping("SpotList.kosmo")
 	public String SpotList() {
 		return "planner/SpotList.tiles";
@@ -32,13 +28,6 @@ public class PlannerController {
 	public String SpotView() {
 		return "planner/SpotView.tiles";
 	}
-	@RequestMapping("RestaurantList.kosmo")
-	public String RestaurantList() {
-		return "planner/RestaurantList.tiles";
-	}
-	@RequestMapping("RestaurantView.kosmo")
-	public String RestaurantView() {
-		return "planner/RestaurantView.tiles";
-	}
+	
 	
 }

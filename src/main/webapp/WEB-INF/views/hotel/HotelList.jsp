@@ -70,7 +70,7 @@
   		            
   		            div_name.textContent = '호텔이름: '+response.data[i].name;
   		            div_rating.textContent='평점:'+response.data[i].rating+'점';
-  		            div_location.textContent='위치정보(경도,위도): '+response.data[i].latitude+response.data[i].longitude;
+  		            div_location.textContent='위치정보(경도,위도): 경도: '+response.data[i].latitude+',위도: '+response.data[i].longitude;
   		            div_price_level.textContent='가격: '+response.data[i].price;
   		            
   		            br=document.createElement('br');
@@ -88,7 +88,7 @@
   		           	row2.appendChild(div_price_level);
   		           	
   		          }
-  		          $('#places img').css({width:'250px',height:'200px'});
+  		          $('#places img').css({width:'300px',height:'200px'});
   		    	  $('#places .row').css({width: '70%',height: '100%',margin:'10px', padding:'20px', backgroundColor:'white',boxShadow:'1px 1px 1px 1px gray',borderRadius:'11px /11px'})
   		    		
   		    	});

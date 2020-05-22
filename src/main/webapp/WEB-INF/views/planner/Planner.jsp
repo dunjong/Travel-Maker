@@ -18,11 +18,18 @@
        
     </style>
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  </head>
-  <body>
-  
-    
-    <p>Click on the map to add markers.</p>
+    <div class="row">
+    	<div style="position:reletive;left:30%;margin-top:100px">
+			<form action="<c:url value='/TravelMaker/Plan.kosmo'/>" class="form-inline">
+			  <div class="form-group">
+			    <label>Name</label>
+			    <input type="text" class="form-control" id="exampleInputName2">
+			  </div>
+			  
+			  <button type="submit" class="btn btn-danger">플랜 보기 버튼:누르세요!</button>
+			</form>
+		</div>
+	</div>
     <script>
 
       // In the following example, markers appear when the user clicks on the map.
@@ -32,10 +39,8 @@
       var markers = [];
       var haightAshbury = {lat: -8.672062, lng: 115.231609};//발리 덴파사르
       var placesList;
-      var imageList;
       var child;
       var img;
-      var br;
       var settings;
       var spot='restaurant';
       
@@ -43,8 +48,88 @@
         
     	
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: haightAshbury
+          zoom: 11,
+          center: haightAshbury,
+          styles: [
+              {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+              {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+              {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+              {
+                featureType: 'administrative.locality',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#d59563'}]
+              },
+              {
+                featureType: 'poi',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#d59563'}]
+              },
+              {
+                featureType: 'poi.park',
+                elementType: 'geometry',
+                stylers: [{color: '#263c3f'}]
+              },
+              {
+                featureType: 'poi.park',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#6b9a76'}]
+              },
+              {
+                featureType: 'road',
+                elementType: 'geometry',
+                stylers: [{color: '#38414e'}]
+              },
+              {
+                featureType: 'road',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#212a37'}]
+              },
+              {
+                featureType: 'road',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#9ca5b3'}]
+              },
+              {
+                featureType: 'road.highway',
+                elementType: 'geometry',
+                stylers: [{color: '#746855'}]
+              },
+              {
+                featureType: 'road.highway',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#1f2835'}]
+              },
+              {
+                featureType: 'road.highway',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#f3d19c'}]
+              },
+              {
+                featureType: 'transit',
+                elementType: 'geometry',
+                stylers: [{color: '#2f3948'}]
+              },
+              {
+                featureType: 'transit.station',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#d59563'}]
+              },
+              {
+                featureType: 'water',
+                elementType: 'geometry',
+                stylers: [{color: '#17263c'}]
+              },
+              {
+                featureType: 'water',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#515c6d'}]
+              },
+              {
+                featureType: 'water',
+                elementType: 'labels.text.stroke',
+                stylers: [{color: '#17263c'}]
+              }
+            ]
         });
         
        
@@ -68,7 +153,7 @@
         // Create the places service.
         var service = new google.maps.places.PlacesService(map);
         service.nearbySearch(
-            {location: haightAshbury, radius: 1000, type: [spot]},
+            {location: haightAshbury, radius: 5000, type: [spot]},
             function(results, status, pagination) {
               if (status !== 'OK') return;
               
@@ -193,7 +278,7 @@
 	           	row2.appendChild(div_price_level);
 	           	
 	          }
-	          $('#places img').css({width:'250px',height:'200px'});
+	          $('#places img').css({width:'300px',height:'200px'});
 	    	  $('#places .row').css({width: '95%',height: '100%',margin:'10px', padding:'20px', backgroundColor:'white',boxShadow:'1px 1px 1px 1px gray',borderRadius:'11px /11px'})
           map.fitBounds(bounds);
         }
@@ -219,26 +304,31 @@
 	
 	
 	<div class="intro">
-		<div class="intro_container" style="margin-left:50px;width:80%">
-			<div class="row">
-					<div class="col-sm-12" style="height: 300px; width: 100px;margin-bottom:20px">
-						<div class="row" id="map"></div>
+		
+		<div class="intro_container" style="margin-left:150px;width:80%">
+			<div class="row" style="margin-left:10px;" >
+				<div class="col-sm-12" style="height: 500px; width: 100px;margin-bottom:20px">
+					<div class="row" id="map"></div>
+				</div>
+			</div>
+			<div class="alert alert-success" >
+				<div class="row">
+					<div class="col-sm-4">
+						<img alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
 					</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-					<img alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
-				</div>
-				<div class="col-sm-4">
-					<img alt="" src="<c:url value='/images/tours.jpg'/>" onclick="hotel();">
-				</div>
-				<div class="col-sm-4">
-					<img alt="" src="<c:url value='/images/hotels.jpg'/>" onclick="tour();">
+					<div class="col-sm-4">
+						<img alt="" src="<c:url value='/images/tours.jpg'/>" onclick="hotel();">
+					</div>
+					<div class="col-sm-4">
+						<img alt="" src="<c:url value='/images/hotels.jpg'/>" onclick="tour();">
+					</div>
 				</div>
 			</div>
-			<div id="places" class="alert alert-success" style="padding-right:100px">
+			<div id="places" class="alert alert-success">
+			
 			</div>
 		</div>
+		
 	</div>
 	
 	
