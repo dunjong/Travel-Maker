@@ -72,7 +72,7 @@
   		            
   		            div_name.textContent = '호텔이름: '+response.data[i].name;
   		            div_rating.textContent='평점:'+response.data[i].rating+'점';
-  		            div_location.textContent='위치정보(경도,위도): '+response.data[i].latitude+response.data[i].longitude;
+  		            div_location.textContent='위치정보(경도, 위도): '+response.data[i].latitude+response.data[i].longitude;
   		            div_price_level.textContent='가격: '+response.data[i].price;
   		            
   		            br=document.createElement('br');
