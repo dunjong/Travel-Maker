@@ -1,0 +1,4 @@
+target/**/MANIFEST.MF
+target/**/*.class
+target/**/*.properties
+target/**/*.xml

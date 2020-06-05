@@ -1,0 +1,684 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<style>
+      #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+      #right-panel select {
+        width: 100%;
+      }
+      #right-panel i {
+        font-size: 12px;
+      }
+      #map {
+        height: 100%;
+        width: 100%;
+      }
+      #right-panel {
+        float: right;
+        width: 80%;
+        height: 100%;
+      }
+      table {
+        font-size: 12px;
+      }
+      .panel {
+        height: 100%;
+        overflow: auto;
+      }
+       .iw_table_row {
+        height: 18px;
+         color:#ff9999;
+      }
+      .iw_attribute_name {
+        font-weight: bold;
+        text-align: right;
+        color:black;
+      }
+      .iw_table_icon {
+        text-align: right;
+      }
+       #types img{
+      	border-radius:30px
+      }
+      #types img:hover{
+      	width: calc(100% + 20px);
+      	opacity: 1;
+      	border-radius:30px
+      }
+      #types img:active{
+      	width: calc(100% + 5px);
+      	opacity: 0.5;
+      }
+    </style>
+
+	<!-- Search -->
+
+	
+
+<script>
+//변수 선언
+var map,infoWindow,servicePlace;
+var markers=[];
+var hostnameRegexp = new RegExp('^https?://.+?/');
+var nearSearchType='lodging';
+var origin='호텔, Bali, 인도네시아';
+var destination='공항, Bali, 인도네시아';
+var spots=[];
+var directionsService;
+var directionsRenderer;
+var keyword='';
+var md_image;	
+var md_name;
+var md_review;
+var img;
+var span;
+ //0] 주변 찾기 설정
+  function food() {
+	  $('#type').html('주변 맛집!')
+	  if(markers.length!=0){
+	   //확인용
+    	   //	console.log('click Markers',markers);
+	   //
+   	    removeMarkers(markers);
+   	    markers=[];
+   	   }
+	  nearSearchType='restaurant';
+	  keyword='restaurant'
+      }
+  function hotel() {
+	  $('#type').html('주변 호텔!')
+	  if(markers.length!=0){
+	   //확인용
+    	   //	console.log('click Markers',markers);
+	   //
+   	    removeMarkers(markers);
+   	    markers=[];
+   	   }
+	  nearSearchType='lodging';
+	  keyword='lodging'
+     }
+  function tour() {
+	  $('#type').html('주변 명소!')
+	  if(markers.length!=0){
+	   //확인용
+    	   //	console.log('click Markers',markers);
+	   //
+   	    removeMarkers(markers);
+   	    markers=[];
+   	   }
+	  nearSearchType='attractions'
+	  keyword='attractions';
+     }
+  
+  //0-1] 바구니에 스팟들 담기
+  function box(){
+	  
+	  if(nearSearchType=='lodging'){
+		  origin=$('#iw-lanlng').html();
+		  displayRoute(origin, destination, directionsService,
+			       directionsRenderer,spots);
+	  }
+	  else{
+		  spots.push({location:$('#iw-lanlng').html()});
+		  //console.log('lanlng',$('#iw-lanlng').html())
+	  displayRoute(origin, destination, directionsService,
+		       directionsRenderer,spots);
+	  }
+  }////box
+  function clearBox(){
+	  if(markers.length!=0){
+		   //확인용
+	    	   //	console.log('click Markers',markers);
+		   //
+	   	    removeMarkers(markers);
+	   	    markers=[];
+	   	   }
+	  spots=[];
+	  console.log('spots: ',spots.toString())
+	  displayRoute(origin, destination, directionsService,
+		       directionsRenderer,spots);
+  }////clearBox
+  
+  ///상세정보 보기 모달창
+  function detail(){
+	  $('#js-modal img').css({width:'300px',height:'200px',margin:'10px',border:'1rem solid'})
+	  $('#js-modal h4').css({color:'black',margin:'10px',border:'thick double #32a1ce'})
+	  $('#md-image').css({marginLeft:'60px'})
+	  $('#js-modal span').css({color:'black',textAlign:'center',fontWeigt:'bord'})
+	  
+	  $('#js-modal').modal('show');
+	  $('#close').on('click',function(){
+			$('#js-modal').modal('hide');
+		});
+  }////detail
+  
+  
+  
+ 
+  
+ //1] 페이지에 맵 표시
+ function initMap() {
+	 
+	 infoWindow = new google.maps.InfoWindow({
+         content: document.getElementById('info-content')
+       });
+	 //맵에 주는 스타일
+	 var styledMapType = new google.maps.StyledMapType(
+	            [
+	              {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
+	              {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
+	              {elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
+	              {
+	                featureType: 'administrative',
+	                elementType: 'geometry.stroke',
+	                stylers: [{color: '#c9b2a6'}]
+	              },
+	              {
+	                featureType: 'administrative.land_parcel',
+	                elementType: 'geometry.stroke',
+	                stylers: [{color: '#dcd2be'}]
+	              },
+	              {
+	                featureType: 'administrative.land_parcel',
+	                elementType: 'labels.text.fill',
+	                stylers: [{color: '#ae9e90'}]
+	              },
+	              {
+	                featureType: 'landscape.natural',
+	                elementType: 'geometry',
+	                stylers: [{color: '#dfd2ae'}]
+	              },
+	              {
+	                featureType: 'poi',
+	                elementType: 'geometry',
+	                stylers: [{color: '#dfd2ae'}]
+	              },
+	              {
+	                featureType: 'poi',
+	                elementType: 'labels.text.fill',
+	                stylers: [{color: '#93817c'}]
+	              },
+	              {
+	                featureType: 'poi.park',
+	                elementType: 'geometry.fill',
+	                stylers: [{color: '#a5b076'}]
+	              },
+	              {
+	                featureType: 'poi.park',
+	                elementType: 'labels.text.fill',
+	                stylers: [{color: '#447530'}]
+	              },
+	              {
+	                featureType: 'road',
+	                elementType: 'geometry',
+	                stylers: [{color: '#f5f1e6'}]
+	              },
+	              {
+	                featureType: 'road.arterial',
+	                elementType: 'geometry',
+	                stylers: [{color: '#fdfcf8'}]
+	              },
+	              {
+	                featureType: 'road.highway',
+	                elementType: 'geometry',
+	                stylers: [{color: '#f8c967'}]
+	              },
+	              {
+	                featureType: 'road.highway',
+	                elementType: 'geometry.stroke',
+	                stylers: [{color: '#e9bc62'}]
+	              },
+	              {
+	                featureType: 'road.highway.controlled_access',
+	                elementType: 'geometry',
+	                stylers: [{color: '#e98d58'}]
+	              },
+	              {
+	                featureType: 'road.highway.controlled_access',
+	                elementType: 'geometry.stroke',
+	                stylers: [{color: '#db8555'}]
+	              },
+	              {
+	                featureType: 'road.local',
+	                elementType: 'labels.text.fill',
+	                stylers: [{color: '#806b63'}]
+	              },
+	              {
+	                featureType: 'transit.line',
+	                elementType: 'geometry',
+	                stylers: [{color: '#dfd2ae'}]
+	              },
+	              {
+	                featureType: 'transit.line',
+	                elementType: 'labels.text.fill',
+	                stylers: [{color: '#8f7d77'}]
+	              },
+	              {
+	                featureType: 'transit.line',
+	                elementType: 'labels.text.stroke',
+	                stylers: [{color: '#ebe3cd'}]
+	              },
+	              {
+	                featureType: 'transit.station',
+	                elementType: 'geometry',
+	                stylers: [{color: '#dfd2ae'}]
+	              },
+	              {
+	                featureType: 'water',
+	                elementType: 'geometry.fill',
+	                stylers: [{color: '#b9d3c2'}]
+	              },
+	              {
+	                featureType: 'water',
+	                elementType: 'labels.text.fill',
+	                stylers: [{color: '#92998d'}]
+	              }
+	            ],
+	            {name: 'Main Map'});
+	 
+	 
+ 	//맵 생성
+    map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: {lat: -8.672062, lng: 115.231609},  // 처음 지도 센터 위치: 발리 덴파사르.
+    mapTypeControlOptions: {
+        mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+                'styled_map']
+       }
+   });////map 생성
+     
+   
+   //맵 타입 변경 가능케하는 버튼생성
+   map.mapTypes.set('styled_map', styledMapType);
+   map.setMapTypeId('styled_map');
+   ////
+   
+   //루트와 거리계산,네비게이션
+     directionsService = new google.maps.DirectionsService;
+     directionsRenderer = new google.maps.DirectionsRenderer({
+     draggable: true,//드래그 가능
+     map: map,//맵
+     panel: document.getElementById('right-panel')//패널 dom 객체
+   });
+   directionsRenderer.addListener('directions_changed', function() {
+     computeTotalDistance(directionsRenderer.getDirections());//총 거리 계산
+   });
+   //루트와 거리계산,네비게이션 끝
+ 
+   //displayRoute 함수에 출발지와 도착지 설정
+   displayRoute(origin, destination, directionsService,
+       directionsRenderer,spots);
+   ////
+   
+   
+   //맵에 클릭이벤트 
+   /*
+    아래와 같은 이벤트 들이 있음
+    bounds_changed
+	center_changed
+	click
+	dblclick
+	drag
+	dragend
+	dragstart
+	heading_changed
+	idle
+	maptypeid_changed
+	mousemove
+	mouseout
+	mouseover
+	projection_changed
+	resize
+	rightclick
+	tilesloaded
+	tilt_changed
+	zoom_changed
+   */
+   
+   
+   
+   map.addListener('click', function(event) {
+	   
+	   if(markers.length!=0){
+		   //확인용
+      	   //	console.log('click Markers',markers);
+		   //
+      	    removeMarkers(markers);
+      	    markers=[];
+      	   }
+	   //서비스 생성
+	     servicePlace = new google.maps.places.PlacesService(map);
+	     /*
+	     google.maps.places.RankBy.PROMINENCE (default) 평점순
+	     google.maps.places.RankBy.DISTANCE 거리순
+	     
+	     */
+	     //확인용
+	     // console.log('servicePlace',servicePlace)
+	     ///
+	     servicePlace.nearbySearch(
+	         	{location:event.latLng ,
+	        	 radius: 5000,
+	        	 type:[nearSearchType],
+	             keyword: keyword
+	         },
+	         function(results, status, pagination) {
+	           if (status !== 'OK') return;
+	           
+	           createMarkers(results);
+	           
+	         });
+	     ////servicePlace
+	     
+	     
+	   });////map.addListener
+   
+ }////initMap
+ 
+ //2] 맵 위에 루트 표시
+ function displayRoute(origin, destination, service, display,spots) {
+     service.route({
+     origin: origin,//출발지
+     destination: destination,//도착지
+     waypoints:spots,/*,{location: 'ubud, 발리'},{location: '공항, 발리'}*///여기에 경유지 추가
+     travelMode: 'DRIVING',
+     /*탈것 추가
+     DRIVING (Default)
+	 BICYCLING
+	 WALKING
+	 ※TRANSIT
+	 { 트렌짓은 이런 옵션들도 가지고 있다
+	  arrivalTime: Date,
+	  departureTime: Date,
+	  modes[]: TransitMode,
+		  BUS 
+		  RAIL 
+		  SUBWAY 
+		  TRAIN
+		  TRAM
+	  
+	  routingPreference: TransitRoutePreference
+  		  FEWER_TRANSFERS
+ 		  LESS_WALKING
+		}
+	 
+     */
+     avoidTolls: false,//톨게이트 피해서?
+     optimizeWaypoints: true
+   }, function(response, status) {
+     if (status === 'OK') {
+       display.setDirections(response);
+     } else {
+       alert('Could not display directions due to: ' + status);
+     }
+   });
+ }////displayRoute
+ 
+ 
+ //3] 주변 마커 생성
+ function createMarkers(places) {
+	  var bounds = new google.maps.LatLngBounds();
+      
+      for (var i = 0, place; place = places[i]; i++) {
+        var image = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25)
+        };
+		  
+          marker = new google.maps.Marker({
+          map: map,
+          icon: image,
+          animation: google.maps.Animation.DROP,
+          title: place.name,
+          position: place.geometry.location
+        });
+         marker.placeResult = place;
+         google.maps.event.addListener(marker, 'click', showInfoWindow);
+         markers.push(marker)
+        //마커 확인
+   	 	//console.log('마커',marker.position.toString());
+    	//
+        bounds.extend(place.geometry.location);  
+      }
+ }///createMarkers
+ 
+ //3-1]주변 마커 제거
+ function removeMarkers(markers){
+	 for (var i = 0; i<markers.length; i++) {
+		 markers[i].setMap(null)
+		 //확인용
+		 //console.log('markers['+i+']',markers[i])
+		 //
+	 }
+ }///removeMarkers
+ 
+ //3-2] 마커에 iw창 띄우기 infowindow
+ function showInfoWindow() {
+	 	//확인용
+	 	//console.log('marker.placeResult',marker.placeResult)
+	 	///
+        var marker = this;
+        
+        servicePlace.getDetails({placeId: marker.placeResult.place_id},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+              infoWindow.open(map, marker);
+              buildIWContent(place);
+              buildDetailContent(place);
+            });
+      }////showInfoWindow
+ 
+ //3-3] 마커 iw창 place_id 찾아서 place detail정보 찾아서 띄우기     
+ function buildIWContent(place) {
+	 
+     document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
+         'src="' + place.icon + '"/>';
+     document.getElementById('iw-url').innerHTML = '<h4><a href="' + place.url +
+         '"  target="blank">' + place.name + '</a></h4>';
+     document.getElementById('iw-address').textContent = place.vicinity;
+     document.getElementById('iw-lanlng').textContent = place.geometry.location.toString().substring(1,place.geometry.location.toString().length-1);
+     
+     if (place.formatted_phone_number) {
+       document.getElementById('iw-phone-row').style.display = '';
+       document.getElementById('iw-phone').textContent =
+           place.formatted_phone_number;
+     } else {
+       document.getElementById('iw-phone-row').style.display = 'none';
+     }
+     // Assign a five-star rating to the hotel, using a black star ('&#10029;')
+     // to indicate the rating the hotel has earned, and a white star ('&#10025;')
+     // for the rating points not achieved.
+     if (place.rating) {
+       var ratingHtml = '';
+       for (var i = 0; i < 5; i++) {
+         if (place.rating < (i + 0.5)) {
+           ratingHtml += '&#10025;';
+         } else {
+           ratingHtml += '&#10029;';
+         }
+       document.getElementById('iw-rating-row').style.display = '';
+       document.getElementById('iw-rating').innerHTML = ratingHtml;
+       }
+     } else {
+       document.getElementById('iw-rating-row').style.display = 'none';
+     }
+     // The regexp isolates the first part of the URL (domain plus subdomain)
+     // to give a short URL for displaying in the info window.
+     if (place.website) {
+       var fullUrl = place.website;
+       var website = hostnameRegexp.exec(place.website);
+       if (website === null) {
+         website = 'http://' + place.website + '/';
+         fullUrl = website;
+       }
+       document.getElementById('iw-website-row').style.display = '';
+       document.getElementById('iw-website').textContent = website;
+     } else {
+       document.getElementById('iw-website-row').style.display = 'none';
+     }
+   }/////buildIWContent
+ 
+ //3-4]
+   function buildDetailContent(place) {
+	   document.getElementById('md-image').innerHTML = '';
+	   document.getElementById('md-name').innerHTML = '';
+	   document.getElementById('md-review').innerHTML = '';
+	   md_image=document.getElementById('md-image');
+	   md_name=document.getElementById('md-name');
+	   md_review=document.getElementById('md-review');
+	  
+	   for(var i=0;i<10;i++){
+		   img = document.createElement('img');
+		   img.alt='no image';
+		   if(place.photos!=undefined && place.photos[i]!=undefined)
+           img.src=place.photos[i].getUrl({maxWidth: 300, maxHeight: 200})
+		   md_image.appendChild(img);
+		  
+		   }; 
+		   span=document.createElement('span')
+		   span.textContent=place.name;
+		   md_name.appendChild(span)
+		   if(place.reviews!=undefined){
+			   for(var i=0;i<place.reviews.length;i++){
+			   span=document.createElement('h4')
+			   span.textContent='리뷰'+(i+1)+' ▶'+place.reviews[i].author_name+' : '+place.reviews[i].text;
+			   md_review.appendChild(span)
+			   }
+		   }
+   }
+ 
+ //4] 토탈 거리 계산기
+ function computeTotalDistance(result) {
+   var total = 0;
+   var myroute = result.routes[0];
+   for (var i = 0; i < myroute.legs.length; i++) {
+     total += myroute.legs[i].distance.value;
+   }
+   total = total / 1000;
+   document.getElementById('total').innerHTML = total + ' km';
+ }////computeTotalDistance
+ 
+</script>	
+	
+		
+	<div class="intro">
+		
+		<div class="intro_container" style="margin-left:150px;width:80%">
+			<div class="row">
+				<div class="col-sm-12" style="margin-left:50px;">
+					<h3>※호텔은 항상 출발지 <strong style="color:red">A</strong>로 표시됩니다</h3>
+				</div>
+				<div class="col-sm-12" style="margin-left:50px;color:red">
+					<h3 id="type">주변 호텔!</h3>
+				</div>
+			</div>
+			<div class="row" style="margin-left:10px;" >
+				<div class="col-sm-8" style="height: 700px;margin-bottom:20px">
+					<div id="map"></div>
+				</div>
+				<div id="right-panel" class="col-sm-4" style="height: 700px; width: 100px;margin-bottom:20px;overflow:scroll;">
+					<p>Total Distance: <span id="total"></span></p>
+				</div>
+			</div>
+			<div id="types" class="row" style="margin-left:10px;" >
+				<div class="col-sm-3">
+					<h3 onclick="hotel();">Hotels</h3>
+					<img alt="" src="<c:url value='/images/hotels.jpg'/>" onclick="hotel();">
+				</div>
+				<div class="col-sm-3">
+					<h3 onclick="tour();">Attractions</h3>
+					<img alt="" src="<c:url value='/images/tours.jpg'/>" onclick="tour();">
+				</div>
+				<div class="col-sm-3">
+					<h3 onclick="food();">Restaurants</h3>
+					<img alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
+				</div>
+				<div class="col-sm-3">
+				 	<div style="margin:10px" class="row">
+				 		<div class="col-sm-12">
+							<div class="btn btn-warning" onclick="clearBox();">전체 삭제!</div>
+						</div>
+					</div>
+					<div style="margin:10px" class="row">
+						<div class="col-sm-12">
+							<div class="btn btn-danger" >플랜 저장!</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- makerclick -->
+	
+		
+		
+	</div>
+		<div style="display: none">
+	      <div id="info-content">
+	        <table>
+	          <tr id="iw-url-row" class="iw_table_row">
+	            <td id="iw-icon" class="iw_table_icon"></td>
+	            <td id="iw-url"></td>
+	          </tr>
+	          <tr id="iw-address-row" class="iw_table_row">
+	            <td class="iw_attribute_name">Address:</td>
+	            <td id="iw-address"></td>
+	          </tr>
+	          <tr id="iw-phone-row" class="iw_table_row">
+	            <td class="iw_attribute_name">Telephone:</td>
+	            <td id="iw-phone"></td>
+	          </tr>
+	          <tr id="iw-rating-row" class="iw_table_row">
+	            <td class="iw_attribute_name">Rating:</td>
+	            <td id="iw-rating"></td>
+	          </tr>
+	          <tr id="iw-website-row" class="iw_table_row">
+	            <td class="iw_attribute_name">Website:</td>
+	            <td id="iw-website"></td>
+	          </tr>
+	          <tr id="iw-lanlng-row" class="iw_table_row">
+	            <td class="iw_attribute_name">lanlng:</td>
+	            <td id="iw-lanlng"></td>
+	          </tr>
+	          
+	        </table>
+	          	<div class="btn btn-primary" data-toggle="modal" onclick="detail()">상세정보 보기</div>
+	          	<div class="btn btn-danger" onclick="box()">바구니에 담기▶</div>
+	      </div>
+    	</div>
+    	
+	<div class="modal fade" id="js-modal" data-backdrop="static">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	    	<div class="modal-body">
+	    		<button class="close" id="close">
+	    			<span>&times;</span>
+	    		</button>
+    			<h2 style="text-align:center;" id="md-name"></h2>
+    			<div id="md-image">
+        		</div>
+        		<div id="md-review">
+        		</div>
+	    	</div>
+	    </div>
+	  </div>
+	</div>	
+	
+	
+	
+ 	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj0yu46KIPovjgRNFnBGDuAw_XOAoG8jc&libraries=places&callback=initMap">
+    </script>
