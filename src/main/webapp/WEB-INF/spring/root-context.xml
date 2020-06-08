@@ -5,12 +5,12 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="datasource"
-      class="org.springframework.jndi.JndiObjectFactoryBean">
-      <property name="jndiName" value="Travel" />
-      <property name="resourceRef">
-         <value>true</value>
-      </property>
-   </bean>
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="Travel" />
+		<property name="resourceRef">
+			<value>true</value>
+		</property>
+	</bean>
 	<!-- 마이바티스 지원을 위한 빈 등록 -->
 	<!-- 1]SqlSessionFactory -->
 	<bean id="sqlSessionFactory"
