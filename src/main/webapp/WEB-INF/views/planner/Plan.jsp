@@ -34,8 +34,10 @@
         overflow: auto;
       }
        .iw_table_row {
-        height: 18px;
-         color:#ff9999;
+         height: 18px;
+         color:#B28AF0;
+         font-size:15px;
+         font-weight:border
       }
       .iw_attribute_name {
         font-weight: bold;
@@ -56,6 +58,12 @@
       #types img:active{
       	width: calc(100% + 5px);
       	opacity: 0.5;
+      }
+      #sp-info{
+      	 height: 18px;
+         color:#B28AF0;
+         font-size:15px;
+         font-weight:border
       }
     </style>
 
@@ -571,6 +579,17 @@ var span;
    document.getElementById('total').innerHTML = total + ' km';
  }////computeTotalDistance
  
+ function showPlan(){
+	 var sp_info=document.getElementById('sp-info');
+	 sp_info.textContent='출발지:'+origin + ',도착지:' + destination
+	 
+	 $('#sp-modal').modal('show');
+	  $('#close2').on('click',function(){
+			$('#sp-modal').modal('hide');
+			
+		});
+ }
+ 
 </script>	
 	
 		
@@ -614,7 +633,7 @@ var span;
 					</div>
 					<div style="margin:10px" class="row">
 						<div class="col-sm-12">
-							<div class="btn btn-danger" >플랜 저장!</div>
+							<div class="btn btn-danger" onclick="showPlan()" >플랜 보기!</div>
 						</div>
 					</div>
 				</div>
@@ -634,23 +653,23 @@ var span;
 	            <td id="iw-url"></td>
 	          </tr>
 	          <tr id="iw-address-row" class="iw_table_row">
-	            <td class="iw_attribute_name">Address:</td>
+	            <td class="iw_attribute_name">주소:</td>
 	            <td id="iw-address"></td>
 	          </tr>
 	          <tr id="iw-phone-row" class="iw_table_row">
-	            <td class="iw_attribute_name">Telephone:</td>
+	            <td class="iw_attribute_name">전화번호:</td>
 	            <td id="iw-phone"></td>
 	          </tr>
 	          <tr id="iw-rating-row" class="iw_table_row">
-	            <td class="iw_attribute_name">Rating:</td>
+	            <td class="iw_attribute_name">구글평점:</td>
 	            <td id="iw-rating"></td>
 	          </tr>
 	          <tr id="iw-website-row" class="iw_table_row">
-	            <td class="iw_attribute_name">Website:</td>
+	            <td class="iw_attribute_name">웹사이트:</td>
 	            <td id="iw-website"></td>
 	          </tr>
 	          <tr id="iw-lanlng-row" class="iw_table_row">
-	            <td class="iw_attribute_name">lanlng:</td>
+	            <td class="iw_attribute_name">위도경도:</td>
 	            <td id="iw-lanlng"></td>
 	          </tr>
 	          
@@ -676,6 +695,22 @@ var span;
 	    </div>
 	  </div>
 	</div>	
+	
+	<div class="modal fade" id="sp-modal" data-backdrop="static">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	    	<div class="modal-body">
+	    		<button class="close" id="close2">
+	    			<span>&times;</span>
+	    		</button>
+	    		<div class="row">
+		    		<div class="col-sm-12" id="sp-info"></div>
+		    		<div class="col-sm-12" id="sp-spots"></div>
+	    		</div>
+	    	</div>
+	    </div>
+	  </div>
+	</div>
 	
 	
 	

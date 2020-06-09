@@ -239,12 +239,6 @@ function addCity(){
    //루트와 거리계산,네비게이션 끝
    
   
-     //확인용
-     console.log('directionsRenderer',directionsRenderer)
-   		console.log('directionsRenderer.bg',directionsRenderer.bg)
-   		console.log('directionsRenderer.directions',directionsRenderer.directions)
-	//
-   
  
    //displayRoute 함수에 출발지와 도착지 설정
    displayRoute(origin, destination, directionsService,
@@ -338,9 +332,6 @@ function addCity(){
  }////computeTotalDistance
  
  
- //5] 이벤트 발생 감지
- 
- 
 </script>	
 	
 		
@@ -357,17 +348,17 @@ function addCity(){
 				</div>
 			</div>
 			<div id="types" class="row" style="margin-left:10px;" >
-				<div class="col-sm-4">
-					<form action="<c:url value='/TravelMaker/Plan.kosmo'/>" class="form-inline">
+				<div class="form-inline">
 					  <div class="form-group">
 					    <label>Name</label>
-					    <input type="text" class="form-control" id="exampleInputName2">
+					    <input type="text" class="form-control" id="exampleInputName2" placeholder="도시 검색">
 					  </div>
-					  <button type="submit" class="btn btn-danger">플랜 보기 버튼:누르세요!</button>
-					</form>
+					  <div type="submit" class="btn btn-warning" onclick="addCity()"> 도시 추가</div>
 				</div>
 				<div class="col-sm-4">
-					<div class="btn btn-warning" onclick="addCity()"> 도시 추가</div>
+					<form action="<c:url value='/TravelMaker/Plan.kosmo'/>">
+						<button class="btn btn-danger" onclick="plan()">플랜 보기 버튼:누르세요!</button>
+					</form>
 				</div>
 			</div>
 		</div>
