@@ -75,6 +75,10 @@
          font-height:30px;
          border:double #32a1ce;
       }
+      #type{
+      	margin:40px;
+      	color:red;
+      }
     </style>
 
 	<!-- Search -->
@@ -348,7 +352,7 @@ var spotInfo=[]
    //루트와 거리계산,네비게이션
      directionsService = new google.maps.DirectionsService;
      directionsRenderer = new google.maps.DirectionsRenderer({
-     draggable: true,//드래그 가능
+     draggable:false,//드래그 가능 여부
      map: map,//맵
      panel: document.getElementById('right-panel')//패널 dom 객체
    });
@@ -648,6 +652,9 @@ var spotInfo=[]
 			h4=document.createElement('h4')
 	 	 	h4.textContent='주소:'+spotInfo[i].spot.formatted_address
 	 	 	sp_waypoints.appendChild(h4)
+	 	 	h4=document.createElement('h4')
+	 	 	h4.textContent='위치 아이디:'+spotInfo[i].spot.id
+	 	 	sp_waypoints.appendChild(h4)
 		 }
 	 }
 	 else{
@@ -667,35 +674,36 @@ var spotInfo=[]
 		
 		<div class="intro_container" style="margin-left:150px;width:80%">
 			<div class="row">
-				<div class="col-sm-12" style="margin-left:50px;">
-					<h3>※호텔은 항상 출발지 <strong style="color:red">A</strong>로 표시됩니다</h3>
+				<div class="col-sm-7" style="margin-left:50px;">
+					<h3>※호텔은 항상 출발지 <strong style="color:red">A</strong>로 표시됩니다<span id="type">주변 호텔!</span></h3>
 				</div>
-				<div class="col-md-4 col-md-offset-8" style="margin:40px;color:red">
-					<h3 id="type">주변 호텔!</h3>
+				<div class="col-sm-4">
 					<div class="btn btn-warning" onclick="clearBox();">전체 삭제!</div>
 					<div class="btn btn-danger" onclick="showPlan()" >플랜 보기!</div>
+					<div class="btn btn-info">플랜  저장!</div>
+					
 				</div>
 			</div>
 			<div class="row" style="margin-left:10px;" >
-				<div class="col-sm-8" style="height: 700px;margin-bottom:20px">
+				<div class="col-sm-10" style="height: 700px;margin-bottom:20px">
 					<div id="map"></div>
 				</div>
-				<div id="right-panel" class="col-sm-4" style="height: 700px; width: 100px;margin-bottom:20px;overflow:scroll;">
+				<div id="right-panel" class="col-sm-2" style="height: 700px; width: 100px;margin-bottom:20px;overflow:scroll;">
 					<p>Total Distance: <span id="total"></span></p>
 				</div>
 			</div>
 			<div id="types" class="row" style="margin-left:10px;" >
 				<div class="col-sm-3">
 					<h3 onclick="hotel();">Hotels</h3>
-					<img alt="" src="<c:url value='/images/hotels.jpg'/>" onclick="hotel();">
+					<img id="hotel-img" alt="" src="<c:url value='/images/hotels.jpg'/>" onclick="hotel();">
 				</div>
 				<div class="col-sm-3">
 					<h3 onclick="tour();">Attractions</h3>
-					<img alt="" src="<c:url value='/images/tours.jpg'/>" onclick="tour();">
+					<img id="tour-img" alt="" src="<c:url value='/images/tours.jpg'/>" onclick="tour();">
 				</div>
 				<div class="col-sm-3">
 					<h3 onclick="food();">Restaurants</h3>
-					<img alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
+					<img id="food-img" alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
 				</div>
 				
 			</div>
