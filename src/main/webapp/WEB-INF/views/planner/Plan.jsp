@@ -59,11 +59,21 @@
       	width: calc(100% + 5px);
       	opacity: 0.5;
       }
-      #sp-info{
-      	 height: 18px;
+      #sp-origin,#sp-destination{
+      	 height: 30px;
          color:#B28AF0;
-         font-size:15px;
-         font-weight:border
+         font-size:20px;
+         font-weight:border;
+         font-height:30px;
+         border:double #32a1ce
+      }
+      #sp-waypoints{
+      	 height: 500px;
+         color:#ff9999;
+         font-size:20px;
+         font-weight:border;
+         font-height:30px;
+         border:double #32a1ce;
       }
     </style>
 
@@ -77,7 +87,7 @@ var map,infoWindow,servicePlace;
 var markers=[];
 var hostnameRegexp = new RegExp('^https?://.+?/');
 var nearSearchType='lodging';
-var origin='호텔, Bali, 인도네시아';
+var origin='Bali, 인도네시아';
 var destination='공항, Bali, 인도네시아';
 var spots=[];
 var directionsService;
@@ -88,6 +98,8 @@ var md_name;
 var md_review;
 var img;
 var span;
+var hotelInfo=[{'hotel':origin}]
+var spotInfo=[]
  //0] 주변 찾기 설정
   function food() {
 	  $('#type').html('주변 맛집!')
@@ -127,17 +139,39 @@ var span;
      }
   
   //0-1] 바구니에 스팟들 담기
+  function placeDetailnSave(placeId){
+	  servicePlace.getDetails({placeId: placeId},
+	            function(place, status) {
+	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	                return;
+	              }
+	              console.log('place in placeDetail:',place)
+	               if(nearSearchType=='lodging'){
+	             	   hotelInfo.push({'hotel':place})
+	               }
+	               else{
+	            	   spotInfo.push({'spot':place})
+	               }
+	            });
+  }////placeDetail
+  
   function box(){
-	  
+	  var sp_waypoints=document.getElementById('sp-waypoints');
+	  sp_waypoints.innerHTML=''
 	  if(nearSearchType=='lodging'){
+		  hotelInfo=[]
+		  placeDetailnSave($('#iw-id').html())
+		  
 		  origin=$('#iw-lanlng').html();
 		  displayRoute(origin, destination, directionsService,
 			       directionsRenderer,spots);
 	  }
 	  else{
+		  sp_waypoints.innerHTML=''
+		  placeDetailnSave($('#iw-id').html())
 		  spots.push({location:$('#iw-lanlng').html()});
 		  //console.log('lanlng',$('#iw-lanlng').html())
-	  displayRoute(origin, destination, directionsService,
+	  	  displayRoute(origin, destination, directionsService,
 		       directionsRenderer,spots);
 	  }
   }////box
@@ -149,8 +183,10 @@ var span;
 	   	    removeMarkers(markers);
 	   	    markers=[];
 	   	   }
+	  origin='Bali, 인도네시아'
+	  hotelInfo=[{'hotel':origin}]
+	  spotInfo=[];
 	  spots=[];
-	  console.log('spots: ',spots.toString())
 	  displayRoute(origin, destination, directionsService,
 		       directionsRenderer,spots);
   }////clearBox
@@ -498,7 +534,7 @@ var span;
          '"  target="blank">' + place.name + '</a></h4>';
      document.getElementById('iw-address').textContent = place.vicinity;
      document.getElementById('iw-lanlng').textContent = place.geometry.location.toString().substring(1,place.geometry.location.toString().length-1);
-     
+     document.getElementById('iw-id').textContent = place.place_id
      if (place.formatted_phone_number) {
        document.getElementById('iw-phone-row').style.display = '';
        document.getElementById('iw-phone').textContent =
@@ -580,9 +616,43 @@ var span;
  }////computeTotalDistance
  
  function showPlan(){
-	 var sp_info=document.getElementById('sp-info');
-	 sp_info.textContent='출발지:'+origin + ',도착지:' + destination
+	 var sp_origin=document.getElementById('sp-origin');
+	 var sp_destination=document.getElementById('sp-destination')
+	 sp_destination.textContent='도착지:'+destination
+	 //확인용
+	 	console.log('hotelInfo:',hotelInfo)
+	 //
+	 if(hotelInfo[0].hotel.name!=undefined)
+	 	 sp_origin.textContent='출발지:'+hotelInfo[0].hotel.name
+	 else
+		 sp_origin.textContent='출발지:'+hotelInfo[0].hotel
+	 var spot=''
+	 for(var i=0;i<spots.length;i++){
+		 spot+=spots[i].location+' '
+	 }
 	 
+	 var sp_waypoints=document.getElementById('sp-waypoints');
+	//확인용
+	 	console.log('spotInfo:',spotInfo)
+	 //
+	 if(spotInfo[0]!=undefined){
+		 sp_waypoints.innerHTML=''
+		 
+		 for(var i=0;i<spotInfo.length;i++){
+			var h4=document.createElement('h4')
+			h4.textContent='◆'+(i+1)+'번째 경유지:'
+			sp_waypoints.appendChild(h4)
+			h4=document.createElement('h4')
+			h4.textContent='이름:'+spotInfo[i].spot.name
+			sp_waypoints.appendChild(h4)
+			h4=document.createElement('h4')
+	 	 	h4.textContent='주소:'+spotInfo[i].spot.formatted_address
+	 	 	sp_waypoints.appendChild(h4)
+		 }
+	 }
+	 else{
+		 sp_waypoints.textContent='경유지: 없음'
+	 }
 	 $('#sp-modal').modal('show');
 	  $('#close2').on('click',function(){
 			$('#sp-modal').modal('hide');
@@ -600,8 +670,10 @@ var span;
 				<div class="col-sm-12" style="margin-left:50px;">
 					<h3>※호텔은 항상 출발지 <strong style="color:red">A</strong>로 표시됩니다</h3>
 				</div>
-				<div class="col-sm-12" style="margin-left:50px;color:red">
+				<div class="col-md-4 col-md-offset-8" style="margin:40px;color:red">
 					<h3 id="type">주변 호텔!</h3>
+					<div class="btn btn-warning" onclick="clearBox();">전체 삭제!</div>
+					<div class="btn btn-danger" onclick="showPlan()" >플랜 보기!</div>
 				</div>
 			</div>
 			<div class="row" style="margin-left:10px;" >
@@ -624,18 +696,6 @@ var span;
 				<div class="col-sm-3">
 					<h3 onclick="food();">Restaurants</h3>
 					<img alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
-				</div>
-				<div class="col-sm-3">
-				 	<div style="margin:10px" class="row">
-				 		<div class="col-sm-12">
-							<div class="btn btn-warning" onclick="clearBox();">전체 삭제!</div>
-						</div>
-					</div>
-					<div style="margin:10px" class="row">
-						<div class="col-sm-12">
-							<div class="btn btn-danger" onclick="showPlan()" >플랜 보기!</div>
-						</div>
-					</div>
 				</div>
 				
 			</div>
@@ -672,6 +732,10 @@ var span;
 	            <td class="iw_attribute_name">위도경도:</td>
 	            <td id="iw-lanlng"></td>
 	          </tr>
+	          <tr id="iw-lanlng-row" class="iw_table_row">
+	            <td class="iw_attribute_name">위치 아이디: </td>
+	            <td id="iw-id"></td>
+	          </tr>
 	          
 	        </table>
 	          	<div class="btn btn-primary" data-toggle="modal" onclick="detail()">상세정보 보기</div>
@@ -704,8 +768,9 @@ var span;
 	    			<span>&times;</span>
 	    		</button>
 	    		<div class="row">
-		    		<div class="col-sm-12" id="sp-info"></div>
-		    		<div class="col-sm-12" id="sp-spots"></div>
+		    		<div class="col-sm-12" id="sp-origin"></div>
+		    		<div class="col-sm-12" id="sp-waypoints"></div>
+		    		<div class="col-sm-12" id="sp-destination"></div>
 	    		</div>
 	    	</div>
 	    </div>
