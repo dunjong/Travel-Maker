@@ -22,7 +22,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<!-- 제이쿼리 UI용 라이브러리 임베드 -->
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 	
 </head>
   

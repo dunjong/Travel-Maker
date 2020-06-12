@@ -63,16 +63,25 @@
       #type > strong{
       	color:red
       }
+      #day{
+      	color:green
+      }
       #buttons{
       	margin-top:30px;
       	
       }
       #buttons > div{
-      margin-right: 7px;
+      	margin-right: 7px;
       }
       #hotelIcon{
       	height:50px;
       	width:50px
+      }
+      #planBox{
+      	 border:thick double #ff9999
+      }
+      #planBox > div{
+      	margin:10px;
       }
     </style>
 
@@ -99,6 +108,7 @@ var img;
 var span;
 var hotelInfo=[{'hotel':origin}]
 var spotInfo=[]
+var day=1;
  //0] 주변 찾기 설정
   function food() {
 	  $('#type').html('맵을 눌러서 주변 <strong>맛집</strong>을 확인해보세요!')
@@ -694,6 +704,43 @@ var spotInfo=[]
 		});
  }////detail
  
+ function DayPlan() {
+	 $.ajax({
+			url:'<c:url value="/TravelMaker/DayPlanSava.kosmo"/>',
+			get:'get',
+			dataType:'text',
+			success:successCallBack,
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+}
+ function successCallBack(data){
+	 
+	 console.log('ajax 성공')
+	 if(day==6){
+		 alert('더 이상 플랜을 추가할 수 없어요')
+		 $('#day').html('')
+		 return
+	 }
+	 var planBox=document.getElementById('planBox')
+	 var div=document.createElement('div')
+	 div.className='btn btn-warning'
+	 div.textContent=day+'일차 플랜 보기'
+	 planBox.appendChild(div)
+	 day+=1;
+	 $('#day').html(day+'일차 플랜')
+	 
+	 
+ }
+ function clearPlanBox() {
+	day=1
+	planBox.innerHTML=''
+	clearBox()
+}
  
 </script>	
 	
@@ -702,10 +749,23 @@ var spotInfo=[]
 		
 		<div class="intro_container" style="margin-left:150px;width:80%">
 			<div class="row">
-				<div class="col-sm-3"> 
+				<div class="col-sm-4">
+					
+				</div>
+				<div class="col-sm-6" id="planBox">
+				</div>
+				<div class="col-sm-2">
+					<div class="btn btn-danger" onclick="clearPlanBox()">전체 플랜 삭제</div>
+				</div>
+			</div>
+			<br>
+			<br>
+			<div class="row">
+				<div class="col-sm-3">
+					 
 				</div>
 				<div class="col-sm-7">
-					<h3><span id="type">맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!</span></h3>
+					<h3><span id="type">맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!</span><small id=day>1일차 플랜</small></h3>
 				</div>
 			</div>
 			<div class="row" style="margin-left:10px;" >
@@ -724,9 +784,9 @@ var spotInfo=[]
 							<img id="food-img" alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
 						</div>
 						<div class="col-sm-12" id="buttons">
-							<div class="btn btn-warning" onclick="clearBox();">전체 삭제!</div>
+							<div class="btn btn-warning" onclick="clearBox();">플랜 삭제!</div>
 							<div class="btn btn-danger" onclick="showPlan()" >플랜 보기!</div>
-							<div class="btn btn-info">플랜  저장!</div>
+							<div class="btn btn-info" onclick="DayPlan()">플랜  저장!</div>
 							<h4>전체 거리: <span id="total"></span></h4>
 						</div>
 					</div>

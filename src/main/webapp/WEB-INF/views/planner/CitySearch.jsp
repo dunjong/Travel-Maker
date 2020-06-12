@@ -27,7 +27,7 @@
 			<div class="jb-box" style="position:absolute;left:0px;top:0px" >
 				
 				<video muted autoplay loop >
-					<source src="assets/mp4/mainpage.mp4" type="video/mp4">
+					<source src="<c:url value='/plugins/assets/mp4/mainpage.mp4'/>" type="video/mp4">
 					<strong>Your browser does not support the video tag.</strong>
 				</video>
 				
@@ -67,8 +67,7 @@
 	<main id="main">
 
 		<!-- ======= searchImages Section ======= -->
-		<section id="searchImages" class="searchImages"
-			style="background-color: yellow;">
+		<section id="searchImages" class="searchImages" style="background-color: yellow;">
 			<div class="container" data-aos="fade-right">
 
 				<div class="section-title">
@@ -79,39 +78,38 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="col-xs-12 example">
-							<img draggable="true" id="drag1" src="assets/img/exampleImage1.jpg" ondragstart="drag(event)" class="img-find" alt="">
-							<img draggable="true" id="drag2" src="assets/img/exampleImage2.jpg" ondragstart="drag(event)" class="img-find" alt="">
-							<img draggable="true" id="drag3" src="assets/img/profile-img.jpg" ondragstart="drag(event)" class="img-find" alt="">
+							<img draggable="true" id="drag1" src="<c:url value='/plugins/assets/img/exampleImage1.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
+							<img draggable="true" id="drag2" src="<c:url value='/plugins/assets/img/exampleImage2.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
+							<img draggable="true" id="drag3" src="<c:url value='/plugins/assets/img/profile-img.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
 						</div>
 						<div id="div1" class="col-xs-12 picture" ondrop="drop(event)" ondragover="allowDrop(event)" style="width:250px;height:250px;position:relative;top:10%;left:15%;border:1px green solid;"></div>
 					</div>
 					<div class="col-lg-6 pt-4 pt-lg-0"
 						style="background-color: white;">
-						<h3>UI/UX Designer &amp; Web Developer.</h3>
+						<h3>사진 관련 태그들</h3>
 
 						<div class="row">
 							<div class="col-lg-6">
 								<ul>
-									<li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong>
-										1 May 1995</li>
-									<li><i class="icofont-rounded-right"></i> <strong>Website:</strong>
-										www.example.com</li>
-									<li><i class="icofont-rounded-right"></i> <strong>Phone:</strong>
-										+123 456 7890</li>
-									<li><i class="icofont-rounded-right"></i> <strong>City:</strong>
-										City : New York, USA</li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
 								</ul>
 							</div>
 							<div class="col-lg-6">
 								<ul>
-									<li><i class="icofont-rounded-right"></i> <strong>Age:</strong>
-										30</li>
-									<li><i class="icofont-rounded-right"></i> <strong>Degree:</strong>
-										Master</li>
-									<li><i class="icofont-rounded-right"></i> <strong>PhEmailone:</strong>
-										email@example.com</li>
-									<li><i class="icofont-rounded-right"></i> <strong>Freelance:</strong>
-										Available</li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									
 								</ul>
 							</div>
 						</div>

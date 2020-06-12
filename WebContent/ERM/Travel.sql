@@ -1,5 +1,5 @@
 
-/* Drop Tables */
+/* Drop Tables
 
 DROP TABLE refund CASCADE CONSTRAINTS;
 DROP TABLE reservation CASCADE CONSTRAINTS;
@@ -18,9 +18,9 @@ DROP TABLE luggage CASCADE CONSTRAINTS;
 DROP TABLE plan CASCADE CONSTRAINTS;
 DROP TABLE plane CASCADE CONSTRAINTS;
 DROP TABLE seat CASCADE CONSTRAINTS;
-DROP TABLE user CASCADE CONSTRAINTS;
+DROP TABLE userinfo CASCADE CONSTRAINTS;
 
-
+ */
 
 
 /* Create Tables */
@@ -119,20 +119,20 @@ CREATE TABLE plane
 CREATE TABLE refund
 (
 	refCode number NOT NULL,
-	resNo number NOT NULL,
 	refRule varchar2(10) NOT NULL,
+	resNo  number NOT NULL,
 	PRIMARY KEY (refCode)
 );
 
 
 CREATE TABLE reservation
 (
-	resNo number NOT NULL,
-	ticketNo number NOT NULL,
-	stayNo number NOT NULL,
+	resNo  number NOT NULL,
 	id varchar2(10) NOT NULL,
-	resRule nvarchar2(10),
-	PRIMARY KEY (resNo)
+	stayNo number NOT NULL,
+	ticketNo number NOT NULL,
+	resRule  nvarchar2(10),
+	PRIMARY KEY (resNo )
 );
 
 
@@ -238,12 +238,6 @@ ALTER TABLE room
 
 
 ALTER TABLE stayRes
-	ADD FOREIGN KEY ()
-	REFERENCES hotel ()
-;
-
-
-ALTER TABLE stayRes
 	ADD FOREIGN KEY (hotelCode)
 	REFERENCES hotel (hotelCode)
 ;
@@ -268,20 +262,14 @@ ALTER TABLE airticket
 
 
 ALTER TABLE refund
-	ADD FOREIGN KEY (resNo)
-	REFERENCES reservation (resNo)
+	ADD FOREIGN KEY (resNo )
+	REFERENCES reservation (resNo )
 ;
 
 
 ALTER TABLE airticket
 	ADD FOREIGN KEY (seatNo)
 	REFERENCES seat (seatNo)
-;
-
-
-ALTER TABLE reservation
-	ADD FOREIGN KEY ()
-	REFERENCES stayRes ()
 ;
 
 
@@ -293,25 +281,25 @@ ALTER TABLE reservation
 
 ALTER TABLE customerservice
 	ADD FOREIGN KEY (id)
-	REFERENCES user (id)
+	REFERENCES userinfo (id)
 ;
 
 
 ALTER TABLE plan
 	ADD FOREIGN KEY (id)
-	REFERENCES user (id)
+	REFERENCES userinfo (id)
 ;
 
 
 ALTER TABLE reservation
 	ADD FOREIGN KEY (id)
-	REFERENCES user (id)
+	REFERENCES userinfo (id)
 ;
 
 
 ALTER TABLE review
 	ADD FOREIGN KEY (id)
-	REFERENCES user (id)
+	REFERENCES userinfo (id)
 ;
 
 
