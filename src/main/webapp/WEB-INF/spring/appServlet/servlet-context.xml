@@ -46,7 +46,7 @@
 		에러코드는 rejectValue에서 설정한 코드값 -->
 		<beans:property name="basenames"><!-- list에서 .properties확장자는 생략 -->
 			<beans:list>
-				<beans:value>src/main/resources/loginvalidate/ErrorMessage</beans:value>
+				<beans:value>main/resources/loginvalidate/ErrorMessage</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>

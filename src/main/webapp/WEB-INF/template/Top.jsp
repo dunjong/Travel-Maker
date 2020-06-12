@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
 <header class="header">
@@ -368,9 +368,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3 class="modal-title" id="exampleModalLabel" style="color: black;">
-					회원가입
-					</h5>
+				<h5 class="modal-title" id="exampleModalLabel" style="color: black;">회원가입</h5>
 			</div>
 				<div class="modal-body">
 				<form action="<c:url value='/TravelMaker/ValidationCheck.do'/>" method="post">

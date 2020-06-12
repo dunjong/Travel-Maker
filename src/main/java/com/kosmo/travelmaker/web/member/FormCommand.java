@@ -1,5 +1,8 @@
 package com.kosmo.travelmaker.web.member;
 
+import org.springframework.stereotype.Repository;
+
+@Repository("formCommand")
 public class FormCommand {
 	private String name;
 	private String id;

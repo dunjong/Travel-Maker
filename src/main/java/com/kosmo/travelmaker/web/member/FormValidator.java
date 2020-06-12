@@ -23,7 +23,7 @@ public class FormValidator implements Validator{
 	public void validate(Object command, Errors errors) {
 		//오류시 errors타입에 에러정보 저장 rejectValue(cmd의 속성명,에러코드); - 에러코드(중복 불가능) 임의로 정하면됨
 		FormCommand cmd = (FormCommand)command;
-		if (cmd.getName().trim().isEmpty()) {
+		if (cmd.getName() != null ||cmd.getName().trim().isEmpty()) {
 			errors.rejectValue("name","nameError");
 		}
 		if (cmd.getEn_name().trim().isEmpty()) {

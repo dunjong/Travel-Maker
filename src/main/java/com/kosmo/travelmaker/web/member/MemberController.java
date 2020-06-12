@@ -32,11 +32,9 @@ public class MemberController {
 	public String vali(FormCommand cmd,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
 		//내가 만든 validate클래스의 validate()호출 데이터로 cmd넣고 에러정보용으로 errors넣어준다.
 		validator.validate(cmd, errors);
-		//
 		if(errors.hasErrors()) {
 			return "/home.tiles";
 		}
-
 		model.addAttribute("cmd",cmd);
 		return "/Validation10/ValidationComplete.jsp";
 	}///vali
