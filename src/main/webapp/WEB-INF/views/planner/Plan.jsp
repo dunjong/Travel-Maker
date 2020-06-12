@@ -3,28 +3,9 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-      #right-panel {
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 10px;
-      }
-      #right-panel select, #right-panel input {
-        font-size: 15px;
-      }
-      #right-panel select {
-        width: 100%;
-      }
-      #right-panel i {
-        font-size: 12px;
-      }
       #map {
         height: 100%;
         width: 100%;
-      }
-      #right-panel {
-        float: right;
-        width: 80%;
-        height: 100%;
       }
       table {
         font-size: 12px;
@@ -77,7 +58,21 @@
       }
       #type{
       	margin:40px;
-      	color:red;
+      	color:sandybrown;
+      }
+      #type > strong{
+      	color:red
+      }
+      #buttons{
+      	margin-top:30px;
+      	
+      }
+      #buttons > div{
+      margin-right: 7px;
+      }
+      #hotelIcon{
+      	height:50px;
+      	width:50px
       }
     </style>
 
@@ -91,8 +86,8 @@ var map,infoWindow,servicePlace;
 var markers=[];
 var hostnameRegexp = new RegExp('^https?://.+?/');
 var nearSearchType='lodging';
-var origin='Bali, 인도네시아';
-var destination='공항, Bali, 인도네시아';
+var origin='방콕, 태국';
+var destination='공항, 방콕, 태국';
 var spots=[];
 var directionsService;
 var directionsRenderer;
@@ -106,7 +101,7 @@ var hotelInfo=[{'hotel':origin}]
 var spotInfo=[]
  //0] 주변 찾기 설정
   function food() {
-	  $('#type').html('주변 맛집!')
+	  $('#type').html('맵을 눌러서 주변 <strong>맛집</strong>을 확인해보세요!')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -118,7 +113,7 @@ var spotInfo=[]
 	  keyword='restaurant'
       }
   function hotel() {
-	  $('#type').html('주변 호텔!')
+	  $('#type').html('맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -130,7 +125,7 @@ var spotInfo=[]
 	  keyword='lodging'
      }
   function tour() {
-	  $('#type').html('주변 명소!')
+	  $('#type').html('맵을 눌러서 주변 <strong>명소</strong>를 확인해보세요!')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -160,6 +155,7 @@ var spotInfo=[]
   }////placeDetail
   
   function box(){
+	 
 	  var sp_waypoints=document.getElementById('sp-waypoints');
 	  sp_waypoints.innerHTML=''
 	  if(nearSearchType=='lodging'){
@@ -178,6 +174,13 @@ var spotInfo=[]
 	  	  displayRoute(origin, destination, directionsService,
 		       directionsRenderer,spots);
 	  }
+	  if(markers.length!=0){
+		   //확인용
+    	   //	console.log('click Markers',markers);
+		   //
+    	    removeMarkers(markers);
+    	    markers=[];
+    	   }
   }////box
   function clearBox(){
 	  if(markers.length!=0){
@@ -187,7 +190,7 @@ var spotInfo=[]
 	   	    removeMarkers(markers);
 	   	    markers=[];
 	   	   }
-	  origin='Bali, 인도네시아'
+	  origin='방콕, 태국'
 	  hotelInfo=[{'hotel':origin}]
 	  spotInfo=[];
 	  spots=[];
@@ -195,19 +198,7 @@ var spotInfo=[]
 		       directionsRenderer,spots);
   }////clearBox
   
-  ///상세정보 보기 모달창
-  function detail(){
-	  $('#js-modal img').css({width:'300px',height:'200px',margin:'10px',border:'1rem solid'})
-	  $('#js-modal h4').css({color:'black',margin:'10px',border:'thick double #32a1ce'})
-	  $('#md-image').css({marginLeft:'60px'})
-	  $('#js-modal span').css({color:'black',textAlign:'center',fontWeigt:'bord'})
-	  
-	  $('#js-modal').modal('show');
-	  $('#close').on('click',function(){
-			$('#js-modal').modal('hide');
-		});
-  }////detail
-  
+ 
   
   
  
@@ -395,6 +386,7 @@ var spotInfo=[]
    
    map.addListener('click', function(event) {
 	   
+	   
 	   if(markers.length!=0){
 		   //확인용
       	   //	console.log('click Markers',markers);
@@ -474,10 +466,22 @@ var spotInfo=[]
  //3] 주변 마커 생성
  function createMarkers(places) {
 	  var bounds = new google.maps.LatLngBounds();
+	  var logo;
+	  if(nearSearchType=='lodging'){
+	  	logo='https://www.iconsdb.com/icons/preview/deep-pink/hotel-2-xxl.png';
+	  }
+	  else if(nearSearchType=='restaurant'){
+		logo='https://www.iconsdb.com/icons/preview/deep-pink/pizza-3-xxl.png';
+	  }
+	  else{
+		logo='https://www.iconsdb.com/icons/preview/barbie-pink/star-6-xxl.png';
+	  }
+	  
       
       for (var i = 0, place; place = places[i]; i++) {
-        var image = {
-          url: place.icon,
+        console.log('place.icon',place.icon)
+    	var image = {
+          url: logo,
           size: new google.maps.Size(71, 71),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(17, 34),
@@ -532,8 +536,19 @@ var spotInfo=[]
  //3-3] 마커 iw창 place_id 찾아서 place detail정보 찾아서 띄우기     
  function buildIWContent(place) {
 	 
+	 var logo;
+	  if(nearSearchType=='lodging'){
+	  	logo='https://www.iconsdb.com/icons/preview/deep-pink/hotel-2-xxl.png';
+	  }
+	  else if(nearSearchType=='restaurant'){
+		logo='https://www.iconsdb.com/icons/preview/deep-pink/pizza-3-xxl.png';
+	  }
+	  else{
+		logo='https://www.iconsdb.com/icons/preview/barbie-pink/star-6-xxl.png';
+	  }
+	 
      document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
-         'src="' + place.icon + '"/>';
+         'src="' + logo + '"/>';
      document.getElementById('iw-url').innerHTML = '<h4><a href="' + place.url +
          '"  target="blank">' + place.name + '</a></h4>';
      document.getElementById('iw-address').textContent = place.vicinity;
@@ -660,12 +675,25 @@ var spotInfo=[]
 	 else{
 		 sp_waypoints.textContent='경유지: 없음'
 	 }
-	 $('#sp-modal').modal('show');
+	  $('#sp-modal').modal('show');
 	  $('#close2').on('click',function(){
-			$('#sp-modal').modal('hide');
-			
+	  		$('#sp-modal').modal('hide');
 		});
  }
+ 
+ ///상세정보 보기 모달창
+ function detail(){
+	  $('#js-modal img').css({width:'300px',height:'200px',margin:'10px',border:'1rem solid'})
+	  $('#js-modal h4').css({color:'black',margin:'10px',border:'thick double #32a1ce'})
+	  $('#md-image').css({marginLeft:'60px'})
+	  $('#js-modal span').css({color:'black',textAlign:'center',fontWeigt:'bord'})
+	  
+	  $('#js-modal').modal('show');
+	  $('#close').on('click',function(){
+			$('#js-modal').modal('hide');
+		});
+ }////detail
+ 
  
 </script>	
 	
@@ -674,39 +702,43 @@ var spotInfo=[]
 		
 		<div class="intro_container" style="margin-left:150px;width:80%">
 			<div class="row">
-				<div class="col-sm-7" style="margin-left:50px;">
-					<h3>※호텔은 항상 출발지 <strong style="color:red">A</strong>로 표시됩니다<span id="type">주변 호텔!</span></h3>
+				<div class="col-sm-3"> 
 				</div>
-				<div class="col-sm-4">
-					<div class="btn btn-warning" onclick="clearBox();">전체 삭제!</div>
-					<div class="btn btn-danger" onclick="showPlan()" >플랜 보기!</div>
-					<div class="btn btn-info">플랜  저장!</div>
-					
+				<div class="col-sm-7">
+					<h3><span id="type">맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!</span></h3>
 				</div>
 			</div>
 			<div class="row" style="margin-left:10px;" >
-				<div class="col-sm-10" style="height: 700px;margin-bottom:20px">
+				<div class="col-sm-3">
+					<div id="types" class="row" style="margin-left:10px;" >
+						<div class="col-sm-12">
+							<h3 onclick="hotel();">호텔</h3>
+							<img id="hotel-img" alt="" src="<c:url value='/images/hotels.jpg'/>" onclick="hotel();">
+						</div>
+						<div class="col-sm-12">
+							<h3 onclick="tour();">명소</h3>
+							<img id="tour-img" alt="" src="<c:url value='/images/tours.jpg'/>" onclick="tour();">
+						</div>
+						<div class="col-sm-12">
+							<h3 onclick="food();">식당</h3>
+							<img id="food-img" alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
+						</div>
+						<div class="col-sm-12" id="buttons">
+							<div class="btn btn-warning" onclick="clearBox();">전체 삭제!</div>
+							<div class="btn btn-danger" onclick="showPlan()" >플랜 보기!</div>
+							<div class="btn btn-info">플랜  저장!</div>
+							<h4>전체 거리: <span id="total"></span></h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-9" style="height: 700px;margin-bottom:20px">
 					<div id="map"></div>
 				</div>
-				<div id="right-panel" class="col-sm-2" style="height: 700px; width: 100px;margin-bottom:20px;overflow:scroll;">
-					<p>Total Distance: <span id="total"></span></p>
-				</div>
+<!-- 				<div id="right-panel" class="col-sm-2" style="height: 700px; width: 100px;margin-bottom:20px;overflow:scroll;"> -->
+<!-- 					 -->
+<!-- 				</div> -->
 			</div>
-			<div id="types" class="row" style="margin-left:10px;" >
-				<div class="col-sm-3">
-					<h3 onclick="hotel();">Hotels</h3>
-					<img id="hotel-img" alt="" src="<c:url value='/images/hotels.jpg'/>" onclick="hotel();">
-				</div>
-				<div class="col-sm-3">
-					<h3 onclick="tour();">Attractions</h3>
-					<img id="tour-img" alt="" src="<c:url value='/images/tours.jpg'/>" onclick="tour();">
-				</div>
-				<div class="col-sm-3">
-					<h3 onclick="food();">Restaurants</h3>
-					<img id="food-img" alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
-				</div>
-				
-			</div>
+			
 		</div>
 		<!-- makerclick -->
 	
@@ -771,13 +803,13 @@ var spotInfo=[]
 	<div class="modal fade" id="sp-modal" data-backdrop="static">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
-	    	<div class="modal-body">
+	    	<div class="modal-body" >
 	    		<button class="close" id="close2">
 	    			<span>&times;</span>
 	    		</button>
 	    		<div class="row">
 		    		<div class="col-sm-12" id="sp-origin"></div>
-		    		<div class="col-sm-12" id="sp-waypoints"></div>
+		    		<div class="col-sm-12" id="sp-waypoints" style="overflow-y:scroll;"></div>
 		    		<div class="col-sm-12" id="sp-destination"></div>
 	    		</div>
 	    	</div>
