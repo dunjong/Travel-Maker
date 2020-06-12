@@ -2,407 +2,306 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
-	$(function(){
-		//option을 {}객체(json)로 줄때는 함수의 인자로 처음부터 주거나
-		/* $( "#datepicker" ).datepicker({
-			showAnim: "bounce",
-			dateFormat: "yy년 mm월 dd일"
-		}); */
-		//{}이 아닌 인자로 option을 줄때(setter로)는 datepicker()로 생성후에
-		//$( "#datepicker" ).datepicker();
-		//setter
-		//$( "#datepicker" ).datepicker('option','showAnim','fold');
-		//$( "#datepicker" ).datepicker('option','dateFormat','yy년 mm월 dd일');
-		$( "#datepicker" ).datepicker({
-			showAnim: "slideDown",
-			dateFormat: "yy년 mm월 dd일",
-			minDate: new Date(),
-			onSelect:function(dateText){
-				$('#display').html(dateText);
-			}
-		});
-		$( "#datepicker1" ).datepicker({
-			showAnim: "slideDown",
-			dateFormat: "yy년 mm월 dd일",
-			minDate: new Date(),
-			onSelect:function(dateText){
-				$('#display').html(dateText);
-			}
-		});
+   $(function(){
+      $( "#departureDate" ).datepicker({
+         showAnim: "slideDown",
+         dateFormat: "yy년 mm월 dd일",
+         minDate: new Date(),
+         onSelect:function(dateText){
+            $('#display').html(dateText);
+         }
+      });
+      $( "#returnDate" ).datepicker({
+         showAnim: "slideDown",
+         dateFormat: "yy년 mm월 dd일",
+         minDate: new Date(),
+         onSelect:function(dateText){
+            $('#display').html(dateText);
+         }
+      });
+      //option을 {}객체(json)로 줄때는 함수의 인자로 처음부터 주거나
+      /* $( "#datepicker" ).datepicker({
+         showAnim: "bounce",
+         dateFormat: "yy년 mm월 dd일"
+      }); */
+      //{}이 아닌 인자로 option을 줄때(setter로)는 datepicker()로 생성후에
+      //$( "#datepicker" ).datepicker();
+      //setter
+      //$( "#datepicker" ).datepicker('option','showAnim','fold');
+      //$( "#datepicker" ).datepicker('option','dateFormat','yy년 mm월 dd일');
+      //토큰 정보 얻어오기
+         /*  var settings = {
+        "url": "https://test.api.amadeus.com/v1/security/oauth2/token",
+        "method": "POST",
+        "timeout": 0,
+        "data": {
+          "client_id": "wmBCJo8VFo4AFp3nqXxlWbHWdZH8VqwP",
+          "client_secret": "0Of0WvaAGgzG8pym",
+          "grant_type": "client_credentials"
+           }
+         };
+         
+         $.ajax(settings).done(function (response) {
+           console.log(response);
+         });    */
 		
-		//버튼 이미지 사용시: 버튼의 크기 조정
-		//$('.ui-datepicker-trigger').prop('style', 'width:40px;height:40px;');
-		//$('.ui-datepicker-trigger > img').prop('style', 'width:40px;height:40px;vertical-align:middle;margin-top:-4px;margin-left:-10px');
-		//이미지 온리 사용시
-		$('#start').popover({
-			content: 'a\r b\n c\r\n d  \r\ne<br/>',
-			placement: "bottom",
-			whitespace:"nowrap"
-		})
-		
-	});
+         
+         /* $(function () {
+        	    $('[data-toggle="popover"]').popover()
+        	    }) */    	    
+         $('#departure').on('keyup',function(){
+        	 var deplist=document.getElementById('deplist')
+        	 //deplist.remove();
+        	 deplist.innerHTML=''
+        	 var depstr=[]
+        	 var depname=[]
+             var value=$(this).val();
+             var settings = {
+                   "async" : true,
+                   "crossDomain" : true,
+                   "url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
+                   "method" : "GET",
+                   "headers" : {
+                      "x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+                      "x-rapidapi-key" : "1284ea87a9msh562cc6747ae1f06p15971bjsnbad10597807a"
+                   }
+             }
+
+                $.ajax(settings).done(function(response) {
+                	console.log(response)
+                	
+             		 var PlaceId
+                     var PlaceName
+                   for(var i=0;i<response.Places.length;i++){
+                	  
+                        PlaceId=response.Places[i].PlaceId
+                 		PlaceName=response.Places[i].PlaceName
+                 		
+                         
+                      depstr.push(PlaceId)
+                      depname.push(PlaceName)
+                   }
+               		
+                    for(var i=1;i<depstr.length;i++){
+                        var div=document.createElement('div')
+                        div.className='btn btn-warning'
+                        div.setAttribute('name',depstr[i].substring(0,3))
+                        div.textContent=depname[i]+':'+depstr[i].substring(0,3)
+                        deplist.appendChild(div)
+                    }
+                    $('.btn-warning').on('click',function(){
+                    	console.log('this:',this.innerHTML)
+                    	$('#departure').prop('value',this.innerHTML)
+                    })	    
+                   
+                	console.log('depstr',depstr)
+                	$('#departure').attr('data-content',depstr.toString());
+                	$('#departure').popover('hide')
+                	$('#departure').popover('show')
+                });/////
+          })
+          
+          $('#arrival').on('keyup',function(){
+        	 var arrlist=document.getElementById('arrlist')
+        	 //arrlist.clear()
+        	 arrlist.innerHTML=''
+        	 var arrstr=[]
+             var arrname=[]
+             var value=$(this).val();
+             var settings = {
+                   "async" : true,
+                   "crossDomain" : true,
+                   "url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
+                   "method" : "GET",
+                   "headers" : {
+                      "x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+                      "x-rapidapi-key" : "1284ea87a9msh562cc6747ae1f06p15971bjsnbad10597807a"
+                   }
+             }
+				
+                $.ajax(settings).done(function(response) {
+                  
+                   var PlaceId
+                   var PlaceName
+                   
+                	for(var i=0;i<response.Places.length;i++){
+                		
+               		
+                        PlaceId=response.Places[i].PlaceId
+                		PlaceName=response.Places[i].PlaceName
+          
+                        arrstr.push(PlaceId)
+                        arrname.push(PlaceName)
+                   	}
+                	
+                    for(var i=1;i<arrstr.length;i++){
+                        var div=document.createElement('div')
+                        div.className='btn btn-danger'
+                        div.textContent=arrname[i]+':'+arrstr[i].substring(0,3)
+                        div.setAttribute('name',arrstr[i].substring(0,3))
+                        arrlist.appendChild(div)
+                    }
+                    
+                    $('.btn-danger').on('click',function(){
+                    	$('#arrival').prop('value',this.innerHTML)
+                    })	
+                   console.log('arrstr',arrstr)
+                   $('#arrival').attr('data-content',arrstr.toString());
+                   $('#arrival').popover('hide')
+               	   $('#arrival').popover('show')
+                });/////
+                
+                
+                
+                
+          })
+    
+      
+      //버튼 이미지 사용시: 버튼의 크기 조정
+      //$('.ui-datepicker-trigger').prop('style', 'width:40px;height:40px;');
+      //$('.ui-datepicker-trigger > img').prop('style', 'width:40px;height:40px;vertical-align:middle;margin-top:-4px;margin-left:-10px');
+      //이미지 온리 사용시      
+               
+          });
+   //Flight List ajax 구문 추가
+   $.ajax({
+ 	  url: 'http://api.aviationstack.com/v1/flights',
+ 	  data: {
+ 	    access_key: '90abbc3665222e1b7fa6938924cc7597'
+ 	  },        	  
+ 	  dataType: 'json',
+ 	  success: function(apiResponse) {
+ 		  console.log('apiResponse.data[2]',apiResponse.data)
+	   
+	   var list = "<h2> 티켓 목록 </h2>";
+	   list+="<div class='container'>";
+	   list+="<div class='alert alert-success'>";
+	   list+="<div class='row'>";
+	   list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+   	   list+="<div class='row' style='text-align:center'>";
+   	   list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+   	   list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
+   	   list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>"+apiResponse.data[2].arrival.estimated+"</Strong><br>"+apiResponse.data[2].arrival.airport+"</div>";
+   	   list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>4시간30분</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br>직항</div>";
+   	   list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>"+apiResponse.data[2].departure.estimated+"</Strong><br>"+apiResponse.data[2].departure.airport+"</div>";
+   	   list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
+   	   list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>"+apiResponse.data[2].arrival.estimated+"</Strong><br>"+apiResponse.data[2].departure.airport+"</div>";
+   	   list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>5시간10분</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br>직항</div>"; 	   
+   	   list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>"+apiResponse.data[2].departure.estimated+"</Strong><br>"+apiResponse.data[2].arrival.airport+"</div>";
+   	   list+="</div>";
+   	   list+="</div>";
+   	   list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+   	   list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦435,740</Strong><br><small>총 가격￦892,704</small></div><br>";
+   	   list+="<a href='#''><button type='button' class='btn btn-success btn-lg' style='cursor:pointer;'><Strong>선택 →</Strong></button></a>";
+   	   list+="</div>";
+   	   list+="</div>";
+   	   list+="</div>";
+   	   list+="</div>";
+ 		  	   
+   	   console.log('list',list);
+   	   $('#list').html(list);
+ 		  
+ 	  }
+
+   });
+   
+
 </script>
+   
+   <!-- Search -->
 
-	
+   <div class="home_search">
+      <div class="container">
+         <div class="row">
+            <div class="col">
+               <div class="home_search_container">
+                  <div class="home_search_title"><a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a></div>
+                  <div class="home_search_title" ><a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a></div>
+                  <div class="home_search_content">
+                     <form action="#" class="home_search_form" id="home_search_form">
+                        <div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+                           <input type="text" id="departure" class="search_input search_input_1" placeholder="출발지" required="required" data-trigger="focus"  data-placement="bottom" data-toggle="popover"  data-content="dep">
+                           <input type="text" id ="arrival" class="search_input search_input_2" placeholder="도착지" required="required" data-trigger="focus"  data-placement="bottom" data-toggle="popover" data-content="arr">
+                           <input type="text" id="departureDate" class="search_input search_input_3" placeholder="가는날" required="required">
+                           <input type="text" id="returnDate" class="search_input search_input_4" placeholder="오는날" required="required">
+                           <input type="number" id="adult" class="search_input search_input_5" placeholder="성인" required="required">
+                           <input type="number" id="children" class="search_input search_input_5" placeholder="어린이">
+                           
+                           
+                           <button id="AirSearch" class="home_search_button" style="center;">항공권 검색</button>
+                        </div>                     
+                     </form>
+                     
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="container">
+   <div class="btn btn-sucess" onclick="list()">show</div>
+   <div class="row" style="color:red;font-size:20px">
+	   		<div class="col-sm-12" id=deplist>
+	   		</div>
+	   		<div class="col-sm-12" id=arrlist>
+	   		</div>
+   </div>
+   </div>
+   <div id='list'></div>
+   
+  <%--  <div class="container">
+      <div class="alert alert-success">
+         <div class="row">
+               <div class="col-sm-8" style="height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;">
+                  <div class="row" style="text-align:center">
+                     <div class="col-md-2" style="height: 90px; width: 40px"><img src="<c:url value='/images/travelmaker1.png'/>" style="height:60px;width:130px"></div>
+                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:right"><Strong>오전8:30</Strong><br>ICN</div>
+                     <div class="col-md-4" style="height: 90px; width: 40px"><small>4시간30분</small><br><img src="<c:url value='/images/줄비행기.PNG'/>" alt=""><br>직항</div>
+                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:left"><Strong>오후12:00</Strong><br>CEB</div>
+                     
+                     <div class="col-md-2" style="height: 90px; width: 40px"><img src="<c:url value='/images/travelmaker2.png'/>" style="height:60px;width:130px"alt=""></div>
+                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:right"><Strong>오후11:40</Strong><br>CEB</div>
+                     <div class="col-md-4" style="height: 90px; width: 40px"><small>5시간10분</small><br><img src="<c:url value='/images/줄비행기.PNG'/>" alt=""><br>직항</div>
+                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:left"><Strong>오전8:30</Strong><br>ICN</div>
+                     
+                  </div>
+               </div>
+               <div class="col-sm-4" style="height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;">
+                  <div class="col-md-12" style="height: 90px; padding:20px; font-size:1.7em;text-align:center;"><Strong>￦435,740</Strong><br><small>총 가격￦892,704</small></div><br>
+                  <a href="#"><button type="button" class="btn btn-success btn-lg" style="cursor:pointer;"><Strong>선택 →</Strong></button></a>
+                  
+               <!-- <div class="col-md-12" style="height: 90px; width: 40px; text-align:center; font-size: 0.2em;">
+                -->
+               </div>
+          </div>
+      </div>
+   </div> 
+ --%>
+   <!-- Intro -->
+   
 
-	<!-- Search -->
-
-	<div class="home_search">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="home_search_container">
-						<div class="home_search_title"><a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a></div>
-						<div class="home_search_title" ><a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a></div>
-						<div class="home_search_content">
-							<form action="#" class="home_search_form" id="home_search_form">
-								<div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<input type="text" id="start" class="search_input search_input_1" placeholder="출발지" required="required">
-									<input type="text" class="search_input search_input_2" placeholder="도착지" required="required">
-									<input type="text" id="datepicker" class="search_input search_input_3" placeholder="가는날" required="required">
-									<input type="text" id="datepicker1" class="search_input search_input_4" placeholder="오는날" required="required">
-									<input type="text" class="search_input search_input_5" placeholder="좌석 등급 및 승객" required="required">
-									<button class="home_search_button" style="center;">항공권 검색</button>
-								</div>							
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="container">
-	   <div class="alert alert-success">
-	   	<c:forEach begin="0" end="4">
-	      <div class="row">
-	            <div class="col-sm-8" style="height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;">
-	               <div class="row" style="text-align:center">
-	                  <div class="col-md-2" style="height: 90px; width: 40px"><img src="<c:url value='/images/travelmaker1.png'/>" style="height:60px;width:130px"alt=""></div>
-	                  <div class="col-md-3" style="height: 90px; width: 40px; text-align:right"><Strong>오전8:30</Strong><br>ICN</div>
-	                  <div class="col-md-4" style="height: 90px; width: 40px"><small>4시간30분</small><br><img src="<c:url value='/images/줄비행기.PNG'/>" alt=""><br>직항</div>
-	                  <span class="glyphicon glyphicon-minus"></span>
-	                  <div class="col-md-3" style="height: 90px; width: 40px; text-align:left"><Strong>오후12:00</Strong><br>CEB</div>
-	                  
-	                  <div class="col-md-2" style="height: 90px; width: 40px"><img src="<c:url value='/images/travelmaker2.png'/>" style="height:60px;width:130px"alt=""></div>
-	                  <div class="col-md-3" style="height: 90px; width: 40px; text-align:right"><Strong>오후11:40</Strong><br>CEB</div>
-	                  <div class="col-md-4" style="height: 90px; width: 40px"><small>5시간10분</small><br><img src="<c:url value='/images/줄비행기.PNG'/>" alt=""><br>직항</div>
-	                  <div class="col-md-3" style="height: 90px; width: 40px; text-align:left"><Strong>오전8:30</Strong><br>ICN</div>
-	                  
-	               </div>
-	            </div>
-	            <div class="col-sm-4" style="height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;">
-	               <div class="col-md-12" style="height: 90px; padding:20px; font-size:1.7em;text-align:center;"><Strong>￦435,740</Strong><br><small>총 가격￦892,704</small></div><br>
-	               <a href="#"><button type="button" class="btn btn-success btn-lg" style="cursor:pointer;"><Strong>선택 →</Strong></button></a>
-	               
-	            <!-- <div class="col-md-12" style="height: 90px; width: 40px; text-align:center; font-size: 0.2em;">
-	             -->
-	            </div>
-	       </div>
-	       </c:forEach>
-	   </div>
-	</div>
-
-	<!-- Intro -->
-
-	<div class="intro">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="intro_container">
-						<div class="row">
-
-							<!-- Intro Item -->
-							<div class="col-lg-4 intro_col">
-								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="<c:url value='/images/beach.svg'/>" alt=""></div>
-									<div class="intro_content">
-										<div class="intro_title">인기 여행지</div>
-										<div class="intro_subtitle"><p>#여행</p></div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Intro Item -->
-							<div class="col-lg-4 intro_col">
-								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="<c:url value='/images/wallet.svg'/>" alt=""></div>
-									<div class="intro_content">
-										<div class="intro_title">최고의 가격</div>
-										<div class="intro_subtitle"><p>Sollicitudin mauris lobortis in.</p></div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Intro Item -->
-							<div class="col-lg-4 intro_col">
-								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="<c:url value='/images/suitcase.svg'/>" alt=""></div>
-									<div class="intro_content">
-										<div class="intro_title">놀라운 서비스</div>
-										<div class="intro_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>		
-			</div>
-		</div>
-	</div>
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMkei418dalW2Ho3I-ovwq0aMKWhUlwUA&libraries=places&language=En"></script>
+<script>
+   var input1 = document.getElementById('departure');
+   var input2 = document.getElementById('arrival');
+   
+   var autocomplete = new google.maps.places.Autocomplete(input1);
+   autocomplete = new google.maps.places.Autocomplete(input2);
+   google.maps.event.addListener(autocomplete, 'place_changed', function() {	
+      
+      var place = autocomplete.getPlace();
+     
+      
+        console.log('이상한 기진:',place)
+        console.log('autocomplete',autocomplete)
+        console.log('lat', place.geometry.location.lat())
+        console.log('lng', place.geometry.location.lng())
+       
+      
+   });
+   
+</script> -->
 
 
-	<!-- Destinations -->
-<div class="destinations" id="destinations">
-		<div class="container">
-			<div class="row">
-				<div class="col text-center">
-					<div class="section_subtitle">simply amazing places</div>
-					<div class="section_title"><h2>Popular Destinations</h2></div>
-				</div>
-			</div>
-			<div class="row destinations_row">
-				<div class="col">
-					<div class="destinations_container item_grid">
 
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_1.jpg'/>" alt="">
-								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Bali</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_2.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_3.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">San Francisco</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_4.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Paris</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_5.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Phi Phi Island</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_6.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Mykonos</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Testimonials -->
-
-	<div class="testimonials" id="testimonials">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="<c:url value='/images/testimonials.jpg'/>" data-speed="0.8"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col text-center">
-					<div class="section_subtitle">simply amazing places</div>
-					<div class="section_title"><h2>Testimonials</h2></div>
-				</div>
-			</div>
-			<div class="row testimonials_row">
-				<div class="col">
-
-					<!-- Testimonials Slider -->
-					<div class="testimonials_slider_container">
-						<div class="owl-carousel owl-theme testimonials_slider">
-							
-							<!-- Slide -->
-							<div class="owl-item text-center">
-								<div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. lobortis dolor. Cras placerat lectus a posuere aliquet. Curabitur quis vehicula odio.</div>
-								<div class="testimonial_author">
-									<div class="testimonial_author_content d-flex flex-row align-items-end justify-content-start">
-										<div>john turner,</div>
-										<div>client</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Slide -->
-							<div class="owl-item text-center">
-								<div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. lobortis dolor. Cras placerat lectus a posuere aliquet. Curabitur quis vehicula odio.</div>
-								<div class="testimonial_author">
-									<div class="testimonial_author_content d-flex flex-row align-items-end justify-content-start">
-										<div>john turner,</div>
-										<div>client</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Slide -->
-							<div class="owl-item text-center">
-								<div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. lobortis dolor. Cras placerat lectus a posuere aliquet. Curabitur quis vehicula odio.</div>
-								<div class="testimonial_author">
-									<div class="testimonial_author_content d-flex flex-row align-items-end justify-content-start">
-										<div>john turner,</div>
-										<div>client</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="test_nav">
-			<ul class="d-flex flex-column align-items-end justify-content-end">
-				<li><a href="#">City Breaks Clients<span>01</span></a></li>
-				<li><a href="#">Cruises Clients<span>02</span></a></li>
-				<li><a href="#">All Inclusive Clients<span>03</span></a></li>
-			</ul>
-		</div>
-	</div>
-
-	<!-- News -->
-
-	<div class="news" id="news">
-		<div class="container">
-			<div class="row">
-				<div class="col-xl-8">
-					<div class="news_container">
-						
-						<!-- News Post -->
-						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="<c:url value='/images/news_1.jpg'/>" alt=""></div>
-							<div class="news_post_content">
-								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
-									<div>02</div>
-									<div>june</div>
-								</div>
-								<div class="news_post_title"><a href="#">Best tips to travel light</a></div>
-								<div class="news_post_category">
-									<ul>
-										<li><a href="#">lifestyle & travel</a></li>
-									</ul>
-								</div>
-								<div class="news_post_text">
-									<p>Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo. Vivamus massa.Tempor massa et laoreet.</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- News Post -->
-						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="<c:url value='/images/news_2.jpg'/>" alt=""></div>
-							<div class="news_post_content">
-								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
-									<div>01</div>
-									<div>june</div>
-								</div>
-								<div class="news_post_title"><a href="#">Best tips to travel light</a></div>
-								<div class="news_post_category">
-									<ul>
-										<li><a href="#">lifestyle & travel</a></li>
-									</ul>
-								</div>
-								<div class="news_post_text">
-									<p>Tempor massa et laoreet malesuada. Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo.</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- News Post -->
-						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="<c:url value='/images/news_3.jpg'/>" alt=""></div>
-							<div class="news_post_content">
-								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
-									<div>29</div>
-									<div>may</div>
-								</div>
-								<div class="news_post_title"><a href="#">Best tips to travel light</a></div>
-								<div class="news_post_category">
-									<ul>
-										<li><a href="#">lifestyle & travel</a></li>
-									</ul>
-								</div>
-								<div class="news_post_text">
-									<p>Vivamus massa.Tempor massa et laoreet malesuada. Aliquam nulla nisl, accumsan sit amet mattis.</p>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-
-				<!-- News Sidebar -->
-				<div class="col-xl-4">
-					<div class="travello">
-						<div class="background_image" style="background-image:url(<c:url value='/images/travello.jpg'/>)"></div>
-						<div class="travello_content">
-							<div class="travello_content_inner">
-								<div></div>
-								<div></div>
-							</div>
-						</div>
-						<div class="travello_container">
-							<div class="d-flex flex-column align-items-center justify-content-end">
-								<a href="#">
-									<span class="travello_title">Get a 20% Discount</span>
-									<span class="travello_subtitle">Buy Your Vacation Online Now</span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Footer -->
-
+   <!-- Footer -->
