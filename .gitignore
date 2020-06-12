@@ -3,6 +3,7 @@ target/**/*.class
 target/**/*.properties
 target/**/*.xml
 src/test/resources/log4j.xml
+.classpath
 # Created by https://www.toptal.com/developers/gitignore/api/windows,eclipse,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,eclipse,java
 

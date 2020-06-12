@@ -18,7 +18,7 @@ public class PlannerController {
 	}
 	@RequestMapping("CitySearch.kosmo")
 	public String CitySearch() {
-		return "planner/CitySearch.tiles";
+		return "planner/CitySearch.main";
 	}
 	@RequestMapping("SpotList.kosmo")
 	public String SpotList() {
