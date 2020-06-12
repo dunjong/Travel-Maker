@@ -35,5 +35,34 @@
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 
 	</definition>
+	<!-- main -->
+	<definition name="mainpage" template="/WEB-INF/template/Layouts_main.jsp">
+		<put-attribute name="top" value="/WEB-INF/template/Top_main.jsp" />
+		<!-- 내용은 동적으로 변하기때문에 value에 ""지정 -->
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/template/Footer_main.jsp" />
+	</definition>
+	
+	
+
+	<definition name="*.main" extends="mainpage">
+		<!-- 와일드 카드 * 이 {1}에 대입됨 -->
+		<!-- 즉 컨트롤러에서 index.tiles로 리턴하면 index가 {1}로 치환되서 index.jsp가 보여짐 -->
+		<!-- *.tiles는 임의로 설정 가능 즉 *.daum로 가능 혹은 *.spring등 단 jsp는 제외 -->
+		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+		<!--만약 /WEB-INF/밑에 jsp가 있다면 <put-attribute name="body" value="/WEB-INF/{1}.jsp"/> 
+			컨틀로러 클래스에서는 return "/WEB-INF/Board/List.tiles"인경우 /WEB-INF생략 -->
+	</definition>
+	<!-- /*/*.tiles 는 불가 즉 *앞에 /를 붙이지 않는다 -->
+	
+	<definition name="*/*.main" extends="mainpage">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+	</definition>
+
+
+	<definition name="*/*/*.main" extends="mainpage">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+
+	</definition>
 
 </tiles-definitions>
