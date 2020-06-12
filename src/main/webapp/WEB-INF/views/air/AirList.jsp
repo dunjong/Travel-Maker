@@ -90,8 +90,8 @@
                         deplist.appendChild(div)
                     }
                     $('.btn-warning').on('click',function(){
-                    	console.log('this:',this.innerHTML)
-                    	$('#departure').prop('value',this.innerHTML)
+                    	console.log('this:',this.innerHTML.split(':')[1])
+                    	$('#departure').prop('value',this.innerHTML.split(':')[1])
                     })	    
                    
                 	console.log('depstr',depstr)
@@ -143,7 +143,7 @@
                     }
                     
                     $('.btn-danger').on('click',function(){
-                    	$('#arrival').prop('value',this.innerHTML)
+                    	$('#arrival').prop('value',this.innerHTML.split(':')[1])
                     })	
                    console.log('arrstr',arrstr)
                    $('#arrival').attr('data-content',arrstr.toString());
@@ -172,13 +172,14 @@
  	  dataType: 'json',
  	  success: function(apiResponse) {
  		  console.log('apiResponse.data[2]',apiResponse.data)
-	   
+	   var flightOffersSearches=${flightOffersSearches}
+ 	   console.log('flightOffersSearches',flightOffersSearches);
 	   var list = "<h2> 티켓 목록 </h2>";
 	   list+="<div class='container'>";
 	   list+="<div class='alert alert-success'>";
 	   list+="<div class='row'>";
 	   list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
-   	   list+="<div class='row' style='text-align:center'>";
+   	   list+="<div id='AirList' class='row' style='text-align:center'>";
    	   list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
    	   list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
    	   list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>"+apiResponse.data[2].arrival.estimated+"</Strong><br>"+apiResponse.data[2].arrival.airport+"</div>";
@@ -197,10 +198,9 @@
    	   list+="</div>";
    	   list+="</div>";
    	   list+="</div>";
- 		  	   
    	   console.log('list',list);
    	   $('#list').html(list);
- 		  
+   	   
  	  }
 
    });
@@ -218,14 +218,14 @@
                   <div class="home_search_title"><a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a></div>
                   <div class="home_search_title" ><a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a></div>
                   <div class="home_search_content">
-                     <form action="#" class="home_search_form" id="home_search_form">
+                     <form action=<c:url value="/TravelMaker/AirSearch.kosmo"/> class="home_search_form" id="home_search_form">
                         <div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-                           <input type="text" id="departure" class="search_input search_input_1" placeholder="출발지" required="required" data-trigger="focus"  data-placement="bottom" data-toggle="popover"  data-content="dep">
-                           <input type="text" id ="arrival" class="search_input search_input_2" placeholder="도착지" required="required" data-trigger="focus"  data-placement="bottom" data-toggle="popover" data-content="arr">
-                           <input type="text" id="departureDate" class="search_input search_input_3" placeholder="가는날" required="required">
-                           <input type="text" id="returnDate" class="search_input search_input_4" placeholder="오는날" required="required">
-                           <input type="number" id="adult" class="search_input search_input_5" placeholder="성인" required="required">
-                           <input type="number" id="children" class="search_input search_input_5" placeholder="어린이">
+                           <input type="text" name="departure" id="departure" class="search_input search_input_1" placeholder="출발지" required="required" data-trigger="focus"  data-placement="bottom" data-toggle="popover"  data-content="dep">
+                           <input type="text" name="arrival" id ="arrival" class="search_input search_input_2" placeholder="도착지" required="required" data-trigger="focus"  data-placement="bottom" data-toggle="popover" data-content="arr">
+                           <input type="text" name="departureDate" id="departureDate" class="search_input search_input_3" placeholder="가는날" required="required">
+                           <input type="text" name="returnDate" id="returnDate" class="search_input search_input_4" placeholder="오는날" required="required">
+                           <input type="number" name="adult" id="adult" class="search_input search_input_5" placeholder="성인" required="required">
+                           <input type="number" name="children" id="children" class="search_input search_input_5" placeholder="어린이">
                            
                            
                            <button id="AirSearch" class="home_search_button" style="center;">항공권 검색</button>
