@@ -204,7 +204,7 @@
 			<div class="modal-body">
 				<label>간편 로그인</label>
 				<div></div>
-				<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
+				<!-- <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 				<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
@@ -276,9 +276,9 @@
 						}
 
 						return "";
-					}
+					} -->
 
-					// 카카오 script key 입력
+					/* // 카카오 script key 입력
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5');
 
 					// 로그인 처리
@@ -328,7 +328,7 @@
 						document.getElementById('kakao_btn_changed').innerHTML = logout_btn;
 
 					}
-					//]]>
+					//]]> */
 				</script>
 
 				<!-- 네이버 아이디로 로그인 -->
