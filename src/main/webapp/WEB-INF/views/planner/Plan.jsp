@@ -3,6 +3,22 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
+	  #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      #floating-panel {
+        margin-left: 10px;
+      }
       #map {
         height: 100%;
         width: 100%;
@@ -64,7 +80,8 @@
       	color:red
       }
       #day{
-      	color:green
+      	color:green;
+      	border:thick double #ff9999
       }
       #buttons{
       	margin-top:30px;
@@ -739,7 +756,12 @@ var day=1;
  function clearPlanBox() {
 	day=1
 	planBox.innerHTML=''
+	$('#day').html('1일차 플랜');
 	clearBox()
+}
+ function back() {
+	 $('#frm').prop('action','<c:url value="/TravelMaker/Planner.kosmo"/>')
+ 	 $('#frm').submit()
 }
  
 </script>	
@@ -755,19 +777,15 @@ var day=1;
 				<div class="col-sm-6" id="planBox">
 				</div>
 				<div class="col-sm-2">
-					<div class="btn btn-danger" onclick="clearPlanBox()">전체 플랜 삭제</div>
+					<div class="btn btn-danger" onclick="clearPlanBox()">전체 플랜 삭제하기</div>
+					<div class="btn btn-info" onclick="back()">여정 표로 돌아가기</div>
+					<div><form hidden="true" id="frm">
+						</form></div>
 				</div>
 			</div>
 			<br>
 			<br>
-			<div class="row">
-				<div class="col-sm-3">
-					 
-				</div>
-				<div class="col-sm-7">
-					<h3><span id="type">맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!</span><small id=day>1일차 플랜</small></h3>
-				</div>
-			</div>
+			<br>
 			<div class="row" style="margin-left:10px;" >
 				<div class="col-sm-3">
 					<div id="types" class="row" style="margin-left:10px;" >
@@ -792,6 +810,9 @@ var day=1;
 					</div>
 				</div>
 				<div class="col-sm-9" style="height: 700px;margin-bottom:20px">
+					<div id="floating-panel">
+						<h3><span id="type">맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!</span><small id=day>1일차 플랜</small></h3>
+				    </div>
 					<div id="map"></div>
 				</div>
 <!-- 				<div id="right-panel" class="col-sm-2" style="height: 700px; width: 100px;margin-bottom:20px;overflow:scroll;"> -->

@@ -30,20 +30,18 @@
 		
 		<div class="intro_container" style="margin-left:150px;width:80%">
 			<div class="row">
-			    <div id="floating-panel">
-			      <button id="drop" onclick="drop()">Drop Markers</button>
+			    <div id="floating-panel" onclick="drop()">
+			      <h3>마커를 클릭하여 세부일정을 짜세요!</h3> 
 			    </div>
 			    <div class="col-sm-12" id="map"></div>
-			    <div class="col-sm-12">
-					<form action="<c:url value='/TravelMaker/Plan.kosmo'/>">
-						<button class="btn btn-danger" onclick="plan()">플랜 보기 버튼:누르세요!</button>
-					</form>
-				</div>
 			    
 		    </div>
 		</div>
 	</div>
-	
+	<form hidden="true" id="frm">
+		<input hidden="true" name="origin" value="방콕,태국" />
+		<input hidden="true" name="destination" value="공항,방콕,태국" />
+	</form>
     <script>
 
       // If you're adding a number of markers, you may want to drop them on the map
@@ -51,20 +49,23 @@
       // window.setTimeout() to space your markers' animation.
 
       var neighborhoods = [
-        {lat: 52.511, lng: 13.447},
-        {lat: 52.549, lng: 13.422},
-        {lat: 52.497, lng: 13.396},
-        {lat: 52.517, lng: 13.394}
+        {lat: 13.752967686985727, lng: 100.5029815077901},
+        {lat: 7.915127681368687, lng: 98.33354269870432}
       ];
 
       var markers = [];
       var map;
 
       function initMap() {
+    	drop()
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: {lat: 52.520, lng: 13.410}
+          zoom: 6,
+          center: {lat: 11.148595261550177, lng: 100.13194482923747}
         });
+        map.addListener('click', function(event){
+      	  console.log('event',event.latLng.lat())
+      	   console.log('event',event.latLng.lng())
+        })
       }
 
       function drop() {
@@ -76,11 +77,19 @@
 
       function addMarkerWithTimeout(position, timeout) {
         window.setTimeout(function() {
-          markers.push(new google.maps.Marker({
-            position: position,
-            map: map,
-            animation: google.maps.Animation.DROP
-          }));
+        	var marker=new google.maps.Marker({
+                position: position,
+                map: map,
+                animation: google.maps.Animation.DROP
+              })
+        	marker.addListener('click', function(event){
+          	  console.log('event',event)
+          	  $('#frm').prop('action','<c:url value="/TravelMaker/Plan.kosmo"/>')
+          	  
+          	  $('#frm').submit()
+          	  
+            })
+          markers.push(marker);
         }, timeout);
       }
 
@@ -90,6 +99,10 @@
         }
         markers = [];
       }
+      markers[0]
+      
+     
+      
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj0yu46KIPovjgRNFnBGDuAw_XOAoG8jc&callback=initMap">
