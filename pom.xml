@@ -176,9 +176,12 @@
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-vision</artifactId>
 		  </dependency>
-			  
-		  
-
+		  <!-- Amadeus API 사용을 위한 Dependency 추가 -->
+		  <dependency>
+		  <groupId>com.amadeus</groupId>
+		  <artifactId>amadeus-java</artifactId>
+		  <version>5.0.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
