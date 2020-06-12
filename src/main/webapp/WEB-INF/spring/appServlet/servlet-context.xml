@@ -39,7 +39,17 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10485760" /> <!-- 10MB 제한 -->
 	</beans:bean>
-
+	<!-- 에러메시지를 출력하기위해 스프링에서 제공하는 빈등록 -->
+	<!-- id값은 내부적으로 프레임워크가  messageSource으로 사용함으로 반드시 id에 messageSource값으로 설정-->
+	<beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	<!-- src밑 WEB-INF밑에 에러메시지를 저장한 properties파일을 저장 키값 = 에러메시지 키값은 에러코드.커맨드객체명.속성 =내용 
+		에러코드는 rejectValue에서 설정한 코드값 -->
+		<beans:property name="basenames"><!-- list에서 .properties확장자는 생략 -->
+			<beans:list>
+				<beans:value>src/main/resources/loginvalidate/ErrorMessage</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 	<!-- webapp의 어느 디렉토리에 스태틱 리소스(이미지,.css,.js등)를 두더라도 읽어 올수 있도록 설정하는 부분 -->
 	<default-servlet-handler />
 
@@ -56,8 +66,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan
-		base-package="com.kosmo.travelmaker" />
+	<context:component-scan base-package="com.kosmo.travelmaker" />
 
 
 
