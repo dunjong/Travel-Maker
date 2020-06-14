@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
 <header class="header">
@@ -24,16 +24,15 @@
 								</li>
 								<li><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown">REVIEW<span class="caret"></span>
-								</a>
+								</a> <!-- 탑 리뷰 드롭다운 여동준 -->
 									<ul class="dropdown-menu">
 										<li><a
-											href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">리뷰
-												리스트</a></li>
-										<li><a
-											href="<c:url value='/TravelMaker/ReviewView.kosmo'/>">리뷰
+											href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">리뷰
 												보기</a></li>
-										<li><a href="#">리뷰 작성</a></li>
-									</ul></li>
+										<li><a
+											href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">리뷰
+												작성하기</a></li>
+									</ul> <!-- 탑 리뷰 드롭다운 끝 --></li>
 								<li><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown">MEMBER<span class="caret"></span>
 								</a>
@@ -43,8 +42,10 @@
 										</li>
 										<li id="editmemberbtn" data-toggle="modal"><a href="#">회원가입</a></li>
 										<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
-										<li><a
-											href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">나의리뷰</a></li>
+										<li>
+											<!-- 리뷰리스트.코스모를 리뷰서치.코스모로 변경: 여동준 -->
+											<a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a>
+										</li>
 									</ul></li>
 								<li><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown">Customer Service<span class="caret"></span>
@@ -176,7 +177,7 @@
 
 <!--로그인 modal-->
 <div class="modal fade" id="loginmodal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -214,17 +215,16 @@
 						}
 					});
 					//]]>
-					 
-					
-					 
+
 					/* 로그인 관련 쿠키 생성 및 삭제 */
-					function setCookie( name , value , expired ){
-					 
-					 var date = new Date();
-					 date.setHours(date.getHours() + expired);
-					 var expried_set = "expries="+date.toGMTString();
-					 document.cookie = name + "=" + value + "; path=/;" + expried_set + ";"
-					 
+					function setCookie(name, value, expired) {
+
+						var date = new Date();
+						date.setHours(date.getHours() + expired);
+						var expried_set = "expries=" + date.toGMTString();
+						document.cookie = name + "=" + value + "; path=/;"
+								+ expried_set + ";"
+
 					}
 
 					/* 쿠키 삭제 다른방법
@@ -349,28 +349,32 @@
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel" style="color: black;">회원가입</h5>
 			</div>
-				<div class="modal-body">
-				<form action="<c:url value='/TravelMaker/ValidationCheck.do'/>" method="post">
+			<div class="modal-body">
+				<form action="<c:url value='/TravelMaker/ValidationCheck.do'/>"
+					method="post">
 					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">아이디</label>
 						<div>
-							<input type="text" class="form-control input-lg" name="id" value="${param.id}"
-								placeholder="아이디를 입력하세요">
-							
+							<input type="text" class="form-control input-lg" name="id"
+								value="${param.id}" placeholder="아이디를 입력하세요">
+
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">이름</label>
 						<div>
-							<input type="text" class="form-control input-lg" name="name" value="${param.name}"
-								placeholder="이름을 입력하세요">
-							<span style="color: red; font-size: .8em">${nameError}<form:errors path="formCommand.name" /></span></td>
+							<input type="text" class="form-control input-lg" name="name"
+								value="${param.name}" placeholder="이름을 입력하세요"> <span
+								style="color: red; font-size: .8em">${nameError}<form:errors
+									path="formCommand.name" /></span>
+							</td>
 						</div>
 					</div>
-					<div class="form-group">	
+					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">영문명</label>
 						<div>
-							<input type="text" class="form-control input-lg" name="en_name" value="${param.en_name}"
+							<input type="text" class="form-control input-lg" name="en_name"
+								value="${param.en_name}"
 								placeholder="영문명을 입력하세요(성 이름 순으로 공백없이 입력하세요 )">
 						</div>
 					</div>
@@ -382,7 +386,8 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-4 control-label" style="color: black;">비밀번호 확인</label>
+						<label class="col-sm-4 control-label" style="color: black;">비밀번호
+							확인</label>
 						<div>
 							<input type="password" class="form-control input-lg"
 								name="password_check" placeholder="비밀번호를 다시 입력하세요">
@@ -391,7 +396,8 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label" style="color: black;">나이</label>
 						<div class="col-sm-4">
-							<select class="form-control input-sm" name="age" value="${param.age}">
+							<select class="form-control input-sm" name="age"
+								value="${param.age}">
 								<option>출생 연도를 선택하세요</option>
 								<option value="1950">1950~1959</option>
 								<option value="1960">1960~1969</option>
@@ -402,7 +408,7 @@
 								<option value="2010">2010~2019</option>
 								<option value="2020">2020~</option>
 							</select>
-		
+
 						</div>
 					</div>
 					<div class="form-group">
@@ -410,14 +416,17 @@
 						<div class="col-sm-4">
 							<!--  가로 배치 -->
 							<div class="radio">
-								<label><input type="radio" value="남자" name="gender" <c:if test="${param.gender=='남자' }">checked</c:if>>남자</label>
-								<label><input type="radio" value="여자" name="gender" <c:if test="${param.gender=='여자' }">checked</c:if>>여자</label>
+								<label><input type="radio" value="남자" name="gender"
+									<c:if test="${param.gender=='남자' }">checked</c:if>>남자</label> <label><input
+									type="radio" value="여자" name="gender"
+									<c:if test="${param.gender=='여자' }">checked</c:if>>여자</label>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn" type="submit" >확인</button>
-						<button class="btn" type="button" data-dismiss="modal" style="color: red;">취소</button>
+						<button class="btn" type="submit">확인</button>
+						<button class="btn" type="button" data-dismiss="modal"
+							style="color: red;">취소</button>
 					</div>
 				</form>
 			</div>
@@ -440,5 +449,4 @@
 		e.preventDefault();
 		$('#editmembermodal').modal("show");
 	});
-	
 </script>

@@ -46,8 +46,10 @@
 		<div class="row">
 			<div class="col">
 				<div class="home_search_container">
+				<div>
 					<div class="home_search_title"><a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a></div>
 					<div class="home_search_title" ><a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a></div>
+					</div>
 					<div class="home_search_content">
 						<form action="#" class="home_search_form" id="home_search_form">
 							<div
@@ -111,7 +113,7 @@
 								<div class="intro_content">
 									<div class="intro_title">최고의 가격</div>
 									<div class="intro_subtitle">
-										<p>Sollicitudin mauris lobortis in.</p>
+										<p>Best Price</p>
 									</div>
 								</div>
 							</div>
@@ -127,7 +129,7 @@
 								<div class="intro_content">
 									<div class="intro_title">놀라운 서비스</div>
 									<div class="intro_subtitle">
-										<p>Nulla pretium tincidunt felis, nec.</p>
+										<p>Amazing Service</p>
 									</div>
 								</div>
 							</div>
@@ -146,7 +148,7 @@
 			<div class="row">
 				<div class="col text-center">
 					<div class="section_subtitle">simply amazing places</div>
-					<div class="section_title"><h2>Popular Destinations</h2></div>
+					<div class="section_title"><h2>인기 여행지</h2></div>
 				</div>
 			</div>
 			<div class="row destinations_row">
@@ -161,8 +163,8 @@
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Bali</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
+								<div class="destination_subtitle"><p>꿈의 섬 발리로 바로 떠나보세요</p></div>
+								<div class="destination_price">From $699</div>
 							</div>
 						</div>
 
@@ -173,8 +175,8 @@
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
+								<div class="destination_subtitle"><p>인도는 지금 몇시야?인도네시아로 떠나보세요</p></div>
+								<div class="destination_price">From $444</div>
 							</div>
 						</div>
 
@@ -185,8 +187,8 @@
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">San Francisco</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
+								<div class="destination_subtitle"><p>너 코가 어딨어? 산프란 시스코로 떠나보세요</p></div>
+								<div class="destination_price">From $699</div>
 							</div>
 						</div>
 
@@ -197,8 +199,8 @@
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Paris</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
+								<div class="destination_subtitle"><p>위이이이잉~~파리로 떠나보세요</p></div>
+								<div class="destination_price">From $8282</div>
 							</div>
 						</div>
 
@@ -209,8 +211,8 @@
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Phi Phi Island</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
+								<div class="destination_subtitle"><p>어딘지 모르는데 가보세요!</p></div>
+								<div class="destination_price">From $9</div>
 							</div>
 						</div>
 

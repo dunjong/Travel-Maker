@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- 리뷰 상세보기1.1.614 여동준 -->
+<!-- 리뷰 상세보기 여동준 -->
 <head>
 <style>
 #reviewBack {
@@ -15,7 +15,7 @@
 	background-position: center center;
 }
 
-.reviewView {
+.review {
 	max-height: 100%;
 	max-width: 100%;
 	background-color: white;
@@ -53,11 +53,11 @@
 	border-radius: 20px;
 }
 
-.reviewViewFooterBack {
+.reviewFooterBack {
 	text-align: center;
 }
 
-.reviewViewFooter {
+.reviewFooter {
 	
 }
 
@@ -86,9 +86,9 @@
 		<div class="row">
 			<div class="col">
 				<div class="home_search_container">
-					<div class="home_search_title">리뷰 상세보기</div>
+					<div class="home_search_title">리뷰</div>
 					<div class="home_search_content">
-						<div class="reviewView">
+						<div class="review">
 							<div class="reviewText">
 								<br>
 								<h4 class="reviewTextTittle">가족끼리 구경하기 좋아요</h4>
@@ -103,8 +103,8 @@
 								<img src="<c:url value='/images/reviewImage1.PNG'/>"
 									alt="리뷰지도/사진">
 							</div>
-							<div class="reviewViewFooterBack">
-								<div class="reviewViewFooter">
+							<div class="reviewFooterBack">
+								<div class="reviewFooter">
 									<div class="likesAndBack">
 										<div class="likes">
 											<br> <img src="<c:url value='/images/likes.png'/>"
@@ -112,7 +112,7 @@
 										</div>
 										<div class="back">
 											<br> <a
-												href="<c:url value='/TravelMaker/ReviewList.kosmo'/>"> <img
+												href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
 												src="<c:url value='/images/back.png'/>" alt="돌아가기">
 											</a><br> <span>목록으로 돌아가기</span>
 										</div>
