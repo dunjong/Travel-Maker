@@ -67,8 +67,8 @@
 	<main id="main">
 
 		<!-- ======= searchImages Section ======= -->
-		<section id="searchImages" class="searchImages" style="background-color: yellow;">
-			<div class="container" data-aos="fade-right">
+		<section id="searchImages" class="searchImages">
+			<div class="container" data-aos="fade-right" >
 
 				<div class="section-title">
 					<h2>Search Images</h2>
@@ -76,68 +76,53 @@
 				</div>
 
 				<div class="row">
-					<div class="col-lg-6">
+					<div class="col-lg-6" style="border-right:1px solid green;">
 						<div class="col-xs-12 example">
 							<img draggable="true" id="drag1" src="<c:url value='/plugins/assets/img/exampleImage1.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
 							<img draggable="true" id="drag2" src="<c:url value='/plugins/assets/img/exampleImage2.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
 							<img draggable="true" id="drag3" src="<c:url value='/plugins/assets/img/profile-img.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
 						</div>
-						<div id="div1" class="col-xs-12 picture" ondrop="drop(event)" ondragover="allowDrop(event)" style="width:250px;height:250px;position:relative;top:10%;left:15%;border:1px green solid;"></div>
+						<div id="div1" class="col-xs-12 picture" ondrop="drop(event)" ondragover="allowDrop(event)" style="width:200px;height:200px;position:relative;top:10%;left:15%;border:1px green solid;"></div>
 					</div>
-					<div class="col-lg-6 pt-4 pt-lg-0"
-						style="background-color: white;">
+					<div class="col-lg-6 pt-4 pt-lg-0 tagview">
 						<h3>사진 관련 태그들</h3>
 
 						<div class="row">
 							<div class="col-lg-6">
 								<ul>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
 								</ul>
 							</div>
 							<div class="col-lg-6">
 								<ul>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
 									
 								</ul>
 							</div>
-							<div>
+							<div class="citysearch-div">
 								<button class="citysearch">관련 도시 검색</button>
 							</div>
 						</div>
 					</div>
 				</div>
-
-			</div>
-		</section>
-		<!-- End searchImages Section -->
-
-		<!-- ======= Facts Section ======= -->
-		<section id="facts" class="facts">
-			<div class="container" data-aos="fade-up">
-
-				<div class="section-title">
-					<h2>사진의 특성들</h2>
-					<p>당신이 골라 넣은 사진에 중요한 요소들의 퍼센트 표</p>
-				</div>
-
-				<div class="row">
+				<div class="row search">
 
 					<div class="col-lg-3 col-md-6">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">90</span>
+								data-toggle="counter-up">90</span>%
 							<p>바다</p>
 						</div>
 					</div>
@@ -145,7 +130,7 @@
 					<div class="col-lg-3 col-md-6 mt-5 mt-md-0">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">92</span>
+								data-toggle="counter-up">92</span>%
 							<p>랜드마크</p>
 						</div>
 					</div>
@@ -153,7 +138,7 @@
 					<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">97</span>
+								data-toggle="counter-up">97</span>%
 							<p>보트</p>
 						</div>
 					</div>
@@ -161,16 +146,16 @@
 					<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">95</span>
+								data-toggle="counter-up">95</span>%
 							<p>물</p>
 						</div>
 					</div>
 
 				</div>
-
 			</div>
 		</section>
-		<!-- End Facts Section -->
+		<!-- End searchImages Section -->
+
 
 		<!-- ======= Skills Section ======= -->
 		<section id="skills" class="skills section-bg">

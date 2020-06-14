@@ -36,15 +36,22 @@ h1, h2, h3, h4, h5, h6 {
 	font-size:20px;
 	opacity: 0.7;
 }
+.citysearch-div{
+	text-align:center;
+}
 .citysearch {
+	
 	margin-top:10px;	
+	margin-left:10px;
 	color: #A3DEEC;
 	font-weight:bold;
 	background-color: #067ded;
 	border-color: #0563bb;
 	font-size:20px;
 	opacity: 0.7;
+	border-radius: 5px;
 }
+
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -455,22 +462,28 @@ section {
 	width:30%;
 	height:130px;
 }
-.searchImages .content h3 {
+#searchImages{
+  width: 100%;
+  height: 100vh;
+  
+}
+.searchImages h3 {
   font-weight: 700;
   font-size: 26px;
   color: #728394;
+  
 }
 
-.searchImages .content ul {
+.searchImages ul {
   list-style: none;
   padding: 0;
 }
 
-.searchImages .content ul li {
+.searchImages ul li {
   padding-bottom: 10px;
 }
 
-.searchImages .content ul i {
+.searchImages ul i {
   font-size: 20px;
   padding-right: 2px;
   color: #0563bb;
@@ -479,11 +492,7 @@ section {
 .searchImages .content p:last-child {
   margin-bottom: 0;
 }
-
-/*--------------------------------------------------------------
-# Facts
---------------------------------------------------------------*/
-.facts .count-box {
+.searchImages .count-box {
   padding: 30px 30px 25px 30px;
   margin-top: 30px;
   width: 100%;
@@ -492,7 +501,7 @@ section {
   background: #fff;
 }
 
-.facts .count-box i {
+.searchImages .count-box i {
   position: absolute;
   top: -25px;
   left: 50%;
@@ -504,19 +513,24 @@ section {
   border-radius: 50px;
 }
 
-.facts .count-box span {
+.searchImages .count-box span {
   font-size: 36px;
   display: block;
   font-weight: 600;
   color: #011426;
 }
 
-.facts .count-box p {
+.searchImages .count-box p {
   padding: 0;
   margin: 0;
   font-family: "Raleway", sans-serif;
   font-size: 14px;
 }
+
+.search{
+	margin-top: 100px;
+}
+
 
 /*--------------------------------------------------------------
 # Akills

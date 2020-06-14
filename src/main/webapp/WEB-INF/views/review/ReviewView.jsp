@@ -28,8 +28,13 @@
 	margin-left: 20px;
 }
 
-.reviewText h4 {
+.reviewTextTittle {
 	text-align: center;
+}
+
+.reviewPlaceInfomation {
+	font-weight: bold;
+	color: #389dff;
 }
 
 .reviewText p {
@@ -65,9 +70,13 @@
 .likesAndBack img {
 	border-radius: 20px;
 }
-.likes{
+
+.likes {
+	
 }
-.back{
+
+.back {
+	
 }
 </style>
 </head>
@@ -82,7 +91,11 @@
 						<div class="reviewView">
 							<div class="reviewText">
 								<br>
-								<h4>가족끼리 구경하기 좋아요</h4>
+								<h4 class="reviewTextTittle">가족끼리 구경하기 좋아요</h4>
+								<a href="https://www.google.com/maps/search/몽키+포레스트+거리"
+									target="_blank">
+									<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트 거리</h5>
+								</a>
 								<p>숲이 생각보다 꽤 크고 원숭이가 엄청 많아요 ㅋㅋㅋㅋ 나무들도 넘 멋있고 원숭이도 가까이서보고 중간에
 									미술관도 한번 구경하고~ 다만 겁나 더워요.... 커피가 비쌈..</p>
 							</div>
