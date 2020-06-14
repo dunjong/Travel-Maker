@@ -20,6 +20,10 @@ public class PlannerController {
 	public String CitySearch() {
 		return "planner/CitySearch.main";
 	}
+	@RequestMapping("DayPlanSava.kosmo")
+	public String DayPlanSava() {
+		return "planner/Plan.tiles";
+	}
 	@RequestMapping("SpotList.kosmo")
 	public String SpotList() {
 		return "planner/SpotList.tiles";

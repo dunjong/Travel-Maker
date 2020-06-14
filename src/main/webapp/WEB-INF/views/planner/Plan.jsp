@@ -495,13 +495,13 @@ var day=1;
 	  var bounds = new google.maps.LatLngBounds();
 	  var logo;
 	  if(nearSearchType=='lodging'){
-	  	logo='https://www.iconsdb.com/icons/preview/deep-pink/hotel-2-xxl.png';
+	  	logo='<c:url value="/images/hotelIcon.png"/>';
 	  }
 	  else if(nearSearchType=='restaurant'){
-		logo='https://www.iconsdb.com/icons/preview/deep-pink/pizza-3-xxl.png';
+		logo='<c:url value="/images/foodIcon.png"/>';
 	  }
 	  else{
-		logo='https://www.iconsdb.com/icons/preview/barbie-pink/star-6-xxl.png';
+		logo='<c:url value="/images/spotIcon.png"/>';
 	  }
 	  
       
@@ -565,13 +565,13 @@ var day=1;
 	 
 	 var logo;
 	  if(nearSearchType=='lodging'){
-	  	logo='https://www.iconsdb.com/icons/preview/deep-pink/hotel-2-xxl.png';
+	  	logo='<c:url value="/images/hotelIcon.png"/>';
 	  }
 	  else if(nearSearchType=='restaurant'){
-		logo='https://www.iconsdb.com/icons/preview/deep-pink/pizza-3-xxl.png';
+		logo='<c:url value="/images/foodIcon.png"/>';
 	  }
 	  else{
-		logo='https://www.iconsdb.com/icons/preview/barbie-pink/star-6-xxl.png';
+		logo='<c:url value="/images/spotIcon.png"/>';
 	  }
 	 
      document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
@@ -811,7 +811,7 @@ var day=1;
 				</div>
 				<div class="col-sm-9" style="height: 700px;margin-bottom:20px">
 					<div id="floating-panel">
-						<h3><span id="type">맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!</span><small id=day>1일차 플랜</small></h3>
+						<h4><span id="type">맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!</span><small id=day>1일차 플랜</small></h4>
 				    </div>
 					<div id="map"></div>
 				</div>
