@@ -107,7 +107,7 @@
 									<li><i class="icofont-rounded-right"></i><strong>Tourism</strong><input type="checkbox"/></li>
 									<li><i class="icofont-rounded-right"></i><strong>Historic Site</strong><input type="checkbox"/></li>
 									<li><i class="icofont-rounded-right"></i><strong>Vacation</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>Trip</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Snow</strong><input type="checkbox"/></li>
 									
 								</ul>
 							</div>
@@ -123,7 +123,7 @@
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
 								data-toggle="counter-up">99</span>%
-							<p>잘생김</p>
+							<p>바나나</p>
 						</div>
 					</div>
 
@@ -131,7 +131,7 @@
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
 								data-toggle="counter-up">91</span>%
-							<p>바나나</p>
+							<p>잘생김</p>
 						</div>
 					</div>
 
@@ -139,15 +139,15 @@
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
 								data-toggle="counter-up">88</span>%
-							<p>귀여움</p>
+							<p>노란색</p>
 						</div>
 					</div>
 
 					<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">99.9</span>%
-							<p>애교</p>
+								data-toggle="counter-up">88</span>%
+							<p>피곤함</p>
 						</div>
 					</div>
 
@@ -209,7 +209,7 @@
 								<h4>App 1</h4>
 								<p>App</p>
 								<div class="portfolio-links">
-									<a href="<c:url value='/plugins/img/portfolio/portfolio-1.jpg'/>"
+									<a href="<c:url value='/plugins/assets/img/cityimage/세부.jpg'/>"
 										data-gall="portfolioGallery" class="venobox" title="App 1"><i
 										class="bx bx-plus"></i></a> <a href="portfolio-details.html"
 										data-gall="portfolioDetailsGallery" data-vbtype="iframe"
