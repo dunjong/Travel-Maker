@@ -77,10 +77,10 @@
 
 				<div class="row">
 					<div class="col-lg-6" style="border-right:1px solid green;">
-						<div class="col-xs-12 example">
-							<img draggable="true" id="drag1" src="<c:url value='/plugins/assets/img/exampleImage1.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
-							<img draggable="true" id="drag2" src="<c:url value='/plugins/assets/img/exampleImage2.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
-							<img draggable="true" id="drag3" src="<c:url value='/plugins/assets/img/profile-img.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
+								<div class="col-xs-12 example">
+							<img draggable="true" id="drag1" src="<c:url value='/plugins/assets/img/bananajoong.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
+							<img draggable="true" id="drag2" src="<c:url value='/plugins/assets/img/exampleI2.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
+							<img draggable="true" id="drag3" src="<c:url value='/plugins/assets/img/profile-img123.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
 						</div>
 						<div id="div1" class="col-xs-12 picture" ondrop="drop(event)" ondragover="allowDrop(event)" style="width:200px;height:200px;position:relative;top:10%;left:15%;border:1px green solid;"></div>
 					</div>
@@ -90,24 +90,24 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<ul>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Beach</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>City</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Sky</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Mountain</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Ocean</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Shopping</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Club</strong><input type="checkbox"/></li>
 								</ul>
 							</div>
 							<div class="col-lg-6">
 								<ul>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Market</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Golf</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Activity</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Tourism</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Historic Site</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Vacation</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Snow</strong><input type="checkbox"/></li>
 									
 								</ul>
 							</div>
@@ -122,32 +122,32 @@
 					<div class="col-lg-3 col-md-6">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">90</span>%
-							<p>바다</p>
+								data-toggle="counter-up">99</span>%
+							<p>바나나</p>
 						</div>
 					</div>
 
 					<div class="col-lg-3 col-md-6 mt-5 mt-md-0">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">92</span>%
-							<p>랜드마크</p>
+								data-toggle="counter-up">91</span>%
+							<p>잘생김</p>
 						</div>
 					</div>
 
 					<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">97</span>%
-							<p>보트</p>
+								data-toggle="counter-up">88</span>%
+							<p>노란색</p>
 						</div>
 					</div>
 
 					<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">95</span>%
-							<p>물</p>
+								data-toggle="counter-up">88</span>%
+							<p>피곤함</p>
 						</div>
 					</div>
 
@@ -172,211 +172,6 @@
 			</div>
 		</section>
 		<!-- End Resume Section -->
-
-		<!-- ======= Portfolio Section ======= -->
-		<section id="portfolio" class="portfolio section-bg">
-			<div class="container" data-aos="fade-up">
-
-				<div class="section-title">
-					<h2>Portfolio</h2>
-					<p>Magnam dolores commodi suscipit. Necessitatibus eius
-						consequatur ex aliquid fuga eum quidem. Sit sint consectetur
-						velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit
-						suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem
-						hic quas.</p>
-				</div>
-
-				<div class="row">
-					<div class="col-lg-12 d-flex justify-content-center"
-						data-aos="fade-up" data-aos-delay="100">
-						<ul id="portfolio-flters">
-							<li data-filter="*" class="filter-active">All</li>
-							<li data-filter=".filter-app">App</li>
-							<li data-filter=".filter-card">Card</li>
-							<li data-filter=".filter-web">Web</li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="row portfolio-container" data-aos="fade-up"
-					data-aos-delay="200">
-
-					<div class="col-lg-4 col-md-6 portfolio-item filter-app">
-						<div class="portfolio-wrap">
-							<img src="<c:url value='/plugins/assets/img/portfolio/portfolio-1.jpg'/>" class="img-fluid"
-								alt="">
-							<div class="portfolio-info">
-								<h4>App 1</h4>
-								<p>App</p>
-								<div class="portfolio-links">
-									<a href="<c:url value='/plugins/img/portfolio/portfolio-1.jpg'/>"
-										data-gall="portfolioGallery" class="venobox" title="App 1"><i
-										class="bx bx-plus"></i></a> <a href="portfolio-details.html"
-										data-gall="portfolioDetailsGallery" data-vbtype="iframe"
-										class="venobox" title="Portfolio Details"><i
-										class="bx bx-link"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 portfolio-item filter-web">
-						<div class="portfolio-wrap">
-							<img src="<c:url value='/plugins/assets/img/portfolio/portfolio-2.jpg'/>" class="img-fluid"
-								alt="">
-							<div class="portfolio-info">
-								<h4>Web 3</h4>
-								<p>Web</p>
-								<div class="portfolio-links">
-									<a href="<c:url value='/plugins/assets/img/portfolio/portfolio-2.jpg'/>"
-										data-gall="portfolioGallery" class="venobox" title="Web 3"><i
-										class="bx bx-plus"></i></a> <a href="portfolio-details.html"
-										data-gall="portfolioDetailsGallery" data-vbtype="iframe"
-										class="venobox" title="Portfolio Details"><i
-										class="bx bx-link"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 portfolio-item filter-app">
-						<div class="portfolio-wrap">
-							<img src="<c:url value='/plugins/assets/img/portfolio/portfolio-3.jpg'/>" class="img-fluid"
-								alt="">
-							<div class="portfolio-info">
-								<h4>App 2</h4>
-								<p>App</p>
-								<div class="portfolio-links">
-									<a href="<c:url value='/plugins/assets/img/portfolio/portfolio-3.jpg'/>"
-										data-gall="portfolioGallery" class="venobox" title="App 2"><i
-										class="bx bx-plus"></i></a> <a href="portfolio-details.html"
-										data-gall="portfolioDetailsGallery" data-vbtype="iframe"
-										class="venobox" title="Portfolio Details"><i
-										class="bx bx-link"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 portfolio-item filter-card">
-						<div class="portfolio-wrap">
-							<img src="<c:url value='/plugins/assets/img/portfolio/portfolio-4.jpg'/>" class="img-fluid"
-								alt="">
-							<div class="portfolio-info">
-								<h4>Card 2</h4>
-								<p>Card</p>
-								<div class="portfolio-links">
-									<a href="<c:url value='/plugins/assets/img/portfolio/portfolio-4.jpg'/>"
-										data-gall="portfolioGallery" class="venobox" title="Card 2"><i
-										class="bx bx-plus"></i></a> <a href="portfolio-details.html"
-										data-gall="portfolioDetailsGallery" data-vbtype="iframe"
-										class="venobox" title="Portfolio Details"><i
-										class="bx bx-link"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 portfolio-item filter-web">
-						<div class="portfolio-wrap">
-							<img src="<c:url value='/plugins/assets/img/portfolio/portfolio-5.jpg'/>" class="img-fluid"
-								alt="">
-							<div class="portfolio-info">
-								<h4>Web 2</h4>
-								<p>Web</p>
-								<div class="portfolio-links">
-									<a href="<c:url value='/plugins/assets/img/portfolio/portfolio-5.jpg'/>"
-										data-gall="portfolioGallery" class="venobox" title="Web 2"><i
-										class="bx bx-plus"></i></a> <a href="portfolio-details.html"
-										data-gall="portfolioDetailsGallery" data-vbtype="iframe"
-										class="venobox" title="Portfolio Details"><i
-										class="bx bx-link"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 portfolio-item filter-app">
-						<div class="portfolio-wrap">
-							<img src="<c:url value='/plugins/assets/img/portfolio/portfolio-6.jpg'/>" class="img-fluid"
-								alt="">
-							<div class="portfolio-info">
-								<h4>App 3</h4>
-								<p>App</p>
-								<div class="portfolio-links">
-									<a href="<c:url value='/plugins/assets/img/portfolio/portfolio-6.jpg'/>"
-										data-gall="portfolioGallery" class="venobox" title="App 3"><i
-										class="bx bx-plus"></i></a> <a href="portfolio-details.html"
-										data-gall="portfolioDetailsGallery" data-vbtype="iframe"
-										class="venobox" title="Portfolio Details"><i
-										class="bx bx-link"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 portfolio-item filter-card">
-						<div class="portfolio-wrap">
-							<img src="<c:url value='/plugins/assets/img/portfolio/portfolio-7.jpg'/>" class="img-fluid"
-								alt="">
-							<div class="portfolio-info">
-								<h4>Card 1</h4>
-								<p>Card</p>
-								<div class="portfolio-links">
-									<a href="<c:url value='/plugins/assets/img/portfolio/portfolio-7.jpg'/>"
-										data-gall="portfolioGallery" class="venobox" title="Card 1"><i
-										class="bx bx-plus"></i></a> <a href="portfolio-details.html"
-										data-gall="portfolioDetailsGallery" data-vbtype="iframe"
-										class="venobox" title="Portfolio Details"><i
-										class="bx bx-link"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 portfolio-item filter-card">
-						<div class="portfolio-wrap">
-							<img src="<c:url value='/plugins/assets/img/portfolio/portfolio-8.jpg'/>" class="img-fluid"
-								alt="">
-							<div class="portfolio-info">
-								<h4>Card 3</h4>
-								<p>Card</p>
-								<div class="portfolio-links">
-									<a href="<c:url value='/plugins/assets/img/portfolio/portfolio-8.jpg'/>"
-										data-gall="portfolioGallery" class="venobox" title="Card 3"><i
-										class="bx bx-plus"></i></a> <a href="portfolio-details.html"
-										data-gall="portfolioDetailsGallery" data-vbtype="iframe"
-										class="venobox" title="Portfolio Details"><i
-										class="bx bx-link"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 portfolio-item filter-web">
-						<div class="portfolio-wrap">
-							<img src="assets/img/portfolio/portfolio-9.jpg'/>" class="img-fluid"
-								alt="">
-							<div class="portfolio-info">
-								<h4>Web 3</h4>
-								<p>Web</p>
-								<div class="portfolio-links">
-									<a href="<c:url value='/plugins/assets/img/portfolio/portfolio-9.jpg'/>"
-										data-gall="portfolioGallery" class="venobox" title="Web 3"><i
-										class="bx bx-plus"></i></a> <a href="portfolio-details.html"
-										data-gall="portfolioDetailsGallery" data-vbtype="iframe"
-										class="venobox" title="Portfolio Details"><i
-										class="bx bx-link"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-		</section>
-		<!-- End Portfolio Section -->
 
 		<!-- ======= Testimonials Section ======= -->
 		<section id="testimonials" class="testimonials section-bg">
@@ -451,88 +246,6 @@
 		</section>
 		<!-- End Testimonials Section -->
 
-		<!-- ======= Contact Section ======= -->
-		<section id="contact" class="contact">
-			<div class="container" data-aos="fade-up">
-
-				<div class="section-title">
-					<h2>Contact</h2>
-				</div>
-
-				<div class="row mt-1">
-
-					<div class="col-lg-4">
-						<div class="info">
-							<div class="address">
-								<i class="icofont-google-map"></i>
-								<h4>Location:</h4>
-								<p>A108 Adam Street, New York, NY 535022</p>
-							</div>
-
-							<div class="email">
-								<i class="icofont-envelope"></i>
-								<h4>Email:</h4>
-								<p>info@example.com</p>
-							</div>
-
-							<div class="phone">
-								<i class="icofont-phone"></i>
-								<h4>Call:</h4>
-								<p>+1 5589 55488 55s</p>
-							</div>
-
-						</div>
-
-					</div>
-
-					<div class="col-lg-8 mt-5 mt-lg-0">
-
-						<form action="forms/contact.php" method="post" role="form"
-							class="php-email-form">
-							<div class="form-row">
-								<div class="col-md-6 form-group">
-									<input type="text" name="name" class="form-control" id="name"
-										placeholder="Your Name" data-rule="minlen:4"
-										data-msg="Please enter at least 4 chars" />
-									<div class="validate"></div>
-								</div>
-								<div class="col-md-6 form-group">
-									<input type="email" class="form-control" name="email"
-										id="email" placeholder="Your Email" data-rule="email"
-										data-msg="Please enter a valid email" />
-									<div class="validate"></div>
-								</div>
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" name="subject"
-									id="subject" placeholder="Subject" data-rule="minlen:4"
-									data-msg="Please enter at least 8 chars of subject" />
-								<div class="validate"></div>
-							</div>
-							<div class="form-group">
-								<textarea class="form-control" name="message" rows="5"
-									data-rule="required" data-msg="Please write something for us"
-									placeholder="Message"></textarea>
-								<div class="validate"></div>
-							</div>
-							<div class="mb-3">
-								<div class="loading">Loading</div>
-								<div class="error-message"></div>
-								<div class="sent-message">Your message has been sent.
-									Thank you!</div>
-							</div>
-							<div class="text-center">
-								<button type="submit">Send Message</button>
-							</div>
-						</form>
-
-					</div>
-
-				</div>
-
-			</div>
-		</section>
-		<!-- End Contact Section -->
 
 	<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
 		<div
@@ -543,9 +256,4 @@
 	</form>
 </main>
 	<!-- End #main -->
-
-
-
-
-
 

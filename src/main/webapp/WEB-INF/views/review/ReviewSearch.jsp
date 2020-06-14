@@ -121,7 +121,7 @@
 									<option value="all">전체 검색</option>
 								</select> <input type="text" id="reviewSearch" class="search_input"
 									placeholder="검색어를 입력하세요" required="required">
-								<button id="reviewSearchButton" style="">리뷰 검색</button>
+								<button id="reviewSearchButton">리뷰 검색</button>
 							</div>
 						</form>
 							<!-- 여기부터 반복처리해야할 부분 -->
