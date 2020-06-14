@@ -38,8 +38,8 @@
             deplist.innerHTML=''
             var depstr=[]
             var depname=[]
-             var value=$(this).val();
-             var settings = {
+            var value=$(this).val();
+            var settings = {
                    "async" : true,
                    "crossDomain" : true,
                    "url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
