@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- 리뷰리스트 여동준 -->
+<!-- 리뷰리스트1.4.614 여동준 -->
 <head>
 <style>
 #reviewBack {
