@@ -75,12 +75,12 @@
 					<p>가보고싶은 곳의 사진을 넣어 자신의 여행계획을 세워보는 것은 어떨까요?</p>
 				</div>
 
-				<div class="row">
+				<div class="row"> 
 					<div class="col-lg-6" style="border-right:1px solid green;">
 						<div class="col-xs-12 example">
-							<img draggable="true" id="drag1" src="<c:url value='/plugins/assets/img/exampleImage1.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
-							<img draggable="true" id="drag2" src="<c:url value='/plugins/assets/img/exampleImage2.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
-							<img draggable="true" id="drag3" src="<c:url value='/plugins/assets/img/profile-img.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
+							<img draggable="true" id="drag1" src="<c:url value='/plugins/assets/img/bananajoong.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
+							<img draggable="true" id="drag2" src="<c:url value='/plugins/assets/img/exampleI2.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
+							<img draggable="true" id="drag3" src="<c:url value='/plugins/assets/img/profile-img123.jpg'/>" ondragstart="drag(event)" class="img-find" alt="">
 						</div>
 						<div id="div1" class="col-xs-12 picture" ondrop="drop(event)" ondragover="allowDrop(event)" style="width:200px;height:200px;position:relative;top:10%;left:15%;border:1px green solid;"></div>
 					</div>
@@ -90,24 +90,24 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<ul>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Beach</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>City</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Sky</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Mountain</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Ocean</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Shopping</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Club</strong><input type="checkbox"/></li>
 								</ul>
 							</div>
 							<div class="col-lg-6">
 								<ul>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
-									<li><i class="icofont-rounded-right"></i><strong>피지컬</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Market</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Golf</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Activity</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Tourism</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Historic Site</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Vacation</strong><input type="checkbox"/></li>
+									<li><i class="icofont-rounded-right"></i><strong>Trip</strong><input type="checkbox"/></li>
 									
 								</ul>
 							</div>
@@ -122,32 +122,32 @@
 					<div class="col-lg-3 col-md-6">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">90</span>%
-							<p>바다</p>
+								data-toggle="counter-up">99</span>%
+							<p>잘생김</p>
 						</div>
 					</div>
 
 					<div class="col-lg-3 col-md-6 mt-5 mt-md-0">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">92</span>%
-							<p>랜드마크</p>
+								data-toggle="counter-up">91</span>%
+							<p>바나나</p>
 						</div>
 					</div>
 
 					<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">97</span>%
-							<p>보트</p>
+								data-toggle="counter-up">88</span>%
+							<p>귀여움</p>
 						</div>
 					</div>
 
 					<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 						<div class="count-box">
 							<i class="icofont-simple-smile"></i> <span
-								data-toggle="counter-up">95</span>%
-							<p>물</p>
+								data-toggle="counter-up">99.9</span>%
+							<p>애교</p>
 						</div>
 					</div>
 
@@ -390,7 +390,7 @@
 					data-aos-delay="100">
 
 					<div class="testimonial-item">
-						<img src="<c:url value='/plugins/assets/img/bananaman.jpg'/>"
+						<img src="<c:url value='/plugins/assets/img/bananajoong.jpg'/>"
 							class="testimonial-img" alt="">
 						<h3>바나나맨</h3>
 						<h4>banana &amp; banana</h4>
