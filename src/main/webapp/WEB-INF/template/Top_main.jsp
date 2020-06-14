@@ -13,15 +13,13 @@
 
 		<nav class="nav-menu">
 			<ul>
-				<li class="active"><a href="#hero"><i class="bx bx-home"></i>
+				<li><a href='<c:url value="/"/>'><i class="bx bx-home"></i>
 						<span>Home</span></a></li>
-				<li><a href="#searchImages"><i class="bx bx-user"></i> <span>Search
-							Images</span></a></li>
-				<li><a href="#resume"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
-				<li><a href="#portfolio"><i class="bx bx-book-content"></i>
-						<span>Portfolio</span></a></li>
-				<li><a href="#services"><i class="bx bx-server"></i> <span>Services</span></a></li>
-				<li><a href="#contact"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+				<li class="active"><a href="#hero"><i class="bx bx-user"></i> <span>Search</span></a></li>
+				<li><a href="#searchImages"><i class="bx bx-file-blank"></i> <span>SearchImages</span></a></li>
+				<li><a href="#resume"><i class="bx bx-book-content"></i>
+						<span>city</span></a></li>
+				<li><a href="#testimonials"><i class="bx bx-server"></i> <span>Tip</span></a></li>
 			</ul>
 		</nav>
 		<!-- .nav-menu -->
