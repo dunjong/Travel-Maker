@@ -51,7 +51,7 @@ var lat,lng;
 					"method" : "GET",
 					"headers" : {
 						"x-rapidapi-host" : "tripadvisor1.p.rapidapi.com",
-						"x-rapidapi-key" : "6de9a0d073msh67d5fe999742a59p1e7ba1jsnf666e820bd1b"
+						"x-rapidapi-key" : "9095c68cdcmshe3e836ea4f7917bp1fa2a1jsn44f214b94ffc"
 					}
 			}//settings
 			$.ajax(settings).done(

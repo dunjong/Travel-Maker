@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -37,7 +36,7 @@
 						<h1>ARE YOU READY FOR TRAVEL?</h1>
 						<p>
 							가고 싶은 곳을 입력해보세요 ex)<span class="typed"
-								data-typed-items="콴기진=쌉변태, 다낭, 괌, 발리, 보라카이"></span>
+								data-typed-items="세부, 다낭, 괌, 발리, 보라카이"></span>
 						</p>
 						<div>
 							<input type="text" name="searchWord" class="form-control"
