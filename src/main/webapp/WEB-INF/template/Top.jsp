@@ -39,14 +39,8 @@
 								</a>
 									<ul class="dropdown-menu">
 										<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
-										<li><a
-											href="<c:url value='/TravelMaker/MyInfoEdit.kosmo'/>">회원정보수정</a></li>
-										<li><a
-											href="<c:url value='/TravelMaker/BookMark.kosmo'/>">즐겨찾기</a></li>
-
 										<li id="loginbtn" data-toggle="modal"><a href="#">로그인</a>
 										</li>
-
 										<li id="editmemberbtn" data-toggle="modal"><a href="#">회원가입</a></li>
 										<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
 										<li><a
@@ -149,8 +143,6 @@
 			</a>
 				<ul class="dropdown-menu">
 					<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
-					<li><a href="<c:url value='/TravelMaker/MyInfoEdit.kosmo'/>">회원정보수정</a></li>
-					<li><a href="<c:url value='/TravelMaker/BookMark.kosmo'/>">즐겨찾기</a></li>
 					<li><a href="#" id="loginbtn">로그인</a></li>
 					<li><a href="#" id="editmemberbtn">회원가입</a></li>
 					<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
@@ -204,10 +196,7 @@
 			<div class="modal-body">
 				<label>간편 로그인</label>
 				<div></div>
-				<!-- <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
-
 				<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-
 				<a id="kakao-login-btn"></a> <a
 					href="http://developers.kakao.com/logout"></a>
 				<script type='text/javascript'>
@@ -225,25 +214,17 @@
 						}
 					});
 					//]]>
-
-					// 로그인 및 로그아웃 버튼 생성 처리
-					var cookiedata = document.cookie;
-
-					if (cookiedata.indexOf('kakao_login=done') < 0) {
-						createLoginKakao();
-					} else {
-						createLogoutKakao();
-					}
-
+					 
+					
+					 
 					/* 로그인 관련 쿠키 생성 및 삭제 */
-					function setCookie(name, value, expired) {
-
-						var date = new Date();
-						date.setHours(date.getHours() + expired);
-						var expried_set = "expries=" + date.toGMTString();
-						document.cookie = name + "=" + value + "; path=/;"
-								+ expried_set + ";"
-
+					function setCookie( name , value , expired ){
+					 
+					 var date = new Date();
+					 date.setHours(date.getHours() + expired);
+					 var expried_set = "expries="+date.toGMTString();
+					 document.cookie = name + "=" + value + "; path=/;" + expried_set + ";"
+					 
 					}
 
 					/* 쿠키 삭제 다른방법
@@ -276,7 +257,7 @@
 						}
 
 						return "";
-					} -->
+					}
 
 					/* // 카카오 script key 입력
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5');
@@ -332,16 +313,14 @@
 				</script>
 
 				<!-- 네이버 아이디로 로그인 -->
-
 				<script type="text/javascript"
 					src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
 					charset="utf-8"></script>
-
 				<div id="naverIdLogin"></div>
 				<script type="text/javascript">
 					var naverLogin = new naver.LoginWithNaverId({
 						clientId : "9S4_IFNQ8VcUuiO1dsY5",
-						callbackUrl : "http://localhost:8787/travelmaker/",
+						callbackUrl : "http://localhost:9506",
 						isPopup : false,
 						loginButton : {
 							color : "green",

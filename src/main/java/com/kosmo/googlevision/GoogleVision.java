@@ -22,7 +22,7 @@ public static void main(String... args) throws Exception {
 	 System.out.println("들어옴");
 
    // The path to the image file to annotate
-   String fileName = "D:\\LDM\\갬성 이미지들\\physical.jpg";
+   String fileName = "C:\\Users\\kosmo_06\\git\\Travel-Maker\\src\\main\\webapp\\images\\hotels.jpg";
    
    // Reads the image file into memory
    Path path = Paths.get(fileName);
