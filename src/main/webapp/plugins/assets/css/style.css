@@ -36,6 +36,15 @@ h1, h2, h3, h4, h5, h6 {
 	font-size:20px;
 	opacity: 0.7;
 }
+.citysearch {
+	margin-top:10px;	
+	color: #A3DEEC;
+	font-weight:bold;
+	background-color: #067ded;
+	border-color: #0563bb;
+	font-size:20px;
+	opacity: 0.7;
+}
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
