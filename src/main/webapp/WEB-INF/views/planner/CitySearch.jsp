@@ -33,10 +33,10 @@
 				
 				<div class="jb-text">
 					<div class="container" data-aos="zoom-in" data-aos-delay="100">
-						<h1>ARE YOU READY FOR TRAVEL?</h1>
+						<h1>ARE YOU READY TO TRAVEL?</h1>
 						<p>
 							가고 싶은 곳을 입력해보세요 ex)<span class="typed"
-								data-typed-items="콴기진=쌉변태, 다낭, 괌, 발리, 보라카이"></span>
+								data-typed-items="세부, 다낭, 괌, 발리, 보라카이"></span>
 						</p>
 						<div>
 							<input type="text" name="searchWord" class="form-control"
@@ -172,7 +172,7 @@
 			</div>
 		</section>
 		<!-- End Resume Section -->
-
+		
 		<!-- ======= Portfolio Section ======= -->
 		<section id="portfolio" class="portfolio section-bg">
 			<div class="container" data-aos="fade-up">
