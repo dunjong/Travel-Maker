@@ -22,7 +22,15 @@
 	border-radius: 20px;
 	padding: 10px;
 }
-#reviewPlaceTag {
+
+#reviewWriteTittle {
+	width: 100%;
+	border-radius: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#reviewWritePlaceTag {
 	height: 50px;
 	width: 25%;
 	border-radius: 20px;
@@ -33,10 +41,69 @@
 	font-weight: 400;
 }
 
-#reviewPlace {
+#reviewWritePlace {
 	width: 75%;
 	border-radius: 20px;
 }
+
+#reviewWriteText {
+	width: 100%;
+	height: 500px;
+	border-radius: 20px;
+	margin-top: 10px;
+	text-align: justify;
+	background: #f2f5f6;
+	border: none;
+	outline: none;
+	padding-left: 17px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	color: #72728c !important;
+	padding-top: 10px;
+	resize: none;
+}
+
+#reviewWriteImageUpButton {
+	text-align: center;
+	width: 161px;
+	height: 52px;
+	background: #F49739;
+	color: #FFFFFF;
+	font-family: 'Oswald', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	text-transform: uppercase;
+	border-radius: 20px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	width: 30%;
+}
+
+#reviewWritePwd {
+	width: 50%;
+	border-radius: 20px;
+	margin-bottom: 10px;
+}
+
+#reviewWriteSubmmit {
+	text-align: center;
+	width: 161px;
+	height: 52px;
+	background: #F49739;
+	color: #FFFFFF;
+	font-family: 'Oswald', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	text-transform: uppercase;
+	border-radius: 20px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	width: 20%;
+}
+
 .back {
 	text-align: center;
 }
@@ -51,21 +118,36 @@
 					<div class="home_search_title">리뷰 작성하기</div>
 					<div class="home_search_content">
 						<div class="reviewWrite">
-						<form action="#" class="home_search_form" id="home_search_form">
-							<div
-								class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-								<select class="form-control input-sm" name="age"
-									id="reviewPlaceTag">
-									<option>리뷰 장소를 선택하세요</option>
-									<option value="city">도시</option>
-									<option value="food">식당</option>
-									<option value="tours">관광명소</option>
-									<option value="hotels">숙소</option>
-									<option value="myPlanner">내 플래너</option>
-								</select> <input type="text" id="reviewPlace" class="search_input"
-									placeholder="장소 이름을 입력하세요" required="required">
-							</div>
-						</form>
+							<form action="<c:url value='/TravelMaker/Review.kosmo'/>"
+								class="home_search_form" id="home_search_form">
+								<input type="text" id="reviewWriteTittle" class="search_input"
+									placeholder="제목을 입력하세요" required="required"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = '제목을 입력하세요'">
+								<div
+									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+									<select class="form-control input-sm" name="age"
+										id="reviewWritePlaceTag">
+										<option>리뷰 장소를 선택하세요</option>
+										<option value="city">도시</option>
+										<option value="food">식당</option>
+										<option value="tours">관광명소</option>
+										<option value="hotels">숙소</option>
+										<option value="myPlanner">내 플래너</option>
+									</select> <input type="text" id="reviewWritePlace" class="search_input"
+										placeholder="장소 이름을 입력하세요" required="required">
+								</div>
+								<textarea rows="" cols="" id="reviewWriteText"
+									placeholder="리뷰 내용을 입력하세요" required="required"></textarea>
+								<div
+									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+									<button id="reviewWriteImageUpButton" type="button">사진을
+										올리시려면 클릭하세요</button>
+									<input type="password" id="reviewWritePwd" class="search_input"
+										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요" required="required">
+									<button id="reviewWriteSubmmit">리뷰 작성 완료</button>
+								</div>
+							</form>
 							<div class="back">
 								<br> <a
 									href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
@@ -78,6 +160,7 @@
 			</div>
 		</div>
 	</div>
-	<div id=reviewBack>
-		<div id="reviewBackImage"></div>
-	</div>
+</div>
+<div id=reviewBack>
+	<div id="reviewBackImage"></div>
+</div>
