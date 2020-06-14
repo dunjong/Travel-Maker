@@ -5,7 +5,7 @@
    $(function(){
       $( "#departureDate" ).datepicker({
          showAnim: "slideDown",
-         dateFormat: "yy년 mm월 dd일",
+         dateFormat: "yy-mm-dd",
          minDate: new Date(),
          onSelect:function(dateText){
             $('#display').html(dateText);
@@ -13,7 +13,7 @@
       });
       $( "#returnDate" ).datepicker({
          showAnim: "slideDown",
-         dateFormat: "yy년 mm월 dd일",
+         dateFormat: "yy-mm-dd",
          minDate: new Date(),
          onSelect:function(dateText){
             $('#display').html(dateText);
@@ -29,32 +29,15 @@
       //setter
       //$( "#datepicker" ).datepicker('option','showAnim','fold');
       //$( "#datepicker" ).datepicker('option','dateFormat','yy년 mm월 dd일');
-      //토큰 정보 얻어오기
-         /*  var settings = {
-        "url": "https://test.api.amadeus.com/v1/security/oauth2/token",
-        "method": "POST",
-        "timeout": 0,
-        "data": {
-          "client_id": "wmBCJo8VFo4AFp3nqXxlWbHWdZH8VqwP",
-          "client_secret": "0Of0WvaAGgzG8pym",
-          "grant_type": "client_credentials"
-           }
-         };
-         
-         $.ajax(settings).done(function (response) {
-           console.log(response);
-         });    */
-		
-         
          /* $(function () {
-        	    $('[data-toggle="popover"]').popover()
-        	    }) */    	    
+               $('[data-toggle="popover"]').popover()
+               }) */           
          $('#departure').on('keyup',function(){
-        	 var deplist=document.getElementById('deplist')
-        	 //deplist.remove();
-        	 deplist.innerHTML=''
-        	 var depstr=[]
-        	 var depname=[]
+            var deplist=document.getElementById('deplist')
+            //deplist.remove();
+            deplist.innerHTML=''
+            var depstr=[]
+            var depname=[]
              var value=$(this).val();
              var settings = {
                    "async" : true,
@@ -68,20 +51,20 @@
              }
 
                 $.ajax(settings).done(function(response) {
-                	console.log(response)
-                	
-             		 var PlaceId
+                   console.log(response)
+                   
+                    var PlaceId
                      var PlaceName
                    for(var i=0;i<response.Places.length;i++){
-                	  
+                     
                         PlaceId=response.Places[i].PlaceId
-                 		PlaceName=response.Places[i].PlaceName
-                 		
+                       PlaceName=response.Places[i].PlaceName
+                       
                          
                       depstr.push(PlaceId)
                       depname.push(PlaceName)
                    }
-               		
+                     
                     for(var i=1;i<depstr.length;i++){
                         var div=document.createElement('div')
                         div.className='btn btn-warning'
@@ -90,22 +73,21 @@
                         deplist.appendChild(div)
                     }
                     $('.btn-warning').on('click',function(){
-                    	console.log('this:',this.innerHTML.split(':')[1])
-                    	$('#departure').prop('value',this.innerHTML.split(':')[1])
-                    })	    
+                       console.log('this:',this.innerHTML.split(':')[1])
+                       $('#departure').prop('value',this.innerHTML.split(':')[1])
+                    })       
                    
-                	console.log('depstr',depstr)
-                	$('#departure').attr('data-content',depstr.toString());
-                	$('#departure').popover('hide')
-                	$('#departure').popover('show')
+                   console.log('depstr',depstr)
+                   $('#departure').attr('data-content',depstr.toString());
+
                 });/////
           })
           
           $('#arrival').on('keyup',function(){
-        	 var arrlist=document.getElementById('arrlist')
-        	 //arrlist.clear()
-        	 arrlist.innerHTML=''
-        	 var arrstr=[]
+            var arrlist=document.getElementById('arrlist')
+            //arrlist.clear()
+            arrlist.innerHTML=''
+            var arrstr=[]
              var arrname=[]
              var value=$(this).val();
              var settings = {
@@ -118,22 +100,22 @@
                       "x-rapidapi-key" : "1284ea87a9msh562cc6747ae1f06p15971bjsnbad10597807a"
                    }
              }
-				
+            
                 $.ajax(settings).done(function(response) {
                   
                    var PlaceId
                    var PlaceName
                    
-                	for(var i=0;i<response.Places.length;i++){
-                		
-               		
+                   for(var i=0;i<response.Places.length;i++){
+                      
+                     
                         PlaceId=response.Places[i].PlaceId
-                		PlaceName=response.Places[i].PlaceName
+                      PlaceName=response.Places[i].PlaceName
           
                         arrstr.push(PlaceId)
                         arrname.push(PlaceName)
-                   	}
-                	
+                      }
+                   
                     for(var i=1;i<arrstr.length;i++){
                         var div=document.createElement('div')
                         div.className='btn btn-danger'
@@ -143,17 +125,11 @@
                     }
                     
                     $('.btn-danger').on('click',function(){
-                    	$('#arrival').prop('value',this.innerHTML.split(':')[1])
-                    })	
+                       $('#arrival').prop('value',this.innerHTML.split(':')[1])
+                    })   
                    console.log('arrstr',arrstr)
                    $('#arrival').attr('data-content',arrstr.toString());
-                   $('#arrival').popover('hide')
-               	   $('#arrival').popover('show')
                 });/////
-                
-                
-                
-                
           })
     
       
@@ -163,72 +139,72 @@
       //이미지 온리 사용시      
                
           });
-   //Flight List ajax 구문 추가
-   $.ajax({
- 	  url: 'http://api.aviationstack.com/v1/flights',
- 	  data: {
- 	    access_key: '90abbc3665222e1b7fa6938924cc7597'
- 	  },        	  
- 	  dataType: 'json',
- 	  success: function(apiResponse) {
- 		  console.log('apiResponse.data[2]',apiResponse.data)
-	   var flightOffersSearches=${flightOffersSearches}
- 	   console.log('flightOffersSearches',flightOffersSearches);
-	   var list = "<h2> 티켓 목록 </h2>";
-	   list+="<div class='container'>";
-	   list+="<div class='alert alert-success'>";
-	   list+="<div class='row'>";
-	   list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
-   	   list+="<div id='AirList' class='row' style='text-align:center'>";
-   	   list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
-   	   list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
-   	   list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>"+apiResponse.data[2].arrival.estimated+"</Strong><br>"+apiResponse.data[2].arrival.airport+"</div>";
-   	   list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>4시간30분</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br>직항</div>";
-   	   list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>"+apiResponse.data[2].departure.estimated+"</Strong><br>"+apiResponse.data[2].departure.airport+"</div>";
-   	   list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
-   	   list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>"+apiResponse.data[2].arrival.estimated+"</Strong><br>"+apiResponse.data[2].departure.airport+"</div>";
-   	   list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>5시간10분</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br>직항</div>"; 	   
-   	   list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>"+apiResponse.data[2].departure.estimated+"</Strong><br>"+apiResponse.data[2].arrival.airport+"</div>";
-   	   list+="</div>";
-   	   list+="</div>";
-   	   list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-   	   list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦435,740</Strong><br><small>총 가격￦892,704</small></div><br>";
-   	   list+="<a href='#''><button type='button' class='btn btn-success btn-lg' style='cursor:pointer;'><Strong>선택 →</Strong></button></a>";
-   	   list+="</div>";
-   	   list+="</div>";
-   	   list+="</div>";
-   	   list+="</div>";
-   	   console.log('list',list);
-   	   $('#list').html(list);
-   	   
- 	  }
-
-   });
+       
+         function sbtn(){
+      
    
+          var list = "<c:if test='${empty list}'>"
+          list+="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
+            for(var i=0;i<5;i++){
+          list+="<div class='container'>";
+          list+="<div class='alert alert-success'>";
+          list+="<div class='row'>";
+          list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+             list+="<div id='AirList' class='row' style='text-align:center'>";
+             list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+             list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
+             list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0][0].DTime}</Strong><br>${list[0][0].Dcode}</div>";
+             list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>4시간30분</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br>직항</div>";
+             list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0][0].Atime}</Strong><br>${list[0][0].Acode}</div>";
+             list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
+             list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[1][0].Dtime}</Strong><br>${list[0][0].Dcode}</div>";
+             list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>5시간10분</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br>직항</div>";       
+             list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[1][0].Atime}</Strong><br>${list[1][0].ACode}</div>";
+             list+="</div>";
+             list+="</div>";
+             list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+             list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦435,740</Strong><br><small>총 가격￦892,704</small></div><br>";
+             list+="<a href='#''><button type='button' class='btn btn-success btn-lg' style='cursor:pointer;'><Strong>선택 →</Strong></button></a>";
+             list+="</div>";
+             list+="</div>";
+             list+="</div>";
+             list+="</div>";
+            }
+            list+="</c:if>";
+             $('#list').html(list);
+            }
 
 </script>
-   
    <!-- Search -->
-
+	    <c:forEach  items="${list}" var="li">
+        <c:forEach items="${li}" var="lis">
+              <h2>${lis.DTime}</h2>
+              <h2>${lis.Dcode}</h2>
+              <h2>${lis.ATime}</h2>
+              <h2>${lis.Acode}</h2>
+              <h2>++++++++++++++</h2>
+      </c:forEach>
+      <h2>==============</h2>
+   </c:forEach> 
    <div class="home_search">
       <div class="container">
          <div class="row">
             <div class="col">
-               <div class="home_search_container">
+               <div class="home_search_container"><h2 style='text-align:center; color:#E8E822'>Where do you Want to go?</h2>
                   <div class="home_search_title"><a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a></div>
                   <div class="home_search_title" ><a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a></div>
                   <div class="home_search_content">
                      <form action=<c:url value="/TravelMaker/AirSearch.kosmo"/> class="home_search_form" id="home_search_form">
                         <div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-                           <input type="text" name="departure" id="departure" class="search_input search_input_1" placeholder="출발지" required="required" data-trigger="focus"  data-placement="bottom" data-toggle="popover"  data-content="dep">
-                           <input type="text" name="arrival" id ="arrival" class="search_input search_input_2" placeholder="도착지" required="required" data-trigger="focus"  data-placement="bottom" data-toggle="popover" data-content="arr">
+                           <input type="text" name="departure" id="departure" class="search_input search_input_1" placeholder="출발지" required="required" data-placement="bottom" >
+                           <input type="text" name="arrival" id ="arrival" class="search_input search_input_2" placeholder="도착지" required="required" data-placement="bottom" >
                            <input type="text" name="departureDate" id="departureDate" class="search_input search_input_3" placeholder="가는날" required="required">
                            <input type="text" name="returnDate" id="returnDate" class="search_input search_input_4" placeholder="오는날" required="required">
-                           <input type="number" name="adult" id="adult" class="search_input search_input_5" placeholder="성인" required="required">
-                           <input type="number" name="children" id="children" class="search_input search_input_5" placeholder="어린이">
+                           <input type="text" name="adult" id="adult" class="search_input search_input_5" placeholder="성인" required="required" value="1">
+                           <input type="text" name="children" id="children" class="search_input search_input_5" placeholder="어린이">
                            
                            
-                           <button id="AirSearch" class="home_search_button" style="center;">항공권 검색</button>
+                           <button id="AirSearch" class="home_search_button" style="center;" onclick="sbtn()">항공권 검색</button>
                         </div>                     
                      </form>
                      
@@ -239,12 +215,11 @@
       </div>
    </div>
    <div class="container">
-   <div class="btn btn-sucess" onclick="list()">show</div>
    <div class="row" style="color:red;font-size:20px">
-	   		<div class="col-sm-12" id=deplist>
-	   		</div>
-	   		<div class="col-sm-12" id=arrlist>
-	   		</div>
+            <div class="col-sm-12" id=deplist>
+            </div>
+            <div class="col-sm-12" id=arrlist>
+            </div>
    </div>
    </div>
    <div id='list'></div>
@@ -287,7 +262,7 @@
    
    var autocomplete = new google.maps.places.Autocomplete(input1);
    autocomplete = new google.maps.places.Autocomplete(input2);
-   google.maps.event.addListener(autocomplete, 'place_changed', function() {	
+   google.maps.event.addListener(autocomplete, 'place_changed', function() {   
       
       var place = autocomplete.getPlace();
      
