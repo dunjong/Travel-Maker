@@ -20,9 +20,9 @@ public static void main(String... args) throws Exception {
  // Instantiates a client
  try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
 	 System.out.println("들어옴");
-
+	 
    // The path to the image file to annotate
-   String fileName = "C:\\Users\\kosmo_06\\git\\Travel-Maker\\src\\main\\webapp\\images\\hotels.jpg";
+   String fileName = System.getProperty("user.dir")+"\\src\\main\\webapp\\images\\hotels.jpg";
    
    // Reads the image file into memory
    Path path = Paths.get(fileName);
