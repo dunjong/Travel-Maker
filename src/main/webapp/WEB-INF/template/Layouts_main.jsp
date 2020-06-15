@@ -29,7 +29,7 @@
 <link href="<c:url value='/plugins/assets/vendor/aos/aos.css'/>" rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="<c:url value='/plugins/assets/css/style.css?ver=16'/>" rel="stylesheet">
+<link href="<c:url value='/plugins/assets/css/style.css?ver=17'/>" rel="stylesheet">
 
 
 	

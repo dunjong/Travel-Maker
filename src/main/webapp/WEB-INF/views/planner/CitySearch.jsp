@@ -165,10 +165,54 @@
 					<p>당신이 좋아하는 사진과 비슷한 도시들입니다.</p>
 				</div>
 
-				<div class="row" style="background-color:yellow;">
-					
-				</div>
+				<div class="row cities">
+					<div class="col-xs-4">
+						<img style="width:200px;height:200px;" src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>'/>
+						<p>방콕</p>
+					</div>
+					<div class="col-xs-4">
+						<img style="width:200px;height:200px;" src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>'/>
+						<p>방콕</p>
+					</div>
+					<div class="col-xs-4">
+						<img style="width:200px;height:200px;" src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>'/>
+						<p>방콕</p>
+					</div>
+					<div class="col-xs-4">
+						<img style="width:200px;height:200px;" src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>'/>
+						<p>방콕</p>
+					</div>
+					<div class="col-xs-4">
+						<img style="width:200px;height:200px;" src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>'/>
+						<p>방콕</p>
+					</div>
+					<div class="col-xs-4">
+						<img style="width:200px;height:200px;" src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>'/>
+						<p>방콕</p>
+					</div>
+					<div class="col-xs-4">
+						<img style="width:200px;height:200px;" src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>'/>
+						<p>방콕</p>
+					</div>
+					<div class="col-xs-4">
+						<img style="width:200px;height:200px;" src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>'/>
+						<p>방콕</p>
+					</div>
+					<div class="col-xs-4">
+						<img style="width:200px;height:200px;" src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>'/>
+						<p>방콕</p>
+					</div>
+					<div class="col-xs-4">
+						<img style="width:200px;height:200px;" src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>'/>
+						<p>방콕</p>
+					</div>
 
+				<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
+					<div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+						<button class="home_search_button citysearch" style="">도시 선택</button>
+					</div>
+				</form>
+			</div>
 			</div>
 		</section>
 		<!-- End Resume Section -->
@@ -247,13 +291,7 @@
 		<!-- End Testimonials Section -->
 
 
-	<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
-		<div
-			class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-
-			<button class="home_search_button" style="">도시 선택</button>
-		</div>
-	</form>
+	
 </main>
 	<!-- End #main -->
 
