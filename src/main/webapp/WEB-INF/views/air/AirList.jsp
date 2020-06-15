@@ -3,6 +3,40 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
    $(function(){
+      
+      
+
+       var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
+         for(var i=0;i<5;i++){
+       list+="<div class='container'>";
+       list+="<div class='alert alert-success'>";
+       list+="<div class='row'>";
+       list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+          list+="<div id='AirList' class='row' style='text-align:center'>";
+          list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+          list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
+          list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0][0].DTime}</Strong><br>${list[0][0].Dcode}</div>";
+          list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>4시간30분</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br>직항</div>";
+          list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0][0].ATime}</Strong><br>${list[0][0].Acode}</div>";
+          list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
+          list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[1][0].DTime}</Strong><br>${list[1][0].Dcode}</div>";
+          list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>5시간10분</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br>직항</div>";       
+          list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[1][0].ATime}</Strong><br>${list[1][0].Acode}</div>";
+          list+="</div>";
+          list+="</div>";
+          list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+          list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦435,740</Strong><br><small>총 가격￦892,704</small></div><br>";
+          list+="<a href='#''><button type='button' class='btn btn-success btn-lg' style='cursor:pointer;'><Strong>선택 →</Strong></button></a>";
+          list+="</div>";
+          list+="</div>";
+          list+="</div>";
+          list+="</div>";   
+         }
+          $('#list').html(list);
+      
+      
+      
+      
       $( "#departureDate" ).datepicker({
          showAnim: "slideDown",
          dateFormat: "yy-mm-dd",
@@ -38,8 +72,8 @@
             deplist.innerHTML=''
             var depstr=[]
             var depname=[]
-            var value=$(this).val();
-            var settings = {
+             var value=$(this).val();
+             var settings = {
                    "async" : true,
                    "crossDomain" : true,
                    "url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
@@ -140,43 +174,13 @@
                
           });
        
-         function sbtn(){
       
    
-          var list = "<c:if test='${empty list}'/>"
-          list+="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
-            for(var i=0;i<5;i++){
-          list+="<div class='container'>";
-          list+="<div class='alert alert-success'>";
-          list+="<div class='row'>";
-          list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
-             list+="<div id='AirList' class='row' style='text-align:center'>";
-             list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
-             list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
-             list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0][0].DTime}</Strong><br>${list[0][0].Dcode}</div>";
-             list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>4시간30분</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br>직항</div>";
-             list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0][0].Atime}</Strong><br>${list[0][0].Acode}</div>";
-             list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
-             list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[1][0].Dtime}</Strong><br>${list[0][0].Dcode}</div>";
-             list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>5시간10분</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br>직항</div>";       
-             list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[1][0].Atime}</Strong><br>${list[1][0].ACode}</div>";
-             list+="</div>";
-             list+="</div>";
-             list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-             list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦435,740</Strong><br><small>총 가격￦892,704</small></div><br>";
-             list+="<a href='#''><button type='button' class='btn btn-success btn-lg' style='cursor:pointer;'><Strong>선택 →</Strong></button></a>";
-             list+="</div>";
-             list+="</div>";
-             list+="</div>";
-             list+="</div>";
-            }
-            list+="</c:if>";
-             $('#list').html(list);
-            }
+            
 
 </script>
    <!-- Search -->
-	    <c:forEach  items="${list}" var="li">
+<%--        <c:forEach  items="${list}" var="li">
         <c:forEach items="${li}" var="lis">
               <h2>${lis.DTime}</h2>
               <h2>${lis.Dcode}</h2>
@@ -185,7 +189,7 @@
               <h2>++++++++++++++</h2>
       </c:forEach>
       <h2>==============</h2>
-   </c:forEach> 
+   </c:forEach>  --%>
    <div class="home_search">
       <div class="container">
          <div class="row">
@@ -204,7 +208,7 @@
                            <input type="text" name="children" id="children" class="search_input search_input_5" placeholder="어린이">
                            
                            
-                           <button id="AirSearch" class="home_search_button" style="center;" onclick="sbtn()">항공권 검색</button>
+                           <button class="home_search_button" style="center;">항공권 검색</button>
                         </div>                     
                      </form>
                      
