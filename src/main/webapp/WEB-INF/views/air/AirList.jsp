@@ -143,7 +143,7 @@
          function sbtn(){
       
    
-          var list = "<c:if test='${empty list}'>"
+          var list = "<c:if test='${empty list}'/>"
           list+="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
             for(var i=0;i<5;i++){
           list+="<div class='container'>";

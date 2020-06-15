@@ -113,7 +113,7 @@ var markers=[];
 var hostnameRegexp = new RegExp('^https?://.+?/');
 var nearSearchType='lodging';
 var origin='방콕, 태국';
-var destination='공항, 방콕, 태국';
+var destination='호텔,방콕, 태국';
 var spots=[];
 var directionsService;
 var directionsRenderer;
@@ -182,15 +182,15 @@ var day=1;
   }////placeDetail
   
   function box(){
-	 
+	  var boxOrigin='';
 	  var sp_waypoints=document.getElementById('sp-waypoints');
 	  sp_waypoints.innerHTML=''
 	  if(nearSearchType=='lodging'){
 		  hotelInfo=[]
 		  placeDetailnSave($('#iw-id').html())
 		  
-		  origin=$('#iw-lanlng').html();
-		  displayRoute(origin, destination, directionsService,
+		  boxOrigin=$('#iw-lanlng').html();
+		  displayRoute(boxOrigin,destination , directionsService,
 			       directionsRenderer,spots);
 	  }
 	  else{
@@ -217,7 +217,6 @@ var day=1;
 	   	    removeMarkers(markers);
 	   	    markers=[];
 	   	   }
-	  origin='방콕, 태국'
 	  hotelInfo=[{'hotel':origin}]
 	  spotInfo=[];
 	  spots=[];
@@ -746,10 +745,13 @@ var day=1;
 	 var planBox=document.getElementById('planBox')
 	 var div=document.createElement('div')
 	 div.className='btn btn-warning'
-	 div.textContent=day+'일차 플랜 보기'
+	 div.textContent=day+'일차 플랜 '
+	 div.setAttribute('name','plan'+day )
 	 planBox.appendChild(div)
 	 day+=1;
 	 $('#day').html(day+'일차 플랜')
+	 clearBox();
+	 
 	 
 	 
  }
@@ -774,8 +776,8 @@ var day=1;
 				<div class="col-sm-4">
 					
 				</div>
-				<div class="col-sm-6" id="planBox">
-				</div>
+					<div class="col-sm-6" id="planBox">
+					</div>
 				<div class="col-sm-2">
 					<div class="btn btn-danger" onclick="clearPlanBox()">전체 플랜 삭제하기</div>
 					<div class="btn btn-info" onclick="back()">여정 표로 돌아가기</div>

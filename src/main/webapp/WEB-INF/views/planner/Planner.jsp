@@ -47,7 +47,7 @@
       // If you're adding a number of markers, you may want to drop them on the map
       // consecutively rather than all at once. This example shows how to use
       // window.setTimeout() to space your markers' animation.
-
+	  var servicePlace;
       var neighborhoods = [
         {lat: 13.752967686985727, lng: 100.5029815077901},
         {lat: 7.915127681368687, lng: 98.33354269870432}
@@ -55,16 +55,26 @@
 
       var markers = [];
       var map;
+      var cities = [];
+      var test ;
+      
+      
+      function searchCity(){
+    	  
+      }
 
       function initMap() {
     	drop()
+    	test  = new google.maps.LatLng(11.148595261550177,100.13194482923747);
+    	console.log('test',test)
+    	
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 6,
           center: {lat: 11.148595261550177, lng: 100.13194482923747}
         });
         map.addListener('click', function(event){
       	  console.log('event',event.latLng.lat())
-      	   console.log('event',event.latLng.lng())
+      	  console.log('event',event.latLng.lng())
         })
       }
 
@@ -100,10 +110,9 @@
         markers = [];
       }
       markers[0]
-      
      
       
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj0yu46KIPovjgRNFnBGDuAw_XOAoG8jc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj0yu46KIPovjgRNFnBGDuAw_XOAoG8jc&libraries=places&callback=initMap">
     </script>
