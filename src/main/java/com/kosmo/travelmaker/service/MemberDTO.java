@@ -1,29 +1,17 @@
-package com.kosmo.travelmaker.web.member;
+package com.kosmo.travelmaker.service;
 
 import org.springframework.stereotype.Repository;
 
-@Repository("formCommand")
-public class FormCommand {
+@Repository("memberDTO")
+public class MemberDTO {
+	
 	private String name;
 	private String id;
 	private String en_name;
 	private String password;
-	private String password_check;
 	private String age;
 	private String gender;
 	
-	public String getAge() {
-		return age;
-	}
-	public void setAge(String age) {
-		this.age = age;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
 	public String getName() {
 		return name;
 	}
@@ -48,11 +36,17 @@ public class FormCommand {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getPassword_check() {
-		return password_check;
+	public String getAge() {
+		return age;
 	}
-	public void setPassword_check(String password_check) {
-		this.password_check = password_check;
+	public void setAge(String age) {
+		this.age = age;
 	}
-
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
 }

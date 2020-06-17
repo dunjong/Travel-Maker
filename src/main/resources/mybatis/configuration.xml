@@ -9,15 +9,14 @@
 	<!-- 자바빈 별칭 -->
 	<typeAliases>
 		
-		<typeAlias alias="TravelMakerDTO" type="com.kosmo.travelmaker.service.TravelMakerDTO"/>	
+		<typeAlias alias="MemberDTO" type="com.kosmo.travelmaker.service.MemberDTO"/>	
 		<!--MemoCommentDTO는 별칭 불필요. SELECT결과를 Map에 저장하기때문에  -->
 	</typeAliases>
 	
-	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 
+	
 	<mappers>
-		<mapper resource="mybatis/OneMemo.xml" />
-		<mapper resource="mybatis/MemoComment.xml" />
+		<mapper resource="mybatis/Member.xml" />
+		<!-- <mapper resource="mybatis/MemoComment.xml" /> -->
 		
 	</mappers>
-	-->	
 </configuration>
