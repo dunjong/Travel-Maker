@@ -64,7 +64,6 @@
 	<script src="<c:url value='/plugins/assets/vendor/owl.carousel/owl.carousel.min.js'/>"></script>
 	<script src="<c:url value='/plugins/assets/vendor/typed.js/typed.min.js'/>"></script>
 	<script src="<c:url value='/plugins/assets/vendor/aos/aos.js'/>"></script>
-
 	<!-- Template Main JS File -->
 	<script src="<c:url value='/plugins/assets/js/main.js'/>"></script>
 
