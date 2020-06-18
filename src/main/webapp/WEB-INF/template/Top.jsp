@@ -202,62 +202,30 @@
 					href="http://developers.kakao.com/logout"></a>
 				<script type='text/javascript'>
 					//<![CDATA[
-					// 사용할 앱의 JavaScript 키를 설정해 주세요.
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5'); //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
-					// 카카오 로그인 버튼을 생성합니다.
 					Kakao.Auth.createLoginButton({
 						container : '#kakao-login-btn',
 						success : function(authObj) {
-							alert(JSON.stringify(authObj));
+							Kakao.API.request({
+								url : '/v2/user/me',
+								success : function(res) {
+									console.log(res.id);//<-- 아이디
+									console.log(res.properties['nickname']);//<-- 서비스에서 쓰이는 사용자 닉네임						 
+									console.log(res.kakao_account.profile);//<--카카오계정의 프로필 소유 여부
+									console.log(res.properties.profile_image);//<--서비스에서 쓰이는 사용자 프로필 이미지 URL
+									console.log(res.properties.thumbnail_image);//<--서비스에서 쓰이는 사용자 썸네일 이미지 URL
+									console.log(res.kakao_account.email);//<-- 카카오계정의 이메일 소유 여부
+									console.log(res.kakao_account.age_range);//<--카카오계정의 연령대 소유 여부, 연령대 값
+									console.log(res.kakao_account.birthday);//<--카카오계정의 생일 소유 여부, 생일 값
+									console.log(res.kakao_account.gender);//<--카카오계정의 성별 소유 여부, 성별 값
+									console.log(authObj.access_token);//<-- 토큰
+								}
+							})
 						},
-						fail : function(err) {
-							alert(JSON.stringify(err));
+						fail : function(error) {
+							alert(JSON.stringify(error));
 						}
 					});
-					//]]>
-
-					/* 로그인 관련 쿠키 생성 및 삭제 */
-					function setCookie(name, value, expired) {
-
-						var date = new Date();
-						date.setHours(date.getHours() + expired);
-						var expried_set = "expries=" + date.toGMTString();
-						document.cookie = name + "=" + value + "; path=/;"
-								+ expried_set + ";"
-
-					}
-
-					/* 쿠키 삭제 다른방법
-					 function deleteCookie( name ){
-					
-					 var date = new Date();
-					 date.setHours(date.getHours() - 1);
-					 var expried_set = "expries="+date.toGMTString();
-					 document.cookie = name + "="  + "; path=/;" + expried_set + ";"
-					 }
-					 */
-
-					// 
-					function getCookie(name) {
-
-						var nameofCookie = name + "=";
-						var x = 0;
-						while (x <= document.cookie.length) {
-							var y = (x + nameofCookie.length);
-							if (document.cookie.substring(x, y) == nameofCookie) {
-								if ((endofCookie = document.cookie.indexOf(";",
-										y)) == -1)
-									endofCookie = document.cookie.length;
-								return unescape(document.cookie.substring(y,
-										endofCookie));
-							}
-							x = document.cookie.indexOf(" ", x) + 1;
-							if (x == 0)
-								break;
-						}
-
-						return "";
-					}
 
 					/* // 카카오 script key 입력
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5');
@@ -281,7 +249,7 @@
 									}
 
 								});
-					}
+					}*/
 
 					// 로그아웃 처리
 					function logoutWithKakao() {
@@ -300,7 +268,7 @@
 								+ "</a>";
 						document.getElementById('kakao_btn_changed').innerHTML = login_btn;
 					}
-
+					
 					// 로그아웃 버튼생성
 					function createLogoutKakao() {
 						var logout_btn = "<a id='custom-logout-btn' href='javascript:logoutWithKakao()'>"
@@ -309,7 +277,7 @@
 						document.getElementById('kakao_btn_changed').innerHTML = logout_btn;
 
 					}
-					//]]> */
+					//]]
 				</script>
 
 				<!-- 네이버 아이디로 로그인 -->
