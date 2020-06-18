@@ -9,9 +9,16 @@ public class MemberDTO {
 	private String id;
 	private String en_name;
 	private String password;
-	private String age;
+	private String password_check;
+	private String rrn;
 	private String gender;
 	
+	public String getPassword_check() {
+		return password_check;
+	}
+	public void setPassword_check(String password_check) {
+		this.password_check = password_check;
+	}
 	public String getName() {
 		return name;
 	}
@@ -36,11 +43,11 @@ public class MemberDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getAge() {
-		return age;
+	public String getRrn() {
+		return rrn;
 	}
-	public void setAge(String age) {
-		this.age = age;
+	public void setRrn(String rrn) {
+		this.rrn = rrn;
 	}
 	public String getGender() {
 		return gender;

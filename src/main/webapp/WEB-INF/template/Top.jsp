@@ -235,8 +235,7 @@
 							alert(JSON.stringify(error));
 						}
 					});
-<<<<<<< HEAD
-=======
+
 					//]]>
 
 					/* 로그인 관련 쿠키 생성 및 삭제 */
@@ -279,7 +278,6 @@
 
 						return "";
 					}
->>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 
 					/* // 카카오 script key 입력
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5');
@@ -378,14 +376,16 @@
 							<input type="text" class="form-control input-lg" name="id"
 								value="${param.id}" placeholder="아이디를 입력하세요">
 						</div>
+						<div>
+							<span style="color: red; font-size: .8em">${idError}<form:errors path="memberDTO.id" /></span>
+						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">이름</label>
 						<div>
 							<input type="text" class="form-control input-lg" name="name"
-								value="${param.name}" placeholder="이름을 입력하세요"> <span
-								style="color: red; font-size: .8em">${nameError}<form:errors
-									path="formCommand.name" /></span>
+								value="${param.name}" placeholder="이름을 입력하세요"> 
+								<span style="color: red; font-size: .8em">${nameError}<form:errors path="memberDTO.name" /></span>
 							</td>
 						</div>
 					</div>
@@ -395,6 +395,7 @@
 							<input type="text" class="form-control input-lg" name="en_name"
 								value="${param.en_name}"
 								placeholder="영문명을 입력하세요(성 이름 순으로 공백없이 입력하세요 )">
+							<span style="color: red; font-size: .8em">${en_nameError}<form:errors path="memberDTO.en_name" /></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -402,6 +403,7 @@
 						<div>
 							<input type="password" class="form-control input-lg"
 								name="password" placeholder="비밀번호를 입력하세요">
+							<span style="color: red; font-size: .8em">${passwordError}<form:errors path="memberDTO.password" /></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -410,13 +412,14 @@
 						<div>
 							<input type="password" class="form-control input-lg"
 								name="password_check" placeholder="비밀번호를 다시 입력하세요">
+							<span style="color: red; font-size: .8em">${password_checkError}<form:errors path="memberDTO.password_check" /></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label" style="color: black;">나이</label>
 						<div class="col-sm-4">
-							<select class="form-control input-sm" name="age"
-								value="${param.age}">
+							<select class="form-control input-sm" name="rrn"
+								value="${param.rrn}">
 								<option>출생 연도를 선택하세요</option>
 								<option value="1950">1950~1959</option>
 								<option value="1960">1960~1969</option>
@@ -427,7 +430,7 @@
 								<option value="2010">2010~2019</option>
 								<option value="2020">2020~</option>
 							</select>
-
+							<span style="color: red; font-size: .8em">${ageError}<form:errors path="memberDTO.rrn" /></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -440,6 +443,7 @@
 									type="radio" value="여자" name="gender"
 									<c:if test="${param.gender=='여자' }">checked</c:if>>여자</label>
 							</div>
+							<span style="color: red; font-size: .8em">${genderError}<form:errors path="memberDTO.gender" /></span>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -477,6 +481,9 @@ $(function(){
 	//로그아웃용
 	var logoutForm = document.createElement('form');
 	logoutForm.action = '<c:url value="/TravelMaker/Logout.do"/>'
+	$('#logInForm').append(logoutForm)
+	console.log(logoutForm);
+	console.log($('#logInForm').get(0))
 	$('#logoutbtn1').click(function(){
 		logoutForm.submit();
 	})
