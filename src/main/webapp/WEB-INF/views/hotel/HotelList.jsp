@@ -15,7 +15,7 @@ var lat,lng;
 			minDate : new Date(),
 			onSelect : function(dateText) {
 				$('#display').html(dateText);
-				$( "#datepicker1" ).datepicker( "destroy" );
+				//$( "#datepicker1" ).datepicker( "destroy" );
 				$("#datepicker1").datepicker({//checkout
 					showAnim : "slideDown",
 					dateFormat : "yy mm dd ",
@@ -43,7 +43,7 @@ var lat,lng;
 			var rooms = $('#rooms').prop('value');
 			var checkin = $('#datepicker').prop('value');
 			var checkout = $('#datepicker1').prop('value');
-			var urlStr = "https://tripadvisor1.p.rapidapi.com/hotels/list-by-latlng?lang=ko_KR&hotel_class=1%252C2%252C3&limit=3&adults="+adults+"&rooms="+rooms+"&currency=KRW&latitude="+lat+"&longitude="+lng;
+			var urlStr = "https://tripadvisor1.p.rapidapi.com/hotels/list-by-latlng?lang=ko_KR&hotel_class=1%252C2%252C3&limit=10&adults="+adults+"&rooms="+rooms+"&currency=KRW&latitude="+lat+"&longitude="+lng;
 			var settings = {
 					"async" : true,
 					"crossDomain" : true,
@@ -58,6 +58,7 @@ var lat,lng;
 				function(response) {
 					console.log(response)
 					for (var i = 0; i < response.data.length; i++) {
+						console.log
 						img = document.createElement('img');
 						img.alt = 'no image';
 						if (response.data[i].photo.images != null) {

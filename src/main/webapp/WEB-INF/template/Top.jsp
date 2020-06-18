@@ -8,8 +8,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<div
-					class="header_content d-flex flex-row align-items-center justify-content-start">
+				<div class="header_content d-flex flex-row align-items-center justify-content-start">
 					<div
 						class="header_content_inner d-flex flex-row align-items-end justify-content-start">
 						<div class="logo">
@@ -38,8 +37,12 @@
 								</a>
 									<ul class="dropdown-menu">
 										<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
-										<li id="loginbtn" data-toggle="modal"><a href="#">로그인</a>
-										</li>
+										<c:if test="${empty sessionScope.id}" var="login">
+											<li id="loginbtn1" data-toggle="modal"><a href="#">로그인</a></li>
+										</c:if>
+										<c:if test="${!login}">
+											<li id="logoutbtn1"><a href="#">로그아웃</a></li>
+										</c:if>
 										<li id="editmemberbtn" data-toggle="modal"><a href="#">회원가입</a></li>
 										<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
 										<li>
@@ -124,39 +127,42 @@
 			</div>
 		</div>
 	</div>
-	<div class="menu_content">
+	<div class="menu_content"><!-- 작은화면에서 보이는 메뉴 -->
 		<ul>
 			<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
-			<li><a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a>
-			</li>
-			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span
-					class="caret"></span>
-			</a>
+			<li><a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a></li>
+			<li>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">리뷰
 							리스트</a></li>
 					<li><a href="<c:url value='/TravelMaker/ReviewView.kosmo'/>">리뷰
 							보기</a></li>
 					<li><a href="#">리뷰 작성</a></li>
-				</ul></li>
-			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">MEMBER<span
-					class="caret"></span>
-			</a>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">MEMBER<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
-					<li><a href="#" id="loginbtn">로그인</a></li>
+					<c:if test="${empty sessionScope.id}" var="login">
+						<li id="loginbtn2" data-toggle="modal"><a href="#">로그인</a></li>
+					</c:if>
+					<c:if test="${!login}">
+						<li id="logoutbtn2"><a href="#">로그아웃</a></li>
+					</c:if>
 					<li><a href="#" id="editmemberbtn">회원가입</a></li>
 					<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
 					<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">나의리뷰</a></li>
-				</ul></li>
-			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer
-					Service<span class="caret"></span>
-			</a>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer Service<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a
-						href="<c:url value='/TravelMaker/CustomerService.kosmo'/>">공지사항</a></li>
+					<li><a href="<c:url value='/TravelMaker/CustomerService.kosmo'/>">공지사항</a></li>
 					<li><a href="#">QnA</a></li>
-				</ul></li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 	<div class="menu_social">
@@ -176,30 +182,33 @@
 
 
 <!--로그인 modal-->
-<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">로그인</h5>
 			</div>
 			<div class="modal-body">
-				<label class="username"> <span style="color: black;">아이디</span>
-					<input id="username" name="username" value="" type="text"
-					autocomplete="on" placeholder="아이디를 입력하세요">
-				</label> <label class="row"></label> <label class="password"> <span
-					style="color: black;">비밀번호</span> <input id="password"
-					name="password" value="" type="password" placeholder="비밀번호를 입력하세요">
-				</label>
+				<form id="logInForm" action="<c:url value='/TravelMaker/LoginProcess.do'/>" method="post">
+					<div class="form-group">
+						<label class="username"> 
+							<span style="color: black;">아이디</span>
+						</label> 
+						<input id="id" name="id" type="text" autocomplete="on" placeholder="아이디를 입력하세요"> 
+						<label class="password"> 
+							<span style="color: black;">비밀번호</span> 
+						</label>
+						<input id="pwd" name="pwd" type="password" placeholder="비밀번호를 입력하세요"> 
+					</div>
+				</form>
 			</div>
-
 			<!-- 카카오 로그인 -->
 			<div class="modal-body">
 				<label>간편 로그인</label>
 				<div></div>
 				<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-				<a id="kakao-login-btn"></a> <a
-					href="http://developers.kakao.com/logout"></a>
+				<a id="kakao-login-btn"></a> 
+				<a href="http://developers.kakao.com/logout"></a>
 				<script type='text/javascript'>
 					//<![CDATA[
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5'); //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
@@ -226,6 +235,51 @@
 							alert(JSON.stringify(error));
 						}
 					});
+<<<<<<< HEAD
+=======
+					//]]>
+
+					/* 로그인 관련 쿠키 생성 및 삭제 */
+					function setCookie(name, value, expired) {
+
+						var date = new Date();
+						date.setHours(date.getHours() + expired);
+						var expried_set = "expries=" + date.toGMTString();
+						document.cookie = name + "=" + value + "; path=/;"
+								+ expried_set + ";"
+
+					}
+
+					/* 쿠키 삭제 다른방법
+					 function deleteCookie( name ){
+					
+					 var date = new Date();
+					 date.setHours(date.getHours() - 1);
+					 var expried_set = "expries="+date.toGMTString();
+					 document.cookie = name + "="  + "; path=/;" + expried_set + ";"
+					 }
+					 */
+
+					// 
+					function getCookie(name) {
+
+						var nameofCookie = name + "=";
+						var x = 0;
+						while (x <= document.cookie.length) {
+							var y = (x + nameofCookie.length);
+							if (document.cookie.substring(x, y) == nameofCookie) {
+								if ((endofCookie = document.cookie.indexOf(";", y)) == -1)
+									endofCookie = document.cookie.length;
+								return unescape(document.cookie.substring(y, endofCookie));
+							}
+							x = document.cookie.indexOf(" ", x) + 1;
+							if (x == 0)
+								break;
+						}
+
+						return "";
+					}
+>>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 
 					/* // 카카오 script key 입력
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5');
@@ -300,9 +354,8 @@
 				</script>
 			</div>
 			<div class="modal-footer">
-				<a class="btn" id="modalY" href="#">확인</a>
-				<button class="btn" type="button" data-dismiss="modal"
-					style="color: red;">취소</button>
+				<a class="btn" id="logInSubmit" href="#">확인</a>
+				<button class="btn" type="button" data-dismiss="modal" style="color: red;">취소</button>
 			</div>
 		</div>
 	</div>
@@ -318,14 +371,12 @@
 				<h5 class="modal-title" id="exampleModalLabel" style="color: black;">회원가입</h5>
 			</div>
 			<div class="modal-body">
-				<form action="<c:url value='/TravelMaker/ValidationCheck.do'/>"
-					method="post">
+				<form action="<c:url value='/TravelMaker/ValidationCheck.do'/>" method="post">
 					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">아이디</label>
 						<div>
 							<input type="text" class="form-control input-lg" name="id"
 								value="${param.id}" placeholder="아이디를 입력하세요">
-
 						</div>
 					</div>
 					<div class="form-group">
@@ -392,7 +443,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn" type="submit">확인</button>
+						<button class="btn" id="sighUpSubmit" type="submit">확인</button>
 						<button class="btn" type="button" data-dismiss="modal"
 							style="color: red;">취소</button>
 					</div>
@@ -401,20 +452,46 @@
 		</div>
 	</div>
 </div>
-
-
-
-
+<!-- 로그인 실패시 사용하는 alert창 -->
+<c:if test="${!empty NotMember}">
+	<div class="row">
+		<div class="alert alert-warning fade in  col-sm-5">
+			<button type="button" class="close" data-dismiss="alert">
+				<span>&times;</span>
+			</button>
+			${NotMember}
+		</div>
+	</div>
+</c:if>
 <script>
+$(function(){
 	//로그인용
-	$('#loginbtn').click(function(e) {
+	$('#loginbtn1').click(function(e) {
 		e.preventDefault();
 		$('#loginmodal').modal("show");
 	});
-
+	$('#loginbtn2').click(function(e) {
+		e.preventDefault();
+		$('#loginmodal').modal("show");
+	});
+	//로그아웃용
+	var logoutForm = document.createElement('form');
+	logoutForm.action = '<c:url value="/TravelMaker/Logout.do"/>'
+	$('#logoutbtn1').click(function(){
+		logoutForm.submit();
+	})
+	$('#logoutbtn2').click(function(){
+		logoutForm.submit();
+	})
 	//회원가입용
 	$('#editmemberbtn').click(function(e) {
 		e.preventDefault();
 		$('#editmembermodal').modal("show");
 	});
+	$('#logInSubmit').click(function(){
+		$('#logInForm').submit();
+	})
+	
+	
+})
 </script>
