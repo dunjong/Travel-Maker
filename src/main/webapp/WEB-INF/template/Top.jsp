@@ -377,7 +377,7 @@
 								value="${param.id}" placeholder="아이디를 입력하세요">
 						</div>
 						<div>
-							<button class="btn">아이디 확인</button>
+							<a class="btn" id="signUpIdCheckBtn">아이디 확인</a>
 							<span style="color: red; font-size: .8em">${idError}<form:errors path="memberDTO.id" /></span>
 						</div>
 					</div>
@@ -499,6 +499,13 @@ $(function(){
 	$('#editmemberbtn').click(function(e) {
 		e.preventDefault();
 		$('#editmembermodal').modal("show");
+	});
+	$('#signUpIdCheckBtn').click(function(e){
+		e.preventDefault();
+		settings = {
+					
+		}
+		$.ajax(settings)
 	});
 	
 })
