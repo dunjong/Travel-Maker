@@ -47,11 +47,10 @@ public class MemberController {
 	}///vali
 	@RequestMapping("SignUp.do")
 	public String SignUp(MemberDTO dto, HttpSession session){
-		System.out.println("SignUp.do안으로들어옴");
-		System.out.println(dto.getGender());
-		travelMakerService.SignUp(dto);
-		session.setAttribute("id", dto.getId());
-		System.out.println("SignUp.do안에서 홈으로 나감");
+		if(travelMakerService.SignUp(dto)) {
+			session.setAttribute("id", dto.getId());
+		}
+		
 		return "/home.tiles";
 	}
 	

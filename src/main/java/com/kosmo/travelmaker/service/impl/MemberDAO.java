@@ -17,8 +17,6 @@ public class MemberDAO {
 		return (Integer)sqlMapper.selectOne("isLogin",map)==0 ? false : true;
 	}
 	public boolean SignUp(MemberDTO dto) {
-		System.out.println("memberdao_signup");
-		System.out.println(dto.getGender());
 		return sqlMapper.insert("signUp",dto)==0 ? false : true;
 	}
 }

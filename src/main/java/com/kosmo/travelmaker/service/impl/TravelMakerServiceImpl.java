@@ -20,8 +20,6 @@ public class TravelMakerServiceImpl implements TravelMakerService{
 	}
 	@Override
 	public boolean SignUp(MemberDTO dto) {
-		System.out.println("travelmakerserviceimpl_signup");
-		System.out.println(dto.getGender());
 		return memberDAO.SignUp(dto);
 	}
 	

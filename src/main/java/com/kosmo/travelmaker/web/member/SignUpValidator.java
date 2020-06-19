@@ -37,8 +37,6 @@ public class SignUpValidator implements Validator{
 		if (cmd.getGender() == null) {
 			errors.rejectValue("gender", "genderError");
 		}
-		
-		
 		if (cmd.getPassword() == null) {
 			errors.rejectValue("password", "passwordError");
 		} 

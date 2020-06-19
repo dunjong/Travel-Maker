@@ -361,9 +361,9 @@
 
 
 <!-- 회원 가입 modal -->
-<div class="modal fade" id="editmembermodal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+<div class="modal fade" id="editmembermodal">
+<!-- tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" -->
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel" style="color: black;">회원가입</h5>
@@ -377,6 +377,7 @@
 								value="${param.id}" placeholder="아이디를 입력하세요">
 						</div>
 						<div>
+							<button class="btn">아이디 확인</button>
 							<span style="color: red; font-size: .8em">${idError}<form:errors path="memberDTO.id" /></span>
 						</div>
 					</div>
@@ -469,6 +470,9 @@
 </c:if>
 <script>
 $(function(){
+	if(${not empty param}){
+		$('#editmembermodal').modal("show");
+	}
 	//로그인용
 	$('#loginbtn1').click(function(e) {
 		e.preventDefault();
@@ -482,8 +486,9 @@ $(function(){
 	var logoutForm = document.createElement('form');
 	logoutForm.action = '<c:url value="/TravelMaker/Logout.do"/>'
 	$('#logInForm').append(logoutForm)
-	console.log(logoutForm);
-	console.log($('#logInForm').get(0))
+	$('#logInSubmit').click(function(){
+		$('#logInForm').submit();
+	})
 	$('#logoutbtn1').click(function(){
 		logoutForm.submit();
 	})
@@ -495,10 +500,6 @@ $(function(){
 		e.preventDefault();
 		$('#editmembermodal').modal("show");
 	});
-	$('#logInSubmit').click(function(){
-		$('#logInForm').submit();
-	})
-	
 	
 })
 </script>
