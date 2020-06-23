@@ -64,6 +64,10 @@
 	resize: none;
 }
 
+#reviewWriteImageUpButtonInput {
+	display: none;
+}
+
 #reviewWriteImageUpButton {
 	text-align: center;
 	width: 161px;
@@ -141,8 +145,11 @@
 									placeholder="리뷰 내용을 입력하세요" required="required"></textarea>
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<button id="reviewWriteImageUpButton" type="button">사진을
-										올리시려면 클릭하세요</button>
+									<input type="file" id="reviewWriteImageUpButtonInput"
+										onchange="fileCheck(this)"
+										accept="image/gif,image/jpeg,image/png">
+									<button id="reviewWriteImageUpButton" type="button">
+										사진을 올리시려면 클릭하세요</button>
 									<input type="password" id="reviewWritePwd" class="search_input"
 										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요" required="required">
 									<button id="reviewWriteSubmmit">리뷰 작성 완료</button>
@@ -164,3 +171,24 @@
 <div id=reviewBack>
 	<div id="reviewBackImage"></div>
 </div>
+<script>
+	$(function() {
+		$('#reviewWriteImageUpButton').click(function(e) {
+			e.preventDefault();
+			$('#reviewWriteImageUpButtonInput').click();
+		});
+	});
+	function fileCheck(obj) {
+		pathpoint = obj.value.lastIndexOf('.');
+		filepoint = obj.value.substring(pathpoint + 1, obj.length);
+		filetype = filepoint.toLowerCase();
+		if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png'
+				|| filetype == 'jpeg' || filetype == 'bmp') {
+		} else {
+			alert('사진(이미지 파일)만 올려주세요!');
+			parentObj = obj.parentNode
+			node = parentObj.replaceChild(obj.cloneNode(true), obj);
+			return false;
+		}
+	}
+</script>

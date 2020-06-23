@@ -123,9 +123,14 @@ var md_name;
 var md_review;
 var img;
 var span;
-var hotelInfo=[{'hotel':origin}]
-var spotInfo=[]
+
+var hotelInfo={}
+var spotInfo={}
+
 var day=1;
+var plans=8;
+var dayplans={};
+
  //0] 주변 찾기 설정
   function food() {
 	  $('#type').html('맵을 눌러서 주변 <strong>맛집</strong>을 확인해보세요!')
@@ -173,10 +178,18 @@ var day=1;
 	              }
 	              console.log('place in placeDetail:',place)
 	               if(nearSearchType=='lodging'){
-	             	   hotelInfo.push({'hotel':place})
+	            	   console.log('day in save',day)
+	             	   hotelInfo['day'+day]={'hotel':place}
 	               }
 	               else{
-	            	   spotInfo.push({'spot':place})
+	            	   if(spotInfo['day'+day]==undefined){
+		            	   var savedSpot=[]
+		            	   savedSpot.push({'spot':place})
+		            	   spotInfo['day'+day]=savedSpot
+	            	   }
+	            	   else{
+	            		   spotInfo['day'+day].push({'spot':place})
+	            	   }
 	               }
 	            });
   }////placeDetail
@@ -186,7 +199,6 @@ var day=1;
 	  var sp_waypoints=document.getElementById('sp-waypoints');
 	  sp_waypoints.innerHTML=''
 	  if(nearSearchType=='lodging'){
-		  hotelInfo=[]
 		  placeDetailnSave($('#iw-id').html())
 		  
 		  boxOrigin=$('#iw-lanlng').html();
@@ -217,9 +229,6 @@ var day=1;
 	   	    removeMarkers(markers);
 	   	    markers=[];
 	   	   }
-	  hotelInfo=[{'hotel':origin}]
-	  spotInfo=[];
-	  spots=[];
 	  displayRoute(origin, destination, directionsService,
 		       directionsRenderer,spots);
   }////clearBox
@@ -383,6 +392,7 @@ var day=1;
        directionsRenderer,spots);
    ////
    
+  
    
    //맵에 클릭이벤트 
    /*
@@ -667,10 +677,11 @@ var day=1;
 	 //확인용
 	 	console.log('hotelInfo:',hotelInfo)
 	 //
-	 if(hotelInfo[0].hotel.name!=undefined)
-	 	 sp_origin.textContent='출발지:'+hotelInfo[0].hotel.name
+	 console.log('hotelInfo',hotelInfo['day'+day])
+	 if(hotelInfo['day'+day]!=undefined)
+	 	 sp_origin.textContent='출발지:'+hotelInfo['day'+day].hotel.name
 	 else
-		 sp_origin.textContent='출발지:'+hotelInfo[0].hotel
+		 sp_origin.textContent='출발지:'+origin
 	 var spot=''
 	 for(var i=0;i<spots.length;i++){
 		 spot+=spots[i].location+' '
@@ -678,23 +689,29 @@ var day=1;
 	 
 	 var sp_waypoints=document.getElementById('sp-waypoints');
 	//확인용
-	 	console.log('spotInfo:',spotInfo)
+		console.log('day',day)
+		var spotArr=spotInfo['day'+day]
+	 	console.log('spotArr:',spotArr)
+	 	console.log('spotArr[0].spot.name:',spotArr[0].spot.name)
 	 //
-	 if(spotInfo[0]!=undefined){
+	 if(spotInfo['day'+day]!=undefined){
+		 
 		 sp_waypoints.innerHTML=''
 		 
-		 for(var i=0;i<spotInfo.length;i++){
+		 for(var i=0;i<spotArr.length;i++){
+			 
+			console.log('들어옴',spotArr[i].spot.name)
 			var h4=document.createElement('h4')
 			h4.textContent='◆'+(i+1)+'번째 경유지:'
 			sp_waypoints.appendChild(h4)
 			h4=document.createElement('h4')
-			h4.textContent='이름:'+spotInfo[i].spot.name
+			h4.textContent='이름:'+spotArr[i].spot.name
 			sp_waypoints.appendChild(h4)
 			h4=document.createElement('h4')
-	 	 	h4.textContent='주소:'+spotInfo[i].spot.formatted_address
+	 	 	h4.textContent='주소:'+spotArr[i].spot.formatted_address
 	 	 	sp_waypoints.appendChild(h4)
 	 	 	h4=document.createElement('h4')
-	 	 	h4.textContent='위치 아이디:'+spotInfo[i].spot.id
+	 	 	h4.textContent='위치 아이디:'+spotArr[i].spot.id
 	 	 	sp_waypoints.appendChild(h4)
 		 }
 	 }
@@ -720,41 +737,32 @@ var day=1;
 		});
  }////detail
  
- function DayPlan() {
-	 $.ajax({
-			url:'<c:url value="/TravelMaker/DayPlanSava.kosmo"/>',
-			get:'get',
-			dataType:'text',
-			success:successCallBack,
-			error:function(request,error){
-				console.log('상태코드:',request.status);
-				console.log('서버로부터 받은 HTML데이타:',request.responseText);
-				console.log('에러:',error);
-			}
-			
-		});
-}
- function successCallBack(data){
+ 
+ function DayPlan(data){
+	 //확인
+	 console.log('data.id',data.id)
+	 console.log(data.id.split('.')[1])
 	 
-	 console.log('ajax 성공')
-	 if(day==6){
-		 alert('더 이상 플랜을 추가할 수 없어요')
-		 $('#day').html('')
-		 return
+	 day=data.id.split('.')[1]
+	 
+	 //확인
+	 console.log('day',day)
+	 console.log(dayplans['day'+day])
+	 
+	 if(dayplans['day'+day]!=undefined){
+	 planOrigin=dayplans['day'+day].origin
+	 planSpots=dayplans['day'+day].spots
+	 displayRoute(planOrigin,destination , directionsService,
+		      directionsRenderer,planSpots);
 	 }
-	 var planBox=document.getElementById('planBox')
-	 var div=document.createElement('div')
-	 div.className='btn btn-warning'
-	 div.textContent=day+'일차 플랜 '
-	 div.setAttribute('name','plan'+day )
-	 planBox.appendChild(div)
-	 day+=1;
-	 $('#day').html(day+'일차 플랜')
-	 clearBox();
-	 
-	 
-	 
+	 else{
+		 alert('준비된 계획이 없습니다')
+		 spots=[];
+		 displayRoute(origin,destination , directionsService,
+			      directionsRenderer,spots);
+	 }
  }
+ 
  function clearPlanBox() {
 	day=1
 	planBox.innerHTML=''
@@ -765,6 +773,10 @@ var day=1;
 	 $('#frm').prop('action','<c:url value="/TravelMaker/Planner.kosmo"/>')
  	 $('#frm').submit()
 }
+ function saveDayPlan(){
+	 dayplans['day'+day]={'origin':origin,'spots':spots}
+	 alert(day+'일차 계획이 저장되었습니다.')
+ }
  
 </script>	
 	
@@ -776,14 +788,21 @@ var day=1;
 				<div class="col-sm-4">
 					
 				</div>
-					<div class="col-sm-6" id="planBox">
-					</div>
+						<div class="col-sm-6" id="planBox">
+							<c:forEach begin="1" end="8" var="days" >
+								<div class="btn btn-warning" id="day.${days}" onclick="DayPlan(this)">${days}일차 플랜</div>
+							</c:forEach>
+						</div>
 				<div class="col-sm-2">
 					<div class="btn btn-danger" onclick="clearPlanBox()">전체 플랜 삭제하기</div>
 					<div class="btn btn-info" onclick="back()">여정 표로 돌아가기</div>
-					<div><form hidden="true" id="frm">
-						</form></div>
+					<div>
+						<form hidden="true" id="frm">
+							
+						</form>
+					</div>
 				</div>
+				
 			</div>
 			<br>
 			<br>
@@ -806,7 +825,7 @@ var day=1;
 						<div class="col-sm-12" id="buttons">
 							<div class="btn btn-warning" onclick="clearBox();">플랜 삭제!</div>
 							<div class="btn btn-danger" onclick="showPlan()" >플랜 보기!</div>
-							<div class="btn btn-info" onclick="DayPlan()">플랜  저장!</div>
+							<div class="btn btn-info" onclick="saveDayPlan()">플랜  저장!</div>
 							<h4>전체 거리: <span id="total"></span></h4>
 						</div>
 					</div>
@@ -816,6 +835,7 @@ var day=1;
 						<h4><span id="type">맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!</span><small id=day>1일차 플랜</small></h4>
 				    </div>
 					<div id="map"></div>
+					
 				</div>
 <!-- 				<div id="right-panel" class="col-sm-2" style="height: 700px; width: 100px;margin-bottom:20px;overflow:scroll;"> -->
 <!-- 					 -->

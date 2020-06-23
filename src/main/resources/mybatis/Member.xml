@@ -6,4 +6,7 @@
 	<select id="isLogin" parameterType="java.util.Map" resultType="int">
 		SELECT COUNT(*) FROM userinfo WHERE id=#{id} AND pwd=#{pwd}
 	</select>
+	<insert id="signUp" parameterType="MemberDTO">
+		INSERT INTO userinfo VALUES(userinfoNo.NEXTVAL,#{id},#{name},#{en_name},#{password},#{rrn},#{gender})
+	</insert>
 </mapper>

@@ -34,8 +34,6 @@ var lat,lng;
 			}
 		});
 		//선택한 장소id저장용변수,위도,경도
-		var placesList = document.getElementById('places');
-		var img;
 		$('#hotelSubmit').click(function(){
 			//url에 입력할 변수선언
 			var adults = $('#adults').prop('value');
@@ -57,6 +55,8 @@ var lat,lng;
 			$.ajax(settings).done(
 				function(response) {
 					console.log(response)
+					var placesList = document.getElementById('places');
+					var img;
 					for (var i = 0; i < response.data.length; i++) {
 						console.log
 						img = document.createElement('img');

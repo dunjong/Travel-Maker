@@ -1,18 +1,27 @@
 package com.kosmo.travelmaker.web.member;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.kosmo.travelmaker.service.MemberDTO;
+import com.kosmo.travelmaker.service.impl.TravelMakerServiceImpl;
 
 
 @Controller
 @RequestMapping("/TravelMaker/")
 public class MemberController {
-
+	@Resource(name = "validator")
+	private SignUpValidator validator;
+	@Resource(name="travelMakerService")
+	private TravelMakerServiceImpl travelMakerService;
+	
 
 	@RequestMapping("MyInfo.kosmo")
 	public String MyInfo() {
@@ -26,16 +35,23 @@ public class MemberController {
 	public String BookMark() {
 		return "member/BookMark.tiles";
 	}
-	@Resource(name = "validator")
-	private SignUpValidator validator;
 	@RequestMapping("ValidationCheck.do")
-	public String vali(SignUpCommand cmd,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
+	public String vali(MemberDTO dto,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
 		//내가 만든 validate클래스의 validate()호출 데이터로 cmd넣고 에러정보용으로 errors넣어준다.
-		validator.validate(cmd, errors);
+		validator.validate(dto, errors);
 		if(errors.hasErrors()) {
 			return "/home.tiles";
 		}
-		model.addAttribute("cmd",cmd);
-		return "/Validation10/ValidationComplete.jsp";
+		model.addAttribute("dto",dto);
+		return "forward:/TravelMaker/SignUp.do";
 	}///vali
+	@RequestMapping("SignUp.do")
+	public String SignUp(MemberDTO dto, HttpSession session){
+		if(travelMakerService.SignUp(dto)) {
+			session.setAttribute("id", dto.getId());
+		}
+		
+		return "/home.tiles";
+	}
+	
 }

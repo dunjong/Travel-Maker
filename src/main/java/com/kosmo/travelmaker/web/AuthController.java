@@ -10,20 +10,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kosmo.travelmaker.service.TravelMakerService;
+import com.kosmo.travelmaker.service.impl.TravelMakerServiceImpl;
 
 @Controller
 @RequestMapping("/TravelMaker/")
 public class AuthController {
 	@Resource(name="travelMakerService")
-	private TravelMakerService travelMakerService;
+	private TravelMakerServiceImpl travelMakerService;
 	
 	@RequestMapping("LoginProcess.do")
 	public String process(HttpSession session,@RequestParam Map map,Model model) {
 		//서비스 호출]
 		boolean flag=travelMakerService.isLogin(map);
 		if(flag) {//회원
-			System.out.println("들어옴");
 			//세션 영역에 데이타 저장
 			session.setAttribute("id",map.get("id"));
 		}
