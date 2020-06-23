@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<script src="<c:url value='/js/jquery.jcarousel.min.js'/>"></script>
+<script src="<c:url value='/js/jcarousel.basic.js'/>"></script>
+<link rel="stylesheet" href="<c:url value='/styles/jcarousel.basic.css'/>">
 <style>
 	  #floating-panel {
         position: absolute;
@@ -30,7 +32,7 @@
         height: 100%;
         overflow: auto;
       }
-       .iw_table_row {
+      .iw_table_row {
          height: 18px;
          color:#B28AF0;
          font-size:15px;
@@ -44,7 +46,7 @@
       .iw_table_icon {
         text-align: right;
       }
-       #types img{
+      #types img{
       	border-radius:30px
       }
       #types img:hover{
@@ -100,6 +102,18 @@
       #planBox > div{
       	margin:10px;
       }
+      #md-image img{
+	      width:580px;
+	      height:380px;
+	      border:1rem solid;
+      }
+      #md-review{
+      	overflow:scroll;
+      	height:360px;
+      }
+      #review{
+      	margin-left:300px;
+      }
     </style>
 
 	<!-- Search -->
@@ -108,27 +122,41 @@
 
 <script>
 //변수 선언
+//맵과 윈도우인포와 서비스 선언
 var map,infoWindow,servicePlace;
+//마커 선언
 var markers=[];
+//잘 모름
 var hostnameRegexp = new RegExp('^https?://.+?/');
+//주변검색 타입,키워드 선언
 var nearSearchType='lodging';
-var origin='방콕, 태국';
-var destination='호텔,방콕, 태국';
-var spots=[];
-var directionsService;
-var directionsRenderer;
 var keyword='';
+//출발지 선언
+var origin='방콕, 태국';
+//도착지 선언
+var destination='호텔,방콕, 태국';
+//선택된 장소 넣는 배열 선언
+var spots=[];
+//최적거리 찾아주는 서비스 선언
+var directionsService;
+//총 거리 계산  서비스 선언
+var directionsRenderer;
+//장소 상세정보 이미지,이름,리뷰 선언
 var md_image;	
 var md_name;
 var md_review;
+//장소 이미지 넣을 태그 객체 선언
+var li;
 var img;
 var span;
-
+//일차마다 선택된 호텔과 장소들 담는 JSON 선언
 var hotelInfo={}
 var spotInfo={}
-
+//선택된 일차 선언
 var day=1;
-var plans=8;
+//몇일치 일지 정하는 수 선언(넘어오는 값) 지금은 8일차
+var plans=5;
+//짜여진 계획 저장하는 JSON 선언
 var dayplans={};
 
  //0] 주변 찾기 설정
@@ -532,7 +560,7 @@ var dayplans={};
           position: place.geometry.location
         });
          marker.placeResult = place;
-         google.maps.event.addListener(marker, 'click', showInfoWindow);
+         google.maps.event.addListener(marker, 'mouseover', showInfoWindow);
          markers.push(marker)
         //마커 확인
    	 	//console.log('마커',marker.position.toString());
@@ -582,8 +610,7 @@ var dayplans={};
 	  else{
 		logo='<c:url value="/images/spotIcon.png"/>';
 	  }
-	 
-     document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
+     document.getElementById('iw-icon').innerHTML = '<img style="width:80px;height:80px;margin:10px" class="hotelIcon" ' +
          'src="' + logo + '"/>';
      document.getElementById('iw-url').innerHTML = '<h4><a href="' + place.url +
          '"  target="blank">' + place.name + '</a></h4>';
@@ -640,12 +667,15 @@ var dayplans={};
 	   md_review=document.getElementById('md-review');
 	  
 	   for(var i=0;i<10;i++){
-		   img = document.createElement('img');
-		   img.alt='no image';
-		   if(place.photos!=undefined && place.photos[i]!=undefined)
-           img.src=place.photos[i].getUrl({maxWidth: 300, maxHeight: 200})
-		   md_image.appendChild(img);
-		  
+			   if(place.photos!=undefined && place.photos[i]!=undefined){
+				    console.log('place.photos[i].getUrl()',place.photos[i].getUrl())
+				    li =document.createElement('li');
+				    img = document.createElement('img');
+				    img.alt='사진 없음';
+	           		img.src=place.photos[i].getUrl()
+		            li.appendChild(img);	
+		            md_image.appendChild(li);
+			   }
 		   }; 
 		   span=document.createElement('span')
 		   span.textContent=place.name;
@@ -726,15 +756,19 @@ var dayplans={};
  
  ///상세정보 보기 모달창
  function detail(){
-	  $('#js-modal img').css({width:'300px',height:'200px',margin:'10px',border:'1rem solid'})
+	 
 	  $('#js-modal h4').css({color:'black',margin:'10px',border:'thick double #32a1ce'})
-	  $('#md-image').css({marginLeft:'60px'})
 	  $('#js-modal span').css({color:'black',textAlign:'center',fontWeigt:'bord'})
+	  
+	    var $btn = $(this).button('loading')
+	    $btn.button('reset')
 	  
 	  $('#js-modal').modal('show');
 	  $('#close').on('click',function(){
 			$('#js-modal').modal('hide');
 		});
+	 
+	  
  }////detail
  
  
@@ -789,7 +823,7 @@ var dayplans={};
 					
 				</div>
 						<div class="col-sm-6" id="planBox">
-							<c:forEach begin="1" end="8" var="days" >
+							<c:forEach begin="1" end="5" var="days" >
 								<div class="btn btn-warning" id="day.${days}" onclick="DayPlan(this)">${days}일차 플랜</div>
 							</c:forEach>
 						</div>
@@ -834,6 +868,7 @@ var dayplans={};
 					<div id="floating-panel">
 						<h4><span id="type">맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!</span><small id=day>1일차 플랜</small></h4>
 				    </div>
+				   
 					<div id="map"></div>
 					
 				</div>
@@ -875,14 +910,22 @@ var dayplans={};
 	            <td class="iw_attribute_name">위도경도:</td>
 	            <td id="iw-lanlng"></td>
 	          </tr>
-	          <tr id="iw-lanlng-row" class="iw_table_row">
+	          <tr class="iw_table_row">
 	            <td class="iw_attribute_name">위치 아이디: </td>
 	            <td id="iw-id"></td>
 	          </tr>
-	          
+	          <tr class="iw_table_row">
+	          	<td><br></td>
+	          </tr>
+	          <tr class="iw_table_row">
+	            <td class="iw_attribute_name"></td>
+	            <td>
+	            	<button class="btn btn-primary" id="myButton" data-loading-text="Loading..." autocomplete="off" data-toggle="modal" onclick="detail()">상세정보 보기</button>
+	          		<div class="btn btn-danger" onclick="box()">바구니에 담기▶</div>
+	            </td>
+	          </tr>
 	        </table>
-	          	<div class="btn btn-primary" data-toggle="modal" onclick="detail()">상세정보 보기</div>
-	          	<div class="btn btn-danger" onclick="box()">바구니에 담기▶</div>
+	          	
 	      </div>
     	</div>
     	
@@ -894,10 +937,31 @@ var dayplans={};
 	    			<span>&times;</span>
 	    		</button>
     			<h2 style="text-align:center;" id="md-name"></h2>
-    			<div id="md-image">
-        		</div>
-        		<div id="md-review">
-        		</div>
+   				<div class="wrapper">
+		            <div class="jcarousel-wrapper">
+		                <div class="jcarousel">
+		                    <ul id="md-image">
+		                      
+		                    </ul>
+		                </div>
+		
+		                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+		                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+		                
+		                <p class="jcarousel-pagination">
+		                    
+		                </p>
+		           
+			           
+					</div>
+		        </div>
+				<button id="review" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				  	구글 댓글 보기
+				</button>
+				<div class="collapse" id="collapseExample">
+				  <div class="well" id="md-review">
+				  </div>
+				</div>
 	    	</div>
 	    </div>
 	  </div>
