@@ -235,8 +235,7 @@
 							alert(JSON.stringify(error));
 						}
 					});
-<<<<<<< HEAD
-=======
+
 					//]]>
 
 					/* 로그인 관련 쿠키 생성 및 삭제 */
@@ -278,8 +277,8 @@
 						}
 
 						return "";
-					}
->>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
+					} 
+
 
 					/* // 카카오 script key 입력
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5');
