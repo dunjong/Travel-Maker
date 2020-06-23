@@ -42,6 +42,7 @@ public class MemberController {
 		//내가 만든 validate클래스의 validate()호출 데이터로 cmd넣고 에러정보용으로 errors넣어준다.
 		validator.validate(dto, errors);
 		if(errors.hasErrors()) {
+			model.addAttribute("error","validation");
 			return "/home.tiles";
 		}
 		model.addAttribute("dto",dto);
