@@ -373,7 +373,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">아이디</label>
 						<div>
-							<input type="text" class="form-control input-lg" name="id"
+							<input id="signUpId" type="text" class="form-control input-lg" name="id"
 								value="${param.id}" placeholder="아이디를 입력하세요">
 						</div>
 						<div>
@@ -502,9 +502,20 @@ $(function(){
 	});
 	$('#signUpIdCheckBtn').click(function(e){
 		e.preventDefault();
+		console.log($('#signUpId').prop('value'));
 		settings = {
+				url:"<c:url value='/TravelMaker/IdCheck.do'/>",//요청할 서버의 URL주소
+				type:'get',//데이타 전송방식(디폴트는 get방식) 
+				dataType:'text',//서버로 부터 응답 받을 데이타의 형식 설정
+				data:{"signUpId":$('#signUpId').prop('value')},
+				success:function(response){
+					console.log(response);
 					
-		}
+				},
+				error:function(data){//서버로부터 비정상적인 응답을 받았을때 호출되는 콜백함수
+					console.log('에러:',data.responseText);				
+				}
+		};
 		$.ajax(settings)
 	});
 	

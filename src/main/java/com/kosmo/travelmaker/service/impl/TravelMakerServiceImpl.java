@@ -22,6 +22,10 @@ public class TravelMakerServiceImpl implements TravelMakerService{
 	public boolean SignUp(MemberDTO dto) {
 		return memberDAO.SignUp(dto);
 	}
+	@Override
+	public String idCheck(String id) {
+		return memberDAO.idCheck(id)?"failure":"success";
+	}
 	
 
 }
