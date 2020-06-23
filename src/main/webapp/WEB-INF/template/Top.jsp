@@ -198,8 +198,9 @@
 						<label class="password"> 
 							<span style="color: black;">비밀번호</span> 
 						</label>
-						<input id="pwd" name="pwd" type="password" placeholder="비밀번호를 입력하세요"> 
+						<input id="pwd" name="pwd" type="password" placeholder="비밀번호를 입력하세요">
 					</div>
+					<span id="loginfailmessage" style="color: red; font-size: .8em">${NotMember}</span>
 				</form>
 			</div>
 			<!-- 카카오 로그인 -->
@@ -277,7 +278,10 @@
 						}
 
 						return "";
-						}
+
+
+					}
+
 					/* // 카카오 script key 입력
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5');
 
@@ -372,12 +376,12 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">아이디</label>
 						<div>
-							<input type="text" class="form-control input-lg" name="id"
+							<input id="signUpId" type="text" class="form-control input-lg" name="id"
 								value="${param.id}" placeholder="아이디를 입력하세요">
 						</div>
 						<div>
 							<a class="btn" id="signUpIdCheckBtn">아이디 확인</a>
-							<span style="color: red; font-size: .8em">${idError}<form:errors path="memberDTO.id" /></span>
+							<span id="idErrormessage" style="color: red; font-size: .8em">${idError}<form:errors path="memberDTO.id" /></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -455,23 +459,16 @@
 			</div>
 		</div>
 	</div>
-</div>
-<!-- 로그인 실패시 사용하는 alert창 -->
-<c:if test="${!empty NotMember}">
-	<div class="row">
-		<div class="alert alert-warning fade in  col-sm-5">
-			<button type="button" class="close" data-dismiss="alert">
-				<span>&times;</span>
-			</button>
-			${NotMember}
-		</div>
-	</div>
-</c:if>
+</div>	
 <script>
 $(function(){
-	if(${not empty param}){
+	if(${not empty error}){
 		$('#editmembermodal').modal("show");
 	}
+	if(${not empty NotMember}){
+		$('#loginmodal').modal("show");
+	}
+		
 	//로그인용
 	$('#loginbtn1').click(function(e) {
 		e.preventDefault();
@@ -501,10 +498,31 @@ $(function(){
 	});
 	$('#signUpIdCheckBtn').click(function(e){
 		e.preventDefault();
-		settings = {
-					
+		if($('#signUpId').prop('value').length==0){
+			if(${not empty idError})
+				$('#signUpId').prop('value',${idError}+" ");
+			return false;	
 		}
-		$.ajax(settings)
+		settings = {
+				url:"<c:url value='/TravelMaker/IdCheck.do'/>",//요청할 서버의 URL주소
+				type:'get',//데이타 전송방식(디폴트는 get방식) 
+				dataType:'text',//서버로 부터 응답 받을 데이타의 형식 설정
+				data:{"signUpId":$('#signUpId').prop('value')},
+				success:function(response){
+					if(response=='failure'){
+						$('#idErrormessage').text("아이디가 이미 존재합니다");
+					}
+					else if(response=='success'){
+						$('#idErrormessage').text("중복되는 아이디가 없습니다");
+						$('#idErrormessage').prop('style','color:green;font-size: .8em')
+						console.log('success');
+					}
+				},
+				error:function(data){//서버로부터 비정상적인 응답을 받았을때 호출되는 콜백함수
+					console.log('에러:',data.responseText);				
+				}
+		};
+		$.ajax(settings);
 	});
 	
 })
