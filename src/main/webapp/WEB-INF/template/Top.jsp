@@ -277,12 +277,8 @@
 						}
 
 						return "";
-<<<<<<< HEAD
-					} 
 
-=======
 					}
->>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 
 					/* // 카카오 script key 입력
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5');
