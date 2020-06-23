@@ -3,27 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 리뷰 작성하기 여동준 -->
 <head>
-<script>
-	$(function() {
-		$('#reviewWriteImageUpButton').click(function(e) {
-			e.preventDefault();
-			$('#reviewWriteImageUpButtonInput').click();
-		});
-	});
-	function fileCheck(obj) {
-		pathpoint = obj.value.lastIndexOf('.');
-		filepoint = obj.value.substring(pathpoint + 1, obj.length);
-		filetype = filepoint.toLowerCase();
-		if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png'
-				|| filetype == 'jpeg' || filetype == 'bmp') {
-		} else {
-			alert('사진(이미지 파일)만 올려주세요!');
-			parentObj = obj.parentNode
-			node = parentObj.replaceChild(obj.cloneNode(true), obj);
-			return false;
-		}
-	}
-</script>
 <style>
 #reviewBack {
 	text-align: center;
@@ -85,6 +64,10 @@
 	resize: none;
 }
 
+#reviewWriteImageUpButtonInput {
+	display: none;
+}
+
 #reviewWriteImageUpButton {
 	text-align: center;
 	width: 161px;
@@ -100,10 +83,6 @@
 	outline: none;
 	cursor: pointer;
 	width: 30%;
-}
-
-#reviewWriteImageUpButtonInput {
-	display: none;
 }
 
 #reviewWritePwd {
@@ -192,3 +171,24 @@
 <div id=reviewBack>
 	<div id="reviewBackImage"></div>
 </div>
+<script>
+	$(function() {
+		$('#reviewWriteImageUpButton').click(function(e) {
+			e.preventDefault();
+			$('#reviewWriteImageUpButtonInput').click();
+		});
+	});
+	function fileCheck(obj) {
+		pathpoint = obj.value.lastIndexOf('.');
+		filepoint = obj.value.substring(pathpoint + 1, obj.length);
+		filetype = filepoint.toLowerCase();
+		if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png'
+				|| filetype == 'jpeg' || filetype == 'bmp') {
+		} else {
+			alert('사진(이미지 파일)만 올려주세요!');
+			parentObj = obj.parentNode
+			node = parentObj.replaceChild(obj.cloneNode(true), obj);
+			return false;
+		}
+	}
+</script>
