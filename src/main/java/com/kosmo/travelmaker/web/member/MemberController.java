@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.impl.TravelMakerServiceImpl;
@@ -40,6 +42,7 @@ public class MemberController {
 		//내가 만든 validate클래스의 validate()호출 데이터로 cmd넣고 에러정보용으로 errors넣어준다.
 		validator.validate(dto, errors);
 		if(errors.hasErrors()) {
+			model.addAttribute("error","validation");
 			return "/home.tiles";
 		}
 		model.addAttribute("dto",dto);
@@ -50,8 +53,11 @@ public class MemberController {
 		if(travelMakerService.SignUp(dto)) {
 			session.setAttribute("id", dto.getId());
 		}
-		
 		return "/home.tiles";
 	}
-	
+	@RequestMapping("IdCheck.do")
+	@ResponseBody
+	public String IdCheck(@RequestParam String signUpId) {
+		return travelMakerService.idCheck(signUpId);
+	}
 }

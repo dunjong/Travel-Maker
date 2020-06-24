@@ -19,4 +19,7 @@ public class MemberDAO {
 	public boolean SignUp(MemberDTO dto) {
 		return sqlMapper.insert("signUp",dto)==0 ? false : true;
 	}
+	public boolean idCheck(String id) {
+		return (Integer)sqlMapper.selectOne("idCheck",id)==0 ? false : true;
+	}
 }

@@ -10,23 +10,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.tiles.request.collection.KeySet;
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.google.api.Authentication;
 import com.google.cloud.vision.v1.AnnotateImageRequest;
 import com.google.cloud.vision.v1.AnnotateImageResponse;
 import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
@@ -36,15 +28,11 @@ import com.google.cloud.vision.v1.Image;
 import com.google.cloud.vision.v1.ImageAnnotatorClient;
 import com.google.cloud.vision.v1.Feature.Type;
 import com.google.protobuf.ByteString;
-import com.kosmo.googlevision.GoogleVision;
 @Controller
 public class VisionController {
 	@ResponseBody
 	@RequestMapping(value="/TravelMaker/Vision.kosmo",method=RequestMethod.POST)
 	public String Vision(@RequestParam("fileObj") MultipartFile file,HttpServletRequest req) throws IllegalStateException, IOException {
-
-		
-
 		System.out.println(file);
 		String path= req.getSession().getServletContext().getRealPath("/resources/Upload");
 		File f = new File(path+File.separator+file.getOriginalFilename());
@@ -77,7 +65,7 @@ public class VisionController {
 		   // Performs label detection on the image file
 		   BatchAnnotateImagesResponse response = vision.batchAnnotateImages(requests);
 		   System.out.println("들어옴:response"+response);
-			  
+		   //for(response:response)
 		   System.out.println("들어옴:three-1");
 		   List<AnnotateImageResponse> responses = response.getResponsesList();
 		  
