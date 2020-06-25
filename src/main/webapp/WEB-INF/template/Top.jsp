@@ -43,7 +43,7 @@
 										<c:if test="${!login}">
 											<li id="logoutbtn1"><a href="#">로그아웃</a></li>
 										</c:if>
-										<li id="editmemberbtn" data-toggle="modal"><a href="#">회원가입</a></li>
+										<li id="signupmodalbtn" data-toggle="modal"><a href="#">회원가입</a></li>
 										<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
 										<li>
 											<!-- 리뷰리스트.코스모를 리뷰서치.코스모로 변경: 여동준 -->
@@ -151,7 +151,7 @@
 					<c:if test="${!login}">
 						<li id="logoutbtn2"><a href="#">로그아웃</a></li>
 					</c:if>
-					<li><a href="#" id="editmemberbtn">회원가입</a></li>
+					<li><a href="#" id="signupmodalbtn">회원가입</a></li>
 					<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
 					<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">나의리뷰</a></li>
 				</ul>
@@ -182,8 +182,8 @@
 
 
 <!--로그인 modal-->
-<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+<div class="modal fade" id="loginmodal">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">로그인</h5>
@@ -363,8 +363,7 @@
 
 
 <!-- 회원 가입 modal -->
-<div class="modal fade" id="editmembermodal">
-<!-- tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" -->
+<div class="modal fade" id="sighupmodal">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -451,8 +450,7 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn" id="sighUpSubmit" type="submit">확인</button>
-						<button class="btn" type="button" data-dismiss="modal"
-							style="color: red;">취소</button>
+						<button class="btn" type="button" data-dismiss="modal" style="color: red;">취소</button>
 					</div>
 				</form>
 			</div>
@@ -461,14 +459,18 @@
 </div>	
 <script>
 $(function(){
+	//회원가입 validate에러 발생시
 	if(${not empty error}){
-		$('#editmembermodal').modal("show");
+		$('#sighupmodal').modal("show");
 	}
+	//로그인실패시
 	if(${not empty NotMember}){
 		$('#loginmodal').modal("show");
 	}
-		
-	//로그인용
+	$('#sighupmodal').on('hide.bs.modal', function (e) {
+		$('#sighupmodal')
+	})
+	//로그인 모달켜기용 - 전체화면/작은화면
 	$('#loginbtn1').click(function(e) {
 		e.preventDefault();
 		$('#loginmodal').modal("show");
@@ -491,9 +493,9 @@ $(function(){
 		logoutForm.submit();
 	})
 	//회원가입용
-	$('#editmemberbtn').click(function(e) {
+	$('#signupmodalbtn').click(function(e) {
 		e.preventDefault();
-		$('#editmembermodal').modal("show");
+		$('#sighupmodal').modal("show");
 	});
 	$('#signUpIdCheckBtn').click(function(e){
 		e.preventDefault();
@@ -502,26 +504,25 @@ $(function(){
 				$('#signUpId').prop('value',${idError}+" ");
 			return false;	
 		}
-		settings = {
-				url:"<c:url value='/TravelMaker/IdCheck.do'/>",//요청할 서버의 URL주소
-				type:'get',//데이타 전송방식(디폴트는 get방식) 
-				dataType:'text',//서버로 부터 응답 받을 데이타의 형식 설정
-				data:{"signUpId":$('#signUpId').prop('value')},
-				success:function(response){
-					if(response=='failure'){
-						$('#idErrormessage').text("아이디가 이미 존재합니다");
-					}
-					else if(response=='success'){
-						$('#idErrormessage').text("중복되는 아이디가 없습니다");
-						$('#idErrormessage').prop('style','color:green;font-size: .8em')
-						console.log('success');
-					}
-				},
-				error:function(data){//서버로부터 비정상적인 응답을 받았을때 호출되는 콜백함수
-					console.log('에러:',data.responseText);				
+		//회원가입시 로그인 체크용 
+		$.ajax({
+			url:"<c:url value='/TravelMaker/IdCheck.do'/>",//요청할 서버의 URL주소
+			type:'get',//데이타 전송방식(디폴트는 get방식) 
+			dataType:'text',//서버로 부터 응답 받을 데이타의 형식 설정
+			data:{"signUpId":$('#signUpId').prop('value')},
+			success:function(response){
+				if(response=='failure'){
+					$('#idErrormessage').text("아이디가 이미 존재합니다");
 				}
-		};
-		$.ajax(settings);
+				else if(response=='success'){
+					$('#idErrormessage').text("중복되는 아이디가 없습니다");
+					$('#idErrormessage').prop('style','color:green;font-size: .8em')
+				}
+			},
+			error:function(data){//서버로부터 비정상적인 응답을 받았을때 호출되는 콜백함수
+				console.log('에러:',data.responseText);				
+			}
+		});
 	});
 	
 })
