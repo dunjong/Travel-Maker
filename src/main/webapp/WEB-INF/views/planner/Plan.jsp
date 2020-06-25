@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="<c:url value='/js/jquery.jcarousel.min.js'/>"></script>
+<script src="<c:url value='/js/jcarousel.basic.js'/>"></script>
+<link rel="stylesheet" href="<c:url value='/styles/jcarousel.basic.css'/>">
 
 <style>
 	  #floating-panel {
         position: absolute;
         top: 10px;
-        left: 25%;
+        left: 38%;
         z-index: 5;
         background-color: #fff;
         padding: 5px;
@@ -22,6 +25,7 @@
       #map {
         height: 100%;
         width: 100%;
+        border:thick double #32a1ce;
       }
       table {
         font-size: 12px;
@@ -30,7 +34,7 @@
         height: 100%;
         overflow: auto;
       }
-       .iw_table_row {
+      .iw_table_row {
          height: 18px;
          color:#B28AF0;
          font-size:15px;
@@ -43,18 +47,6 @@
       }
       .iw_table_icon {
         text-align: right;
-      }
-       #types img{
-      	border-radius:30px
-      }
-      #types img:hover{
-      	width: calc(100% + 20px);
-      	opacity: 1;
-      	border-radius:30px
-      }
-      #types img:active{
-      	width: calc(100% + 5px);
-      	opacity: 0.5;
       }
       #sp-origin,#sp-destination{
       	 height: 30px;
@@ -72,34 +64,56 @@
          font-height:30px;
          border:double #32a1ce;
       }
-      #type{
-      	margin:40px;
-      	color:sandybrown;
-      }
-      #type > strong{
-      	color:red
+      #type img{
+      	height:40px;
+      	width:40px
       }
       #day{
       	color:green;
-      	border:thick double #ff9999
+      	border:thick double #32a1ce
       }
-      #buttons{
-      	margin-top:30px;
-      	
+      #buttons-show,#buttons-plan,#buttons-total,#distance,#logo{
+      	border:thick double #32a1ce;
+      	text-align:center;
       }
-      #buttons > div{
-      	margin-right: 7px;
+      #buttons-show > div{
+      	margin: 10px;
+      }
+      #buttons-plan > div{
+      	margin: 10px;
+      }
+      #buttons-total > div{
+      	margin: 10px;
+      }
+      #distance h4{
+      	color:black;
       }
       #hotelIcon{
       	height:50px;
       	width:50px
       }
-      #planBox{
-      	 border:thick double #ff9999
+      #planBox .row {
+       	border:thick double #32a1ce;
       }
-      #planBox > div{
+       #planBox .row > div > div{
       	margin:10px;
       }
+      #md-image img{
+	      width:580px;
+	      height:380px;
+	      border:1rem solid;
+      }
+      #md-review{
+      	overflow:scroll;
+      	height:360px;
+      }
+      #review{
+      	margin-left:300px;
+      }
+      #rightBox{
+       height:600px;
+      }
+      
     </style>
 
 	<!-- Search -->
@@ -108,32 +122,49 @@
 
 <script>
 //변수 선언
+//맵과 윈도우인포와 서비스 선언
 var map,infoWindow,servicePlace;
+//마커 선언
 var markers=[];
+//잘 모름
 var hostnameRegexp = new RegExp('^https?://.+?/');
+//주변검색 타입,키워드 선언
 var nearSearchType='lodging';
-var origin='방콕, 태국';
-var destination='호텔,방콕, 태국';
-var spots=[];
-var directionsService;
-var directionsRenderer;
 var keyword='';
+//출발지 선언
+var origin='방콕, 태국';
+//도착지 선언
+var destination=origin;
+//선택된 장소 넣는 배열 선언
+var spots=[];
+//최적거리 찾아주는 서비스 선언
+var directionsService;
+//총 거리 계산  서비스 선언
+var directionsRenderer;
+//장소 상세정보 이미지,이름,리뷰 선언
 var md_image;	
 var md_name;
 var md_review;
+//장소 이미지 넣을 태그 객체 선언
+var li;
 var img;
 var span;
-
+//일차마다 선택된 호텔과 장소들 담는 JSON 선언
 var hotelInfo={}
 var spotInfo={}
-
+//선택된 일차 선언
 var day=1;
-var plans=8;
+//몇일치 일지 정하는 수 선언(넘어오는 값) 지금은 8일차
+var plans=5;
+//짜여진 계획 저장하는 JSON 선언
 var dayplans={};
+//바운더리 지정
+
 
  //0] 주변 찾기 설정
   function food() {
-	  $('#type').html('맵을 눌러서 주변 <strong>맛집</strong>을 확인해보세요!')
+	  $('#type div').attr('class','btn btn-info')
+	  $('#type div:eq(2)').attr('class','btn btn-danger')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -145,7 +176,8 @@ var dayplans={};
 	  keyword='restaurant'
       }
   function hotel() {
-	  $('#type').html('맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!')
+	  $('#type div').attr('class','btn btn-info')
+	  $('#type div:eq(0)').attr('class','btn btn-danger')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -157,7 +189,8 @@ var dayplans={};
 	  keyword='lodging'
      }
   function tour() {
-	  $('#type').html('맵을 눌러서 주변 <strong>명소</strong>를 확인해보세요!')
+	  $('#type div').attr('class','btn btn-info')
+	  $('#type div:eq(1)').attr('class','btn btn-danger')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -229,6 +262,9 @@ var dayplans={};
 	   	    removeMarkers(markers);
 	   	    markers=[];
 	   	   }
+	  var savedSpot=[]
+	  savedSpot.push({'spot':place})
+	  spotInfo['day'+day]=savedSpot
 	  displayRoute(origin, destination, directionsService,
 		       directionsRenderer,spots);
   }////clearBox
@@ -515,7 +551,7 @@ var dayplans={};
 	  
       
       for (var i = 0, place; place = places[i]; i++) {
-        console.log('place.icon',place.icon)
+        //console.log('place.icon',place.icon)
     	var image = {
           url: logo,
           size: new google.maps.Size(71, 71),
@@ -536,9 +572,11 @@ var dayplans={};
          markers.push(marker)
         //마커 확인
    	 	//console.log('마커',marker.position.toString());
+         //console.log('place.geometry.location',place.geometry.location);
     	//
         bounds.extend(place.geometry.location);  
       }
+      map.fitBounds(bounds);
  }///createMarkers
  
  //3-1]주변 마커 제거
@@ -582,8 +620,7 @@ var dayplans={};
 	  else{
 		logo='<c:url value="/images/spotIcon.png"/>';
 	  }
-	 
-     document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
+     document.getElementById('iw-icon').innerHTML = '<img style="width:80px;height:80px;margin:10px" class="hotelIcon" ' +
          'src="' + logo + '"/>';
      document.getElementById('iw-url').innerHTML = '<h4><a href="' + place.url +
          '"  target="blank">' + place.name + '</a></h4>';
@@ -640,12 +677,15 @@ var dayplans={};
 	   md_review=document.getElementById('md-review');
 	  
 	   for(var i=0;i<10;i++){
-		   img = document.createElement('img');
-		   img.alt='no image';
-		   if(place.photos!=undefined && place.photos[i]!=undefined)
-           img.src=place.photos[i].getUrl({maxWidth: 300, maxHeight: 200})
-		   md_image.appendChild(img);
-		  
+			   if(place.photos!=undefined && place.photos[i]!=undefined){
+				    //console.log('place.photos[i].getUrl()',place.photos[i].getUrl())
+				    li =document.createElement('li');
+				    img = document.createElement('img');
+				    img.alt='사진 없음';
+	           		img.src=place.photos[i].getUrl()
+		            li.appendChild(img);	
+		            md_image.appendChild(li);
+			   }
 		   }; 
 		   span=document.createElement('span')
 		   span.textContent=place.name;
@@ -689,13 +729,12 @@ var dayplans={};
 	 
 	 var sp_waypoints=document.getElementById('sp-waypoints');
 	//확인용
-		console.log('day',day)
-		var spotArr=spotInfo['day'+day]
-	 	console.log('spotArr:',spotArr)
-	 	console.log('spotArr[0].spot.name:',spotArr[0].spot.name)
+		//console.log('day',day)
+	 	//console.log('spotArr:',spotArr)
+	 	//console.log('spotArr[0].spot.name:',spotArr[0].spot.name)
 	 //
 	 if(spotInfo['day'+day]!=undefined){
-		 
+		 var spotArr=spotInfo['day'+day]
 		 sp_waypoints.innerHTML=''
 		 
 		 for(var i=0;i<spotArr.length;i++){
@@ -726,15 +765,17 @@ var dayplans={};
  
  ///상세정보 보기 모달창
  function detail(){
-	  $('#js-modal img').css({width:'300px',height:'200px',margin:'10px',border:'1rem solid'})
+	 
 	  $('#js-modal h4').css({color:'black',margin:'10px',border:'thick double #32a1ce'})
-	  $('#md-image').css({marginLeft:'60px'})
 	  $('#js-modal span').css({color:'black',textAlign:'center',fontWeigt:'bord'})
+	  
 	  
 	  $('#js-modal').modal('show');
 	  $('#close').on('click',function(){
 			$('#js-modal').modal('hide');
 		});
+	 
+	  
  }////detail
  
  
@@ -751,9 +792,9 @@ var dayplans={};
 	 
 	 if(dayplans['day'+day]!=undefined){
 	 planOrigin=dayplans['day'+day].origin
-	 planSpots=dayplans['day'+day].spots
+	 spots=dayplans['day'+day].spots
 	 displayRoute(planOrigin,destination , directionsService,
-		      directionsRenderer,planSpots);
+		      directionsRenderer,spots);
 	 }
 	 else{
 		 alert('준비된 계획이 없습니다')
@@ -764,84 +805,91 @@ var dayplans={};
  }
  
  function clearPlanBox() {
-	day=1
-	planBox.innerHTML=''
-	$('#day').html('1일차 플랜');
-	clearBox()
+	hotelInfo={}
+	spotInfo={}
+	alert('모든 플랜들이 삭제되었습니다')
 }
+ 
+ function saveDayPlan(){
+	 if(spots.length!=0){
+		 dayplans['day'+day]={'origin':origin,'spots':spots}
+		 alert(day+'일차 계획이 저장되었습니다.')
+	 }
+	 else{
+		 alert('맵을 눌러 계획을 짜보세요!')
+	 }
+	 
+ 	}
  function back() {
+	 alert('도시에 대한 일정이 모두 저장되었습니다')
 	 $('#frm').prop('action','<c:url value="/TravelMaker/Planner.kosmo"/>')
  	 $('#frm').submit()
-}
- function saveDayPlan(){
-	 dayplans['day'+day]={'origin':origin,'spots':spots}
-	 alert(day+'일차 계획이 저장되었습니다.')
- }
+	}
  
 </script>	
-	
 		
 	<div class="intro">
 		
 		<div class="intro_container" style="margin-left:150px;width:80%">
-			<div class="row">
-				<div class="col-sm-4">
-					
-				</div>
-						<div class="col-sm-6" id="planBox">
-							<c:forEach begin="1" end="8" var="days" >
-								<div class="btn btn-warning" id="day.${days}" onclick="DayPlan(this)">${days}일차 플랜</div>
-							</c:forEach>
-						</div>
-				<div class="col-sm-2">
-					<div class="btn btn-danger" onclick="clearPlanBox()">전체 플랜 삭제하기</div>
-					<div class="btn btn-info" onclick="back()">여정 표로 돌아가기</div>
-					<div>
-						<form hidden="true" id="frm">
-							
-						</form>
-					</div>
-				</div>
-				
+			<div>
+				<form hidden="true" id="frm">
+				</form>
 			</div>
-			<br>
-			<br>
-			<br>
-			<div class="row" style="margin-left:10px;" >
-				<div class="col-sm-3">
-					<div id="types" class="row" style="margin-left:10px;" >
-						<div class="col-sm-12">
-							<h3 onclick="hotel();">호텔</h3>
-							<img id="hotel-img" alt="" src="<c:url value='/images/hotels.jpg'/>" onclick="hotel();">
-						</div>
-						<div class="col-sm-12">
-							<h3 onclick="tour();">명소</h3>
-							<img id="tour-img" alt="" src="<c:url value='/images/tours.jpg'/>" onclick="tour();">
-						</div>
-						<div class="col-sm-12">
-							<h3 onclick="food();">식당</h3>
-							<img id="food-img" alt="" src="<c:url value='/images/food.jpg'/>" onclick="food();">
-						</div>
-						<div class="col-sm-12" id="buttons">
-							<div class="btn btn-warning" onclick="clearBox();">플랜 삭제!</div>
-							<div class="btn btn-danger" onclick="showPlan()" >플랜 보기!</div>
-							<div class="btn btn-info" onclick="saveDayPlan()">플랜  저장!</div>
-							<h4>전체 거리: <span id="total"></span></h4>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-9" style="height: 700px;margin-bottom:20px">
+			<div hidden="true" id=day></div>
+			<div class="row">
+				<div class="col-sm-10">
 					<div id="floating-panel">
-						<h4><span id="type">맵을 눌러서 주변 <strong>호텔</strong>을 확인해보세요!</span><small id=day>1일차 플랜</small></h4>
+						<div id="type">
+								<div class="btn btn-danger" onclick="hotel();"><img src="<c:url value="/images/hotelIcon.png"/>">호텔</div>
+								<div class="btn btn-info" onclick="tour();"><img src="<c:url value="/images/spotIcon.png"/>">명소</div>
+								<div class="btn btn-info" onclick="food();"><img src="<c:url value="/images/foodIcon.png"/>">음식점</div>
+								<!--  <div><h4><small id=day>1일차 플랜</small></h4></div>-->
+					    </div>
 				    </div>
 					<div id="map"></div>
+				</div>
+				<div class="col-sm-2" id=rightBox>
+					<div class="row">
+						<div class="col-sm-12" id="planBox">
+							<div class="row">
+								<c:forEach begin="1" end="5" var="days" >
+								<div class="col-sm-6">
+									<div class="btn btn-warning" id="day.${days}" onclick="DayPlan(this)">${days}일차 플랜</div>
+								</div>
+								</c:forEach>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<br>
+						</div>
+						<div class="col-sm-12" id="buttons-show">
+							<div class="btn btn-danger" onclick="showPlan()">현재 플랜 보기!</div>
+						</div>
+						<div class="col-sm-12" id="buttons-plan">
+							<div class="btn btn-danger" onclick="clearBox();">플랜 삭제</div>
+							<div class="btn btn-info" onclick="saveDayPlan()">플랜  저장</div>
+							
+						</div>
+						<div class="col-sm-12" id="buttons-total">
+							<div class="btn btn-danger" onclick="clearPlanBox()">전체 삭제</div>
+							<div class="btn btn-info" onclick="back()">전체 저장</div>	
+						</div>
+						<div class="col-sm-12">
+							<br>
+						</div>
+						<div class="col-sm-12" id="distance">
+							<h4>전체 거리: <span id="total"></span></h4>
+						</div>
+						<div class="col-sm-12">
+							<br>
+						</div>
+						<div class="col-sm-12" id="logo">
+							<h2><a href="<c:url value="/"/>">TravelMaker</a></h2>
+						</div>
+					</div>
 					
 				</div>
-<!-- 				<div id="right-panel" class="col-sm-2" style="height: 700px; width: 100px;margin-bottom:20px;overflow:scroll;"> -->
-<!-- 					 -->
-<!-- 				</div> -->
 			</div>
-			
 		</div>
 		<!-- makerclick -->
 	
@@ -875,14 +923,22 @@ var dayplans={};
 	            <td class="iw_attribute_name">위도경도:</td>
 	            <td id="iw-lanlng"></td>
 	          </tr>
-	          <tr id="iw-lanlng-row" class="iw_table_row">
+	          <tr class="iw_table_row">
 	            <td class="iw_attribute_name">위치 아이디: </td>
 	            <td id="iw-id"></td>
 	          </tr>
-	          
+	          <tr class="iw_table_row">
+	          	<td><br></td>
+	          </tr>
+	          <tr class="iw_table_row">
+	            <td class="iw_attribute_name"></td>
+	            <td>
+	            	<div class="btn btn-primary" data-toggle="modal" onclick="detail()">상세정보 보기</div>
+	          		<div class="btn btn-danger" onclick="box()">바구니에 담기▶</div>
+	            </td>
+	          </tr>
 	        </table>
-	          	<div class="btn btn-primary" data-toggle="modal" onclick="detail()">상세정보 보기</div>
-	          	<div class="btn btn-danger" onclick="box()">바구니에 담기▶</div>
+	          	
 	      </div>
     	</div>
     	
@@ -894,10 +950,31 @@ var dayplans={};
 	    			<span>&times;</span>
 	    		</button>
     			<h2 style="text-align:center;" id="md-name"></h2>
-    			<div id="md-image">
-        		</div>
-        		<div id="md-review">
-        		</div>
+   				<div class="wrapper">
+		            <div class="jcarousel-wrapper">
+		                <div class="jcarousel">
+		                    <ul id="md-image">
+		                      
+		                    </ul>
+		                </div>
+		
+		                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+		                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+		                
+		                <p class="jcarousel-pagination">
+		                    
+		                </p>
+		           
+			           
+					</div>
+		        </div>
+				<button id="review" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				  	구글 댓글 보기
+				</button>
+				<div class="collapse" id="collapseExample">
+				  <div class="well" id="md-review">
+				  </div>
+				</div>
 	    	</div>
 	    </div>
 	  </div>
@@ -919,7 +996,6 @@ var dayplans={};
 	    </div>
 	  </div>
 	</div>
-	
 	
 	
  	<script async defer

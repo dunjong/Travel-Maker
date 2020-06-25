@@ -1,4 +1,3 @@
-
 /* Drop Tables */
 
 DROP TABLE airport CASCADE CONSTRAINTS;
@@ -92,7 +91,6 @@ CREATE TABLE userinfo
 
 
 /* Create Foreign Keys */
-
 ALTER TABLE place
 	ADD FOREIGN KEY (cityName)
 	REFERENCES city (cityName)
@@ -133,6 +131,3 @@ ALTER TABLE review
 	ADD FOREIGN KEY (id)
 	REFERENCES userinfo (id)
 ;
-
-
-
