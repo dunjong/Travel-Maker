@@ -72,7 +72,7 @@
       	color:green;
       	border:thick double #32a1ce
       }
-      #buttons-show,#buttons-plan,#buttons-total,#distance{
+      #buttons-show,#buttons-plan,#buttons-total,#distance,#logo{
       	border:thick double #32a1ce;
       	text-align:center;
       }
@@ -859,6 +859,9 @@ var dayplans={};
 								</c:forEach>
 							</div>
 						</div>
+						<div class="col-sm-12">
+							<br>
+						</div>
 						<div class="col-sm-12" id="buttons-show">
 							<div class="btn btn-danger" onclick="showPlan()">현재 플랜 보기!</div>
 						</div>
@@ -871,8 +874,17 @@ var dayplans={};
 							<div class="btn btn-danger" onclick="clearPlanBox()">전체 삭제</div>
 							<div class="btn btn-info" onclick="back()">전체 저장</div>	
 						</div>
+						<div class="col-sm-12">
+							<br>
+						</div>
 						<div class="col-sm-12" id="distance">
 							<h4>전체 거리: <span id="total"></span></h4>
+						</div>
+						<div class="col-sm-12">
+							<br>
+						</div>
+						<div class="col-sm-12" id="logo">
+							<h2><a href="<c:url value="/"/>">TravelMaker</a></h2>
 						</div>
 					</div>
 					
