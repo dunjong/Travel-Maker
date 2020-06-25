@@ -11,8 +11,8 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>0.8</zoom>
-	<x>0</x>
-	<y>42</y>
+	<x>-3</x>
+	<y>0</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -41,11 +41,11 @@
 		<suspend_validator>false</suspend_validator>
 		<export_setting>
 			<export_ddl_setting>
-				<output_path></output_path>
-				<encoding></encoding>
-				<line_feed></line_feed>
+				<output_path>src\main\webapp\WEB-INF\ERM\Travel.sql</output_path>
+				<encoding>UTF-8</encoding>
+				<line_feed>CR+LF</line_feed>
 				<is_open_after_saved>true</is_open_after_saved>
-				<environment_id>null</environment_id>
+				<environment_id>0</environment_id>
 				<category_id>null</category_id>
 				<ddl_target>
 					<create_comment>true</create_comment>
@@ -73,10 +73,10 @@
 			</export_ddl_setting>
 			<export_excel_setting>
 				<category_id>null</category_id>
-				<output_path></output_path>
+				<output_path>C:\Users\kosmo_15\Desktop\Travel.xls</output_path>
 				<template></template>
 				<template_path></template_path>
-				<used_default_template_lang></used_default_template_lang>
+				<used_default_template_lang>en</used_default_template_lang>
 				<image_output></image_output>
 				<is_open_after_saved>true</is_open_after_saved>
 				<is_put_diagram>true</is_put_diagram>
@@ -89,7 +89,7 @@
 				<is_open_after_saved>true</is_open_after_saved>
 			</export_html_setting>
 			<export_image_setting>
-				<output_file_path></output_file_path>
+				<output_file_path>C:\Users\kosmo_15\Desktop\Travel.png</output_file_path>
 				<category_dir_path></category_dir_path>
 				<with_category_image>true</with_category_image>
 				<is_open_after_saved>true</is_open_after_saved>
@@ -126,11 +126,16 @@
 				<font_size>9</font_size>
 			<x>50</x>
 			<y>50</y>
+			<color>
+				<r>255</r>
+				<g>255</g>
+				<b>255</b>
+			</color>
 			<connections>
 			</connections>
 			<display>false</display>
-			<creation_date>2020-06-25 10:58:07</creation_date>
-			<updated_date>2020-06-25 15:17:06</updated_date>
+			<creation_date>2020-05-01 18:25:33</creation_date>
+			<updated_date>2020-06-25 16:11:59</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -156,6 +161,10 @@
 			<schema></schema>
 		</table_properties>
 		<environment_setting>
+			<environment>
+				<id>0</id>
+				<name>기본</name>
+			</environment>
 		</environment_setting>
 	</settings>
 	<dictionary>
@@ -1803,7 +1812,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>33</word_id>
+					<word_id>34</word_id>
 					<id>20</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1927,7 +1936,7 @@
 			<connections>
 				<relation>
 					<id>5</id>
-					<source>1</source>
+					<source>5</source>
 					<target>6</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1949,7 +1958,7 @@
 				</relation>
 				<relation>
 					<id>6</id>
-					<source>5</source>
+					<source>1</source>
 					<target>6</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2013,7 +2022,7 @@
 				<normal_column>
 					<id>24</id>
 					<referenced_column>8</referenced_column>
-					<relation>5</relation>
+					<relation>6</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2047,7 +2056,7 @@
 				<normal_column>
 					<id>25</id>
 					<referenced_column>17</referenced_column>
-					<relation>6</relation>
+					<relation>5</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2125,7 +2134,7 @@
 				</relation>
 				<relation>
 					<id>8</id>
-					<source>3</source>
+					<source>4</source>
 					<target>7</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2147,7 +2156,7 @@
 				</relation>
 				<relation>
 					<id>9</id>
-					<source>4</source>
+					<source>3</source>
 					<target>7</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2212,7 +2221,7 @@
 				<normal_column>
 					<id>27</id>
 					<referenced_column>13</referenced_column>
-					<relation>8</relation>
+					<relation>9</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2246,7 +2255,7 @@
 				<normal_column>
 					<id>28</id>
 					<referenced_column>15</referenced_column>
-					<relation>9</relation>
+					<relation>8</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2641,7 +2650,7 @@
 			<connections>
 				<relation>
 					<id>12</id>
-					<source>9</source>
+					<source>11</source>
 					<target>10</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2663,7 +2672,7 @@
 				</relation>
 				<relation>
 					<id>13</id>
-					<source>11</source>
+					<source>9</source>
 					<target>10</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2694,7 +2703,7 @@
 				<normal_column>
 					<id>36</id>
 					<referenced_column>34</referenced_column>
-					<relation>12</relation>
+					<relation>13</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2728,7 +2737,7 @@
 				<normal_column>
 					<id>37</id>
 					<referenced_column>38</referenced_column>
-					<relation>13</relation>
+					<relation>12</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3457,7 +3466,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>34</word_id>
+					<word_id>33</word_id>
 					<id>54</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
