@@ -6,5 +6,5 @@ import com.kosmo.travelmaker.service.SpotsService;
 
 @Service("spotsService")
 public class SpotsServiceImpl implements SpotsService{
-
+	
 }
