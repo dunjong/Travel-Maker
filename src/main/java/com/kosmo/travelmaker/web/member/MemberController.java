@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kosmo.travelmaker.service.MemberDTO;
-import com.kosmo.travelmaker.service.impl.TravelMakerServiceImpl;
+import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
 
 
 @Controller
@@ -21,8 +21,8 @@ import com.kosmo.travelmaker.service.impl.TravelMakerServiceImpl;
 public class MemberController {
 	@Resource(name = "validator")
 	private SignUpValidator validator;
-	@Resource(name="travelMakerService")
-	private TravelMakerServiceImpl travelMakerService;
+	@Resource(name="memberService")
+	private MemberServiceImpl memberService;
 	
 
 	@RequestMapping("MyInfo.kosmo")
@@ -50,7 +50,7 @@ public class MemberController {
 	}///vali
 	@RequestMapping("SignUp.do")
 	public String SignUp(MemberDTO dto, HttpSession session){
-		if(travelMakerService.SignUp(dto)) {
+		if(memberService.SignUp(dto)) {
 			session.setAttribute("id", dto.getId());
 		}
 		return "/home.tiles";
@@ -58,6 +58,6 @@ public class MemberController {
 	@RequestMapping("IdCheck.do")
 	@ResponseBody
 	public String IdCheck(@RequestParam String signUpId) {
-		return travelMakerService.idCheck(signUpId);
+		return memberService.idCheck(signUpId);
 	}
 }
