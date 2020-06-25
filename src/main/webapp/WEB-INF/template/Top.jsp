@@ -421,8 +421,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label" style="color: black;">나이</label>
 						<div class="col-sm-4">
-							<select class="form-control input-sm" name="rrn"
-								value="${param.rrn}">
+							<select class="form-control input-sm" name="rrn" value="${param.rrn}">
 								<option>출생 연도를 선택하세요</option>
 								<option value="1950">1950~1959</option>
 								<option value="1960">1960~1969</option>
@@ -469,7 +468,7 @@ $(function(){
 		$('#loginmodal').modal("show");
 	}
 	$('#sighupmodal').on('hide.bs.modal', function (e) {
-		$('#sighupmodal')
+		$('#sighupmodal .form-control').prop('value','')
 	})
 	//로그인 모달켜기용 - 전체화면/작은화면
 	$('#loginbtn1').click(function(e) {
