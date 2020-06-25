@@ -12,7 +12,4 @@ public class SpotsDAO {
 @Resource(name="template")
 private SqlSessionTemplate sqlMapper;
 	
-	public boolean saveSpot(Map map) {
-		return true;//(Integer)sqlMapper.selectOne("isLogin",map)==0 ? false : true;
-	}
 }

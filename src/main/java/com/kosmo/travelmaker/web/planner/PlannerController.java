@@ -1,13 +1,18 @@
 package com.kosmo.travelmaker.web.planner;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 
 @Controller
 @RequestMapping("/TravelMaker/")
 public class PlannerController {
 
+	@Resource(name="spotsService")
+	private SpotsServiceImpl spotsService;
+	
 	@RequestMapping("Planner.kosmo")
 	public String Planner() {
 		return "planner/Planner.tiles";
