@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.kosmo.travelmaker.service.impl.MemberDAO;
 import com.kosmo.travelmaker.service.MemberDTO;
-import com.kosmo.travelmaker.service.TravelMakerService;
-@Service("travelMakerService")
-public class TravelMakerServiceImpl implements TravelMakerService{
+import com.kosmo.travelmaker.service.MemberService;
+@Service("memberService")
+public class MemberServiceImpl implements MemberService{
 	@Resource(name = "memberDAO")
 	MemberDAO memberDAO;
 	
