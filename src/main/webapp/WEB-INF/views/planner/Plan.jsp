@@ -132,7 +132,7 @@ var hostnameRegexp = new RegExp('^https?://.+?/');
 var nearSearchType='lodging';
 var keyword='';
 //출발지 선언
-var origin='방콕, 태국';
+var origin={lat: -8.672062, lng: 115.231609};
 //도착지 선언
 var destination=origin;
 //선택된 장소 넣는 배열 선언
@@ -235,7 +235,7 @@ var dayplans={};
 		  placeDetailnSave($('#iw-id').html())
 		  
 		  boxOrigin=$('#iw-lanlng').html();
-		  displayRoute(boxOrigin,destination , directionsService,
+		  displayRoute(boxOrigin,boxOrigin , directionsService,
 			       directionsRenderer,spots);
 	  }
 	  else{

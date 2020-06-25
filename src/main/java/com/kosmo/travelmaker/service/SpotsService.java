@@ -1,5 +1,5 @@
 package com.kosmo.travelmaker.service;
 
-public class TravelMakerDTO {
+public interface SpotsService {
 
 }
