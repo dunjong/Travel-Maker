@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository;
 public class SpotsDTO {
 	
 	private int spot_no;
-	private String spot_addr;
 	private String spot_name;
-	private String spot_latlng;
 	private String spot_id;
 	private int city_no;
 	private int plan_no;
@@ -27,24 +25,14 @@ public class SpotsDTO {
 	public void setSpot_no(int spot_no) {
 		this.spot_no = spot_no;
 	}
-	public String getSpot_addr() {
-		return spot_addr;
-	}
-	public void setSpot_addr(String spot_addr) {
-		this.spot_addr = spot_addr;
-	}
+	
 	public String getSpot_name() {
 		return spot_name;
 	}
 	public void setSpot_name(String spot_name) {
 		this.spot_name = spot_name;
 	}
-	public String getSpot_latlng() {
-		return spot_latlng;
-	}
-	public void setSpot_latlng(String spot_latlng) {
-		this.spot_latlng = spot_latlng;
-	}
+	
 	public String getSpot_id() {
 		return spot_id;
 	}

@@ -38,54 +38,18 @@ DROP SEQUENCE seq_tag_rel;
 
 /* Create Sequences */
 
-CREATE SEQUENCE seq_acc
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_air
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_city
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_hotel
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_plan
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_planner
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_res
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_review
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_spot_auto
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_spot_save
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_tag
-NOCYCLE
-NOCACHE
-;
-CREATE SEQUENCE seq_tag_rel
-NOCYCLE
-NOCACHE
-;
+CREATE SEQUENCE seq_acc;
+CREATE SEQUENCE seq_air;
+CREATE SEQUENCE seq_city;
+CREATE SEQUENCE seq_hotel;
+CREATE SEQUENCE seq_plan;
+CREATE SEQUENCE seq_planner;
+CREATE SEQUENCE seq_res;
+CREATE SEQUENCE seq_review;
+CREATE SEQUENCE seq_spot_auto;
+CREATE SEQUENCE seq_spot_save;
+CREATE SEQUENCE seq_tag;
+CREATE SEQUENCE seq_tag_rel;
 
 
 
@@ -126,10 +90,8 @@ CREATE TABLE auto_save
 CREATE TABLE auto_spots
 (
 	auto_spot_no number NOT NULL,
-	spot_addr nvarchar2(200) NOT NULL,
-	spot_name nvarchar2(200) NOT NULL,
-	spot_latlng nvarchar2(200) NOT NULL UNIQUE,
 	spot_id nvarchar2(200) NOT NULL UNIQUE,
+	spot_name nvarchar2(200) NOT NULL,
 	city_no number NOT NULL,
 	PRIMARY KEY (auto_spot_no)
 );
@@ -173,7 +135,6 @@ CREATE TABLE plan
 CREATE TABLE planner
 (
 	planner_no number NOT NULL,
-	planner_acc number DEFAULT 0 NOT NULL,
 	city_no number NOT NULL,
 	user_id nvarchar2(200) NOT NULL,
 	PRIMARY KEY (planner_no)
@@ -204,9 +165,7 @@ CREATE TABLE review
 CREATE TABLE save_spots
 (
 	save_spot_no number NOT NULL,
-	spot_addr nvarchar2(200) NOT NULL,
 	spot_name nvarchar2(200) NOT NULL,
-	spot_latlng nvarchar2(200) NOT NULL UNIQUE,
 	spot_id nvarchar2(200) NOT NULL UNIQUE,
 	plan_no number,
 	PRIMARY KEY (save_spot_no)
