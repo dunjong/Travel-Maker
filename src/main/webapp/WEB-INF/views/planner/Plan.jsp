@@ -158,8 +158,47 @@ var day=1;
 var plans=5;
 //짜여진 계획 저장하는 JSON 선언
 var dayplans={};
-//바운더리 지정
 
+	function getDetailById(placeId){ 
+		servicePlace = new google.maps.places.PlacesService(map);
+		servicePlace.getDetails({placeId: placeId},
+	            function(place, status) {
+	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	                return;
+	              }
+	              return place;
+	            });
+	}////getDetailById
+	
+	
+	function auto_plan(){
+			
+		
+			var spotIDs=[];
+			spotIDs=${spotIDs};
+			servicePlace = new google.maps.places.PlacesService(map);
+			for(var i=0;i<spotIDs.length;i++){
+			servicePlace.getDetails({placeId: spotIDs[i]},
+		            function(place, status) {
+		              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+		                return;
+		              }
+		  			
+						var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+						console.log(placelatlng);
+						spots.push(placelatlng);
+					
+		  			
+				
+		            });
+			}
+			
+	}
+ 	
+	function displayRouteNOW(){
+		console.log(origin,destination,spots);
+		displayRoute(origin, destination, directionsService,directionsRenderer,spots);		
+	}		
 
  //0] 주변 찾기 설정
   function food() {
@@ -836,6 +875,16 @@ var dayplans={};
 				</form>
 			</div>
 			<div hidden="true" id=day></div>
+			<form action="<c:url value='SpotList.kosmo'/>">
+				<input type="text" value="2" name="city_no" >
+				<button class="btn btn-danger">자동 완성 불러오기</button>
+			</form>
+			<c:forEach items="${spotIDs}" var="spot">
+				<h2>${spot}</h2>
+			</c:forEach>
+			<button class="btn btn-warning" onclick="auto_plan()">자동 완성1</button>
+			<button class="btn btn-warning" onclick="displayRouteNOW()">자동 완성2</button>
+			
 			<div class="row">
 				<div class="col-sm-10">
 					<div id="floating-panel">

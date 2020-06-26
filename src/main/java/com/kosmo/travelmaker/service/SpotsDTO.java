@@ -14,6 +14,7 @@ public class SpotsDTO {
 	private int plan_no;
 	
 	
+	
 	public int getPlan_no() {
 		return plan_no;
 	}

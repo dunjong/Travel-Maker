@@ -1,9 +1,17 @@
 package com.kosmo.travelmaker.web.planner;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.kosmo.travelmaker.service.SpotsDTO;
 import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 
 @Controller
@@ -19,6 +27,8 @@ public class PlannerController {
 	}
 	@RequestMapping("Plan.kosmo")
 	public String Plan() {
+		
+		
 		return "planner/Plan.tiles";
 	}
 	@RequestMapping("CitySearch.kosmo")
@@ -30,8 +40,15 @@ public class PlannerController {
 		return "planner/Plan.tiles";
 	}
 	@RequestMapping("SpotList.kosmo")
-	public String SpotList() {
-		return "planner/SpotList.tiles";
+	public String SpotList(Model model,@RequestParam Map map) {
+		List<SpotsDTO> list=spotsService.spotList(map);
+		List<String> spotIDs=new Vector<String>();
+		for(SpotsDTO dto:list) {
+			spotIDs.add("'"+dto.getSpot_id().toString()+"'");
+		}
+		model.addAttribute("spotIDs",spotIDs);
+		
+		return "planner/Plan.tiles";
 	}
 	@RequestMapping("SpotView.kosmo")
 	public String SpotView() {

@@ -1,4 +1,5 @@
 package com.kosmo.travelmaker.service.impl;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -9,7 +10,12 @@ import com.kosmo.travelmaker.service.SpotsDTO;
 
 @Repository
 public class SpotsDAO {
-@Resource(name="template")
-private SqlSessionTemplate sqlMapper;
+	@Resource(name="template")
+	private SqlSessionTemplate sqlMapper;
 	
+	
+	public List<SpotsDTO> spotList(Map map) {
+		return sqlMapper.selectList("spotListSelectList",map);
+	}
+
 }
