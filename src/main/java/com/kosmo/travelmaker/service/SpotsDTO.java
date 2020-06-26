@@ -11,6 +11,15 @@ public class SpotsDTO {
 	private String spot_latlng;
 	private String spot_id;
 	private int city_no;
+	private int plan_no;
+	
+	
+	public int getPlan_no() {
+		return plan_no;
+	}
+	public void setPlan_no(int plan_no) {
+		this.plan_no = plan_no;
+	}
 	public int getSpot_no() {
 		return spot_no;
 	}
