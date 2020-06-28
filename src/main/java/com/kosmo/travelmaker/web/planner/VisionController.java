@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -28,8 +30,13 @@ import com.google.cloud.vision.v1.Image;
 import com.google.cloud.vision.v1.ImageAnnotatorClient;
 import com.google.cloud.vision.v1.Feature.Type;
 import com.google.protobuf.ByteString;
+import com.kosmo.travelmaker.service.CityTagService;
 @Controller
 public class VisionController {
+	@Resource(name="cityTagSerivce")
+	private CityTagService cityTagSerivce;
+	
+	
 	@ResponseBody
 	@RequestMapping(value="/TravelMaker/Vision.kosmo",method=RequestMethod.POST)
 	public String Vision(@RequestParam("fileObj") MultipartFile file,HttpServletRequest req) throws IllegalStateException, IOException {
@@ -83,10 +90,12 @@ public class VisionController {
 					 * k, v.toString()));
 					 */
 			       //System.out.println(annotation.getAllFields().get("score").toString());
-			    	 float score = +annotation.getScore();
+			    	 float score = annotation.getScore();
 			    	 if(score >= 0.90) {
-			    		 System.out.println("Description:"+annotation.getDescription());
+			    		 String tag = annotation.getDescription();
+			    		 System.out.println("Description:"+tag);
 			    		 System.out.println(score);
+			    		 
 			    		 
 			    	 }
 			    	 
