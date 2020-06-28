@@ -13,6 +13,7 @@
 			<typeAlias alias="HotelDTO" type="com.kosmo.travelmaker.service.HotelDTO"/>
 			<typeAlias alias="PlannerDTO" type="com.kosmo.travelmaker.service.PlannerDTO"/>
 			<typeAlias alias="ReviewDTO" type="com.kosmo.travelmaker.service.ReviewDTO"/>
+			<typeAlias alias="CityTagDTO" type="com.kosmo.travelmaker.service.CityTagDTO"/>
 		</typeAliases>
 		
 		<mappers>
@@ -22,6 +23,7 @@
 			<mapper resource="mybatis/Hotel.xml" />
 			<mapper resource="mybatis/Planner.xml" />
 			<mapper resource="mybatis/Review.xml" />
+			<mapper resource="mybatis/CityTag.xml" />
 		</mappers>
 	</configuration>
 	

@@ -65,7 +65,6 @@ public class VisionController {
 		   // Performs label detection on the image file
 		   BatchAnnotateImagesResponse response = vision.batchAnnotateImages(requests);
 		   System.out.println("들어옴:response"+response);
-		   //for(response:response)
 		   System.out.println("들어옴:three-1");
 		   List<AnnotateImageResponse> responses = response.getResponsesList();
 		  
@@ -79,9 +78,19 @@ public class VisionController {
 			     }
 		
 			     for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
-			       annotation
-			           .getAllFields()
-			           .forEach((k, v) -> System.out.printf("%s : %s\n", k, v.toString()));
+					/*
+					 * annotation .getAllFields() .forEach((k, v) -> System.out.printf("%s : %s\n",
+					 * k, v.toString()));
+					 */
+			       //System.out.println(annotation.getAllFields().get("score").toString());
+			    	 float score = +annotation.getScore();
+			    	 if(score >= 0.90) {
+			    		 System.out.println("Description:"+annotation.getDescription());
+			    		 System.out.println(score);
+			    		 
+			    	 }
+			    	 
+			       
 			     }
 		   }
  	
