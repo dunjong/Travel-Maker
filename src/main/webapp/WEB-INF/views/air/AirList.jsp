@@ -4,8 +4,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
-   $(function(){   
-/*       console.log('${list[0].get("gyeongUName")[0]}')
+    $(function(){   
+/*    console.log('${list[0].get("gyeongUName")[0]}')
       console.log('${list[0].get("total")}')
       console.log('${list[0].get("base")}')
       console.log('${list[0].get("Dtime")}')
@@ -21,9 +21,9 @@
          list+="<div class='alert alert-success'>";
          list+="<div class='row'>";
          list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
-           list+="<div id='AirList' class='row' style='text-align:center'>";
-           list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
-           list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
+         list+="<div id='AirList' class='row' style='text-align:center'>";
+         list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+         list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
              
          list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
          list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[0].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>1회 경유${list[k][i].Dvia}</Strong></div></div>";
@@ -93,36 +93,37 @@
                    }
              }
             $.ajax(settings).done(function(response) {
-                console.log(response)
-                console.log(value)
-                var PlaceId
-                var PlaceName
-                for(var i=0;i<response.Places.length;i++){
-                    PlaceId=response.Places[i].PlaceId
-                    PlaceName=response.Places[i].PlaceName
-                    depstr.push(PlaceId)
-                	depname.push(PlaceName)
-                   }
-                for(var i=1;i<depstr.length;i++){
-                    	var div=document.createElement('div')
-                		div.className='btn btn-warning'
-                        div.setAttribute('name',depstr[i].substring(0,3))
-                		div.textContent=depname[i]+':'+depstr[i].substring(0,3)
-                        deplist.appendChild(div)
-                        }
-                $('.btn-warning').on('click',function(){
-                    console.log('this:',this.innerHTML.split(':')[1])
-                	$('#departure').prop('value',this.innerHTML.split(':')[1])
-                })
-                console.log('depstr',depstr)
-                $('#departure').attr('data-content',depstr.toString());
+            	if(response != null){
+	                console.log(response)
+	                console.log(value)
+	                var PlaceId
+	                var PlaceName
+	                for(var i=0;i<response.Places.length;i++){
+	                    PlaceId=response.Places[i].PlaceId
+	                    PlaceName=response.Places[i].PlaceName
+	                    depstr.push(PlaceId)
+	                	depname.push(PlaceName)
+	                   }
+	                for(var i=1;i<depstr.length;i++){
+	                    	var div=document.createElement('div')
+	                		div.className='btn btn-warning'
+	                        div.setAttribute('name',depstr[i].substring(0,3))
+	                		div.textContent=depname[i]+':'+depstr[i].substring(0,3)
+	                        deplist.appendChild(div)
+	                        }
+	                $('.btn-warning').on('click',function(){
+	                    console.log('this:',this.innerHTML.split(':')[1])
+	                	$('#departure').prop('value',this.innerHTML.split(':')[1])
+	                })
+	                console.log('depstr',depstr)
+	                $('#departure').attr('data-content',depstr.toString());
+	            	}
                 });/////
                 $('#deplist').on('click',function(){
                 	deplist.innerHTML='';
                 })
-
-          
-          })
+            
+        })
           
           $('#arrival').on('keyup',function(){
             var arrlist=document.getElementById('arrlist')

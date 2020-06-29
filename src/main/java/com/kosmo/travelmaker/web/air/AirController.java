@@ -83,6 +83,9 @@ public class AirController {
 	  	//왕복티켓1번의 가격구하기
 	  	System.out.println("전체가격"+flightOffersSearches[0].getTravelerPricings()[0].getPrice().getTotal());
 	  	System.out.println("기본가격"+flightOffersSearches[0].getTravelerPricings()[0].getPrice().getBase());
+	  	//출발지에서 도착지로 가는 티켓의 출발시간,도착시간
+	  	System.out.println("출발시간"+flightOffersSearches[0].getItineraries()[0].getSegments()[0].getDeparture().getAt());
+	  	System.out.println("도착시간"+flightOffersSearches[0].getItineraries()[0].getSegments()[0].getArrival().getAt());
 	  	//
 	  	List<Map> list = new Vector<Map>();
         for (FlightOfferSearch offer : flightOffersSearches) {
@@ -172,19 +175,19 @@ public class AirController {
         model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
         return "air/AirList.tiles";
 	}
-
+	
 	@RequestMapping("AirList.kosmo")
 	public String AirList() {
 		return "air/AirList.tiles";
 	}
 
-   @RequestMapping("AirView.kosmo")
-   public String AirView() {
-      return "air/AirView.tiles";
-   }
+	@RequestMapping("AirView.kosmo")
+	public String AirView() {
+		return "air/AirView.tiles";
+	}
 
-   @RequestMapping("AirRes.kosmo")
-   public String AirRes() {
-      return "air/AirRes.tiles";
-   }
+	@RequestMapping("AirRes.kosmo")
+	public String AirRes() {
+		return "air/AirRes.tiles";
+	}
 }
