@@ -26,9 +26,9 @@ public class PlannerController {
 		return "planner/Planner.tiles";
 	}
 	@RequestMapping("Plan.kosmo")
-	public String Plan() {
-		
-		
+	public String Plan(Model model) {
+		List<String> spotIDs=new Vector<String>();
+		model.addAttribute("spotIDs",spotIDs);
 		return "planner/Plan.tiles";
 	}
 	@RequestMapping("CitySearch.kosmo")
