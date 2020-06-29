@@ -11,13 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.api.client.util.Value;
 import com.kosmo.travelmaker.service.SpotsDTO;
 import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 
 @Controller
 @RequestMapping("/TravelMaker/")
 public class PlannerController {
-
+	@Value("${GoogleMapApiKey}")
+	private String GoogleMapApiKey;
 	@Resource(name="spotsService")
 	private SpotsServiceImpl spotsService;
 	
@@ -26,8 +28,7 @@ public class PlannerController {
 		return "planner/Planner.tiles";
 	}
 	@RequestMapping("Plan.kosmo")
-	public String Plan() {
-		
+	public String Plan(Model model) {
 		
 		return "planner/Plan.tiles";
 	}
