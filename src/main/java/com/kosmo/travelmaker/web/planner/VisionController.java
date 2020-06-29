@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +34,9 @@ import com.google.protobuf.ByteString;
 import com.kosmo.travelmaker.service.CityTagService;
 @Controller
 public class VisionController {
-	@Resource(name="cityTagSerivce")
-	private CityTagService cityTagSerivce;
+	//서비스 주입
+	//@Resource(name="cityTagSerivce")
+	//private CityTagService cityTagSerivce;
 	
 	
 	@ResponseBody
@@ -82,7 +84,7 @@ public class VisionController {
 			   if (res.hasError()) {
 			       System.out.printf("Error: %s\n", res.getError().getMessage());
 			       return null;
-			     }
+			   }
 		
 			     for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
 					/*
@@ -91,12 +93,13 @@ public class VisionController {
 					 */
 			       //System.out.println(annotation.getAllFields().get("score").toString());
 			    	 float score = annotation.getScore();
+			    	 //Map tags = new HashMap();
 			    	 if(score >= 0.90) {
 			    		 String tag = annotation.getDescription();
 			    		 System.out.println("Description:"+tag);
 			    		 System.out.println(score);
-			    		 
-			    		 
+			    		 //tags.put(tag,tag);
+			    		 //cityTagSerivce.TagMatch(tag);
 			    	 }
 			    	 
 			       

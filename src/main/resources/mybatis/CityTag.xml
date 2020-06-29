@@ -3,6 +3,7 @@
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.CityTag">
-
-	
+<select id="TagMactch" parameterType="java.lang.String" resultType="int">
+	SELECT COUNT(*) from TAG WHERE TAG_NAME=#{tag};
+</select>
 </mapper>

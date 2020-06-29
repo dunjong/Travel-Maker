@@ -8,7 +8,13 @@ import com.kosmo.travelmaker.service.CityTagService;
 @Service("cityTagService")
 public class CityTagServiceImpl implements CityTagService{
 	@Resource(name="cityTagDAO")
-	private CityTagDAO cityTagDAO;
+	private CityTagDAO dao;
+
+	@Override
+	public boolean TagMatch(String tag) {
+		
+		return dao.TagMatch(tag);
+	}
 	
 	
 	
