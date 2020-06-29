@@ -81,18 +81,17 @@
             deplist.innerHTML=''
             var depstr=[]
             var depname=[]
-            var value=$(this).val();
-			var settings = {
-				"async" : false,
-                "crossDomain" : true,
-                "url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
-                "method" : "GET",
-                "headers" : {
-                    "x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-                    "x-rapidapi-key" : "1284ea87a9msh562cc6747ae1f06p15971bjsnbad10597807a"
-                        }
-            }
-
+             var value=$(this).val();
+             var settings = {
+                   "async" : false,
+                   "crossDomain" : true,
+                   "url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
+                   "method" : "GET",
+                   "headers" : {
+                      "x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+                      "x-rapidapi-key" : "${AutoCompleteApiKey}"
+                   }
+             }
             $.ajax(settings).done(function(response) {
                 console.log(response)
                 console.log(value)
@@ -139,7 +138,7 @@
                    "method" : "GET",
                    "headers" : {
                       "x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-                      "x-rapidapi-key" : "1284ea87a9msh562cc6747ae1f06p15971bjsnbad10597807a"
+                      "x-rapidapi-key" : "${AutoCompleteApiKey}"
                    }
              }
             
