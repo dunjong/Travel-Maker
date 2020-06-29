@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,18 +18,21 @@ import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 @Controller
 @RequestMapping("/TravelMaker/")
 public class PlannerController {
-
+	@Value("${GoogleMapApiKey}")
+	private String GoogleMapApiKey;
 	@Resource(name="spotsService")
 	private SpotsServiceImpl spotsService;
 	
 	@RequestMapping("Planner.kosmo")
-	public String Planner() {
+	public String Planner(Model model) {
+		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		return "planner/Planner.tiles";
 	}
 	@RequestMapping("Plan.kosmo")
-	public String Plan() {
-		
-		
+	public String Plan(Model model) {
+		List<String> spotIDs=new Vector<String>();
+		model.addAttribute("spotIDs",spotIDs);
+		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		return "planner/Plan.tiles";
 	}
 	@RequestMapping("CitySearch.kosmo")
@@ -44,9 +48,12 @@ public class PlannerController {
 		List<SpotsDTO> list=spotsService.spotList(map);
 		List<String> spotIDs=new Vector<String>();
 		for(SpotsDTO dto:list) {
+			System.out.println("장소명:"+dto.getSpot_name()+",일차:"+dto.getAuto_plan_date());
+			
 			spotIDs.add("'"+dto.getSpot_id().toString()+"'");
 		}
 		model.addAttribute("spotIDs",spotIDs);
+		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		
 		return "planner/Plan.tiles";
 	}

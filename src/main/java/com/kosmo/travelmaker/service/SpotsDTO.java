@@ -6,13 +6,35 @@ import org.springframework.stereotype.Repository;
 public class SpotsDTO {
 	
 	private int spot_no;
+	private int save_spot_no;
+	
 	private String spot_name;
 	private String spot_id;
+	private String auto_plan_date;
+	private int auto_spot_no;
 	private int city_no;
 	private int plan_no;
 	
 	
 	
+	public int getSave_spot_no() {
+		return save_spot_no;
+	}
+	public void setSave_spot_no(int save_spot_no) {
+		this.save_spot_no = save_spot_no;
+	}
+	public int getAuto_spot_no() {
+		return auto_spot_no;
+	}
+	public void setAuto_spot_no(int auto_spot_no) {
+		this.auto_spot_no = auto_spot_no;
+	}
+	public String getAuto_plan_date() {
+		return auto_plan_date;
+	}
+	public void setAuto_plan_date(String auto_plan_date) {
+		this.auto_plan_date = auto_plan_date;
+	}
 	public int getPlan_no() {
 		return plan_no;
 	}

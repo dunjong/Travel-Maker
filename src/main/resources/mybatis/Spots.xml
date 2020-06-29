@@ -4,6 +4,6 @@
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Spots">
 	<select id="spotListSelectList" parameterType="java.util.Map" resultType="SpotsDTO">
-		SELECT * FROM auto_spots WHERE city_no=#{city_no}
+		SELECT spot.*,plan.auto_plan_date FROM  auto_plan plan JOIN auto_spots spot ON plan.auto_plan_no=spot.auto_plan_no WHERE plan.city_no=#{city_no}
 	</select>
 </mapper>
