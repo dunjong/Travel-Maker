@@ -90,7 +90,7 @@
                    "method" : "GET",
                    "headers" : {
                       "x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-                      "x-rapidapi-key" : "1284ea87a9msh562cc6747ae1f06p15971bjsnbad10597807a"
+                      "x-rapidapi-key" : "${AutoCompleteApiKey}"
                    }
              }
 
@@ -141,7 +141,7 @@
                    "method" : "GET",
                    "headers" : {
                       "x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-                      "x-rapidapi-key" : "1284ea87a9msh562cc6747ae1f06p15971bjsnbad10597807a"
+                      "x-rapidapi-key" : "${AutoCompleteApiKey}"
                    }
              }
             

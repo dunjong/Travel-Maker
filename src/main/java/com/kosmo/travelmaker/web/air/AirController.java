@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,13 @@ import com.amadeus.resources.FlightPrice;
 @RequestMapping("/TravelMaker/")
 
 public class AirController {
-
+	//api키 properties에서 가져오기
+	@Value("${SkyscannerAirportAutoCompleteApiKey}")
+	private String AutoCompleteApiKey;
+	@Value("${AmadeusFlightApiKey}")
+	private String AmadeusFlightApiKey;
+	@Value("${AmadeusFlightSecretApiKey}")
+	private String AmadeusFlightSecretApiKey;
 	// 아마데우스 API 사용을 위한 자바 구문
 	@RequestMapping("AirSearch.kosmo")
 	public String AirSearch(@RequestParam Map map, Model model) throws ResponseException {
@@ -44,7 +51,7 @@ public class AirController {
 //		System.out.println("map:" + map.get("returnDate"));
 //		System.out.println("map:" + map.get("adult"));
 //		System.out.println("map:" + map.get("children"));
-		Amadeus amadeus = Amadeus.builder("wmBCJo8VFo4AFp3nqXxlWbHWdZH8VqwP", "0Of0WvaAGgzG8pym").build();
+		Amadeus amadeus = Amadeus.builder(AmadeusFlightApiKey, AmadeusFlightSecretApiKey).build();
 
 		FlightOfferSearch[] flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
 				Params.with("originLocationCode", departure)
@@ -163,7 +170,7 @@ public class AirController {
 //		}
 		model.addAttribute("list", list);
 		model.addAttribute("flightOffersSearches", flightOffersSearches[0].toString());
-
+		model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
 		return "air/AirList.tiles";
 	}
 

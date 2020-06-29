@@ -30,9 +30,10 @@
 		
 		<div class="intro_container" style="margin-left:150px;width:80%">
 			<div class="row">
-			    <div id="floating-panel" onclick="drop()">
+			    <!-- <div id="floating-panel" onclick="drop()">
 			      <h3>마커를 클릭하여 세부일정을 짜세요!</h3> 
 			    </div>
+			     -->
 			    <div class="col-sm-12" id="map"></div>
 			    
 		    </div>
