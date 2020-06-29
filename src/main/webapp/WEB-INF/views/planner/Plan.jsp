@@ -154,14 +154,15 @@ var hotelInfo={}
 var spotInfo={}
 //선택된 일차 선언
 var day=1;
-//몇일치 일지 정하는 수 선언(넘어오는 값) 지금은 8일차
+//몇일치 일지 정하는 수 선언(넘어오는 값) 지금은 5일차
 var plans=5;
 //짜여진 계획 저장하는 JSON 선언
 var dayplans={};
 
 //1] 페이지에 맵 표시
 function initMap() {
-	 
+	
+	
 	 infoWindow = new google.maps.InfoWindow({
         content: document.getElementById('info-content')
       });
@@ -380,6 +381,8 @@ function initMap() {
   
 }////initMap
 	
+	
+	
 function getDetailById(placeId){ 
 	servicePlace = new google.maps.places.PlacesService(map);
 	servicePlace.getDetails({placeId: placeId},
@@ -393,8 +396,10 @@ function getDetailById(placeId){
 	
 function auto_plan(){
 		nearSearchType='attractions';	
-		var spotIDs=[];
-		spotIDs=${spotIDs};
+		var spotIDs=${spotIDs};
+		
+		dayplans['day'+day]={'origin':origin,'spots':spots};
+		
 		servicePlace = new google.maps.places.PlacesService(map);
 		for(var i=0;i<spotIDs.length;i++){
 			placeDetailnSave(spotIDs[i]);

@@ -48,9 +48,12 @@ public class PlannerController {
 		List<SpotsDTO> list=spotsService.spotList(map);
 		List<String> spotIDs=new Vector<String>();
 		for(SpotsDTO dto:list) {
+			System.out.println("장소명:"+dto.getSpot_name()+",일차:"+dto.getAuto_plan_date());
+			
 			spotIDs.add("'"+dto.getSpot_id().toString()+"'");
 		}
 		model.addAttribute("spotIDs",spotIDs);
+		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		
 		return "planner/Plan.tiles";
 	}
