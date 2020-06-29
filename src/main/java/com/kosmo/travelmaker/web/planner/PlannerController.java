@@ -24,11 +24,13 @@ public class PlannerController {
 	private SpotsServiceImpl spotsService;
 	
 	@RequestMapping("Planner.kosmo")
-	public String Planner() {
+	public String Planner(Model model) {
+		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		return "planner/Planner.tiles";
 	}
 	@RequestMapping("Plan.kosmo")
 	public String Plan(Model model) {
+		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		
 		return "planner/Plan.tiles";
 	}
