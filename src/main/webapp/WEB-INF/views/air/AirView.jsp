@@ -92,6 +92,7 @@
    </script>
    <!-- 제이쿼리 UI용 라이브러리 임베드 -->
    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <!-- 아임포트 API js 구문 추가 -->
     <script type="text/javascript"
    src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
@@ -200,9 +201,9 @@
 <body>   
    <div class="container-fluid">
       <div class="row">
-      <div class="col-sm-4" style="font-size:2em; color:sandybrown; border:gray solid 1px; border-right-color: white ;"> ←결과로 돌아가기</div>
+      <div class="col-sm-4" style="font-size:2em; color:sandybrown; border:gray solid 1px; border-right-color: white ;"><a href="javascript:history.go(-2)"> ←결과로 돌아가기</a></div>
       <div class="col-sm-4" style="text-align:center; font-size:2em; border:gray solid 1px; border-left-color: white; border-right-color: white">세 부 정 보</div>
-      <div class="col-sm-4" style="text-align:right; border:gray solid 1px; border-left-color: white"><button type="button"><i style="font-size: 55px" class="fa fa-times-circle"></i></button></div>
+      <div class="col-sm-4" style="text-align:right; border:gray solid 1px; border-left-color: white"></div>
       </div>
 
       </div>
@@ -211,7 +212,8 @@
    
 <div class="container">
    <div class="row">
-         <div class="col-sm-8"><p>가는날 출발시간 2020년 06월 01일 (월)</p>   </div>
+
+         <div class="col-sm-8" style="border:red solid 1px;"><p>가는날 출발시간 2020년 06월 01일 (월)</p></div>
          <div class="col-sm-8 col-offset-4"
             style="height: 100px; width: 100px; padding: 20px; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px/11px;"> 
             
@@ -351,7 +353,7 @@
          pay_method : 'card',
          merchant_uid : 'merchant_' + new Date().getTime(),
          name : '김포-부산행:제주도닷컴구매',
-         amount : 51900,
+         amount : 100,
          //가격
          buyer_email : 'wkddustnzz@Naver.com',
          buyer_name : '트러블메이커',
