@@ -1,51 +1,49 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+   <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
-	$(function(){	
-		console.log('${list[0].get("gyeongUName")[0]}')
-		console.log('${list[0].get("total")}')
-		console.log('${list[0].get("base")}')
-		console.log('${list[0].get("Dtime")}')
-		console.log('${list[0].get("Dcode")}')
-		console.log('${list[0].get("Atime")}')
-		console.log('${list[0].get("Acode")}')
-		console.log('${list[0].get("Tovia")}')
-		console.log('${list[0].get("Devia")}')
-		console.log('${list[0].get("Arvia")}')	
-		
-		var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
-		for(var i=0;i<5;i++){
-			list+="<div class='container'>";
-			list+="<div class='alert alert-success'>";
-			list+="<div class='row'>";
-			list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
-	        list+="<div id='AirList' class='row' style='text-align:center'>";
-	        list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
-	        list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
-	          
-			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
-			list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[0].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>1회 경유${list[k][i].Dvia}</Strong></div></div>";
-			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
-			list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
-			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
-			list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[1].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>1회 경유${list[i][i].Dvia}</Strong></div></div>";       
-			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
-			list+="</div>";
-			list+="</div>";
-			list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-			
-			list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦<fmt:formatNumber value='${list[0].get("base")}' pattern="#,###"/>원</Strong><br><small>총 가격<fmt:formatNumber value='${list[0].get("total")}' pattern="#,###"/>원</small></div><br>";
-			list+="<a href=<c:url value='/TravelMaker/AirView.kosmo'/>><button type='button' class='btn btn-success btn-lg' style='cursor:pointer;'><Strong>선택 →</Strong></button></a>";
-			list+="</div>";
-			list+="</div>";
-			list+="</div>";
-			list+="</div>";   
-			
-				
+   $(function(){   
+/*       console.log('${list[0].get("gyeongUName")[0]}')
+      console.log('${list[0].get("total")}')
+      console.log('${list[0].get("base")}')
+      console.log('${list[0].get("Dtime")}')
+      console.log('${list[0].get("Dcode")}')
+      console.log('${list[0].get("Atime")}')
+      console.log('${list[0].get("Acode")}')
+      console.log('${list[0].get("Tovia")}')
+      console.log('${list[0].get("Devia")}')
+      console.log('${list[0].get("Arvia")}')    */
+      var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
+      for(var i=0;i<3;i++){
+         list+="<div class='container'>";
+         list+="<div class='alert alert-success'>";
+         list+="<div class='row'>";
+         list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+           list+="<div id='AirList' class='row' style='text-align:center'>";
+           list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+           list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
+             
+         list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
+         list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[0].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>1회 경유${list[k][i].Dvia}</Strong></div></div>";
+         list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
+         list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
+         list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
+         list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[1].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>1회 경유${list[i][i].Dvia}</Strong></div></div>";       
+         list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
+         list+="</div>";
+         list+="</div>";
+         list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+         list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦<fmt:formatNumber value='${list[0].get("base")}' pattern="#,###"/>원</Strong><br><small>총 가격<fmt:formatNumber value='${list[0].get("total")}' pattern="#,###"/>원</small></div><br>";
+         list+="<a href=<c:url value='/TravelMaker/AirView.kosmo'/>><button type='button' class='btn btn-success btn-lg' style='cursor:pointer;'><Strong>선택 →</Strong></button></a>";
+         list+="</div>";
+         list+="</div>";
+         list+="</div>";
+         list+="</div>";   
+         
+            
 
-		}
+      }
         $('#list').html(list);
       $( "#departureDate" ).datepicker({
          showAnim: "slideDown",
@@ -192,13 +190,13 @@
 <%--    <!-- Search -->
         <c:forEach  items="${list}" var="li">
         <c:forEach items="${li}" var="lis">
-         	 <h2>${lis.DTime}</h2>
-          	  <h2>${lis.Dcode}</h2>
+             <h2>${lis.DTime}</h2>
+               <h2>${lis.Dcode}</h2>
               <h2>${lis.ATime}</h2>
               <h2>${lis.Acode}</h2>
               <h2>${lis.base}</h2>
-			  <h2>${lis.total}</h2> 
-			  
+           <h2>${lis.total}</h2> 
+           
               <h2>++++++++++++++</h2>
       </c:forEach>
       <h2>==============</h2> 

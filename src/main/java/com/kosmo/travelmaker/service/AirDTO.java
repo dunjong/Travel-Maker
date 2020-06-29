@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository("airDTO")
 public class AirDTO {
-
 	private int air_no;
 	private String air_ddate;
 	private String air_rdate;
@@ -13,7 +12,6 @@ public class AirDTO {
 	private String air_dep;
 	private String air_arr;
 	private int air_passenger;
-	
 	public int getAir_no() {
 		return air_no;
 	}
