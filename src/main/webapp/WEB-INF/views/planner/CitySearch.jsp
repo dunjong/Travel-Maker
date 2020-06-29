@@ -28,8 +28,25 @@
                     data: formData,
                     type: 'POST',
                     success: function(result){
-                        alert("업로드 성공!!");
-                        console.log(result);
+                    	//console.log(result);
+                    	var k=0;
+                    	$.each(result,function(tag,tagper){
+                    		console.log("태그 이름:",tag)
+                    		console.log("태그 퍼센트:",tagper)
+                    		var tagsize = $('.tagmatch ul li').length;
+                    		console.log(tagsize)
+                    		
+                    		for(var i=0;i<tagsize;i++){
+                    			if($('.tagmatch ul li:eq('+i+') strong').html()==tag){
+                    				$('.tagmatch ul li:eq('+i+') input:checkbox').prop('checked',true);
+                    			}
+                    		}
+                    		$('.count-box:eq('+k+') p').html(tag);
+                    		$('.count-box:eq('+k+') span').html(tagper);
+                    		k++;
+                    	});
+                    	
+                        
                     },
 			        error:function(request,error){
 						console.log('상태코드:',request.status);
@@ -128,85 +145,81 @@
 				
 				<div class="col-lg-6 pt-4 pt-lg-0 tagview">
 					<h3>사진 관련 태그들</h3>
-
-					<div class="row">
+					<div class="row tagmatch">
 						<div class="col-lg-6">
 							<ul>
 								<li><i class="icofont-rounded-right"></i><strong>Beach</strong><input
-									type="checkbox" /></li>
+									type="checkbox" value="Beach"/></li>
 								<li><i class="icofont-rounded-right"></i><strong>City</strong><input
-									type="checkbox" /></li>
-								<li><i class="icofont-rounded-right"></i><strong>Sky</strong><input
-									type="checkbox" /></li>
+									type="checkbox" value="City"/></li>
+								<li><i class="icofont-rounded-right"></i><strong>Coast</strong><input
+									type="checkbox" value="Coast"/></li>
 								<li><i class="icofont-rounded-right"></i><strong>Mountain</strong><input
-									type="checkbox" /></li>
+									type="checkbox" value="Mountain"/></li>
 								<li><i class="icofont-rounded-right"></i><strong>Ocean</strong><input
-									type="checkbox" /></li>
-								<li><i class="icofont-rounded-right"></i><strong>Shopping</strong><input
-									type="checkbox" /></li>
-								<li><i class="icofont-rounded-right"></i><strong>Club</strong><input
-									type="checkbox" /></li>
+									type="checkbox" value="Ocean"/></li>
+								<li><i class="icofont-rounded-right"></i><strong>Natural Landscape</strong><input
+									type="checkbox" value="Natural Landscape"/></li>
+								<li><i class="icofont-rounded-right"></i><strong>Metropolitan Area</strong><input
+									type="checkbox" value="Metropolitan Area"/></li>
 							</ul>
 						</div>
 						<div class="col-lg-6">
 							<ul>
-								<li><i class="icofont-rounded-right"></i><strong>Market</strong><input
-									type="checkbox" /></li>
+								<li><i class="icofont-rounded-right"></i><strong>Cave</strong><input
+									type="checkbox" value="Cave"/></li>
 								<li><i class="icofont-rounded-right"></i><strong>Golf</strong><input
-									type="checkbox" /></li>
-								<li><i class="icofont-rounded-right"></i><strong>Activity</strong><input
-									type="checkbox" /></li>
-								<li><i class="icofont-rounded-right"></i><strong>Tourism</strong><input
-									type="checkbox" /></li>
-								<li><i class="icofont-rounded-right"></i><strong>Historic
-										Site</strong><input type="checkbox" /></li>
-								<li><i class="icofont-rounded-right"></i><strong>Vacation</strong><input
-									type="checkbox" /></li>
-								<li><i class="icofont-rounded-right"></i><strong>Snow</strong><input
-									type="checkbox" /></li>
+									type="checkbox" value="Golf"/></li>
+								<li><i class="icofont-rounded-right"></i><strong>Sea</strong><input
+									type="checkbox" value="Sea"/></li>
+								<li><i class="icofont-rounded-right"></i><strong>Ocean</strong><input
+									type="checkbox" value="Ocean"/></li>
+								<li><i class="icofont-rounded-right"></i><strong>Historic Site</strong><input type="checkbox" value="Historic Site"/></li>
+								<li><i class="icofont-rounded-right"></i><strong>Nature</strong><input
+									type="checkbox" value="Nature"/></li>
+								<li><i class="icofont-rounded-right"></i><strong>Caribbean</strong><input
+									type="checkbox" value="Caribbean"/></li>
 
 							</ul>
 						</div>
 						<div class="citysearch-div">
-							<button class="citysearch">관련 도시 검색</button>
+							<button type="submit" class="citysearch" value="관련 도시 검색">
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row search">
-
 				<div class="col-lg-3 col-md-6">
 					<div class="count-box">
 						<i class="icofont-simple-smile"></i> <span
-							data-toggle="counter-up">99</span>%
-						<p>바나나</p>
+							data-toggle="counter-up">100</span>%
+						<p><strong>사진을</strong></p>
 					</div>
 				</div>
 
 				<div class="col-lg-3 col-md-6 mt-5 mt-md-0">
 					<div class="count-box">
 						<i class="icofont-simple-smile"></i> <span
-							data-toggle="counter-up">91</span>%
-						<p>잘생김</p>
+							data-toggle="counter-up">100</span>%
+						<p>등록해보세요</p>
 					</div>
 				</div>
 
 				<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 					<div class="count-box">
 						<i class="icofont-simple-smile"></i> <span
-							data-toggle="counter-up">88</span>%
-						<p>노란색</p>
+							data-toggle="counter-up">100</span>%
+						<p>데이타가</p>
 					</div>
 				</div>
 
 				<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 					<div class="count-box">
 						<i class="icofont-simple-smile"></i> <span
-							data-toggle="counter-up">88</span>%
-						<p>피곤함</p>
+							data-toggle="counter-up">100</span>%
+						<p>바뀝니다</p>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</section>

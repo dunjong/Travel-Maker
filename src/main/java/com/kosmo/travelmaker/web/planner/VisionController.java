@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,20 +36,20 @@ import com.kosmo.travelmaker.service.CityTagService;
 @Controller
 public class VisionController {
 	//서비스 주입
-	//@Resource(name="cityTagSerivce")
-	//private CityTagService cityTagSerivce;
+	@Resource(name="cityTagService")
+	private CityTagService cityTagService;
 	
 	
 	@ResponseBody
 	@RequestMapping(value="/TravelMaker/Vision.kosmo",method=RequestMethod.POST)
-	public String Vision(@RequestParam("fileObj") MultipartFile file,HttpServletRequest req) throws IllegalStateException, IOException {
+	public Map Vision(@RequestParam("fileObj") MultipartFile file,HttpServletRequest req) throws IllegalStateException, IOException {
 		System.out.println(file);
 		String path= req.getSession().getServletContext().getRealPath("/resources/Upload");
 		File f = new File(path+File.separator+file.getOriginalFilename());
 		file.transferTo(f);
 		//String a = GoogleVision.vision(path+File.separator+file.getOriginalFilename());
 		//System.out.println("반환값:"+a);
-		
+		Map tags = new HashMap();
 		 try {
 			 ImageAnnotatorClient vision = ImageAnnotatorClient.create();
 			 System.out.println("들어옴");
@@ -92,27 +93,28 @@ public class VisionController {
 					 * k, v.toString()));
 					 */
 			       //System.out.println(annotation.getAllFields().get("score").toString());
-			    	 float score = annotation.getScore();
-			    	 //Map tags = new HashMap();
-			    	 if(score >= 0.90) {
+			    	 int score = (int)(annotation.getScore()*100);
+			    	 
+			    	 if(score >= 90) {
 			    		 String tag = annotation.getDescription();
 			    		 System.out.println("Description:"+tag);
 			    		 System.out.println(score);
-			    		 //tags.put(tag,tag);
-			    		 //cityTagSerivce.TagMatch(tag);
+			    		 if(cityTagService.TagMatch(tag)) {
+			    			 tags.put(tag,score);
+			    		 }
 			    	 }
-			    	 
-			       
 			     }
 		   }
  	
  		}
 		catch(Exception e) {e.printStackTrace();}
-		 System.out.println("들어옴:6");
+		System.out.println("들어옴:6");
 		
-		return "report/submissionComplete";
+		return tags;
 
 	}
+	
+	
 	
 	
 }
