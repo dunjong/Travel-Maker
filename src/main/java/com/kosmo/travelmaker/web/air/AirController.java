@@ -83,10 +83,31 @@ public class AirController {
 	  	//왕복티켓1번의 가격구하기
 	  	System.out.println("전체가격"+flightOffersSearches[0].getTravelerPricings()[0].getPrice().getTotal());
 	  	System.out.println("기본가격"+flightOffersSearches[0].getTravelerPricings()[0].getPrice().getBase());
-	  	//출발지에서 도착지로 가는 티켓의 출발시간,도착시간
+	  	//출발지에서 경유지로 가는 티켓의 출발시간,도착(경유)시간
 	  	System.out.println("출발시간"+flightOffersSearches[0].getItineraries()[0].getSegments()[0].getDeparture().getAt());
-	  	System.out.println("도착시간"+flightOffersSearches[0].getItineraries()[0].getSegments()[0].getArrival().getAt());
-	  	//
+	  	System.out.println("경유시간"+flightOffersSearches[0].getItineraries()[0].getSegments()[0].getArrival().getAt());
+	  	//경유지에서 도착지로 가는 시간
+	  	System.out.println("경유"+flightOffersSearches[0].getItineraries()[0].getSegments()[1].getDeparture().getAt());
+		System.out.println("도착"+flightOffersSearches[0].getItineraries()[0].getSegments()[1].getArrival().getAt());
+		//도착지에서 경유지로 가는 티켓의 출발시간,도착(경유)시간
+		System.out.println("출발시간"+flightOffersSearches[0].getItineraries()[1].getSegments()[0].getDeparture().getAt());
+		System.out.println("경유시간"+flightOffersSearches[0].getItineraries()[1].getSegments()[0].getArrival().getAt());
+		//경유지에서 출발로 가는 시간
+	  	System.out.println("경유"+flightOffersSearches[0].getItineraries()[1].getSegments()[1].getDeparture().getAt());
+		System.out.println("도착"+flightOffersSearches[0].getItineraries()[1].getSegments()[1].getArrival().getAt());
+		//출발지에서 도착지 총 비행 지연시간
+		System.out.println("출발지-도착지 총 비행 지연시간"+flightOffersSearches[0].getItineraries()[0].getDuration());
+		//출발지에서 경유지로 가는 비행 지연시간
+		System.out.println("출발지-경유지 비행 지연시간"+flightOffersSearches[0].getItineraries()[0].getSegments()[0].getDuration());
+		//경유지에서 도착지로 가는 비행 지연시간
+	  	System.out.println("경유지-도착지 비행 지연시간"+flightOffersSearches[0].getItineraries()[0].getSegments()[1].getDuration());
+	  	//도착지에서 출발지 총 비행 지연시간
+	  	System.out.println("출발지-도착지 총 비행 지연시간"+flightOffersSearches[0].getItineraries()[1].getDuration());
+	  	//도착지에서 경유지로 가는 비행 지연시간
+	  	System.out.println("출발지-경유지 비행 지연시간"+flightOffersSearches[0].getItineraries()[1].getSegments()[0].getDuration());
+	  	//경유지에서 출발지로 가는 비행 지연시간
+	  	System.out.println("경유지-도착지 비행 지연시간"+flightOffersSearches[0].getItineraries()[1].getSegments()[1].getDuration());
+	  	
 	  	List<Map> list = new Vector<Map>();
         for (FlightOfferSearch offer : flightOffersSearches) {
 	  		for (int k = 0; k < offer.getItineraries().length; k++) {
@@ -122,54 +143,54 @@ public class AirController {
 	  			}
 	  		}
 	  	}
-        Map<Integer,Boolean> eqInSeg = new HashMap<Integer,Boolean>();
-        for(int l=0;l<list.size();l++){
-        	Map test = list.get(l);
-        	String tDTime = (String)test.get("DTime");
-        	String tDcode = (String)test.get("Dcode");
-        	String tDvia = (String)test.get("Dvia");
-        	String tATime = (String)test.get("ATime");
-        	String tAcode = (String)test.get("Acode");
-        	String tAvia = (String)test.get("Avia");
-        	String tbase = (String)test.get("base");
-        	String ttotal = (String)test.get("total");
-        	String tchul = (String)test.get("chul");
-        	String tchak = (String)test.get("chak");
-        	String tgyeongUCount = test.get("gyeongUCount").toString();
-        	for(int m=l+1;m<list.size()||eqInSeg.get(l)==true;m++) {
-        		Map test2 = list.get(m);
-        		String tDTime2 = (String)test2.get("DTime");
-        		String tDcode2 = (String)test2.get("Dcode");
-        		String tDvia2 = (String)test2.get("Dvia");
-        		String tATime2 = (String)test2.get("ATime");
-        		String tAcode2 = (String)test2.get("Acode");
-        		String tAvia2 = (String)test2.get("Avia");
-        		String tbase2 = (String)test2.get("base");
-        		String ttotal2 = (String)test2.get("total");
-        		String tchul2 = (String)test2.get("chul");
-        		String tchak2 = (String)test2.get("chak");
-        		String tgyeongUCount2 = (String)test2.get("gyeongUCount");
-        		if(tDTime.equals(tDTime2)&&
-        				tDcode.equals(tDcode2)&&
-        				tDvia.equals(tDvia2)&&
-        				tATime.equals(tATime2)&&
-        				tAcode.equals(tAcode2)&&
-        				tAvia.equals(tAvia2)&&
-        				tbase.equals(tbase2)&&
-        				ttotal.equals(ttotal2)&&
-        				tchul.equals(tchul2)&&
-        				tchak.equals(tchak2)&&
-        				tgyeongUCount.equals(tgyeongUCount2))
-        		{
-        			eqInSeg.put(l, false);
-        		}
-         
-        	}
-        }
-        Set<Integer> keys = eqInSeg.keySet();
-        for(Integer key:keys) {
-        	eqInSeg.remove(key);
-        }
+//        Map<Integer,Boolean> eqInSeg = new HashMap<Integer,Boolean>();
+//        for(int l=0;l<list.size();l++){
+//        	Map test = list.get(l);
+//        	String tDTime = (String)test.get("DTime");
+//        	String tDcode = (String)test.get("Dcode");
+//        	String tDvia = (String)test.get("Dvia");
+//        	String tATime = (String)test.get("ATime");
+//        	String tAcode = (String)test.get("Acode");
+//        	String tAvia = (String)test.get("Avia");
+//        	String tbase = (String)test.get("base");
+//        	String ttotal = (String)test.get("total");
+//        	String tchul = (String)test.get("chul");
+//        	String tchak = (String)test.get("chak");
+//        	String tgyeongUCount = test.get("gyeongUCount").toString();
+//        	for(int m=l+1;m<list.size()||eqInSeg.get(l)==true;m++) {
+//        		Map test2 = list.get(m);
+//        		String tDTime2 = (String)test2.get("DTime");
+//        		String tDcode2 = (String)test2.get("Dcode");
+//        		String tDvia2 = (String)test2.get("Dvia");
+//        		String tATime2 = (String)test2.get("ATime");
+//        		String tAcode2 = (String)test2.get("Acode");
+//        		String tAvia2 = (String)test2.get("Avia");
+//        		String tbase2 = (String)test2.get("base");
+//        		String ttotal2 = (String)test2.get("total");
+//        		String tchul2 = (String)test2.get("chul");
+//        		String tchak2 = (String)test2.get("chak");
+//        		String tgyeongUCount2 = (String)test2.get("gyeongUCount");
+//        		if(tDTime.equals(tDTime2)&&
+//        				tDcode.equals(tDcode2)&&
+//        				tDvia.equals(tDvia2)&&
+//        				tATime.equals(tATime2)&&
+//        				tAcode.equals(tAcode2)&&
+//        				tAvia.equals(tAvia2)&&
+//        				tbase.equals(tbase2)&&
+//        				ttotal.equals(ttotal2)&&
+//        				tchul.equals(tchul2)&&
+//        				tchak.equals(tchak2)&&
+//        				tgyeongUCount.equals(tgyeongUCount2))
+//        		{
+//        			eqInSeg.put(l, false);
+//        		}
+//         
+//        	}
+//        }
+//        Set<Integer> keys = eqInSeg.keySet();
+//        for(Integer key:keys) {
+//        	eqInSeg.remove(key);
+//        }
         model.addAttribute("list", list);
         model.addAttribute("flightOffersSearches", flightOffersSearches[0].toString());
         model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
@@ -177,7 +198,8 @@ public class AirController {
 	}
 	
 	@RequestMapping("AirList.kosmo")
-	public String AirList() {
+	public String AirList(Model model) {
+		model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
 		return "air/AirList.tiles";
 	}
 
