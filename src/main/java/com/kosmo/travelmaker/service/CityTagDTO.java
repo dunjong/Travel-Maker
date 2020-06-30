@@ -8,6 +8,7 @@ public class CityTagDTO {
 	private String count;
 	private String city_no;
 	private String city_intro;
+	private String city_img;
 	
 	public String getCity_name() {
 		return city_name;
@@ -32,6 +33,12 @@ public class CityTagDTO {
 	}
 	public void setCity_intro(String city_intro) {
 		this.city_intro = city_intro;
+	}
+	public String getCity_img() {
+		return city_img;
+	}
+	public void setCity_img(String city_img) {
+		this.city_img = city_img;
 	}
 	
 	

@@ -8,14 +8,13 @@
 </select>
 
 <select id="CityTag" parameterType="java.util.Map" resultType="CityTagDTO">
-	SELECT CITY_NAME,COUNT(TAG_NAME) COUNT
+	SELECT CITY_NAME,COUNT(TAG_NAME) COUNT,C.CITY_NO,CITY_INTRO,CITY_IMG
 	FROM CITY C JOIN TAG_REL TR ON C.CITY_NO=TR.CITY_NO JOIN TAG T ON T.TAG_NO=TR.TAG_NO 
 	WHERE
 	<foreach collection="tagAr" item="tag" open=" " close=" " separator="OR">
 	TAG_NAME=#{tag}
 	</foreach> 
-	<!-- WHERE TAG_NAME='Landmark' OR TAG_NAME='Sea' OR TAG_NAME='Beach' OR TAG_NAME='Pysd' -->
-	GROUP BY CITY_NAME
+	GROUP BY CITY_NAME,C.CITY_NO,CITY_INTRO,CITY_IMG
 	ORDER BY COUNT(TAG_NAME) DESC
 </select>
 </mapper>

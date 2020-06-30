@@ -11,10 +11,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -120,22 +122,23 @@ public class VisionController {
 	
 	@ResponseBody
 	@RequestMapping(value="/TravelMaker/CityTag.kosmo",produces = "text/html; charset=UTF-8")
-	public String CityTag(@RequestParam String tags,Model model) {
-		JSONObject obj = new JSONObject();
+	public String CityTag(@RequestParam String tags) {
+		
 		String[] tagAr=tags.split(",");
-		List<CityTagDTO> citys;
 		Map map = new HashMap();
 		map.put("tagAr", tagAr);
 		/*
 		 * for(int i=0;i<tagAr.length;i++) { map.put("tag"+i, tagAr[i]); }
 		 */
-		citys=cityTagService.CityTag(map);
+		List<CityTagDTO> citys=cityTagService.CityTag(map);
 		for(CityTagDTO city:citys) {
-			System.out.println(city.getCity_name().toString());
-			System.out.println(city.getCount().toString());
-			obj.put(city.getCity_name().toString(), city.getCount().toString());
+			System.out.println(city.getCity_name());
+			System.out.println(city.getCount());
+			System.out.println(city.getCity_no());
+			System.out.println(city.getCity_img());
+			System.out.println(city.getCity_intro());
 		}
-		model.addAttribute(citys);
-		return obj.toJSONString();
+		System.out.println(net.sf.json.JSONArray.fromObject(citys).toString());
+		return net.sf.json.JSONArray.fromObject(citys).toString();
 	}
 }
