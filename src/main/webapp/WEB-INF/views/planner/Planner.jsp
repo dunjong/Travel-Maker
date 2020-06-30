@@ -26,7 +26,7 @@
         margin-left: -52px;
       }
     </style>
-    <c:forEach items="${city_no_name}" var="name">
+    <c:forEach items="${city_name}" var="name">
     	<h2>${name}</h2>
     </c:forEach>
     <div class="intro">

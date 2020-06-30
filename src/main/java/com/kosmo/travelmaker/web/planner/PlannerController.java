@@ -33,14 +33,14 @@ public class PlannerController {
 	@RequestMapping("Planner.kosmo")
 	public String Planner(@RequestParam Map map,Model model) {
 		
-		List<String> city_no_name=new Vector<String>();
+		List<String> city_name=new Vector<String>();
 		String[] city_no_list=map.get("city_no").toString().split(",");
 		for(String no:city_no_list) {
-			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
+			city_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
 		}
 		
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
-		model.addAttribute("city_no_name",city_no_name);
+		model.addAttribute("city_name",city_name);
 		return "planner/Planner.tiles";
 	}
 	@RequestMapping("Plan.kosmo")
