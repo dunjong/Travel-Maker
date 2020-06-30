@@ -4,7 +4,7 @@
 <script src="<c:url value='/js/jquery.jcarousel.min.js'/>"></script>
 <script src="<c:url value='/js/jcarousel.basic.js'/>"></script>
 <link rel="stylesheet" href="<c:url value='/styles/jcarousel.basic.css'/>">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <style>
 	  #floating-panel {
         position: absolute;
@@ -894,9 +894,9 @@ function displayRouteNOW(){
 				<div class="col-sm-10">
 					<div id="floating-panel">
 						<div id="type">
-								<div class="btn btn-danger" onclick="hotel();"><img src="<c:url value="/images/hotelIcon.png"/>">호텔</div>
-								<div class="btn btn-info" onclick="tour();"><img src="<c:url value="/images/spotIcon.png"/>">명소</div>
-								<div class="btn btn-info" onclick="food();"><img src="<c:url value="/images/foodIcon.png"/>">음식점</div>
+								<div class="btn btn-danger btn-lg" onclick="hotel();"><i class="fa fa-hotel fa-2x">호텔</i></div>
+								<div class="btn btn-info btn-lg" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
+								<div class="btn btn-info btn-lg" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
 								<!--  <div><h4><small id=day>1일차 플랜</small></h4></div>-->
 					    </div>
 				    </div>

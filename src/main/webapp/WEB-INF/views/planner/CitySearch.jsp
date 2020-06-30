@@ -165,7 +165,7 @@
 					<!-- <div id="div1" class="col-xs-12 picture" ondrop="drop(event)"
 						ondragover="allowDrop(event)"
 						style="width: 200px; height: 200px; position: relative; top: 10%; left: 15%; border: 1px green solid;"></div> -->
-					<form id="FILE_FORM" method="post" enctype="multipart/form-data"
+					<form id="FILE_FORM" method="post" enctype="multipart/form-data" style="width:495px; padding-top: 30px"
 						action="">
 						<input type="file" id="FILE_TAG" name="FILE_TAG"> 
 						<a class="ui-shadow ui-btn ui-corner-all" 
@@ -286,8 +286,7 @@
 						class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 						<input hidden="true" value="2,9,10" name="city_no" >
 						<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
-						<button class="home_search_button citysearch" style="">도시
-							선택</button>
+						<button class="home_search_button citysearch btn-lg float-right">도시선택</button>
 					</div>
 				</form>
 			</div>

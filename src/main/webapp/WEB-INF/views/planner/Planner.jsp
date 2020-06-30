@@ -16,12 +16,16 @@
 			    </div>
 			     -->
 			     <c:forEach items="${city_no_name}" var="name">
-			    <div class="col-sm-12">
+			    <div class="col-sm-4" style="border:red solid 1px">
+			    <div class="col-sm-4" style="border:blue solid 1px">
+			    <div class="col-sm-4" style="border:yellow solid 1px">
 			    	<form action="<c:url value="/TravelMaker/Plan.kosmo"/>">
 			    	<input hidden="true" name="origin" value="방콕,태국" />
 					<input hidden="true" name="destination" value="공항,방콕,태국" />
 			    	<button class="btn btn-danger">${name}</button>
 			    	</form>
+			    </div>
+			    </div>
 			    </div>
 			     </c:forEach>
 		    </div>
