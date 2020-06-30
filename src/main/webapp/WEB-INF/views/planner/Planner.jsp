@@ -6,7 +6,6 @@
      
      
     </style>
-    
     <div class="intro">
 		
 		<div class="intro_container">
