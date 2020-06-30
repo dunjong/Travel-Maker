@@ -396,100 +396,28 @@ function getDetailById(placeId){
 
 function auto_plan(){
 		nearSearchType='attractions';	
-		var day1=${dayPlan.day1}
-		var day2=${dayPlan.day2}
-		var day3=${dayPlan.day3}
-		var day4=${dayPlan.day4}
-		var day5=${dayPlan.day5}
+		var dayPlan=${dayPlan};
 		
 		//dayplans['day'+day]={'origin':origin,'spots':spots};
-		
+		/*
 		servicePlace = new google.maps.places.PlacesService(map);
-		
-		for(var i=0;i<day1.length;i++){
-			placeDetailnSave(day1[i],1);
-			servicePlace.getDetails({placeId: day1[i]},
+		for(var i=0;i<spotIDs.length;i++){
+			placeDetailnSave(spotIDs[i]);
+			servicePlace.getDetails({placeId: spotIDs[i]},
 	            function(place, status) {
 	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
 	                return;
 	              }
 	  			
 					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-					spots=[]
+					console.log(placelatlng);
 					spots.push(placelatlng);
-					dayplans['day'+1]={'origin':origin,'spots':spots}
-			
-	            });
-		}
-		
-		for(var i=0;i<day2.length;i++){
-			placeDetailnSave(day2[i],2);
-			servicePlace.getDetails({placeId: day2[i]},
-	            function(place, status) {
-	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-	                return;
-	              }
-	  			
-					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-					spots=[]
-					spots.push(placelatlng);
-					dayplans['day'+2]={'origin':origin,'spots':spots}
+				
 	  			
 			
 	            });
 		}
-		
-		for(var i=0;i<day3.length;i++){
-			placeDetailnSave(day3[i],3);
-			servicePlace.getDetails({placeId: day3[i]},
-	            function(place, status) {
-	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-	                return;
-	              }
-	  			
-					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-					spots=[]
-					spots.push(placelatlng);
-					dayplans['day'+3]={'origin':origin,'spots':spots}
-	  			
-			
-	            });
-		}
-		
-		for(var i=0;i<day4.length;i++){
-			placeDetailnSave(day4[i],4);
-			servicePlace.getDetails({placeId: day4[i]},
-	            function(place, status) {
-	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-	                return;
-	              }
-	  			
-					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-					spots=[]
-					spots.push(placelatlng);
-					dayplans['day'+4]={'origin':origin,'spots':spots}
-	  			
-			
-	            });
-		}
-		
-		for(var i=0;i<day5.length;i++){
-			placeDetailnSave(day5[i],5);
-			servicePlace.getDetails({placeId: day5[i]},
-	            function(place, status) {
-	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-	                return;
-	              }
-	  			
-					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-					spots=[]
-					spots.push(placelatlng);
-					dayplans['day'+5]={'origin':origin,'spots':spots}
-	  			
-			
-	            });
-		}
-		
+		*/
 }////auto_plan
  	
 function displayRouteNOW(){
@@ -499,8 +427,8 @@ function displayRouteNOW(){
 
  //0] 주변 찾기 설정
   function food() {
-	  $('#type div').attr('class','btn btn-info')
-	  $('#type div:eq(2)').attr('class','btn btn-danger')
+	  $('#type div').attr('class','btn btn-info btn-lg')
+	  $('#type div:eq(2)').attr('class','btn btn-danger btn-lg')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -512,8 +440,8 @@ function displayRouteNOW(){
 	  keyword='restaurant'
       }
   function hotel() {
-	  $('#type div').attr('class','btn btn-info')
-	  $('#type div:eq(0)').attr('class','btn btn-danger')
+	  $('#type div').attr('class','btn btn-info btn-lg')
+	  $('#type div:eq(0)').attr('class','btn btn-danger btn-lg')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -525,8 +453,8 @@ function displayRouteNOW(){
 	  keyword='lodging'
      }
   function tour() {
-	  $('#type div').attr('class','btn btn-info')
-	  $('#type div:eq(1)').attr('class','btn btn-danger')
+	  $('#type div').attr('class','btn btn-info btn-lg')
+	  $('#type div:eq(1)').attr('class','btn btn-danger btn-lg')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -539,7 +467,7 @@ function displayRouteNOW(){
      }
   
   //0-1] 바구니에 스팟들 담기
-  function placeDetailnSave(placeId,date){
+  function placeDetailnSave(placeId){
 	  servicePlace.getDetails({placeId: placeId},
 	            function(place, status) {
 	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
@@ -548,16 +476,16 @@ function displayRouteNOW(){
 	              console.log('place in placeDetail:',place)
 	               if(nearSearchType=='lodging'){
 	            	   console.log('day in save',day)
-	             	   hotelInfo['day'+date]={'hotel':place}
+	             	   hotelInfo['day'+day]={'hotel':place}
 	               }
 	               else{
-	            	   if(spotInfo['day'+date]==undefined){
+	            	   if(spotInfo['day'+day]==undefined){
 		            	   var savedSpot=[]
 		            	   savedSpot.push({'spot':place})
-		            	   spotInfo['day'+date]=savedSpot
+		            	   spotInfo['day'+day]=savedSpot
 	            	   }
 	            	   else{
-	            		   spotInfo['day'+date].push({'spot':place})
+	            		   spotInfo['day'+day].push({'spot':place})
 	            	   }
 	               }
 	            });
@@ -568,7 +496,7 @@ function displayRouteNOW(){
 	  var sp_waypoints=document.getElementById('sp-waypoints');
 	  sp_waypoints.innerHTML=''
 	  if(nearSearchType=='lodging'){
-		  placeDetailnSave($('#iw-id').html(),day)
+		  placeDetailnSave($('#iw-id').html())
 		  
 		  boxOrigin=$('#iw-lanlng').html();
 		  displayRoute(boxOrigin,boxOrigin , directionsService,
@@ -576,7 +504,7 @@ function displayRouteNOW(){
 	  }
 	  else{
 		  sp_waypoints.innerHTML=''
-		  placeDetailnSave($('#iw-id').html(),day)
+		  placeDetailnSave($('#iw-id').html())
 		  spots.push({location:$('#iw-lanlng').html()});
 		  //console.log('lanlng',$('#iw-lanlng').html())
 	  	  displayRoute(origin, destination, directionsService,
@@ -956,11 +884,9 @@ function displayRouteNOW(){
 				<input type="text" name="city_no" >
 				<button class="btn btn-danger">자동 완성 불러오기</button>
 			</form>
-				<h2>${dayPlan.day1}</h2>
-				<h2>${dayPlan.day2}</h2>
-				<h2>${dayPlan.day3}</h2>
-				<h2>${dayPlan.day4}</h2>
-				<h2>${dayPlan.day5}</h2>
+			<c:forEach items="${dayPlan}" var="spot">
+				<h2>${spot}</h2>
+			</c:forEach>
 			<button class="btn btn-warning" onclick="auto_plan()">자동 완성1</button>
 			<button class="btn btn-warning" onclick="displayRouteNOW()">자동 완성2</button>
 			
