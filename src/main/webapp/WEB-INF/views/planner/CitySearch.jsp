@@ -146,7 +146,7 @@
 
 			<div class="section-title">
 				<h2>Search Images</h2>
-				<p>가보고싶은 곳의 사진을 넣어 자신의 여행계획을 세워보는 것은 어떨까요?</p>
+				<p style="font-size: 1.8rem">가보고싶은 곳의 사진을 넣어 자신의 여행계획을 세워보는 것은 어떨까요?</p>
 			</div>
 
 			<div class="row">
@@ -175,7 +175,7 @@
 				
 				
 				<div class="col-lg-6 pt-4 pt-lg-0 tagview">
-					<h3>사진 관련 태그들</h3>
+					<h3 style="color: olive;">사진 관련 태그들</h3>
 					<div class="row tagmatch">
 						<div class="col-lg-6">
 							<ul>
@@ -198,9 +198,7 @@
 						<div class="col-lg-6">
 							<ul>
 								<li><i class="icofont-rounded-right"></i><strong>Cave </strong><input
-									type="checkbox" value="Cave"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Golf </strong><input
-									type="checkbox" value="Golf"/></li>			
+									type="checkbox" value="Cave"/></li>	
 								<li><i class="icofont-rounded-right"></i><strong>Landmark </strong><input
 									type="checkbox" value="Landmark"/></li>
 								<li><i class="icofont-rounded-right"></i><strong>Sea </strong><input

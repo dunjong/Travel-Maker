@@ -46,37 +46,15 @@
 		<div class="row">
 			<div class="col">
 				<div class="home_search_container">
-				<div>
-					<div class="home_search_title"><a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a></div>
-					<div class="home_search_title" ><a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a></div>
-					</div>
-					<div class="home_search_content">
-						<form action="#" class="home_search_form" id="home_search_form">
-							<div
-								class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-								<input type="text" id="start"
-									class="search_input search_input_1" placeholder="출발지"
-									required="required"> <input type="text"
-									class="search_input search_input_2" placeholder="도착지"
-									required="required"> <input type="text" id="datepicker"
-									class="search_input search_input_3" placeholder="가는날"
-									required="required"> <input type="text"
-									id="datepicker1" class="search_input search_input_4"
-									placeholder="오는날" required="required"> <input
-									type="text" class="search_input search_input_5"
-									placeholder="좌석 등급 및 승객" required="required">
-								<button class="home_search_button" style="">항공권 검색</button>
-							</div>
-						</form>
-					</div>
+					<div>
+						<div class="home_search_title"><a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a></div>
+						<div class="home_search_title" ><a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a></div>
+					</div>			
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-
-
 <!-- Intro -->
 
 <div class="intro">
@@ -88,6 +66,7 @@
 					<div class="row">
 
 						<!-- Intro Item -->
+						
 						<div class="col-lg-4 intro_col">
 							<div
 								class="intro_item d-flex flex-row align-items-end justify-content-start">
