@@ -395,30 +395,103 @@ function getDetailById(placeId){
 }////getDetailById
 
 function auto_plan(){
-		nearSearchType='attractions';	
-		var dayPlan=${dayPlan};
+	nearSearchType='attractions';	
+	var day1=${dayPlan.day1}
+	var day2=${dayPlan.day2}
+	var day3=${dayPlan.day3}
+	var day4=${dayPlan.day4}
+	var day5=${dayPlan.day5}
+	
+	//dayplans['day'+day]={'origin':origin,'spots':spots};
+	
+	servicePlace = new google.maps.places.PlacesService(map);
+	
+	for(var i=0;i<day1.length;i++){
+		placeDetailnSave(day1[i],1);
+		servicePlace.getDetails({placeId: day1[i]},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+  			
+				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+				spots=[]
+				spots.push(placelatlng);
+				dayplans['day'+1]={'origin':origin,'spots':spots}
 		
-		//dayplans['day'+day]={'origin':origin,'spots':spots};
-		/*
-		servicePlace = new google.maps.places.PlacesService(map);
-		for(var i=0;i<spotIDs.length;i++){
-			placeDetailnSave(spotIDs[i]);
-			servicePlace.getDetails({placeId: spotIDs[i]},
-	            function(place, status) {
-	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-	                return;
-	              }
-	  			
-					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-					console.log(placelatlng);
-					spots.push(placelatlng);
-				
-	  			
-			
-	            });
-		}
-		*/
+            });
+	}
+	
+	for(var i=0;i<day2.length;i++){
+		placeDetailnSave(day2[i],2);
+		servicePlace.getDetails({placeId: day2[i]},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+  			
+				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+				spots=[]
+				spots.push(placelatlng);
+				dayplans['day'+2]={'origin':origin,'spots':spots}
+  			
+		
+            });
+	}
+	
+	for(var i=0;i<day3.length;i++){
+		placeDetailnSave(day3[i],3);
+		servicePlace.getDetails({placeId: day3[i]},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+  			
+				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+				spots=[]
+				spots.push(placelatlng);
+				dayplans['day'+3]={'origin':origin,'spots':spots}
+  			
+		
+            });
+	}
+	
+	for(var i=0;i<day4.length;i++){
+		placeDetailnSave(day4[i],4);
+		servicePlace.getDetails({placeId: day4[i]},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+  			
+				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+				spots=[]
+				spots.push(placelatlng);
+				dayplans['day'+4]={'origin':origin,'spots':spots}
+  			
+		
+            });
+	}
+	
+	for(var i=0;i<day5.length;i++){
+		placeDetailnSave(day5[i],5);
+		servicePlace.getDetails({placeId: day5[i]},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+  			
+				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+				spots=[]
+				spots.push(placelatlng);
+				dayplans['day'+5]={'origin':origin,'spots':spots}
+  			
+		
+            });
+	}
+	
 }////auto_plan
+	
  	
 function displayRouteNOW(){
 	console.log(origin,destination,spots);
@@ -884,9 +957,11 @@ function displayRouteNOW(){
 				<input type="text" name="city_no" >
 				<button class="btn btn-danger">자동 완성 불러오기</button>
 			</form>
-			<c:forEach items="${dayPlan}" var="spot">
-				<h2>${spot}</h2>
-			</c:forEach>
+				<h2>${dayPlan.day1}</h2>
+				<h2>${dayPlan.day2}</h2>
+				<h2>${dayPlan.day3}</h2>
+				<h2>${dayPlan.day4}</h2>
+				<h2>${dayPlan.day5}</h2>
 			<button class="btn btn-warning" onclick="auto_plan()">자동 완성1</button>
 			<button class="btn btn-warning" onclick="displayRouteNOW()">자동 완성2</button>
 			
