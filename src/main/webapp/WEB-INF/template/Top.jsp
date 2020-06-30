@@ -221,10 +221,9 @@
 								success : function(res) {
 									console.log(res.id);//<-- 아이디
 									console.log(res.properties['nickname']);//<-- 서비스에서 쓰이는 사용자 닉네임						 
-									console.log(res.kakao_account.profile);//<--카카오계정의 프로필 소유 여부
+									console.log(res.kakao_account.profile);//<--카카오계정의 프로필 소유 여부	
 									console.log(res.properties.profile_image);//<--서비스에서 쓰이는 사용자 프로필 이미지 URL
 									console.log(res.properties.thumbnail_image);//<--서비스에서 쓰이는 사용자 썸네일 이미지 URL
-									console.log(res.kakao_account.email);//<-- 카카오계정의 이메일 소유 여부
 									console.log(res.kakao_account.age_range);//<--카카오계정의 연령대 소유 여부, 연령대 값
 									console.log(res.kakao_account.birthday);//<--카카오계정의 생일 소유 여부, 생일 값
 									console.log(res.kakao_account.gender);//<--카카오계정의 성별 소유 여부, 성별 값

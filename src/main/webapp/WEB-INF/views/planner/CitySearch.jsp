@@ -150,7 +150,7 @@
 
 			<div class="section-title">
 				<h2>Search Images</h2>
-				<p>가보고싶은 곳의 사진을 넣어 자신의 여행계획을 세워보는 것은 어떨까요?</p>
+				<p style="font-size: 1.8rem">가보고싶은 곳의 사진을 넣어 자신의 여행계획을 세워보는 것은 어떨까요?</p>
 			</div>
 
 			<div class="row">
@@ -169,56 +169,61 @@
 					<!-- <div id="div1" class="col-xs-12 picture" ondrop="drop(event)"
 						ondragover="allowDrop(event)"
 						style="width: 200px; height: 200px; position: relative; top: 10%; left: 15%; border: 1px green solid;"></div> -->
-					<form id="FILE_FORM" method="post" enctype="multipart/form-data"
+					<form id="FILE_FORM" method="post" enctype="multipart/form-data" style="width:495px; padding-top: 30px"
 						action="">
 						<input type="file" id="FILE_TAG" name="FILE_TAG"> 
 						<a class="ui-shadow ui-btn ui-corner-all" 
-						href="javascript:uploadFile();">전송</a>
+						href="javascript:uploadFile();"><button type="button" class="btn btn-info btn-lg float-right">전송</button></a>
 					</form>
 				</div> 
 				
 				
 				<div class="col-lg-6 pt-4 pt-lg-0 tagview">
-					<h3>사진 관련 태그들</h3>
+					<h3 style="color: olive;">사진 관련 태그들</h3>
 					<div class="row tagmatch">
 						<div class="col-lg-6">
 							<ul>
-								<li><i class="icofont-rounded-right"></i><strong>Beach</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Beach </strong><input
 									type="checkbox" value="Beach"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>City</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>City </strong><input
 									type="checkbox" value="City"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Coast</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Coast </strong><input
 									type="checkbox" value="Coast"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Mountain</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Mountain </strong><input
 									type="checkbox" value="Mountain"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Ocean</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Ocean </strong><input
 									type="checkbox" value="Ocean"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Natural Landscape</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Natural Landscape </strong><input
 									type="checkbox" value="Natural Landscape"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Metropolitan Area</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Metropolitan Area </strong><input
 									type="checkbox" value="Metropolitan Area"/></li>
 							</ul>
 						</div>
 						<div class="col-lg-6">
 							<ul>
-								<li><i class="icofont-rounded-right"></i><strong>Cave</strong><input
-									type="checkbox" value="Cave"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Landmark</strong><input
-									type="checkbox" value="Golf"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Sea</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Cave </strong><input
+									type="checkbox" value="Cave"/></li>	
+								<li><i class="icofont-rounded-right"></i><strong>Landmark </strong><input
+									type="checkbox" value="Landmark"/></li>
+								<li><i class="icofont-rounded-right"></i><strong>Sea </strong><input
 									type="checkbox" value="Sea"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Ocean</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Ocean </strong><input
 									type="checkbox" value="Ocean"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Historic Site</strong><input type="checkbox" value="Historic Site"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Nature</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Historic Site </strong><input 
+								type="checkbox" value="Historic Site"/></li>
+								<li><i class="icofont-rounded-right"></i><strong>Nature </strong><input
 									type="checkbox" value="Nature"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Caribbean</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Caribbean </strong><input
 									type="checkbox" value="Caribbean"/></li>
 
 							</ul>
 						</div>
 						<div class="citysearch-div">
+
+							<button type="submit" class="citysearch" value="관련 도시 검색"></button>
+
 							<a class="citytag" href="javascript:citytag();">관련 도시 검색</a>
+								
 						</div>
 					</div>
 				</div>
@@ -285,8 +290,7 @@
 						class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 						<input hidden="true" value="2,9,10" name="city_no" >
 						<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
-						<button class="home_search_button citysearch" style="">도시
-							선택</button>
+						<button class="home_search_button citysearch btn-lg float-right">도시선택</button>
 					</div>
 				</form>
 			</div>
