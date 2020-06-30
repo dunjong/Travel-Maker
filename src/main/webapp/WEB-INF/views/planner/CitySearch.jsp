@@ -284,6 +284,8 @@
 				<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
 					<div
 						class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+						<input hidden="true" value="2,9,10" name="city_no" >
+						<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
 						<button class="home_search_button citysearch" style="">도시
 							선택</button>
 					</div>
