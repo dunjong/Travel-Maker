@@ -16,7 +16,7 @@
       console.log('${list[0].get("Devia")}')
       console.log('${list[0].get("Arvia")}')    */
       var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
-      for(var i=0;i<3;i++){
+      for(var i=0;i<5;i++){
          list+="<div class='container'>";
          list+="<div class='alert alert-success'>";
          list+="<div class='row'>";
@@ -93,7 +93,6 @@
                    }
              }
             $.ajax(settings).done(function(response) {
-            	if(response != null){
 	                console.log(response)
 	                console.log(value)
 	                var PlaceId
@@ -117,7 +116,7 @@
 	                })
 	                console.log('depstr',depstr)
 	                $('#departure').attr('data-content',depstr.toString());
-	            	}
+	            	
                 });/////
                 $('#deplist').on('click',function(){
                 	deplist.innerHTML='';
