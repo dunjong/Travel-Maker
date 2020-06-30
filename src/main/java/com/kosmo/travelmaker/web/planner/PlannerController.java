@@ -33,21 +33,25 @@ public class PlannerController {
 	@RequestMapping("Planner.kosmo")
 	public String Planner(@RequestParam Map map,Model model) {
 		
-		List<String> city_name=new Vector<String>();
+		List<String> city_no_name=new Vector<String>();
 		String[] city_no_list=map.get("city_no").toString().split(",");
 		for(String no:city_no_list) {
-			city_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
+			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
 		}
 		
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
-		model.addAttribute("city_name",city_name);
+		model.addAttribute("city_no_name",city_no_name);
 		return "planner/Planner.tiles";
 	}
+	
 	@RequestMapping("Plan.kosmo")
 	public String Plan( Model model) {
 		
-		List<String> spotIDs=new Vector<String>();
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
+		for(int i=1;i<=5;i++) {
+			List<String> spotIDs=new Vector<String>();
+			dayPlan.put("day"+i, spotIDs);
+		}
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("dayPlan",dayPlan);
 		return "planner/Plan.tiles";
@@ -87,7 +91,8 @@ public class PlannerController {
 				case "4":
 					dayPlan.get("day"+day).add("'"+dto.getSpot_id().toString()+"'");
 					break;
-				default:dayPlan.get("day"+day).add("'"+dto.getSpot_id().toString()+"'");
+				default:
+					dayPlan.get("day"+day).add("'"+dto.getSpot_id().toString()+"'");
 			}
 		}
 		model.addAttribute("dayPlan",dayPlan);
