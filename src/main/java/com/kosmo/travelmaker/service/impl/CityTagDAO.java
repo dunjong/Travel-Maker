@@ -1,4 +1,5 @@
 package com.kosmo.travelmaker.service.impl;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -6,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kosmo.travelmaker.service.CityTagDTO;
 import com.kosmo.travelmaker.service.CityTagService;
 
 
@@ -18,6 +20,11 @@ public class CityTagDAO implements CityTagService{
 	@Override
 	public boolean TagMatch(String tag) {
 		return (Integer)sqlMapper.selectOne("TagMactch",tag)==0? false : true;
+	}
+
+	@Override
+	public List<CityTagDTO> CityTag(Map map) {
+		return sqlMapper.selectList("CityTag", map);
 	}
 	
 	

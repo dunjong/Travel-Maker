@@ -55,6 +55,37 @@
 					}
             });
     }
+	
+	function citytag(){
+		var tagsize = $('.tagmatch ul li').length;
+		console.log(tagsize)
+		var tagsAr= new Array();
+		for(var i=0;i<tagsize;i++){
+			console.log($('.tagmatch ul li:eq('+i+') input:checkbox').prop('checked'))
+			if($('.tagmatch ul li:eq('+i+') input:checkbox').prop('checked')){
+				var tag=$('.tagmatch ul li:eq('+i+') strong').html()
+				tagsAr.push(tag)
+			}
+		}
+		var tags=tagsAr.join(',')
+		console.log(tags)
+		console.log(typeof(tags))
+		$.ajax({
+			url: '<c:url value="/TravelMaker/CityTag.kosmo"/>',
+			data:{tags:tags},
+            dataType:'json',//서버로 부터 응답 받을 데이터의 형식
+			success:function(data){//서버로부터 정상적인 응답을 받았을때
+				console.log(data)
+				alert('성공!')
+				/* $.each(data,function(city,count){
+					
+				} */
+			},
+			error:function(data){//서버로부터 비정상적인 응답을 받았을때 호출되는 콜백함수
+				console.log('에러:'+data.responseText);					
+			}
+		});
+	}
 
 
 </script>
@@ -168,7 +199,7 @@
 							<ul>
 								<li><i class="icofont-rounded-right"></i><strong>Cave</strong><input
 									type="checkbox" value="Cave"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Golf</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Landmark</strong><input
 									type="checkbox" value="Golf"/></li>
 								<li><i class="icofont-rounded-right"></i><strong>Sea</strong><input
 									type="checkbox" value="Sea"/></li>
@@ -183,7 +214,7 @@
 							</ul>
 						</div>
 						<div class="citysearch-div">
-							<button type="submit" class="citysearch" value="관련 도시 검색">
+							<a class="citytag" href="javascript:citytag();">관련 도시 검색</a>
 						</div>
 					</div>
 				</div>
@@ -235,56 +266,15 @@
 			</div>
 
 			<div class="row cities">
+				<c:forEach items="${citys}" var="city" varStatus="loop">
 				<div class="col-xs-4">
 					<img style="width: 200px; height: 200px;"
 						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>방콕</p>
+					<p>${city.city_name}</p>
+					<p>${city.count}</p>
 				</div>
-				<div class="col-xs-4">
-					<img style="width: 200px; height: 200px;"
-						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>방콕</p>
-				</div>
-				<div class="col-xs-4">
-					<img style="width: 200px; height: 200px;"
-						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>방콕</p>
-				</div>
-				<div class="col-xs-4">
-					<img style="width: 200px; height: 200px;"
-						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>방콕</p>
-				</div>
-				<div class="col-xs-4">
-					<img style="width: 200px; height: 200px;"
-						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>방콕</p>
-				</div>
-				<div class="col-xs-4">
-					<img style="width: 200px; height: 200px;"
-						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>방콕</p>
-				</div>
-				<div class="col-xs-4">
-					<img style="width: 200px; height: 200px;"
-						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>방콕</p>
-				</div>
-				<div class="col-xs-4">
-					<img style="width: 200px; height: 200px;"
-						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>방콕</p>
-				</div>
-				<div class="col-xs-4">
-					<img style="width: 200px; height: 200px;"
-						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>방콕</p>
-				</div>
-				<div class="col-xs-4">
-					<img style="width: 200px; height: 200px;"
-						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>방콕</p>
-				</div>
+				</c:forEach>
+				${citys}
 
 				<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
 					<div
