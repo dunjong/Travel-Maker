@@ -393,13 +393,13 @@ function getDetailById(placeId){
               return place;
             });
 }////getDetailById
-	
+
 function auto_plan(){
 		nearSearchType='attractions';	
-		var spotIDs=${spotIDs};
+		var dayPlan=${dayPlan};
 		
-		dayplans['day'+day]={'origin':origin,'spots':spots};
-		
+		//dayplans['day'+day]={'origin':origin,'spots':spots};
+		/*
 		servicePlace = new google.maps.places.PlacesService(map);
 		for(var i=0;i<spotIDs.length;i++){
 			placeDetailnSave(spotIDs[i]);
@@ -417,6 +417,7 @@ function auto_plan(){
 			
 	            });
 		}
+		*/
 }////auto_plan
  	
 function displayRouteNOW(){
@@ -883,7 +884,7 @@ function displayRouteNOW(){
 				<input type="text" name="city_no" >
 				<button class="btn btn-danger">자동 완성 불러오기</button>
 			</form>
-			<c:forEach items="${spotIDs}" var="spot">
+			<c:forEach items="${dayPlan}" var="spot">
 				<h2>${spot}</h2>
 			</c:forEach>
 			<button class="btn btn-warning" onclick="auto_plan()">자동 완성1</button>

@@ -14,6 +14,7 @@
 			<typeAlias alias="PlannerDTO" type="com.kosmo.travelmaker.service.PlannerDTO"/>
 			<typeAlias alias="ReviewDTO" type="com.kosmo.travelmaker.service.ReviewDTO"/>
 			<typeAlias alias="CityTagDTO" type="com.kosmo.travelmaker.service.CityTagDTO"/>
+			<typeAlias alias="CityDTO" type="com.kosmo.travelmaker.service.CityDTO"/>
 		</typeAliases>
 		
 		<mappers>
@@ -24,6 +25,7 @@
 			<mapper resource="mybatis/Planner.xml" />
 			<mapper resource="mybatis/Review.xml" />
 			<mapper resource="mybatis/CityTag.xml" />
+			<mapper resource="mybatis/City.xml" />
 		</mappers>
 	</configuration>
 	
