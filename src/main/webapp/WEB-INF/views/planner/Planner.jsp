@@ -46,7 +46,7 @@
 						</div>
 						<div class="col-md-3">
 							<div class="card card-primary">
-								<div class="card">
+								<div class="card" style="height:1200px">
 									<div class="card-header">
 										<h4 class="card-title">도시</h4>
 										<div class="col-sm-4">
