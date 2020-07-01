@@ -75,11 +75,15 @@
 			data:{tags:tags},
             dataType:'json',//서버로 부터 응답 받을 데이터의 형식
 			success:function(data){//서버로부터 정상적인 응답을 받았을때
-				console.log(data)
-				alert('성공!')
-				/* $.each(data,function(city,count){
+				$.each(data,function(city,cityintroduce){
+					var img = cityintroduce['city_img']
+					var intro = cityintroduce['city_intro']
+					var name = cityintroduce['city_name']
+					var no = cityintroduce['city_no']
+					var count = cityintroduce['count']
 					
-				} */
+					
+				}); 
 			},
 			error:function(data){//서버로부터 비정상적인 응답을 받았을때 호출되는 콜백함수
 				console.log('에러:'+data.responseText);					
