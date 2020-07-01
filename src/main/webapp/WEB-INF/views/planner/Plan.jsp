@@ -1063,7 +1063,7 @@ function displayRouteNOW(){
 	            <td class="iw_attribute_name"></td>
 	            <td>
 	            	<div class="btn btn-primary" data-toggle="modal" onclick="detail()">상세정보 보기</div>
-	          		<div class="btn btn-danger" onclick="box()">바구니에 담기▶</div>
+	          		<div class="btn btn-danger" onclick="box()"><i class="fas fa-shopping-basket"> 바구니에 담기</i></div>
 	            </td>
 	          </tr>
 	        </table>

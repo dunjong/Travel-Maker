@@ -97,6 +97,14 @@
 			href="https://colorlib.com" target="_blank">Colorlib</a>
 		<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 	</div>
+	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="TravelMaker"
+  agent-id="c3a52215-962e-4782-a2d8-b3f366c4fbc0"
+  language-code="ko"
+  chat-icon="<c:url value='/images/마크레스.jpg'/>"
+></df-messenger>
 </footer>
 
 
