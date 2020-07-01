@@ -73,18 +73,13 @@ var lat,lng;
 						row.className = 'row';
 						var row2 = document.createElement('div');
 						row2.className = 'row';
-
-						var div_name = document
-								.createElement('div');
+						var div_name = document.createElement('div');
 						div_name.className = 'col-sm-12';
-						var div_rating = document
-								.createElement('div');
+						var div_rating = document.createElement('div');
 						div_rating.className = 'col-sm-12';
-						var div_location = document
-								.createElement('div');
+						var div_location = document.createElement('div');
 						div_location.className = 'col-sm-12';
-						var div_price_level = document
-								.createElement('div');
+						var div_price_level = document.createElement('div');
 						div_price_level.className = 'col-sm-12';
 
 						div_name.textContent = '호텔이름: '

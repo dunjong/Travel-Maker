@@ -41,7 +41,7 @@ public class PlannerController {
 		
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("city_no_name",city_no_name);
-		return "planner/Planner.tiles";
+		return "planner/Planner";
 	}
 	@RequestMapping("Plan.kosmo")
 	public String Plan( Model model) {
