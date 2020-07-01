@@ -4,7 +4,7 @@
 <script src="<c:url value='/js/jquery.jcarousel.min.js'/>"></script>
 <script src="<c:url value='/js/jcarousel.basic.js'/>"></script>
 <link rel="stylesheet" href="<c:url value='/styles/jcarousel.basic.css'/>">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <style>
 	  #floating-panel {
         position: absolute;
@@ -395,30 +395,103 @@ function getDetailById(placeId){
 }////getDetailById
 
 function auto_plan(){
-		nearSearchType='attractions';	
-		var dayPlan=${dayPlan};
+	nearSearchType='attractions';	
+	var day1=${dayPlan.day1}
+	var day2=${dayPlan.day2}
+	var day3=${dayPlan.day3}
+	var day4=${dayPlan.day4}
+	var day5=${dayPlan.day5}
+	
+	//dayplans['day'+day]={'origin':origin,'spots':spots};
+	
+	servicePlace = new google.maps.places.PlacesService(map);
+	
+	for(var i=0;i<day1.length;i++){
+		placeDetailnSave(day1[i],1);
+		servicePlace.getDetails({placeId: day1[i]},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+  			
+				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+				spots=[]
+				spots.push(placelatlng);
+				dayplans['day'+1]={'origin':origin,'spots':spots}
 		
-		//dayplans['day'+day]={'origin':origin,'spots':spots};
-		/*
-		servicePlace = new google.maps.places.PlacesService(map);
-		for(var i=0;i<spotIDs.length;i++){
-			placeDetailnSave(spotIDs[i]);
-			servicePlace.getDetails({placeId: spotIDs[i]},
-	            function(place, status) {
-	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-	                return;
-	              }
-	  			
-					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-					console.log(placelatlng);
-					spots.push(placelatlng);
-				
-	  			
-			
-	            });
-		}
-		*/
+            });
+	}
+	
+	for(var i=0;i<day2.length;i++){
+		placeDetailnSave(day2[i],2);
+		servicePlace.getDetails({placeId: day2[i]},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+  			
+				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+				spots=[]
+				spots.push(placelatlng);
+				dayplans['day'+2]={'origin':origin,'spots':spots}
+  			
+		
+            });
+	}
+	
+	for(var i=0;i<day3.length;i++){
+		placeDetailnSave(day3[i],3);
+		servicePlace.getDetails({placeId: day3[i]},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+  			
+				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+				spots=[]
+				spots.push(placelatlng);
+				dayplans['day'+3]={'origin':origin,'spots':spots}
+  			
+		
+            });
+	}
+	
+	for(var i=0;i<day4.length;i++){
+		placeDetailnSave(day4[i],4);
+		servicePlace.getDetails({placeId: day4[i]},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+  			
+				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+				spots=[]
+				spots.push(placelatlng);
+				dayplans['day'+4]={'origin':origin,'spots':spots}
+  			
+		
+            });
+	}
+	
+	for(var i=0;i<day5.length;i++){
+		placeDetailnSave(day5[i],5);
+		servicePlace.getDetails({placeId: day5[i]},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+  			
+				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+				spots=[]
+				spots.push(placelatlng);
+				dayplans['day'+5]={'origin':origin,'spots':spots}
+  			
+		
+            });
+	}
+	
 }////auto_plan
+	
  	
 function displayRouteNOW(){
 	console.log(origin,destination,spots);
@@ -427,8 +500,8 @@ function displayRouteNOW(){
 
  //0] 주변 찾기 설정
   function food() {
-	  $('#type div').attr('class','btn btn-info')
-	  $('#type div:eq(2)').attr('class','btn btn-danger')
+	  $('#type div').attr('class','btn btn-info btn-lg')
+	  $('#type div:eq(2)').attr('class','btn btn-danger btn-lg')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -440,8 +513,8 @@ function displayRouteNOW(){
 	  keyword='restaurant'
       }
   function hotel() {
-	  $('#type div').attr('class','btn btn-info')
-	  $('#type div:eq(0)').attr('class','btn btn-danger')
+	  $('#type div').attr('class','btn btn-info btn-lg')
+	  $('#type div:eq(0)').attr('class','btn btn-danger btn-lg')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -453,8 +526,8 @@ function displayRouteNOW(){
 	  keyword='lodging'
      }
   function tour() {
-	  $('#type div').attr('class','btn btn-info')
-	  $('#type div:eq(1)').attr('class','btn btn-danger')
+	  $('#type div').attr('class','btn btn-info btn-lg')
+	  $('#type div:eq(1)').attr('class','btn btn-danger btn-lg')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -884,9 +957,11 @@ function displayRouteNOW(){
 				<input type="text" name="city_no" >
 				<button class="btn btn-danger">자동 완성 불러오기</button>
 			</form>
-			<c:forEach items="${dayPlan}" var="spot">
-				<h2>${spot}</h2>
-			</c:forEach>
+				<h2>${dayPlan.day1}</h2>
+				<h2>${dayPlan.day2}</h2>
+				<h2>${dayPlan.day3}</h2>
+				<h2>${dayPlan.day4}</h2>
+				<h2>${dayPlan.day5}</h2>
 			<button class="btn btn-warning" onclick="auto_plan()">자동 완성1</button>
 			<button class="btn btn-warning" onclick="displayRouteNOW()">자동 완성2</button>
 			
@@ -894,9 +969,9 @@ function displayRouteNOW(){
 				<div class="col-sm-10">
 					<div id="floating-panel">
 						<div id="type">
-								<div class="btn btn-danger" onclick="hotel();"><img src="<c:url value="/images/hotelIcon.png"/>">호텔</div>
-								<div class="btn btn-info" onclick="tour();"><img src="<c:url value="/images/spotIcon.png"/>">명소</div>
-								<div class="btn btn-info" onclick="food();"><img src="<c:url value="/images/foodIcon.png"/>">음식점</div>
+								<div class="btn btn-danger btn-lg" onclick="hotel();"><i class="fa fa-hotel fa-2x">호텔</i></div>
+								<div class="btn btn-info btn-lg" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
+								<div class="btn btn-info btn-lg" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
 								<!--  <div><h4><small id=day>1일차 플랜</small></h4></div>-->
 					    </div>
 				    </div>

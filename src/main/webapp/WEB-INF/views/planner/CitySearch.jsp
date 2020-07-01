@@ -75,11 +75,15 @@
 			data:{tags:tags},
             dataType:'json',//서버로 부터 응답 받을 데이터의 형식
 			success:function(data){//서버로부터 정상적인 응답을 받았을때
-				console.log(data)
-				alert('성공!')
-				/* $.each(data,function(city,count){
+				$.each(data,function(city,cityintroduce){
+					var img = cityintroduce['city_img']
+					var intro = cityintroduce['city_intro']
+					var name = cityintroduce['city_name']
+					var no = cityintroduce['city_no']
+					var count = cityintroduce['count']
 					
-				} */
+					
+				}); 
 			},
 			error:function(data){//서버로부터 비정상적인 응답을 받았을때 호출되는 콜백함수
 				console.log('에러:'+data.responseText);					
@@ -165,7 +169,7 @@
 					<!-- <div id="div1" class="col-xs-12 picture" ondrop="drop(event)"
 						ondragover="allowDrop(event)"
 						style="width: 200px; height: 200px; position: relative; top: 10%; left: 15%; border: 1px green solid;"></div> -->
-					<form id="FILE_FORM" method="post" enctype="multipart/form-data"
+					<form id="FILE_FORM" method="post" enctype="multipart/form-data" style="width:495px; padding-top: 30px"
 						action="">
 						<input type="file" id="FILE_TAG" name="FILE_TAG"> 
 						<a class="ui-shadow ui-btn ui-corner-all" 
@@ -286,8 +290,7 @@
 						class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 						<input hidden="true" value="2,9,10" name="city_no" >
 						<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
-						<button class="home_search_button citysearch" style="">도시
-							선택</button>
+						<button class="home_search_button citysearch btn-lg float-right">도시선택</button>
 					</div>
 				</form>
 			</div>
