@@ -27,18 +27,15 @@
 <link href="<c:url value='/plugins/assets/vendor/venobox/venobox.css'/>" rel="stylesheet">
 <link href="<c:url value='/plugins/assets/vendor/owl.carousel/assets/owl.carousel.min.css'/>" rel="stylesheet">
 <link href="<c:url value='/plugins/assets/vendor/aos/aos.css'/>" rel="stylesheet">
-<%-- <script src="<c:url value='/plugins/assets/vendor/jquery/jquery.min.js'/>"></script> --%>
-
-<!-- Template Main CSS File -->
 <link href="<c:url value='/plugins/assets/css/style.css'/>" rel="stylesheet">
-<link href="<c:url value='/plugins/assets/vendor/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="<c:url value='/plugins/assets/vendor/jquery/jquery.min.js'/>"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="<c:url value='/plugins/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-<script src="<c:url value='/plugins/assets/vendor/jquery.easing/jquery.easing.min.js'/>"></script>
+<!-- Template Main CSS File -->
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link href="<c:url value='/plugins/assets/vendor/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
   
 <body>
@@ -47,20 +44,20 @@
 		<tiles:insertAttribute name="top"/>
 		  <!-- body부분 -->
 		<tiles:insertAttribute name="body"/> 
-		  
 		  <!-- footer부분 -->
 		<tiles:insertAttribute name="footer"/>  
 	</div>
   
   
-</body>
+<!-- </body> -->
   
 <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
 	<div id="preloader"></div>
 
 	<!-- Vendor JS Files -->
 	
-	
+	<script src="<c:url value='/plugins/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+	<script src="<c:url value='/plugins/assets/vendor/jquery.easing/jquery.easing.min.js'/>"></script>
 	<script src="<c:url value='/plugins/assets/vendor/php-email-form/validate.js'/>"></script>
 	<script src="<c:url value='/plugins/assets/vendor/waypoints/jquery.waypoints.min.js'/>"></script>
 	<script src="<c:url value='/plugins/assets/vendor/counterup/counterup.min.js'/>"></script>
