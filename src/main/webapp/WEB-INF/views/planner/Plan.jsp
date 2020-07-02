@@ -940,16 +940,14 @@ function auto_plan(){
 				</form>
 			</div>
 			<div hidden="true" id=day></div>
-			<form action="<c:url value='SpotList.kosmo'/>">
-				<input type="text" name="city_no" >
-				<button class="btn btn-danger">자동 완성 불러오기</button>
-			</form>
-				<h2>${dayPlan.day1}</h2>
-				<h2>${dayPlan.day2}</h2>
-				<h2>${dayPlan.day3}</h2>
-				<h2>${dayPlan.day4}</h2>
-				<h2>${dayPlan.day5}</h2>
-			<button class="btn btn-warning" onclick="auto_plan()">자동 완성</button>
+			
+			<div id="auto_complete">
+				<form action="<c:url value='SpotList.kosmo'/>">
+					<input type="text" name="city_no" >
+					<button class="btn btn-danger">자동 완성 불러오기</button>
+				</form>
+				<button class="btn btn-warning" onclick="auto_plan()">자동 완성</button>
+			</div>
 			
 			<div class="row">
 				<div class="col-sm-10">
@@ -1003,6 +1001,7 @@ function auto_plan(){
 					</div>
 					
 				</div>
+				
 			</div>
 		</div>
 		<!-- makerclick -->
