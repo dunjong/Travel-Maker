@@ -492,11 +492,7 @@ function auto_plan(){
 	
 }////auto_plan
 	
- 	
-function displayRouteNOW(){
-	console.log(origin,destination,spots);
-	displayRoute(origin, destination, directionsService,directionsRenderer,spots);		
-}////displayRouteNOW		
+ 		
 
  //0] 주변 찾기 설정
   function food() {
@@ -540,7 +536,7 @@ function displayRouteNOW(){
      }
   
   //0-1] 바구니에 스팟들 담기
-  function placeDetailnSave(placeId){
+ function placeDetailnSave(placeId,date){
 	  servicePlace.getDetails({placeId: placeId},
 	            function(place, status) {
 	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
@@ -549,16 +545,16 @@ function displayRouteNOW(){
 	              console.log('place in placeDetail:',place)
 	               if(nearSearchType=='lodging'){
 	            	   console.log('day in save',day)
-	             	   hotelInfo['day'+day]={'hotel':place}
+	             	   hotelInfo['day'+date]={'hotel':place}
 	               }
 	               else{
-	            	   if(spotInfo['day'+day]==undefined){
+	            	   if(spotInfo['day'+date]==undefined){
 		            	   var savedSpot=[]
 		            	   savedSpot.push({'spot':place})
-		            	   spotInfo['day'+day]=savedSpot
+		            	   spotInfo['day'+date]=savedSpot
 	            	   }
 	            	   else{
-	            		   spotInfo['day'+day].push({'spot':place})
+	            		   spotInfo['day'+date].push({'spot':place})
 	            	   }
 	               }
 	            });
@@ -569,7 +565,7 @@ function displayRouteNOW(){
 	  var sp_waypoints=document.getElementById('sp-waypoints');
 	  sp_waypoints.innerHTML=''
 	  if(nearSearchType=='lodging'){
-		  placeDetailnSave($('#iw-id').html())
+		  placeDetailnSave($('#iw-id').html(),day)
 		  
 		  boxOrigin=$('#iw-lanlng').html();
 		  displayRoute(boxOrigin,boxOrigin , directionsService,
@@ -577,8 +573,8 @@ function displayRouteNOW(){
 	  }
 	  else{
 		  sp_waypoints.innerHTML=''
-		  placeDetailnSave($('#iw-id').html())
-		  spots.push({location:$('#iw-lanlng').html()});
+		  placeDetailnSave($('#iw-id').html(),day)
+		  dayplans['day'+day].spots.push({location:$('#iw-lanlng').html()});
 		  //console.log('lanlng',$('#iw-lanlng').html())
 	  	  displayRoute(origin, destination, directionsService,
 		       directionsRenderer,spots);
@@ -601,7 +597,7 @@ function displayRouteNOW(){
 	   	    markers=[];
 	   	   }
 	  var savedSpot=[]
-	  savedSpot.push({'spot':place})
+	  spots=dayplans['day'+day].spots=[];
 	  spotInfo['day'+day]=savedSpot
 	  displayRoute(origin, destination, directionsService,
 		       directionsRenderer,spots);
@@ -916,27 +912,18 @@ function displayRouteNOW(){
 	 else{
 		 alert('준비된 계획이 없습니다')
 		 spots=[];
+		 dayplans['day'+day]={'origin':origin,'spots':spots}
 		 displayRoute(origin,destination , directionsService,
 			      directionsRenderer,spots);
 	 }
  }
  
  function clearPlanBox() {
-	hotelInfo={}
 	spotInfo={}
+	dayplans={};
 	alert('모든 플랜들이 삭제되었습니다')
 }
  
- function saveDayPlan(){
-	 if(spots.length!=0){
-		 dayplans['day'+day]={'origin':origin,'spots':spots}
-		 alert(day+'일차 계획이 저장되었습니다.')
-	 }
-	 else{
-		 alert('맵을 눌러 계획을 짜보세요!')
-	 }
-	 
- 	}
  function back() {
 	 alert('도시에 대한 일정이 모두 저장되었습니다')
 	 $('#frm').prop('action','<c:url value="/TravelMaker/Planner.kosmo"/>')
@@ -962,8 +949,7 @@ function displayRouteNOW(){
 				<h2>${dayPlan.day3}</h2>
 				<h2>${dayPlan.day4}</h2>
 				<h2>${dayPlan.day5}</h2>
-			<button class="btn btn-warning" onclick="auto_plan()">자동 완성1</button>
-			<button class="btn btn-warning" onclick="displayRouteNOW()">자동 완성2</button>
+			<button class="btn btn-warning" onclick="auto_plan()">자동 완성</button>
 			
 			<div class="row">
 				<div class="col-sm-10">
@@ -996,12 +982,11 @@ function displayRouteNOW(){
 						</div>
 						<div class="col-sm-12" id="buttons-plan">
 							<div class="btn btn-danger" onclick="clearBox();">플랜 삭제</div>
-							<div class="btn btn-info" onclick="saveDayPlan()">플랜  저장</div>
-							
+							<div class="btn btn-danger" onclick="clearPlanBox()">전체 삭제</div>
 						</div>
 						<div class="col-sm-12" id="buttons-total">
-							<div class="btn btn-danger" onclick="clearPlanBox()">전체 삭제</div>
-							<div class="btn btn-info" onclick="back()">전체 저장</div>	
+							
+							<div class="btn btn-info" onclick="back()">전체 저장후 planner로 이동</div>	
 						</div>
 						<div class="col-sm-12">
 							<br>
