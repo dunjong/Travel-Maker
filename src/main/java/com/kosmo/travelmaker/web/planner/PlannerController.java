@@ -8,12 +8,14 @@ import java.util.Vector;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kosmo.travelmaker.service.SpotsDTO;
 import com.kosmo.travelmaker.service.impl.CityServiceImpl;
@@ -64,42 +66,45 @@ public class PlannerController {
 	public String DayPlanSava() {
 		return "planner/Plan.tiles";
 	}
-	@RequestMapping("SpotList.kosmo")
-	public String SpotList(Model model,@RequestParam Map map) {
-		List<SpotsDTO> list=spotsService.spotList(map);
-		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-		for(int i=1;i<=5;i++) {
-			List<String> spotIDs=new Vector<String>();
-			dayPlan.put("day"+i, spotIDs);
-		}
-		
-		
-		for(SpotsDTO dto:list) {
-			
-			System.out.println("장소명:"+dto.getSpot_name()+",일차:"+dto.getAuto_plan_date());
-			String day=dto.getAuto_plan_date();
-			switch(day) {
-				case "1":
-					dayPlan.get("day"+day).add("'"+dto.getSpot_id().toString()+"'");
-					break;
-				case "2":
-					dayPlan.get("day"+day).add("'"+dto.getSpot_id().toString()+"'");
-					break;
-				case "3":
-					dayPlan.get("day"+day).add("'"+dto.getSpot_id().toString()+"'");
-					break;
-				case "4":
-					dayPlan.get("day"+day).add("'"+dto.getSpot_id().toString()+"'");
-					break;
-				default:
-					dayPlan.get("day"+day).add("'"+dto.getSpot_id().toString()+"'");
+	
+	@RequestMapping(value = "SpotList.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String SpotList(@RequestParam Map map) {
+			System.out.println("city_no:"+map.get("city_no"));
+			List<SpotsDTO> list=spotsService.spotList(map);
+			Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
+			for(int i=1;i<=5;i++) {
+				List<String> spotIDs=new Vector<String>();
+				dayPlan.put("day"+i, spotIDs);
 			}
+			
+			
+			for(SpotsDTO dto:list) {
+				
+				System.out.println("장소명:"+dto.getSpot_name()+",일차:"+dto.getAuto_plan_date());
+				String day=dto.getAuto_plan_date();
+				switch(day) {
+					case "1":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						break;
+					case "2":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						break;
+					case "3":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						break;
+					case "4":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						break;
+					default:
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+				}
+			}
+			List<Map> collections = new Vector<Map>();
+			collections.add(dayPlan);
+			return JSONArray.toJSONString(collections);
 		}
-		model.addAttribute("dayPlan",dayPlan);
-		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
-		
-		return "planner/Plan.tiles";
-	}
+	
 	@RequestMapping("SpotView.kosmo")
 	public String SpotView() {
 		return "planner/SpotView.tiles";
