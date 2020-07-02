@@ -42,7 +42,7 @@
 											<li id="logoutbtn1"><a href="#">로그아웃</a></li>
 										</c:if>
 										<li id="signupmodalbtn" data-toggle="modal"><a href="#">회원가입</a></li>
-										<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
+										<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
 										<li>
 											<!-- 리뷰리스트.코스모를 리뷰서치.코스모로 변경: 여동준 -->
 											<a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a>

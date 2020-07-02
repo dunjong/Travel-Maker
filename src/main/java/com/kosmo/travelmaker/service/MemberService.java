@@ -1,5 +1,6 @@
 package com.kosmo.travelmaker.service;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MemberService {
@@ -7,6 +8,6 @@ public interface MemberService {
 	boolean isLogin(Map map);
 	boolean SignUp(MemberDTO dto);
 	String idCheck(String id);
-	
+	List<PlannerDTO> plannerList(Map map);
 }
 
