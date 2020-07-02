@@ -80,10 +80,6 @@
          font-height:30px;
          border:double #32a1ce;
       }
-      #type img{
-      	height:40px;
-      	width:40px
-      }
       #day{
       	color:green;
       	border:thick double #32a1ce
@@ -697,12 +693,18 @@ $(function(){
 			       directionsRenderer,spots);
 	  }
 	  else{
+		  console.log('dd',dayplans['day'+day]);
+		  if(dayplans['day'+day]==undefined){
+			  dayplans['day'+day]={'origin':origin,'spots':[]};
+		  }
 		  sp_waypoints.innerHTML=''
 		  placeDetailnSave($('#iw-id').html(),day)
 		  dayplans['day'+day].spots.push({location:$('#iw-lanlng').html()});
 		  //console.log('lanlng',$('#iw-lanlng').html())
+		  spots=dayplans['day'+day].spots;
 	  	  displayRoute(origin, destination, directionsService,
 		       directionsRenderer,spots);
+		  
 	  }
 	  if(markers.length!=0){
 		   //확인용
@@ -851,16 +853,15 @@ $(function(){
 	 
 	 var logo;
 	  if(nearSearchType=='lodging'){
-	  	logo='<c:url value="/images/hotelIcon.png"/>';
+	  	logo='<i class="fas fa-hotel fa-2x"></i>';
 	  }
 	  else if(nearSearchType=='restaurant'){
-		logo='<c:url value="/images/foodIcon.png"/>';
+		logo='<i class="fas fa-utensils fa-2x"></i>';
 	  }
 	  else{
-		logo='<c:url value="/images/spotIcon.png"/>';
+		logo='<i class="fas fa-torii-gate fa-2x"></i>';
 	  }
-     document.getElementById('iw-icon').innerHTML = '<img style="width:80px;height:80px;margin:10px" class="hotelIcon" ' +
-         'src="' + logo + '"/>';
+     document.getElementById('iw-icon').innerHTML = logo;
      document.getElementById('iw-url').innerHTML = '<h4><a href="' + place.url +
          '"  target="blank">' + place.name + '</a></h4>';
      document.getElementById('iw-address').textContent = place.vicinity;
@@ -1066,10 +1067,9 @@ $(function(){
 			</div>
 			<div hidden="true" id=day></div>
 			
-			<div id="auto_complete">
-					<input type="text" id="city-no"  value="9" name="city_no" >
+					<input type="text" id="city-no"  value="9" name="city_no" hidden="true" >
 					<button  class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">자동 완성 불러오기</button>
-			</div>
+			
 			
 			<div class="row">
 				<div class="col-sm-10">
