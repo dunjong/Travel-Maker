@@ -8,7 +8,7 @@ public class MemberDTO {
 	private String name;
 	private String id;
 	private String en_name;
-	private String password;
+	private String pwd;
 	private String password_check;
 	private String rrn;
 	private String gender;
@@ -38,10 +38,10 @@ public class MemberDTO {
 		this.en_name = en_name;
 	}
 	public String getPassword() {
-		return password;
+		return pwd;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.pwd = password;
 	}
 	public String getRrn() {
 		return rrn;
