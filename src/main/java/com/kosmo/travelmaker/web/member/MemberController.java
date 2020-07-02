@@ -1,10 +1,14 @@
 package com.kosmo.travelmaker.web.member;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.JsonArray;
 import com.kosmo.travelmaker.service.MemberDTO;
+import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
 
 
@@ -39,9 +45,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping("MyPlanner.kosmo")
-	public String MyPlanner(@RequestParam Map map) {
+	public String MyPlanner(@RequestParam Map map,Model model) {
+		List<PlannerDTO> list=memberService.plannerList(map);
+		List<Map> collections = new Vector<Map>();
+		for(PlannerDTO dto:list ) {
+			Map<String, String> maps=new HashMap<String, String>();
+			String no=Integer.toString(dto.getPlanner_no()) ;
+			maps.put(no, no);
+			collections.add(maps);
+		}
 		
-		
+		model.addAttribute("lists",JSONArray.toJSONString(collections));
 		return "member/MyPlanner.tiles";
 	}
 	

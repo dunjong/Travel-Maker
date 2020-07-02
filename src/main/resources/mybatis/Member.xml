@@ -13,6 +13,6 @@
 		SELECT COUNT(*) FROM userinfo WHERE id=#{id}
 	</select>
 	<select id="myPlannerListSelectList" parameterType="java.util.Map" resultType="PlannerDTO">
-		SELECT * FROM WHERE user_id=#{user_id}
+		SELECT * FROM planner WHERE user_id=#{user_id}
 	</select>
 </mapper>
