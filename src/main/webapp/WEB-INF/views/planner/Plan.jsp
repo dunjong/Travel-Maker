@@ -394,105 +394,53 @@ function getDetailById(placeId){
             });
 }////getDetailById
 
-function auto_plan(){
-	nearSearchType='attractions';	
-	var day1=${dayPlan.day1}
-	var day2=${dayPlan.day2}
-	var day3=${dayPlan.day3}
-	var day4=${dayPlan.day4}
-	var day5=${dayPlan.day5}
-	
-	//dayplans['day'+day]={'origin':origin,'spots':spots};
-	
-	servicePlace = new google.maps.places.PlacesService(map);
-	
-	for(var i=0;i<day1.length;i++){
-		placeDetailnSave(day1[i],1);
-		servicePlace.getDetails({placeId: day1[i]},
-            function(place, status) {
-              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                return;
-              }
-  			
-				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-				spots=[]
-				spots.push(placelatlng);
-				dayplans['day'+1]={'origin':origin,'spots':spots}
+$(function(){
+	$('#auto-spots').click(function(){
 		
-            });
-	}
-	
-	for(var i=0;i<day2.length;i++){
-		placeDetailnSave(day2[i],2);
-		servicePlace.getDetails({placeId: day2[i]},
-            function(place, status) {
-              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                return;
-              }
-  			
-				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-				spots=[]
-				spots.push(placelatlng);
-				dayplans['day'+2]={'origin':origin,'spots':spots}
-  			
+		$.ajax({
+			url:'<c:url value="SpotList.kosmo"/>',
+			data:$('#city-no').serialize(),
+			dataType:'json',
+			success:function(data){successAjax(data)},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
 		
-            });
-	}
+	});
 	
-	for(var i=0;i<day3.length;i++){
-		placeDetailnSave(day3[i],3);
-		servicePlace.getDetails({placeId: day3[i]},
-            function(place, status) {
-              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                return;
-              }
-  			
-				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-				spots=[]
-				spots.push(placelatlng);
-				dayplans['day'+3]={'origin':origin,'spots':spots}
-  			
+	
+	var successAjax = function(data){
+		nearSearchType='attractions';	
+		console.log('data',data)
+		servicePlace = new google.maps.places.PlacesService(map);
 		
-            });
-	}
+		$.each(data[0],async function (date,item) {
+			console.log('date:',date,',item:',item);
+			for(var i=0;i<item.length;i++){
+				await servicePlace.getDetails({placeId: item[i]},
+	          	  		function(place, status) {
+	              		if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	                			return;
+	             	 	}
+	  			
+					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
+					spots=[]
+					spots.push(placelatlng);
+					dayplans[date]={'origin':origin,'spots':spots}
+			
+	           		 	});
+			}
+		})////each
+
+	};/////successAjax 
 	
-	for(var i=0;i<day4.length;i++){
-		placeDetailnSave(day4[i],4);
-		servicePlace.getDetails({placeId: day4[i]},
-            function(place, status) {
-              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                return;
-              }
-  			
-				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-				spots=[]
-				spots.push(placelatlng);
-				dayplans['day'+4]={'origin':origin,'spots':spots}
-  			
-		
-            });
-	}
-	
-	for(var i=0;i<day5.length;i++){
-		placeDetailnSave(day5[i],5);
-		servicePlace.getDetails({placeId: day5[i]},
-            function(place, status) {
-              if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                return;
-              }
-  			
-				var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-				spots=[]
-				spots.push(placelatlng);
-				dayplans['day'+5]={'origin':origin,'spots':spots}
-  			
-		
-            });
-	}
-	
-}////auto_plan
-	
- 		
+});
+
+
 
  //0] 주변 찾기 설정
   function food() {
@@ -942,11 +890,8 @@ function auto_plan(){
 			<div hidden="true" id=day></div>
 			
 			<div id="auto_complete">
-				<form action="<c:url value='SpotList.kosmo'/>">
-					<input type="text" name="city_no" >
-					<button class="btn btn-danger">자동 완성 불러오기</button>
-				</form>
-				<button class="btn btn-warning" onclick="auto_plan()">자동 완성</button>
+					<input type="text" id="city-no" name="city_no" value="9" >
+					<button id="auto-spots" class="btn btn-danger">자동 완성 불러오기</button>
 			</div>
 			
 			<div class="row">
