@@ -91,6 +91,166 @@
 		});
 	}
 
+	
+	$(function() {
+	    var $gallery = $("#gallery"),
+	        $trash = $("#trash"),
+	        $items = $("#items");
+
+	    //갤러리 항목을 드래그 할 수있게하십시오
+	    $("li", $gallery).draggable({
+	      cancel: "a.ui-icon", //아이콘을 클릭하면 드래그가 시작되지 않습니다
+	      revert: "invalid", //떨어 뜨리지 않으면 아이템은 원래 위치로 되돌아갑니다
+	      containment: "document",
+	      helper: "clone",
+	      cursor: "move"
+	    });
+
+	    // 갤러리 항목을 수락하여 휴지통을 놓을 수있게하십시오.
+	    $trash.droppable({
+	      accept: "#gallery > li",//떨어뜨릴수 있는 권한 부여
+	      activeClass: "ui-state-highlight",//지정된 경우 허용되는 드래그 가능 항목을 드래그하는 동안 클래스가 놓기 가능 항목에 추가됩니다.
+	      addClasses: true,
+	      drop: function(event, ui) {
+	        deleteImage(ui.draggable);
+	      }
+	    });
+
+	    // let the gallery be droppable as well, accepting items from the trash
+	    $gallery.droppable({
+	      accept: "#trash li",
+	      activeClass: "custom-state-active",
+	      drop: function(event, ui) {
+	        recycleImage(ui.draggable);
+	      }
+	    });
+
+	    // 이미지 삭제 기능
+	    var recycle_icon = "<a href='link/to/recycle/script/when/we/have/js/off' title='되돌리기' class='ui-icon ui-icon-refresh'>Recycle image</a>";
+
+	    function deleteImage($item) {
+	      var obj = cloneObject($item);
+	      var $list = $("ul", $trash).length ?
+	          $("ul", $trash) :
+	            $("<ul class='gallery ui-helper-reset'/>").appendTo($trash);//삼항 연산자
+	      obj.find("a.ui-icon-plus").remove();
+	      obj.append(recycle_icon).appendTo($list).fadeIn(function() {
+	        obj
+	          .animate({
+	          width: "100px"
+	        })
+	          .find("img")
+	          .animate({
+	          height: "100px"
+	        });
+	      });
+	      $items.text($("li", $list).length);
+	      }
+
+	    // image recycle function
+	    var trash_icon = "<a href='link/to/trash/script/when/we/have/js/off' title='담기' class='ui-icon ui-icon-plus'>Delete image</a>";
+
+	    function recycleImage($item) {
+	      
+	      $item.fadeOut(function() {
+	        $item.remove();
+	         $items.text($("li", $("ul", $trash)).length);
+	      });
+	    }
+
+	    // image preview function, demonstrating the ui.dialog used as a modal window
+	    
+	   function viewLargerImage($link) {
+	         var src = $link.attr("href"), 
+	            title = $link.siblings("img").attr("alt"), 
+	            $modal = $("img[src$='" + src + "']");
+	         console.log(src);
+	         console.log($modal);
+	         console.log($modal.length);
+	         /* if ($modal.length) {
+	            $modal.dialog("open");
+	         }*/ 
+	         /* else { */
+	            
+	            /* var img = $("<img class='sd' alt='" + title + "' style='display: none; padding: 8px;width:100%;height:100%;' />")
+	                  .prop("src",src).appendTo(".asd"); */
+	            /* console.log(img.attr("src")); */
+	            setTimeout(function() {
+	               $("#dia").dialog({
+	                  title : title,
+	                  width : 600,
+	                  height: 600,
+	                  modal : true
+	               });
+	            }, 1);
+	         /*} */
+	      }
+
+	      function cloneObject($item) {
+	         var obj = $item.clone();
+	         obj.draggable({
+	            cancel : "a.ui-icon",
+	            revert : "invalid",
+	            containment : "document",
+	            helper : "clone",
+	            cursor : "move"
+	         });
+	         obj.click(function(event) {
+	            /* event.preventDefault(); */
+	            var $item = $(this), $target = $(event.target);
+	            if ($target.is("a.ui-icon-plus")) {
+	               deleteImage($item);
+	            } else if ($target.is("a.ui-icon-zoomin")) {
+	               viewLargerImage($target);
+	            } else if ($target.is("a.ui-icon-refresh")) {
+	               recycleImage($item);
+	            }
+
+	            return false;
+	         });
+
+	         return obj;
+	      }
+
+	      // resolve the icons behavior with event delegation
+	      $("ul.gallery > li").click(function(event) {
+	         var $item = $(this), $target = $(event.target);
+	         if ($target.is("a.ui-icon-plus")) {
+	            deleteImage($item);
+	         } else if ($target.is("a.ui-icon-zoomin")) {
+	            viewLargerImage($target);
+	         } else if ($target.is("a.ui-icon-refresh")) {
+	            recycleImage($item);
+	         }
+
+	         return false;
+	      });
+
+	      $("button#save").click(
+	            function() {
+	               var items = $("li", $("ul", $trash));
+	               for (var i = 0, len = items.length; i < len; i++) {
+	                  var item = items[i];
+	                  var element = {
+	                     title : $("h5", item).text(),
+	                     img : $("img", item).attr("src")
+	                  }
+	                  localStorage.setItem(i, JSON.stringify(element));
+	               }
+	               // 저장된 것을 확인
+	               for (var i = 0, len = localStorage.length; i < len; i++) {
+	                  var element = JSON.parse(localStorage.getItem(i));
+	                  $("ul#storedItems").append(
+	                        "<li> Title : " + element.title + "　File : "
+	                              + element.img);
+	               }
+	            });
+
+	      $("button#clear").click(function() {
+	         localStorage.clear();
+	         $("ul#storedItems li").remove();
+	      });
+	   });
 
 </script>
 
@@ -220,8 +380,8 @@
 						</div>
 						<div class="citysearch-div">
 
-							<button type="submit" class="citysearch" value="관련 도시 검색"></button>
-
+							<!-- <button type="submit" class="citysearch" value="관련 도시 검색"></button>
+ -->
 							<a class="citytag" href="javascript:citytag();">관련 도시 검색</a>
 								
 						</div>
@@ -274,30 +434,51 @@
 				<p>당신이 좋아하는 사진과 비슷한 도시들입니다.</p>
 			</div>
 
-			<div class="row cities">
-				<c:forEach items="${citys}" var="city" varStatus="loop">
-				<div class="col-xs-4">
-					<img style="width: 200px; height: 200px;"
-						src='<c:url value="/plugins/assets/img/KakaoTalk_20200430_171444453_04.jpg"/>' />
-					<p>${city.city_name}</p>
-					<p>${city.count}</p>
-				</div>
-				</c:forEach>
-				${citys}
-
-				<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
-					<div
-						class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-						<input hidden="true" value="2,9,10" name="city_no" >
-						<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
-						<button class="home_search_button citysearch btn-lg float-right">도시선택</button>
+			<div class="row">
+				<div class="col-md-8" style="background-color: red;">
+					<div class="ui-widget ui-helper-clearfix">
+						<ul id="gallery"
+							class="gallery ui-helper-reset ui-helper-clearfix">
+							<li class="ui-widget-content ui-corner-tr">
+								<h5 class="ui-widget-header">세부</h5> <img
+								src='<c:url value="/images/세부.jpg"/>' alt="세부" width="96"
+								height="72"> <a href='<c:url value="/Images/세부.jpg"/>'
+								title="상세보기" class="ui-icon ui-icon-zoomin">View larger</a> <a
+								href="link/to/trash/script/when/we/have/js/off" title="담기"
+								class="ui-icon ui-icon-plus">Delete image</a>
+							</li>
+							
+						</ul>
 					</div>
-				</form>
+				</div>
+					<div class="col-md-4" style="background-color: blue;">
+						<div id="trash" class="ui-widget-content ui-state-default" style="width:100%;height:100%;">
+							<h5 class="ui-widget-header">
+								저장된 도시:<span id="items">0</span>
+								<!-- <span class="ui-icon ui-icon-trash"></span> Trash -->
+							</h5>
+						</div>
+					</div>
 			</div>
+			<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
+				<div
+					class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+					<input hidden="true" value="2,9,10" name="city_no">
+					<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
+					<button class="home_search_button citysearch btn-lg float-right">도시선택</button>
+				</div>
+			</form>
 		</div>
 	</section>
 	<!-- End Resume Section -->
-
+	<div id="dia" style="width: 600px; height: 600px;display:none;">
+            <img src="<c:url value='/images/세부.jpg'/>" alt="세부" align="left"
+               style="width: 300px; height:300px;" />
+            <div style="padding-left:5px;">
+            <h3>고래상어 스쿠버다이빙과 스페인 종교건축물들이 기다리는 필리핀 옛 수도</h3>
+            <a href="<c:url value='/'/>">리뷰바로가기</a>
+            </div>
+      </div>
 	<!-- ======= Testimonials Section ======= -->
 	<section id="testimonials" class="testimonials section-bg">
 		<div class="container" data-aos="fade-up">

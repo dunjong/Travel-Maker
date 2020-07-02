@@ -67,7 +67,7 @@ public class PlannerController {
 		return "planner/Plan.tiles";
 	}
 	
-	@RequestMapping(value = "SpotList.kosmo",produces ="text/html; charset=UTF-8")
+	@RequestMapping(value ="SpotList.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public String SpotList(@RequestParam Map map) {
 			System.out.println("city_no:"+map.get("city_no"));
