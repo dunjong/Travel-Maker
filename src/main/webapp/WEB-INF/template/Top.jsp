@@ -248,18 +248,6 @@
 								+ expried_set + ";"
 
 					}
-
-					/* 쿠키 삭제 다른방법
-					 function deleteCookie( name ){
-					
-					 var date = new Date();
-					 date.setHours(date.getHours() - 1);
-					 var expried_set = "expries="+date.toGMTString();
-					 document.cookie = name + "="  + "; path=/;" + expried_set + ";"
-					 }
-					 */
-
-					// 
 					function getCookie(name) {
 
 						var nameofCookie = name + "=";
@@ -275,63 +263,8 @@
 							if (x == 0)
 								break;
 						}
-
 						return "";
-
-
 					}
-
-					/* // 카카오 script key 입력
-					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5');
-
-					// 로그인 처리
-					function loginWithKakao() {
-
-						Kakao.Auth.cleanup();
-						Kakao.Auth
-								.login({
-									persistAccessToken : true,
-									persistRefreshToken : true,
-									success : function(authObj) {
-										setCookie("kakao_login", "done", 1); // 쿠키생성 (로그인)
-										//alert(cookiedata);
-										createLogoutKakao();
-										window.location.href = "http://localhost:8787/travelmaker/";
-									},
-									fail : function(err) {
-										alert(JSON.stringify(err));
-									}
-
-								});
-					}*/
-
-					// 로그아웃 처리
-					function logoutWithKakao() {
-						Kakao.Auth.logout();
-						alert('카카오 로그아웃 완료!');
-						setCookie("kakao_login", "", -1); // 쿠키삭제 (로그아웃)
-						//deleteCookie( "kakao_login" ); 쿠키삭제 다른 방법
-						createLoginKakao();
-						window.location.href = "http://localhost:8787/travelmaker/";
-					}
-
-					// 로그인 버튼생성
-					function createLoginKakao() {
-						var login_btn = "<a id='custom-login-btn' href='javascript:loginWithKakao()'>"
-								+ "<img src='../images/sns/Kakao_login_btn.png' width='250'/>"
-								+ "</a>";
-						document.getElementById('kakao_btn_changed').innerHTML = login_btn;
-					}
-					
-					// 로그아웃 버튼생성
-					function createLogoutKakao() {
-						var logout_btn = "<a id='custom-logout-btn' href='javascript:logoutWithKakao()'>"
-								+ "<img src='../images/sns/Kakao_logout_btn.png' width='200'/>"
-								+ "</a>";
-						document.getElementById('kakao_btn_changed').innerHTML = logout_btn;
-
-					}
-					//]]
 				</script>
 
 				<!-- 네이버 아이디로 로그인 -->
