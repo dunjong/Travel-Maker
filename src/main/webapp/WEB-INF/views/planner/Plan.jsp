@@ -5,6 +5,22 @@
 <script src="<c:url value='/js/jcarousel.basic.js'/>"></script>
 <link rel="stylesheet" href="<c:url value='/styles/jcarousel.basic.css'/>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 <style>
 	  #floating-panel {
         position: absolute;
@@ -113,7 +129,168 @@
       #rightBox{
        height:600px;
       }
-      
+      .myButton {
+	box-shadow:inset 0px 1px 0px 0px #efdcfb;
+	background:linear-gradient(to bottom, #dfbdfa 5%, #bc80ea 100%);
+	background-color:#dfbdfa;
+	border-radius:6px;
+	border:1px solid #c584f3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #9752cc;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #bc80ea 5%, #dfbdfa 100%);
+	background-color:#bc80ea;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+.planview{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:55px;
+  width:100%;
+  line-height:55px;
+  font-size:0.9em;
+  cursor:pointer;
+  transition:800ms ease all;
+  border-radius:6px;
+  outline:none;
+}
+.planview:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+.planview:before,.planview:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+.planview:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.planview:hover:before,.planview:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+.btn, .btn-two {
+	margin: 9px;
+}
+/* Colors for .btn and .btn-two */
+.btn.red, .btn-two.red       {background-color: #fa5a5a;}
+.btn.cyan, .btn-two.cyan     {background-color: #7fccde;}
+.btn.green, .btn-two.green   {background-color: #9abf7f;}
+.btn.purple, .btn-two.purple {background-color: #cb99c5;}
+.btn.yellow, .btn-two.yellow {background-color: #f0d264;}
+.rounded {
+  border-radius: 10px;
+}
+
+
+/* color classes for .btn */
+.btn.red {box-shadow:0px 4px 0px #E04342;}
+.btn.red:active {box-shadow: 0 0 #ff4c4b; background-color: #ff4c4b;}
+.btn.purple {box-shadow:0px 4px 0px #AD83A8;}
+.btn.purple:active {box-shadow: 0 0 #BA8CB5; background-color: #BA8CB5;}
+.btn.cyan {box-shadow:0px 4px 0px #73B9C9;}
+.btn.cyan:active {box-shadow: 0 0 #73B9C9; background-color: #70B4C4;}
+.btn.green {box-shadow: 0px 4px 0px #87a86f;}
+.btn.green:active {box-shadow: 0 0 #87a86f; background-color: #87a86f;}
+.btn.yellow {box-shadow:0px 4px 0px #D1B757;}
+.btn.yellow:active {box-shadow: 0 0 #ff4c4b; background-color: #D6BB59;}
+/* Button two - I have no creativity for names */
+.btn-two {
+	color: white;	
+	padding: 15px 25px;
+	display: inline-block;
+	cursor:pointer;
+	border: 1px solid rgba(0,0,0,0.21);
+	border-bottom-color: rgba(0,0,0,0.34);
+	text-shadow:0 1px 0 rgba(0,0,0,0.15);
+	box-shadow: 0 1px 0 rgba(255,255,255,0.34) inset, 
+				      0 2px 0 -1px rgba(0,0,0,0.13), 
+				      0 3px 0 -1px rgba(0,0,0,0.08), 
+				      0 3px 13px -1px rgba(0,0,0,0.21);
+}
+.btn-two:active {
+	top: 1px;
+	border-color: rgba(0,0,0,0.34) rgba(0,0,0,0.21) rgba(0,0,0,0.21);
+	box-shadow: 0 1px 0 rgba(255,255,255,0.89),0 1px rgba(0,0,0,0.05) inset;
+	position: relative;
+}
+@import url(https://fonts.googleapis.com/css?family=BenchNine:700);
+.snip1535 {
+  background-color: #5858FA;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'BenchNine', Arial, sans-serif;
+  font-size: 1em;
+  font-size: 20px;
+  line-height: 1em;
+  margin: 15px 40px;
+  outline: none;
+  padding: 12px 40px 10px;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.snip1535:before,
+.snip1535:after {
+  border-color: transparent;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  border-style: solid;
+  border-width: 0;
+  content: "";
+  height: 24px;
+  position: absolute;
+  width: 24px;
+}
+.snip1535:before {
+  border-color: #F781D8;
+  border-right-width: 2px;
+  border-top-width: 2px;
+  right: -5px;
+  top: -5px;
+}
+.snip1535:after {
+  border-bottom-width: 2px;
+  border-color: #F781D8;
+  border-left-width: 2px;
+  bottom: -5px;
+  left: -5px;
+}
+.snip1535:hover,
+.snip1535.hover {
+  background-color: #5858FA;
+}
+.snip1535:hover:before,
+.snip1535.hover:before,
+.snip1535:hover:after,
+.snip1535.hover:after {
+  height: 100%;
+  width: 100%;
+}
     </style>
 
 	<!-- Search -->
@@ -496,8 +673,8 @@ function auto_plan(){
 
  //0] 주변 찾기 설정
   function food() {
-	  $('#type div').attr('class','btn btn-info btn-lg')
-	  $('#type div:eq(2)').attr('class','btn btn-danger btn-lg')
+	  $('#type div').attr('class','btn purple-gradient')
+	  $('#type div:eq(2)').attr('class','btn purple-gradient')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -509,8 +686,8 @@ function auto_plan(){
 	  keyword='restaurant'
       }
   function hotel() {
-	  $('#type div').attr('class','btn btn-info btn-lg')
-	  $('#type div:eq(0)').attr('class','btn btn-danger btn-lg')
+	  $('#type div').attr('class','btn peach-gradient')
+	  $('#type div:eq(0)').attr('class','btn peach-gradient')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -522,8 +699,8 @@ function auto_plan(){
 	  keyword='lodging'
      }
   function tour() {
-	  $('#type div').attr('class','btn btn-info btn-lg')
-	  $('#type div:eq(1)').attr('class','btn btn-danger btn-lg')
+	  $('#type div').attr('class','btn blue-gradient')
+	  $('#type div:eq(1)').attr('class','btn blue-gradient')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -943,19 +1120,20 @@ function auto_plan(){
 			
 			<div id="auto_complete">
 				<form action="<c:url value='SpotList.kosmo'/>">
-					<input type="text" name="city_no" >
-					<button class="btn btn-danger">자동 완성 불러오기</button>
+					<input type="text" value="9" name="city_no" >
+					<button class="btn aqua-gradient" style="border-radius: 9px;">자동 완성 불러오기</button>
 				</form>
-				<button class="btn btn-warning" onclick="auto_plan()">자동 완성</button>
+				
+				<button class="btn btn-outline-secondary btn-rounded waves-effect" onclick="auto_plan()">자동 완성</button>
 			</div>
 			
 			<div class="row">
 				<div class="col-sm-10">
 					<div id="floating-panel">
 						<div id="type">
-								<div class="btn btn-danger btn-lg" onclick="hotel();"><i class="fa fa-hotel fa-2x">호텔</i></div>
-								<div class="btn btn-info btn-lg" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
-								<div class="btn btn-info btn-lg" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
+								<div class="btn peach-gradient" style="border-radius: 12px;" onclick="hotel();"><i class="fa fa-hotel fa-2x">호텔</i></div>
+								<div class="btn blue-gradient" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
+								<div class="btn purple-gradient" style="border-radius: 12px;" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
 								<!--  <div><h4><small id=day>1일차 플랜</small></h4></div>-->
 					    </div>
 				    </div>
@@ -964,10 +1142,10 @@ function auto_plan(){
 				<div class="col-sm-2" id=rightBox>
 					<div class="row">
 						<div class="col-sm-12" id="planBox">
-							<div class="row">
+							<div class="row" style="text-align: center">
 								<c:forEach begin="1" end="5" var="days" >
 								<div class="col-sm-6">
-									<div class="btn btn-warning" id="day.${days}" onclick="DayPlan(this)">${days}일차 플랜</div>
+									<div class="planview" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
 								</div>
 								</c:forEach>
 							</div>
@@ -976,33 +1154,28 @@ function auto_plan(){
 							<br>
 						</div>
 						<div class="col-sm-12" id="buttons-show">
-							<div class="btn btn-danger" onclick="showPlan()">현재 플랜 보기!</div>
+							<div class="planview" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜 보기!</i></div>
 						</div>
 						<div class="col-sm-12" id="buttons-plan">
-							<div class="btn btn-danger" onclick="clearBox();">플랜 삭제</div>
-							<div class="btn btn-danger" onclick="clearPlanBox()">전체 삭제</div>
+							<div class="btn btn-danger waves-effect" onclick="clearBox();"><i class="far fa-trash-alt"> 플랜 삭제</i></div>
+							<div class="btn btn-danger btn-rounded waves-effect" style="" onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
 						</div>
 						<div class="col-sm-12" id="buttons-total">
 							
-							<div class="btn btn-info" onclick="back()">전체 저장후 planner로 이동</div>	
+							<div class="planview" onclick="back()">전체 저장후 planner로 이동 <i class="fas fa-shoe-prints"></i></div>	
 						</div>
 						<div class="col-sm-12">
 							<br>
-						</div>
-						<div class="col-sm-12" id="distance">
-							<h4>전체 거리: <span id="total"></span></h4>
-						</div>
+						</div>						
 						<div class="col-sm-12">
 							<br>
 						</div>
-						<div class="col-sm-12" id="logo">
-							<h2><a href="<c:url value="/"/>">TravelMaker</a></h2>
-						</div>
-					</div>
-					
+					</div>					
 				</div>
-				
-			</div>
+			<div class="col-sm-12" id="distance">
+				<h4>전체 거리: <span id="total"></span></h4>
+				</div>
+			</div>			
 		</div>
 		<!-- makerclick -->
 	
@@ -1046,8 +1219,8 @@ function auto_plan(){
 	          <tr class="iw_table_row">
 	            <td class="iw_attribute_name"></td>
 	            <td>
-	            	<div class="btn btn-primary" data-toggle="modal" onclick="detail()">상세정보 보기</div>
-	          		<div class="btn btn-danger" onclick="box()">바구니에 담기▶</div>
+	            	<div class="btn btn-info waves-effect" data-toggle="modal" onclick="detail()"><i class="fas fa-info-circle"></i> 상세정보 보기</div>
+	          		<div class="btn btn-success waves-effect" onclick="box()"><i class="fas fa-shopping-basket"> 바구니에 담기</i></div>
 	            </td>
 	          </tr>
 	        </table>
@@ -1082,7 +1255,7 @@ function auto_plan(){
 					</div>
 		        </div>
 				<button id="review" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-				  	구글 댓글 보기
+				  	 구글 댓글 보기 <i class="fas fa-comment-alt"></i>
 				</button>
 				<div class="collapse" id="collapseExample">
 				  <div class="well" id="md-review">
@@ -1093,7 +1266,7 @@ function auto_plan(){
 	  </div>
 	</div>	
 	
-	<div class="modal fade" id="sp-modal" data-backdrop="static">
+	<div class="modal fade" id="sp-modal" tabindex="-1" role="dialog" data-backdrop="static">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
 	    	<div class="modal-body" >
