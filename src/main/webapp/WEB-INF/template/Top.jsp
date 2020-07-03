@@ -2,6 +2,23 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+
+<!-- Material Design Bootstrap -->
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
 <header class="header">
 	<div class="container">
 		<div class="row">
@@ -181,26 +198,40 @@
 
 
 <!--로그인 modal-->
-<div class="modal fade" id="loginmodal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">로그인</h5>
+<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content form-elegant">
+			<div class="modal-header text-center">			
+				<h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="exampleModalLabel">로그인</h3>		
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          		<span aria-hidden="true">&times;</span>
+        		</button>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body mx-4">
 				<form id="logInForm"
 					action="<c:url value='/TravelMaker/LoginProcess.do'/>"
 					method="post">
-					<div class="form-group">
-						<label class="username"> <span style="color: black;">아이디</span>
-						</label> <input id="id" name="id" type="text" autocomplete="on"
-							placeholder="아이디를 입력하세요"> <label class="password">
+					<div class="md-form mb-5">
+						<label data-error="wrong" data-success="right" for="Form-id1" class="username"> 아이디
+						</label> <input id="id" name="id" type="text" autocomplete="on" class="form-control validate"
+							placeholder="아이디를 입력하세요">
+							</div>
+					<div class="md-form pb-3">
+							 <label data-error="wrong" data-success="right" for="Form-pass1" class="userpass" >
 							<span style="color: black;">비밀번호</span>
-						</label> <input id="pwd" name="pwd" type="password"
+						</label> <input id="pwd" name="pwd" type="password" class="form-control validate"
 							placeholder="비밀번호를 입력하세요">
 					</div>
 					<span id="loginfailmessage" style="color: red; font-size: .8em">${NotMember}</span>
 				</form>
+			</div>
+			
+			<div class="modal-footer">
+				<div class="text-center mb-3" style="width:100%; height:100%">
+          			<a href="#" class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
+        			<p class="font-small grey-text d-flex justify-content-end">회원이 아니신가요?<a href="#" id="signupmodalbtn" class="blue-text ml-1">
+           			<i class="fas fa-share animated rotateIn">Click!</i></a></p>
+        		</div>				
 			</div>
 			<!-- 카카오 로그인 -->
 			<div class="modal-body">
@@ -214,6 +245,7 @@
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5'); //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
 					Kakao.Auth.createLoginButton({
 						container : '#kakao-login-btn',
+												
 						success : function(authObj) {
 							Kakao.API.request({
 								url : '/v2/user/me',
@@ -263,17 +295,13 @@
 						isPopup : false,
 						loginButton : {
 							color : "green",
-							type : 3,
-							height : 45
+							type : 3,							
+							height : 48
+							
 						}
 					});
 					naverLogin.init();
 				</script>
-			</div>
-			<div class="modal-footer">
-				<a class="btn" id="logInSubmit" href="#">확인</a>
-				<button class="btn" type="button" data-dismiss="modal"
-					style="color: red;">취소</button>
 			</div>
 		</div>
 	</div>
