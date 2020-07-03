@@ -1,5 +1,77 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false" contentType="text/html; charset=UTF-8"%>
+<script>
+	console.log(${lists})
+
+
+</script>
+
+<div class="intro">
+	<div class="intro_background"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="intro_container">
+					<div class="row">
+
+						<!-- Intro Item -->
+						
+						<div class="col-lg-4 intro_col">
+							<div
+								class="intro_item d-flex flex-row align-items-end justify-content-start">
+								<div class="intro_icon">
+									<img src="<c:url value='/images/beach.svg'/>" alt="">
+								</div>
+								<div class="intro_content">
+									<div class="intro_title">인기 여행지</div>
+									<div class="intro_subtitle">
+										<p>#여행</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Intro Item -->
+						<div class="col-lg-4 intro_col">
+							<div
+								class="intro_item d-flex flex-row align-items-end justify-content-start">
+								<div class="intro_icon">
+									<img src="<c:url value='/images/wallet.svg'/>" alt="">
+								</div>
+								<div class="intro_content">
+									<div class="intro_title">최고의 가격</div>
+									<div class="intro_subtitle">
+										<p>Best Price</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Intro Item -->
+						<div class="col-lg-4 intro_col">
+							<div
+								class="intro_item d-flex flex-row align-items-end justify-content-start">
+								<div class="intro_icon">
+									<img src="<c:url value='/images/suitcase.svg'/>" alt="">
+								</div>
+								<div class="intro_content">
+									<div class="intro_title">놀라운 서비스</div>
+									<div class="intro_subtitle">
+										<p>Amazing Service</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
 <div class="destinations" id="destinations">
 		<div class="container">
 			<div class="row">
