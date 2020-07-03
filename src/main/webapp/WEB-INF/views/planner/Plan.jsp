@@ -70,7 +70,6 @@
          font-size:20px;
          font-weight:border;
          font-height:30px;
-         border:double #32a1ce
       }
       #sp-waypoints{
       	 height: 500px;
@@ -78,7 +77,6 @@
          font-size:20px;
          font-weight:border;
          font-height:30px;
-         border:double #32a1ce;
       }
       #day{
       	color:green;
@@ -286,6 +284,32 @@
 .snip1535.hover:after {
   height: 100%;
   width: 100%;
+}
+.scrollbar {
+margin-left: 30px;
+float: right;
+height: 300px;
+width: 65px;
+background: #fff;
+overflow-y: scroll;
+margin-bottom: 25px;
+
+}
+.force-overflow {
+min-height: 450px;
+}
+
+.scrollbar-primary::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-primary::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #4285F4; }
+
+.scrollbar-primary {
+scrollbar-color: #4285F4 #F5F5F5;
 }
     </style>
 
@@ -617,8 +641,8 @@ $(function(){
 
  //0] 주변 찾기 설정
   function food() {
-	  $('#type div').attr('class','btn purple-gradient')
-	  $('#type div:eq(2)').attr('class','btn purple-gradient')
+	  $('#type div').attr('class','snip1535')
+	  $('#type div:eq(2)').attr('class','snip1535')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -629,22 +653,9 @@ $(function(){
 	  nearSearchType='restaurant';
 	  keyword='restaurant'
       }
-  function hotel() {
-	  $('#type div').attr('class','btn peach-gradient')
-	  $('#type div:eq(0)').attr('class','btn peach-gradient')
-	  if(markers.length!=0){
-	   //확인용
-    	   //	console.log('click Markers',markers);
-	   //
-   	    removeMarkers(markers);
-   	    markers=[];
-   	   }
-	  nearSearchType='lodging';
-	  keyword='lodging'
-     }
   function tour() {
-	  $('#type div').attr('class','btn blue-gradient')
-	  $('#type div:eq(1)').attr('class','btn blue-gradient')
+	  $('#type div').attr('class','snip1535')
+	  $('#type div:eq(1)').attr('class','snip1535')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -980,16 +991,17 @@ $(function(){
 			 
 			console.log('들어옴',spotArr[i].spot.name)
 			var h4=document.createElement('h4')
-			h4.textContent='◆'+(i+1)+'번째 경유지:'
+			h4.textContent='★'+(i+1)+'번째 경유지:'
 			sp_waypoints.appendChild(h4)
 			h4=document.createElement('h4')
 			h4.textContent='이름:'+spotArr[i].spot.name
 			sp_waypoints.appendChild(h4)
 			h4=document.createElement('h4')
-	 	 	h4.textContent='주소:'+spotArr[i].spot.formatted_address
+	 	 	h4.textContent='주소'+spotArr[i].spot.formatted_address
 	 	 	sp_waypoints.appendChild(h4)
 	 	 	h4=document.createElement('h4')
-	 	 	h4.textContent='위치 아이디:'+spotArr[i].spot.id
+	 	 	h4.textContent='위치 아이디:'
+	 	 	+spotArr[i].spot.id
 	 	 	sp_waypoints.appendChild(h4)
 		 }
 	 }
@@ -1075,9 +1087,8 @@ $(function(){
 				<div class="col-sm-10">
 					<div id="floating-panel">
 						<div id="type">
-								<div class="btn peach-gradient" style="border-radius: 12px;" onclick="hotel();"><i class="fa fa-hotel fa-2x">호텔</i></div>
-								<div class="btn blue-gradient" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
-								<div class="btn purple-gradient" style="border-radius: 12px;" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
+								<div class="snip1535" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
+								<div class="snip1535" style="border-radius: 12px;" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
 								<!--  <div><h4><small id=day>1일차 플랜</small></h4></div>-->
 					    </div>
 				    </div>
@@ -1088,9 +1099,9 @@ $(function(){
 						<div class="col-sm-12" id="planBox">
 							<div class="row" style="text-align: center">
 								<c:forEach begin="1" end="5" var="days" >
-								<div class="col-sm-6">
+
 									<div class="planview" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
-								</div>
+				
 								</c:forEach>
 							</div>
 						</div>
@@ -1098,7 +1109,7 @@ $(function(){
 							<br>
 						</div>
 						<div class="col-sm-12" id="buttons-show">
-							<div class="planview" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜 보기!</i></div>
+							<div class="planview" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜 보기!</i></div>
 						</div>
 						<div class="col-sm-12" id="buttons-plan">
 							<div class="btn btn-danger waves-effect" onclick="clearBox();"><i class="far fa-trash-alt"> 플랜 삭제</i></div>
@@ -1106,7 +1117,7 @@ $(function(){
 						</div>
 						<div class="col-sm-12" id="buttons-total">
 							
-							<div class="planview" onclick="back()">전체 저장후 planner로 이동 <i class="fas fa-shoe-prints"></i></div>	
+							<div class="planview" onclick="back()">전체 저장후 planner로 이동 <i class="fas fa-download"></i></div>	
 						</div>
 						<div class="col-sm-12">
 							<br>
@@ -1164,7 +1175,7 @@ $(function(){
 	            <td class="iw_attribute_name"></td>
 	            <td>
 	            	<div class="btn btn-info waves-effect" data-toggle="modal" onclick="detail()"><i class="fas fa-info-circle"></i> 상세정보 보기</div>
-	          		<div class="btn btn-success waves-effect" onclick="box()"><i class="fas fa-shopping-basket"> 바구니에 담기</i></div>
+	          		<div class="btn btn-success waves-effect" onclick="box()"><i class="fas fa-cart-arrow-down"> 바구니에 담기</i></div>
 	            </td>
 	          </tr>
 	        </table>
@@ -1210,16 +1221,20 @@ $(function(){
 	  </div>
 	</div>	
 	
-	<div class="modal fade" id="sp-modal" tabindex="-1" role="dialog" data-backdrop="static">
-	  <div class="modal-dialog modal-lg">
+	<div class="modal fade" id="sp-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+	  <div class="modal-dialog modal-notify modal-info" role="document">
 	    <div class="modal-content">
-	    	<div class="modal-body" >
-	    		<button class="close" id="close2">
-	    			<span>&times;</span>
-	    		</button>
+	    	<div class="modal-header">
+	         <p class="heading lead">현재 나의 플랜</p>	         		
+	         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	           <span aria-hidden="true" class="white-text">&times;</span>
+	         </button>
+	       </div>
+	    	<div class="modal-body" >	   		
+	    		<i class="fas fa-road animated rotateIn"></i>
 	    		<div class="row">
 		    		<div class="col-sm-12" id="sp-origin"></div>
-		    		<div class="col-sm-12" id="sp-waypoints" style="overflow-y:scroll;"></div>
+		    		<div class="col-sm-12" id="sp-waypoints" style="overflow-y:scroll"></div>
 		    		<div class="col-sm-12" id="sp-destination"></div>
 	    		</div>
 	    	</div>
