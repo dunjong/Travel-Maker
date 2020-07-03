@@ -7,13 +7,14 @@ DROP TABLE review CASCADE CONSTRAINTS;
 DROP TABLE auto_spots CASCADE CONSTRAINTS;
 DROP TABLE auto_plan CASCADE CONSTRAINTS;
 DROP TABLE auto_save CASCADE CONSTRAINTS;
+DROP TABLE cities CASCADE CONSTRAINTS;
+DROP TABLE tag_rel CASCADE CONSTRAINTS;
+DROP TABLE city CASCADE CONSTRAINTS;
+DROP TABLE hotel CASCADE CONSTRAINTS;
 DROP TABLE save_spots CASCADE CONSTRAINTS;
 DROP TABLE plan CASCADE CONSTRAINTS;
 DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE planner CASCADE CONSTRAINTS;
-DROP TABLE tag_rel CASCADE CONSTRAINTS;
-DROP TABLE city CASCADE CONSTRAINTS;
-DROP TABLE hotel CASCADE CONSTRAINTS;
 DROP TABLE tag CASCADE CONSTRAINTS;
 DROP TABLE userinfo CASCADE CONSTRAINTS;
 
@@ -24,6 +25,7 @@ DROP TABLE userinfo CASCADE CONSTRAINTS;
 DROP SEQUENCE seq_acc;
 DROP SEQUENCE seq_air;
 DROP SEQUENCE seq_auto_plan;
+DROP SEQUENCE seq_cities;
 DROP SEQUENCE seq_city;
 DROP SEQUENCE seq_hotel;
 DROP SEQUENCE seq_plan;
@@ -43,6 +45,7 @@ DROP SEQUENCE seq_tag_rel;
 CREATE SEQUENCE seq_acc;
 CREATE SEQUENCE seq_air;
 CREATE SEQUENCE seq_auto_plan;
+CREATE SEQUENCE seq_cities;
 CREATE SEQUENCE seq_city;
 CREATE SEQUENCE seq_hotel;
 CREATE SEQUENCE seq_plan;
@@ -109,6 +112,15 @@ CREATE TABLE auto_spots
 );
 
 
+CREATE TABLE cities
+(
+	city_no number,
+	planner_no number NOT NULL,
+	cities_no number NOT NULL,
+	PRIMARY KEY (cities_no)
+);
+
+
 CREATE TABLE city
 (
 	city_no number NOT NULL,
@@ -148,7 +160,6 @@ CREATE TABLE planner
 (
 	planner_no number NOT NULL,
 	planner_acc number DEFAULT 0 NOT NULL,
-	city_no number NOT NULL,
 	user_id nvarchar2(200) NOT NULL,
 	PRIMARY KEY (planner_no)
 );
@@ -206,10 +217,9 @@ CREATE TABLE userinfo
 (
 	user_id nvarchar2(200) NOT NULL,
 	user_name nvarchar2(200) NOT NULL,
-	user_engname nvarchar2(50) NOT NULL,
 	user_pwd nvarchar2(50) NOT NULL,
-	user_rrn number NOT NULL,
-	user_gender nvarchar2(10) NOT NULL,
+	user_rrn number,
+	user_gender nvarchar2(10),
 	PRIMARY KEY (user_id)
 );
 
@@ -235,7 +245,7 @@ ALTER TABLE auto_plan
 ;
 
 
-ALTER TABLE planner
+ALTER TABLE cities
 	ADD FOREIGN KEY (city_no)
 	REFERENCES city (city_no)
 ;
@@ -254,6 +264,12 @@ ALTER TABLE save_spots
 
 
 ALTER TABLE accompany
+	ADD FOREIGN KEY (planner_no)
+	REFERENCES planner (planner_no)
+;
+
+
+ALTER TABLE cities
 	ADD FOREIGN KEY (planner_no)
 	REFERENCES planner (planner_no)
 ;

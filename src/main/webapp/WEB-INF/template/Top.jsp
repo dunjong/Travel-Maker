@@ -2,22 +2,29 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-    <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 <!-- Google Fonts -->
- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 <!-- Bootstrap core CSS -->
 
 <!-- Material Design Bootstrap -->
- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css"
+	rel="stylesheet">
 <!-- JQuery -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <!-- Bootstrap core JavaScript -->
 
 <!-- MDB core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 
 <header class="header">
 	<div class="container">
@@ -60,7 +67,8 @@
 											<li id="logoutbtn1"><a href="#">로그아웃</a></li>
 										</c:if>
 										<li id="signupmodalbtn" data-toggle="modal"><a href="#">회원가입</a></li>
-										<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
+										<li><a
+											href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
 										<li>
 											<!-- 리뷰리스트.코스모를 리뷰서치.코스모로 변경: 여동준 --> <a
 											href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a>
@@ -198,40 +206,48 @@
 
 
 <!--로그인 modal-->
-<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content form-elegant">
-			<div class="modal-header text-center">			
-				<h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="exampleModalLabel">로그인</h3>		
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          		<span aria-hidden="true">&times;</span>
-        		</button>
+			<div class="modal-header text-center">
+				<h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3"
+					id="exampleModalLabel">로그인</h3>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 			<div class="modal-body mx-4">
 				<form id="logInForm"
 					action="<c:url value='/TravelMaker/LoginProcess.do'/>"
 					method="post">
 					<div class="md-form mb-5">
-						<label data-error="wrong" data-success="right" for="Form-id1" class="username"> 아이디
-						</label> <input id="id" name="id" type="text" autocomplete="on" class="form-control validate"
+						<label data-error="wrong" data-success="right" for="Form-id1"
+							class="username"> 아이디 </label> <input id="id" name="id"
+							type="text" autocomplete="on" class="form-control validate"
 							placeholder="아이디를 입력하세요">
-							</div>
+					</div>
 					<div class="md-form pb-3">
-							 <label data-error="wrong" data-success="right" for="Form-pass1" class="userpass" >
-							<span style="color: black;">비밀번호</span>
-						</label> <input id="pwd" name="pwd" type="password" class="form-control validate"
-							placeholder="비밀번호를 입력하세요">
+						<label data-error="wrong" data-success="right" for="Form-pass1"
+							class="userpass"> <span style="color: black;">비밀번호</span>
+						</label> <input id="pwd" name="pwd" type="password"
+							class="form-control validate" placeholder="비밀번호를 입력하세요">
 					</div>
 					<span id="loginfailmessage" style="color: red; font-size: .8em">${NotMember}</span>
 				</form>
 			</div>
-			
+
 			<div class="modal-footer">
-				<div class="text-center mb-3" style="width:100%; height:100%">
-          			<a href="#" class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
-        			<p class="font-small grey-text d-flex justify-content-end">회원이 아니신가요?<a href="#" id="signupmodalbtn" class="blue-text ml-1">
-           			<i class="fas fa-share animated rotateIn">Click!</i></a></p>
-        		</div>				
+				<div class="text-center mb-3" style="width: 100%; height: 100%">
+					<a href="#"
+						class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
+					<p class="font-small grey-text d-flex justify-content-end">
+						회원이 아니신가요?<a href="#" id="signupmodalbtn" class="blue-text ml-1">
+							<i class="fas fa-share animated rotateIn">Click!</i>
+						</a>
+					</p>
+				</div>
 			</div>
 			<!-- 카카오 로그인 -->
 			<div class="modal-body">
@@ -247,29 +263,13 @@
 						container : '#kakao-login-btn', 
 						success : function(authObj) {
 							Kakao.API.request({
-								url : '/v2/user/me',
+								url : '/v2/user/me', 
 								success : function(res) {
 									console.log(res.id);//<-- 아이디
 									console.log(res.kakao_account.email);//<-- 카카오 이메일
 									console.log(authObj.access_token);//<-- 토큰	
 									console.log(res)
-												              
-						              $.ajax({
-						                  url : "<c:url value='/TravelMaker/IdCheck.do'/>"+res.id,
-						                    success : function(idChk){
-						                        if(idChk==true){ //DB에 아이디가 없을 경우 => 회원가입
-						                            $.ajax({
-						                                url : "",
-						                                data : JSON.stringify({
-						                                userId : res.id,
-						                                }),
-						                            })
-						                        }
-						                        if(idChk==false){ //DB에 아이디가 존재할 경우 => 로그인
-						                            $("form").attr("method","POST").attr("action","/user/snsLogin/"+res.id).attr("target","_parent").submit();
-						                        }
-						                    }
-						              })
+							
 						            },
 						            fail: function(error) {
 						              alert(JSON.stringify(error));
@@ -341,13 +341,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" style="color: black;">영문명</label>
+						 
 						<div>
-							<input type="text" class="form-control input-lg" name="en_name"
-								value="${param.en_name}"
-								placeholder="영문명을 입력하세요(성 이름 순으로 공백없이 입력하세요 )"> <span
-								style="color: red; font-size: .8em">${en_nameError}<form:errors
-									path="memberDTO.en_name" /></span>
+							
 						</div>
 					</div>
 					<div class="form-group">
