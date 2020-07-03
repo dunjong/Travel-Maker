@@ -232,7 +232,7 @@
 }
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 .snip1535 {
-  background-color: #4fc3f7;
+  background-color: #5858FA;
   border: none;
   color: #ffffff;
   cursor: pointer;
@@ -276,7 +276,7 @@
 }
 .snip1535:hover,
 .snip1535.hover {
-  background-color: rgba(0, 188, 212, 0.7);
+  background-color: #5858FA;
 }
 .snip1535:hover:before,
 .snip1535.hover:before,
@@ -640,10 +640,9 @@ $(function(){
 
 
  //0] 주변 찾기 설정
-
-  function hotel() {
+  function food() {
 	  $('#type div').attr('class','snip1535')
-	  $('#type div:eq(0)').attr('class','snip1535')
+	  $('#type div:eq(2)').attr('class','snip1535')
 	  if(markers.length!=0){
 	   //확인용
     	   //	console.log('click Markers',markers);
@@ -651,9 +650,9 @@ $(function(){
    	    removeMarkers(markers);
    	    markers=[];
    	   }
-	  nearSearchType='lodging';
-	  keyword='lodging'
-     }
+	  nearSearchType='restaurant';
+	  keyword='restaurant'
+      }
   function tour() {
 	  $('#type div').attr('class','snip1535')
 	  $('#type div:eq(1)').attr('class','snip1535')
@@ -1087,7 +1086,7 @@ $(function(){
 			<div class="row">
 				<div class="col-sm-10">
 					<div id="floating-panel">
-						<div id="type">								
+						<div id="type">
 								<div class="snip1535" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
 								<div class="snip1535" style="border-radius: 12px;" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
 								<!--  <div><h4><small id=day>1일차 플랜</small></h4></div>-->

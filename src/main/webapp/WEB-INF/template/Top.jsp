@@ -244,8 +244,7 @@
 					//<![CDATA[
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5'); //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
 					Kakao.Auth.createLoginButton({
-						container : '#kakao-login-btn',
-												
+						container : '#kakao-login-btn', 
 						success : function(authObj) {
 							Kakao.API.request({
 								url : '/v2/user/me',

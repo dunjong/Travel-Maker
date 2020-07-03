@@ -53,7 +53,7 @@
 											<form action="<c:url value="/TravelMaker/Plan.kosmo"/>">
 												<input hidden="true" name="origin" value="방콕,태국" /> 
 												<input hidden="true" name="destination" value="공항,방콕,태국" />
-												<button class="btn">플랜 이동용</button>
+												<button id='movetoplan' class="btn">플랜 이동용</button>
 											</form>
 										</div>
 									</div>
@@ -192,8 +192,16 @@
 							// if so, remove the element from the "Draggable Events" list
 							info.draggedEl.parentNode.removeChild(info.draggedEl);
 							//}
+						},
+						eventDrop: function(info) {
+							var tbody = $('div.fc-content-skeleton > table > tbody')
+							console.log(info);
+							console.log(tbody);
+							if(false){
+								alert('x')
+								$('#movetoplan').prop('disabled','true')
+							}
 						}
-
 					});
 			/* $('.fc-today').appendChild('') */
 			calendar.render();
