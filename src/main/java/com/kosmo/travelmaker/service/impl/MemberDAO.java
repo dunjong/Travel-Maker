@@ -1,5 +1,6 @@
 package com.kosmo.travelmaker.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -8,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kosmo.travelmaker.service.MemberDTO;
+import com.kosmo.travelmaker.service.PlannerDTO;
 
 @Repository
 public class MemberDAO {
@@ -21,5 +23,9 @@ public class MemberDAO {
 	}
 	public boolean idCheck(String id) {
 		return (Integer)sqlMapper.selectOne("idCheck",id)==0 ? false : true;
+	}
+	public List<PlannerDTO> myPlannerList(Map map) {
+		
+		return sqlMapper.selectList("myPlannerListSelectList",map);
 	}
 }

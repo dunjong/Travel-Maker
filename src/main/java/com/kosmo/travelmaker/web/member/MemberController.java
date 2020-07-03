@@ -1,10 +1,14 @@
 package com.kosmo.travelmaker.web.member;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.JsonArray;
 import com.kosmo.travelmaker.service.MemberDTO;
+import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
 
 
@@ -39,6 +45,22 @@ public class MemberController {
 	public String BookMark() {
 		return "member/BookMark.tiles";
 	}
+	
+	@RequestMapping("MyPlanner.kosmo")
+	public String MyPlanner(@RequestParam Map map,Model model) {
+		List<PlannerDTO> list=memberService.plannerList(map);
+		List<Map> collections = new Vector<Map>();
+		for(PlannerDTO dto:list ) {
+			Map<String, String> maps=new HashMap<String, String>();
+			String no=Integer.toString(dto.getPlanner_no()) ;
+			maps.put(no, no);
+			collections.add(maps);
+		}
+		
+		model.addAttribute("lists",JSONArray.toJSONString(collections));
+		return "member/MyPlanner.tiles";
+	}
+	
 	@RequestMapping("ValidationCheck.do")
 	public String vali(MemberDTO dto,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
 		//내가 만든 validate클래스의 validate()호출 데이터로 cmd넣고 에러정보용으로 errors넣어준다.

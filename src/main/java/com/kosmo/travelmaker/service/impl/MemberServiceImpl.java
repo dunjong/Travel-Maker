@@ -1,5 +1,6 @@
 package com.kosmo.travelmaker.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kosmo.travelmaker.service.impl.MemberDAO;
 import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.MemberService;
+import com.kosmo.travelmaker.service.PlannerDTO;
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
 	@Resource(name = "memberDAO")
@@ -26,6 +28,11 @@ public class MemberServiceImpl implements MemberService{
 	public String idCheck(String id) {
 		return memberDAO.idCheck(id)?"failure":"success";
 	}
+	@Override
+	public List<PlannerDTO> plannerList(Map map) {
+		return memberDAO.myPlannerList(map);
+	}
+	
 	
 
 }

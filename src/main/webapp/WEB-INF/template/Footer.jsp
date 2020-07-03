@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<style>
+  df-messenger {
+   --df-messenger-bot-message: #878fac;
+   --df-messenger-button-titlebar-color: #df9b56;
+   --df-messenger-chat-background-color: #fafafa;
+   --df-messenger-font-color: white;
+   --df-messenger-send-icon: #878fac;
+   --df-messenger-user-message: #479b3d;
+  }
+</style>
 <footer class="footer">
 	<div class="parallax_background parallax-window" data-parallax="scroll"
 		data-image-src="<c:url value='/images/footer_1.jpg'/>"
@@ -97,6 +106,16 @@
 			href="https://colorlib.com" target="_blank">Colorlib</a>
 		<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 	</div>
+	
+	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+	
+<df-messenger
+  intent="WELCOME"
+  chat-title="TravelMaker"
+  agent-id="c3a52215-962e-4782-a2d8-b3f366c4fbc0"
+  language-code="ko"
+  chat-icon="<c:url value='/images/마크레스.jpg'/>"
+></df-messenger>
 </footer>
 
 

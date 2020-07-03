@@ -11,5 +11,12 @@
 	</insert>
 	<select id="idCheck" parameterType="java.lang.String" resultType="int">
 		SELECT COUNT(*) FROM userinfo WHERE id=#{id}
+<<<<<<< HEAD
 	</select>	
+=======
+	</select>
+	<select id="myPlannerListSelectList" parameterType="java.util.Map" resultType="PlannerDTO">
+		SELECT * FROM planner WHERE user_id=#{user_id}
+	</select>
+>>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 </mapper>
