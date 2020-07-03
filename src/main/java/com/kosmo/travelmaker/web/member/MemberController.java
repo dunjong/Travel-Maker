@@ -89,8 +89,8 @@ public class MemberController {
 	@RequestMapping(value="snsLogin/{userId}", method=RequestMethod.POST)
 	public String snsLogin(@PathVariable String userId, HttpSession session ) throws Exception{
 	    System.out.println("/user/snsLogin : POST");     
-	    User dbUser = userService.getUser(userId);
-	    session.setAttribute("user", dbUser);
+	    //User dbUser = userService.getUser(userId);
+	    //session.setAttribute("user", dbUser);
 	        
 	    return "redirect:/index.jsp";
 	}
