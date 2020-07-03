@@ -47,7 +47,8 @@ public class PlannerController {
 	}
 	
 	@RequestMapping("Plan.kosmo")
-	public String Plan( Model model) {
+	public String Plan(@RequestParam Map map, Model model) {
+		
 		
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
 		for(int i=1;i<=5;i++) {
@@ -56,8 +57,26 @@ public class PlannerController {
 		}
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("dayPlan",dayPlan);
+		model.addAttribute("origin",map);
 		return "planner/Plan.tiles";
+		
 	}
+	
+	@RequestMapping(value ="PlanSave.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public void PlanSave(@RequestParam Map map) {
+		System.out.println("map"+map);
+		System.out.println("city: "+map.get("city"));
+		System.out.println("day1: "+map.get("day1[]"));
+		System.out.println("day2: "+map.get("day2[]"));
+		System.out.println("day3: "+map.get("day3[]"));
+		System.out.println("day4: "+map.get("day4[]"));
+		System.out.println("day5: "+map.get("day5[]"));
+		
+		
+	}
+	
+	
 	@RequestMapping("CitySearch.kosmo")
 	public String CitySearch() {
 		return "planner/CitySearch.main";
