@@ -18,6 +18,7 @@ import com.amadeus.Amadeus;
 import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
+import com.amadeus.resources.FlightOfferSearch.Itinerary;
 import com.amadeus.resources.FlightOfferSearch.SearchPrice;
 import com.amadeus.resources.FlightOfferSearch.SearchSegment;
 import com.amadeus.resources.FlightPrice;
@@ -39,19 +40,6 @@ public class AirController {
 	public String AirSearch(@RequestParam Map map, Model model) throws ResponseException {
 		String departure = map.get("departure").toString();
 		String arrival = map.get("arrival").toString();
-		String departureDate = map.get("departureDate").toString();
-		String returnDate = map.get("returnDate").toString();
-		String adult = map.get("adult").toString();
-		String children = "0";
-		if (map.get("children") != "") {
-			children = map.get("children").toString();
-		}
-		System.out.println("map:" + map.get("departure"));
-		System.out.println("map:" + map.get("arrival"));
-		System.out.println("map:" + map.get("departureDate"));
-		System.out.println("map:" + map.get("returnDate"));
-		System.out.println("map:" + map.get("adult"));
-		System.out.println("map:" + map.get("children"));
 		Amadeus amadeus = Amadeus.builder(AmadeusFlightApiKey, AmadeusFlightSecretApiKey).build();
 		//segments[0]이 출발~경유,segments[1]이 경유~도착
 		FlightOfferSearch[] flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
@@ -59,12 +47,12 @@ public class AirController {
 				.and("destinationLocationCode", arrival)
 				.and("departureDate", map.get("departureDate"))
 				.and("returnDate", map.get("returnDate"))
-				.and("adults", Integer.parseInt(adult))
+				.and("adults", (Integer)map.get("adult"))
 				.and("max", 3)
 				.and("currencyCode", "KRW")
-				.and("children", Integer.parseInt(children)));
-		  		//왕복티켓1번의 출발에서 도착까지
-		  		//경유 1회일 시 아래의 코드가 왕복티켓(iter)의 출발과 경유
+				.and("children", map.get("children")==""?0:(Integer)map.get("children")));
+  		//왕복티켓1번의 출발에서 도착까지
+  		//경유 1회일 시 아래의 코드가 왕복티켓(iter[0]과 iter[1])의 출발과 경유
 		System.out.println("경유1회일시 출발에서 (경유포함)도착까지 의 결과값");
 		System.out.println("출발"+flightOffersSearches[0].getItineraries()[0].getSegments()[0].getDeparture());
 		System.out.println("경유"+flightOffersSearches[0].getItineraries()[0].getSegments()[0].getArrival());
@@ -107,92 +95,30 @@ public class AirController {
 	  	System.out.println("출발지-경유지 비행 지연시간"+flightOffersSearches[0].getItineraries()[1].getSegments()[0].getDuration());
 	  	//경유지에서 출발지로 가는 비행 지연시간
 	  	System.out.println("경유지-도착지 비행 지연시간"+flightOffersSearches[0].getItineraries()[1].getSegments()[1].getDuration());
-	  	
-	  	List<Map> list = new Vector<Map>();
-        for (FlightOfferSearch offer : flightOffersSearches) {
-	  		for (int k = 0; k < offer.getItineraries().length; k++) {
-	  			String[] gyeongUName = new String[offer.getItineraries()[k].getSegments().length];//경유지이름넣는방의 크기를 경유지 숫자만큼 생성
-	  			int gyeongUCount = offer.getItineraries()[k].getSegments().length - 1;//경유 횟수
-	  			for (int i = 0; i < offer.getItineraries()[k].getSegments().length; i++) {
-	  				SearchSegment fSeg = offer.getItineraries()[k].getSegments()[i];
-	  				SearchSegment lSeg = offer.getItineraries()[k].getSegments()[offer.getItineraries()[i].getSegments().length - 1];
-	  				for(int p = 0; p <= offer.getTravelerPricings().length; p++) {
-	  					SearchPrice price = offer.getTravelerPricings()[0].getPrice();
-	  					String Totvia = offer.getItineraries()[0].getDuration().toString();
-	  					String chul = fSeg.getDeparture().toString();//출발
-	  					String chak = lSeg.getArrival().toString();//도착
-	  					gyeongUName[i] = (offer.getItineraries()[k].getSegments()[i].getDeparture().toString());//배열의 각방에 출발지이름을 넣음
-	  					Map maps = new HashMap();
-	  					maps.put("Dtime", fSeg.getDeparture().getAt().toString());
-	  					maps.put("Dcode", fSeg.getDeparture().getIataCode().toString());
-	  					maps.put("Dvia", lSeg.getDeparture().getIataCode().toString());
-	  					maps.put("Devia",fSeg.getDuration());
-	  					maps.put("Atime", fSeg.getArrival().getAt().toString());
-	  					maps.put("Acode", lSeg.getArrival().getIataCode().toString());
-	  					maps.put("Avia", fSeg.getArrival().getIataCode().toString());
-	  					maps.put("Arvia",lSeg.getDuration());
-	  					maps.put("base", (Double.toString(price.getBase()).split("\\.")[0]));
-	  					maps.put("total", (Double.toString(price.getTotal()).split("\\.")[0]));
-	  					maps.put("Tovia",Totvia);
-	  					maps.put("chul", chul);
-	  					maps.put("chak", chak);
-	  					maps.put("gyeongUCount", gyeongUCount);
-	  					maps.put("gyeongUName", gyeongUName);
-	  					list.add(maps);
-	  				}
+	  	//segment한개를 맵에담는다(출발지 - 경유지)
+	  	//segments를 리스트에담는다 (출발지 - 경유지 - 도착지)
+	  	//segments와 itinerary를 맵에 담는다 (출발:도착,도착:출발,티켓전체에 대한 정보)
+	  	Map<String,List<Map>> tickets = new HashMap<String,List<Map>>();
+	  	//offer에 왕복티켓1매의 전체정보가 저장되어있음(data[max값],최대갯수는 아마데우스클래스의 인자max로 결정)
+        for (FlightOfferSearch data : flightOffersSearches) {
+  			//itinerary[0]출발지에서 경유몇회거쳐서 도착지까지
+        	//itinerary[1]도착지에서 경유몇회거쳐서 출발지까지
+        	//즉 itinerary는 2개로 고정
+	  		for (Itinerary itinerary : data.getItineraries()) {
+	  			//경유 횟수는 segments갯수로 계산함
+	  			int gyeongUCount = itinerary.getSegments().length - 1;
+	  			for (SearchSegment segment : itinerary.getSegments()) {
+	  				
+	  				
+	  				
+	  				
+	  				
+	  				
+					
 	  			}
 	  		}
 	  	}
-//        Map<Integer,Boolean> eqInSeg = new HashMap<Integer,Boolean>();
-//        for(int l=0;l<list.size();l++){
-//        	Map test = list.get(l);
-//        	String tDTime = (String)test.get("DTime");
-//        	String tDcode = (String)test.get("Dcode");
-//        	String tDvia = (String)test.get("Dvia");
-//        	String tATime = (String)test.get("ATime");
-//        	String tAcode = (String)test.get("Acode");
-//        	String tAvia = (String)test.get("Avia");
-//        	String tbase = (String)test.get("base");
-//        	String ttotal = (String)test.get("total");
-//        	String tchul = (String)test.get("chul");
-//        	String tchak = (String)test.get("chak");
-//        	String tgyeongUCount = test.get("gyeongUCount").toString();
-//        	for(int m=l+1;m<list.size()||eqInSeg.get(l)==true;m++) {
-//        		Map test2 = list.get(m);
-//        		String tDTime2 = (String)test2.get("DTime");
-//        		String tDcode2 = (String)test2.get("Dcode");
-//        		String tDvia2 = (String)test2.get("Dvia");
-//        		String tATime2 = (String)test2.get("ATime");
-//        		String tAcode2 = (String)test2.get("Acode");
-//        		String tAvia2 = (String)test2.get("Avia");
-//        		String tbase2 = (String)test2.get("base");
-//        		String ttotal2 = (String)test2.get("total");
-//        		String tchul2 = (String)test2.get("chul");
-//        		String tchak2 = (String)test2.get("chak");
-//        		String tgyeongUCount2 = (String)test2.get("gyeongUCount");
-//        		if(tDTime.equals(tDTime2)&&
-//        				tDcode.equals(tDcode2)&&
-//        				tDvia.equals(tDvia2)&&
-//        				tATime.equals(tATime2)&&
-//        				tAcode.equals(tAcode2)&&
-//        				tAvia.equals(tAvia2)&&
-//        				tbase.equals(tbase2)&&
-//        				ttotal.equals(ttotal2)&&
-//        				tchul.equals(tchul2)&&
-//        				tchak.equals(tchak2)&&
-//        				tgyeongUCount.equals(tgyeongUCount2))
-//        		{
-//        			eqInSeg.put(l, false);
-//        		}
-//         
-//        	}
-//        }
-//        Set<Integer> keys = eqInSeg.keySet();
-//        for(Integer key:keys) {
-//        	eqInSeg.remove(key);
-//        }
-        model.addAttribute("list", list);
-        model.addAttribute("flightOffersSearches", flightOffersSearches[0].toString());
+        model.addAttribute("tickets", tickets);
         model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
         return "air/AirList.tiles";
 	}
