@@ -6,7 +6,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<div class="header_content d-flex flex-row align-items-center justify-content-start">
+				<div
+					class="header_content d-flex flex-row align-items-center justify-content-start">
 					<div
 						class="header_content_inner d-flex flex-row align-items-end justify-content-start">
 						<div class="logo">
@@ -44,8 +45,8 @@
 										<li id="signupmodalbtn" data-toggle="modal"><a href="#">회원가입</a></li>
 										<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
 										<li>
-											<!-- 리뷰리스트.코스모를 리뷰서치.코스모로 변경: 여동준 -->
-											<a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a>
+											<!-- 리뷰리스트.코스모를 리뷰서치.코스모로 변경: 여동준 --> <a
+											href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a>
 										</li>
 									</ul></li>
 								<li><a href="#" class="dropdown-toggle"
@@ -125,22 +126,22 @@
 			</div>
 		</div>
 	</div>
-	<div class="menu_content"><!-- 작은화면에서 보이는 메뉴 -->
+	<div class="menu_content">
+		<!-- 작은화면에서 보이는 메뉴 -->
 		<ul>
 			<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 			<li><a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a></li>
-			<li>
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span></a>
+			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span
+					class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">리뷰
 							리스트</a></li>
 					<li><a href="<c:url value='/TravelMaker/ReviewView.kosmo'/>">리뷰
 							보기</a></li>
 					<li><a href="#">리뷰 작성</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">MEMBER<span class="caret"></span></a>
+				</ul></li>
+			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">MEMBER<span
+					class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
 					<c:if test="${empty sessionScope.id}" var="login">
@@ -152,15 +153,15 @@
 					<li><a href="#" id="signupmodalbtn">회원가입</a></li>
 					<li><a href="<c:url value='/TravelMaker/Planner.kosmo'/>">나의플랜</a></li>
 					<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">나의리뷰</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer Service<span class="caret"></span></a>
+				</ul></li>
+			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer
+					Service<span class="caret"></span>
+			</a>
 				<ul class="dropdown-menu">
-					<li><a href="<c:url value='/TravelMaker/CustomerService.kosmo'/>">공지사항</a></li>
+					<li><a
+						href="<c:url value='/TravelMaker/CustomerService.kosmo'/>">공지사항</a></li>
 					<li><a href="#">QnA</a></li>
-				</ul>
-			</li>
+				</ul></li>
 		</ul>
 	</div>
 	<div class="menu_social">
@@ -187,16 +188,16 @@
 				<h5 class="modal-title" id="exampleModalLabel">로그인</h5>
 			</div>
 			<div class="modal-body">
-				<form id="logInForm" action="<c:url value='/TravelMaker/LoginProcess.do'/>" method="post">
+				<form id="logInForm"
+					action="<c:url value='/TravelMaker/LoginProcess.do'/>"
+					method="post">
 					<div class="form-group">
-						<label class="username"> 
-							<span style="color: black;">아이디</span>
-						</label> 
-						<input id="id" name="id" type="text" autocomplete="on" placeholder="아이디를 입력하세요"> 
-						<label class="password"> 
-							<span style="color: black;">비밀번호</span> 
-						</label>
-						<input id="pwd" name="pwd" type="password" placeholder="비밀번호를 입력하세요">
+						<label class="username"> <span style="color: black;">아이디</span>
+						</label> <input id="id" name="id" type="text" autocomplete="on"
+							placeholder="아이디를 입력하세요"> <label class="password">
+							<span style="color: black;">비밀번호</span>
+						</label> <input id="pwd" name="pwd" type="password"
+							placeholder="비밀번호를 입력하세요">
 					</div>
 					<span id="loginfailmessage" style="color: red; font-size: .8em">${NotMember}</span>
 				</form>
@@ -206,8 +207,8 @@
 				<label>간편 로그인</label>
 				<div></div>
 				<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-				<a id="kakao-login-btn"></a> 
-				<a href="http://developers.kakao.com/logout"></a>
+				<a id="kakao-login-btn"></a> <a
+					href="http://developers.kakao.com/logout"></a>
 				<script type='text/javascript'>
 					//<![CDATA[
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5'); //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
@@ -218,51 +219,36 @@
 								url : '/v2/user/me',
 								success : function(res) {
 									console.log(res.id);//<-- 아이디
-									console.log(res.properties['nickname']);//<-- 서비스에서 쓰이는 사용자 닉네임						 
-									console.log(res.kakao_account.profile);//<--카카오계정의 프로필 소유 여부	
-									console.log(res.properties.profile_image);//<--서비스에서 쓰이는 사용자 프로필 이미지 URL
-									console.log(res.properties.thumbnail_image);//<--서비스에서 쓰이는 사용자 썸네일 이미지 URL
-									console.log(res.kakao_account.age_range);//<--카카오계정의 연령대 소유 여부, 연령대 값
-									console.log(res.kakao_account.birthday);//<--카카오계정의 생일 소유 여부, 생일 값
-									console.log(res.kakao_account.gender);//<--카카오계정의 성별 소유 여부, 성별 값
-									console.log(authObj.access_token);//<-- 토큰
-								}
-							})
-						},
-						fail : function(error) {
-							alert(JSON.stringify(error));
-						}
-					});
-
-					//]]>
-
-					/* 로그인 관련 쿠키 생성 및 삭제 */
-					function setCookie(name, value, expired) {
-
-						var date = new Date();
-						date.setHours(date.getHours() + expired);
-						var expried_set = "expries=" + date.toGMTString();
-						document.cookie = name + "=" + value + "; path=/;"
-								+ expried_set + ";"
-
-					}
-					function getCookie(name) {
-
-						var nameofCookie = name + "=";
-						var x = 0;
-						while (x <= document.cookie.length) {
-							var y = (x + nameofCookie.length);
-							if (document.cookie.substring(x, y) == nameofCookie) {
-								if ((endofCookie = document.cookie.indexOf(";", y)) == -1)
-									endofCookie = document.cookie.length;
-								return unescape(document.cookie.substring(y, endofCookie));
-							}
-							x = document.cookie.indexOf(" ", x) + 1;
-							if (x == 0)
-								break;
-						}
-						return "";
-					}
+									console.log(res.kakao_account.email);//<-- 카카오 이메일
+									console.log(authObj.access_token);//<-- 토큰									 
+									res.id += "@k";					              
+						              $.ajax({
+						                  url : "<c:url value='/TravelMaker/IdCheck.do'/>"+res.id,
+						                    success : function(idChk){
+						                        if(idChk==true){ //DB에 아이디가 없을 경우 => 회원가입
+						                            $.ajax({
+						                                url : "",
+						                                data : JSON.stringify({
+						                                userId : res.id,
+						                                }),
+						                            })
+						                        }
+						                        if(idChk==false){ //DB에 아이디가 존재할 경우 => 로그인
+						                            $("form").attr("method","POST").attr("action","/user/snsLogin/"+res.id).attr("target","_parent").submit();
+						                        }
+						                    }
+						              })
+						            },
+						            fail: function(error) {
+						              alert(JSON.stringify(error));
+						            }
+						          });
+						                  
+						        },
+						        fail: function(err) {
+						          alert(JSON.stringify(err));
+						        }
+						      });
 				</script>
 
 				<!-- 네이버 아이디로 로그인 -->
@@ -286,7 +272,8 @@
 			</div>
 			<div class="modal-footer">
 				<a class="btn" id="logInSubmit" href="#">확인</a>
-				<button class="btn" type="button" data-dismiss="modal" style="color: red;">취소</button>
+				<button class="btn" type="button" data-dismiss="modal"
+					style="color: red;">취소</button>
 			</div>
 		</div>
 	</div>
@@ -301,24 +288,27 @@
 				<h5 class="modal-title" id="exampleModalLabel" style="color: black;">회원가입</h5>
 			</div>
 			<div class="modal-body">
-				<form action="<c:url value='/TravelMaker/ValidationCheck.do'/>" method="post">
+				<form action="<c:url value='/TravelMaker/ValidationCheck.do'/>"
+					method="post">
 					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">아이디</label>
 						<div>
-							<input id="signUpId" type="text" class="form-control input-lg" name="id"
-								value="${param.id}" placeholder="아이디를 입력하세요">
+							<input id="signUpId" type="text" class="form-control input-lg"
+								name="id" value="${param.id}" placeholder="아이디를 입력하세요">
 						</div>
 						<div>
-							<a class="btn" id="signUpIdCheckBtn">아이디 확인</a>
-							<span id="idErrormessage" style="color: red; font-size: .8em">${idError}<form:errors path="memberDTO.id" /></span>
+							<a class="btn" id="signUpIdCheckBtn">아이디 확인</a> <span
+								id="idErrormessage" style="color: red; font-size: .8em">${idError}<form:errors
+									path="memberDTO.id" /></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">이름</label>
 						<div>
 							<input type="text" class="form-control input-lg" name="name"
-								value="${param.name}" placeholder="이름을 입력하세요"> 
-								<span style="color: red; font-size: .8em">${nameError}<form:errors path="memberDTO.name" /></span>
+								value="${param.name}" placeholder="이름을 입력하세요"> <span
+								style="color: red; font-size: .8em">${nameError}<form:errors
+									path="memberDTO.name" /></span>
 							</td>
 						</div>
 					</div>
@@ -327,16 +317,18 @@
 						<div>
 							<input type="text" class="form-control input-lg" name="en_name"
 								value="${param.en_name}"
-								placeholder="영문명을 입력하세요(성 이름 순으로 공백없이 입력하세요 )">
-							<span style="color: red; font-size: .8em">${en_nameError}<form:errors path="memberDTO.en_name" /></span>
+								placeholder="영문명을 입력하세요(성 이름 순으로 공백없이 입력하세요 )"> <span
+								style="color: red; font-size: .8em">${en_nameError}<form:errors
+									path="memberDTO.en_name" /></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label" style="color: black;">비밀번호</label>
 						<div>
 							<input type="password" class="form-control input-lg"
-								name="password" placeholder="비밀번호를 입력하세요">
-							<span style="color: red; font-size: .8em">${passwordError}<form:errors path="memberDTO.password" /></span>
+								name="password" placeholder="비밀번호를 입력하세요"> <span
+								style="color: red; font-size: .8em">${passwordError}<form:errors
+									path="memberDTO.password" /></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -344,14 +336,16 @@
 							확인</label>
 						<div>
 							<input type="password" class="form-control input-lg"
-								name="password_check" placeholder="비밀번호를 다시 입력하세요">
-							<span style="color: red; font-size: .8em">${password_checkError}<form:errors path="memberDTO.password_check" /></span>
+								name="password_check" placeholder="비밀번호를 다시 입력하세요"> <span
+								style="color: red; font-size: .8em">${password_checkError}<form:errors
+									path="memberDTO.password_check" /></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label" style="color: black;">나이</label>
 						<div class="col-sm-4">
-							<select class="form-control input-sm" name="rrn" value="${param.rrn}">
+							<select class="form-control input-sm" name="rrn"
+								value="${param.rrn}">
 								<option>출생 연도를 선택하세요</option>
 								<option value="1950">1950~1959</option>
 								<option value="1960">1960~1969</option>
@@ -361,8 +355,8 @@
 								<option value="2000">2000~2009</option>
 								<option value="2010">2010~2019</option>
 								<option value="2020">2020~</option>
-							</select>
-							<span style="color: red; font-size: .8em">${ageError}<form:errors path="memberDTO.rrn" /></span>
+							</select> <span style="color: red; font-size: .8em">${ageError}<form:errors
+									path="memberDTO.rrn" /></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -375,18 +369,20 @@
 									type="radio" value="여자" name="gender"
 									<c:if test="${param.gender=='여자' }">checked</c:if>>여자</label>
 							</div>
-							<span style="color: red; font-size: .8em">${genderError}<form:errors path="memberDTO.gender" /></span>
+							<span style="color: red; font-size: .8em">${genderError}<form:errors
+									path="memberDTO.gender" /></span>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button class="btn" id="sighUpSubmit" type="submit">확인</button>
-						<button class="btn" type="button" data-dismiss="modal" style="color: red;">취소</button>
+						<button class="btn" type="button" data-dismiss="modal"
+							style="color: red;">취소</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-</div>	
+</div>
 <script>
 $(function(){
 	//회원가입 validate에러 발생시

@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -60,4 +62,15 @@ public class MemberController {
 	public String IdCheck(@RequestParam String signUpId) {
 		return memberService.idCheck(signUpId);
 	}
+	
+	
+	@RequestMapping(value="snsLogin/{userId}", method=RequestMethod.POST)
+	public String snsLogin(@PathVariable String userId, HttpSession session ) throws Exception{
+	    System.out.println("/user/snsLogin : POST");     
+	    User dbUser = userService.getUser(userId);
+	    session.setAttribute("user", dbUser);
+	        
+	    return "redirect:/index.jsp";
+	}
+
 }
