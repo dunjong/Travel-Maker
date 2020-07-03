@@ -28,9 +28,7 @@ public class SignUpValidator implements Validator{
 		if (cmd.getName() == null || cmd.getName().trim().isEmpty()) {
 			errors.rejectValue("name","nameError");
 		}
-		if (cmd.getEn_name() == null || cmd.getEn_name().trim().isEmpty()) {
-			errors.rejectValue("en_name","en_nameError");
-		}
+		
 		if (cmd.getRrn() == null || cmd.getRrn().equals("출생 연도를 선택하세요")) {
 			errors.rejectValue("rrn","ageError");
 		}
