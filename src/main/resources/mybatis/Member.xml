@@ -7,15 +7,12 @@
 		SELECT COUNT(*) FROM userinfo WHERE user_id=#{id} AND user_pwd=#{pwd}
 	</select>
 	<insert id="signUp" parameterType="MemberDTO">
-		INSERT INTO userinfo VALUES(#{id},#{name},#{en_name},#{pwd},#{rrn},#{gender})
+		INSERT INTO userinfo VALUES(#{id},#{name},#{pwd},#{rrn},#{gender})
 	</insert>
 	<select id="idCheck" parameterType="java.lang.String" resultType="int">
 		SELECT COUNT(*) FROM userinfo WHERE id=#{id}
 	</select>	
-
-
 	<select id="myPlannerListSelectList" parameterType="java.util.Map" resultType="PlannerDTO">
 		SELECT * FROM planner WHERE user_id=#{user_id}
 	</select>
-
 </mapper>

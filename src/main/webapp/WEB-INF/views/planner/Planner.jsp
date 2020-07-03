@@ -390,7 +390,6 @@
 							}
 						    
 						  }
-
 					});
 			/* $('.fc-today').appendChild('') */
 			calendar.render();
