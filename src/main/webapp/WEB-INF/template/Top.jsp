@@ -220,8 +220,9 @@
 								success : function(res) {
 									console.log(res.id);//<-- 아이디
 									console.log(res.kakao_account.email);//<-- 카카오 이메일
-									console.log(authObj.access_token);//<-- 토큰									 
-									res.id += "@k";					              
+									console.log(authObj.access_token);//<-- 토큰	
+									console.log(res)
+												              
 						              $.ajax({
 						                  url : "<c:url value='/TravelMaker/IdCheck.do'/>"+res.id,
 						                    success : function(idChk){
