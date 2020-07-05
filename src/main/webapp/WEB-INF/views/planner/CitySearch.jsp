@@ -86,14 +86,16 @@
 					var name = cityintroduce['city_name'];
 					var no = cityintroduce['city_no'];
 					var count = cityintroduce['count'];
-					console.log("이름:",name);
+					console.log("주소:",img);
 					var city="<li class=\"ui-widget-content ui-corner-tr\">";
 					city+="<h6 class=\"ui-widget-header\">"+name+"</h6>";
 					city+="<img src=\"/travelmaker"+img+"\" alt=\""+name+"\" width=\"96\" height=\"72\">";
 					city+="<a href=\"/travelmaker"+img+"\" title=\"상세보기\" class=\"ui-icon ui-icon-zoomin\">";
 					city+="상세보기</a>";
 					city+="<a href='link/to/trash/script/when/we/have/js/off' title=\"담기\" class=\"ui-icon ui-icon-plus\">";
-					city+="담기</a></li>";
+					city+="담기</a>";
+					city+="<input type='hidden' id='h_intro' value='"+intro+"'/>";
+					city+="</li>";
 					$(city).appendTo('#gallery');
 					console.log(city);
 					var $gallery = $("#gallery"),
@@ -101,6 +103,7 @@
 			        $items = $("#items");
 					if(data.length==i+1){
 						 //갤러리 항목을 드래그 할 수있게하십시오
+						 $(function(){
 					    $("li", $gallery).draggable({
 					      cancel: "a.ui-icon", //아이콘을 클릭하면 드래그가 시작되지 않습니다
 					      revert: "invalid", //떨어 뜨리지 않으면 아이템은 원래 위치로 되돌아갑니다
@@ -133,10 +136,13 @@
 
 					    function deleteImage($item) {
 					      var obj = cloneObject($item);
+					      console.log('obj:',obj.html());
+					      console.log(obj.length);
 					      var $list = $("ul", $trash).length ?
 					          $("ul", $trash) :
 					            $("<ul class='gallery ui-helper-reset'/>").appendTo($trash);//삼항 연산자
 					      obj.find("a.ui-icon-plus").remove();
+					            console.log('obj2:',obj.html());
 					      obj.append(recycle_icon).appendTo($list).fadeIn(function() {
 					        obj
 					          .animate({
@@ -163,13 +169,22 @@
 
 					    // image preview function, demonstrating the ui.dialog used as a modal window
 					    
-					   function viewLargerImage($link) {
+					    function viewLargerImage($link) {
 					         var src = $link.attr("href"), 
 					            title = $link.siblings("img").attr("alt"), 
 					            $modal = $("img[src$='" + src + "']");
-					         console.log(src);
-					         console.log($modal);
-					         console.log($modal.length);
+					         console.log($link);
+					         console.log('주소1:',src);
+					         console.log($('input[type=hidden]').val());
+					         $('.modal-body img').attr('src',src);
+					         $('.modal-title').html(title);
+					         $('.modal-body ul p:first').html(title);
+					         $('.modal-body ul p:last').html($('input[type=hidden]').val());
+					         $('#js-modal').modal('show');
+					         /* console.log($link) */
+					         /* console.log(src); */
+					         /* console.log($modal); */
+					         /* console.log($modal.length); */
 					         /* if ($modal.length) {
 					            $modal.dialog("open");
 					         }*/ 
@@ -178,7 +193,7 @@
 					            /* var img = $("<img class='sd' alt='" + title + "' style='display: none; padding: 8px;width:100%;height:100%;' />")
 					                  .prop("src",src).appendTo(".asd"); */
 					            /* console.log(img.attr("src")); */
-					            setTimeout(function() {
+					            /*setTimeout(function() {
 					               $("#dia").dialog({
 					                  title : title,
 					                  width : 600,
@@ -189,6 +204,9 @@
 					         /*} */
 					      }
 
+							$('#close').on('click',function(){
+								$('#js-modal').modal('hide');
+							});
 					      function cloneObject($item) {
 					         var obj = $item.clone();
 					         obj.draggable({
@@ -198,9 +216,10 @@
 					            helper : "clone",
 					            cursor : "move"
 					         });
-					         obj.live('click',function(event) {
+					         obj.click(function(event) {
 					            /* event.preventDefault(); */
 					            var $item = $(this), $target = $(event.target);
+					            console.log('타겟:',$target);
 					            if ($target.is("a.ui-icon-plus")) {
 					               deleteImage($item);
 					            } else if ($target.is("a.ui-icon-zoomin")) {
@@ -208,28 +227,32 @@
 					            } else if ($target.is("a.ui-icon-refresh")) {
 					               recycleImage($item);
 					            }
-
 					            return false;
 					         });
 					         return obj;
 					      }
 					      // resolve the icons behavior with event delegation
-					      $("ul.gallery > li").live('click',function(event) {
+					      $("ul.gallery > li").click(function(event) {
 					         var $item = $(this), $target = $(event.target);
-					         console.log($item.find("img").attr("alt"))
+					         console.log('피직컬:',$item.find("img").attr("alt"))
 					         /* $("#trash"). */
 					         if ($target.is("a.ui-icon-plus")) {
-					        	 if($item.find("img").attr("alt")){
+					        	 /* if($item.find("img").attr("alt")){ */
 					        		 deleteImage($item);
-					        	 }
+					        	 /* } */
 					         } else if ($target.is("a.ui-icon-zoomin")) {
+					        	 
 					            viewLargerImage($target);
 					         } else if ($target.is("a.ui-icon-refresh")) {
 					            recycleImage($item);
 					         }
 					         return false;
 					      });
-
+							
+					      /* function preventClick(e){
+					    		e.preventDefalut()
+					    	} */
+					      
 					      $("button#save").live('click',
 					            function() {
 					               var items = $("li", $("ul", $trash));
@@ -254,6 +277,7 @@
 					         localStorage.clear();
 					         $("ul#storedItems li").remove();
 					      });
+						 })
 					}
 				});	
 			},
@@ -288,7 +312,7 @@
 				</p>
 				<div>
 					<input type="text" name="searchWord" class="form-control"
-						style="opacity: 0.5;" />
+						style="opacity: 0.5;font-weight:bold;" />
 					<button type="submit" class="btn btn-mycolor">검색</button>
 				</div>
 				<div class="social-links">
@@ -448,14 +472,14 @@
 				<div class="col-md-8" style="background-color: red;">
 					<div class="ui-widget ui-helper-clearfix">
 						<ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
-							<li class="ui-widget-content ui-corner-tr">
+							<%-- <li class="ui-widget-content ui-corner-tr">
 								<h6 class="ui-widget-header">세부</h6> <img
-								src="<c:url value='/images/세부.jpg'/>" alt="세부" width="96"
-								height="72"> <a href='<c:url value="/images/세부.jpg"/>'
+								src="<c:url value='/plugins/assets/img/세부.jpg'/>" alt="세부" width="96"
+								height="72"> <a href='<c:url value="/plugins/assets/img/세부.jpg"/>' onclick='preventClick(event)'
 								title="상세보기" class="ui-icon ui-icon-zoomin">View larger</a> <a
 								href="link/to/trash/script/when/we/have/js/off" title="담기"
 								class="ui-icon ui-icon-plus">Delete image</a>
-							</li>
+							</li> --%>
 						</ul>
 					</div>
 				</div>
@@ -472,20 +496,48 @@
 				<div
 					class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 					<input hidden="true" value="2,9,10" name="city_no">
+					<input type="hidden" id="ctiyname" name="city_name"/>
 					<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
 					<button class="home_search_button citysearch">도시선택</button>
 					<!-- btn-lg float-right -->
 				</div>
 			</form>
 		</div>
-		<div id="dia" style="width: 600px; height: 600px;display:none;">
-            <img src="<c:url value='/images/세부.jpg'/>" alt="세부" align="left"
-               style="width: 300px; height:300px;" />
+		<%-- <div id="dia" style="width: 600px; height: 600px;display:none;">
+            <img src="<c:url value='/plugins/assets/img/세부.jpg'/>" alt="세부" align="left"
+               style="width:300px;height:300px;" />
             <div style="padding-left:5px;">
             <h3>고래상어 스쿠버다이빙과 스페인 종교건축물들이 기다리는 필리핀 옛 수도</h3>
             <a href="<c:url value='/'/>">리뷰바로가기</a>
-        </div>
-      </div>
+        </div> --%>
+		<div class="modal fade" id="js-modal" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">세부</h4>
+						<button class="close" data-dismiss="modal">
+							<span>&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<!-- <button class="close" id="close">
+		    		ad
+		    		</button> -->
+						<img src='<c:url value="/plugins/assets/img/세부.jpg"/>' style="width: 100%;">
+						<ul>
+							<li>도시이름:</li>
+							<p>세부</p>
+							<li>도시소개:</li>
+							<p>한줄평</p>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<a href="#">리뷰이동</a>
+						<button class="btn btn-info" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 	<!-- End Resume Section -->
 	
