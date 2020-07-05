@@ -141,4 +141,35 @@ public class VisionController {
 		System.out.println(net.sf.json.JSONArray.fromObject(citys).toString());
 		return net.sf.json.JSONArray.fromObject(citys).toString();
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/TravelMaker/searchlist.kosmo", produces = "text/html; charset=UTF-8")
+	public String searchList(@RequestParam String search_keyword) {
+		List<String> list = null;
+		/* String apiStatus = map.get("apiStatus").toString(); */
+		JSONArray ja = new JSONArray();
+		list = cityTagService.searchCityList(search_keyword);
+
+		for(int i=0;i<list.size();i++) {
+			ja.add(list.get(i));	
+		}
+		
+		/*
+		 * if (apiStatus.equals("0")) { list = mapService.searchHospitalList(map); for
+		 * (int i = 0; i < list.size(); i++) { //
+		 * ja.add(list.get(i).get("HOSP_NAME").toString() + "(" +
+		 * list.get(i).get("ADDRESS").toString().substring(0, 2)+ ")");
+		 * ja.add(list.get(i).get("HOSP_NAME").toString()); } } else if
+		 * (apiStatus.equals("1") || apiStatus.equals("2")) { list =
+		 * mapService.searchPharmacyList(map); for (int i = 0; i < list.size(); i++) {
+		 * // ja.add(list.get(i).get("PHAR_NAME").toString() + "(" +
+		 * list.get(i).get("ADDRESS").toString().substring(0, 2)+ ")");
+		 * ja.add(list.get(i).get("PHAR_NAME").toString()); } } else {
+		 * 
+		 * }
+		 */
+
+		return ja.toJSONString();
+	}
+
 }

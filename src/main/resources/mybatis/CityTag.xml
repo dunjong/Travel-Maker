@@ -17,4 +17,8 @@
 	GROUP BY CITY_NAME,C.CITY_NO,CITY_INTRO,CITY_IMG
 	ORDER BY COUNT(TAG_NAME) DESC
 </select>
+
+<select id="searchCityList" parameterType="java.lang.String" resultType="java.lang.String">
+	SELECT CITY_NAME FROM CITY WHERE CITY_NAME LIKE '%' || #{search_keyword} || '%'
+</select>
 </mapper>

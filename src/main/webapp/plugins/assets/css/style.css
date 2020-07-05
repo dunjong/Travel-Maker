@@ -253,7 +253,7 @@ h1, h2, h3, h4, h5, h6 {
 	border-radius: 5px;
 }
 
-.citytag {
+.searchcitytag {
 	margin-top:10px;	
 	margin-left:10px;
 	color: #A3DEEC;
@@ -265,7 +265,7 @@ h1, h2, h3, h4, h5, h6 {
 	border-radius: 5px;
 }
 
-.citytag:hover {
+.searchcitytag:hover {
 	color:red;
 }
 
