@@ -578,20 +578,18 @@ function initMap() {
 	   });////map.addListener
   
 }////initMap
-	
-	
-	
-async function getDetailById(placeId){ 
+
+async function getDetailById(placeIds){ 
 	servicePlace = new google.maps.places.PlacesService(map);
-	var place;
-	await servicePlace.getDetails({placeId: placeId},
-            function(place, status) {
+	var place_detail=servicePlace.getDetails({placeId: placeIds},
+            await function(place, status) {
               if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                return;
+                return '없음';
               }
-              return this.place=place;
+              console.log('place in func',place);
+              return place;
             });
-	return place;
+	return place_detail;
 }////getDetailById
 
 $(function(){
@@ -618,23 +616,35 @@ $(function(){
 		console.log('data',data)
 		servicePlace = new google.maps.places.PlacesService(map);
 		
-		$.each(data[0], async function (date,item) {
+		
+		
+		
+		
+		
+		$.each(data[0], function (date,item) {
 			console.log('date:',date,',item:',item);
-			for(var i=0;i<item.length;i++){
-				placeDetailnSave(item[i],date.substring(3))
-				await servicePlace.getDetails({placeId: item[i]},
+			$.each(item, function (index,spot_id) {
+				placeDetailnSave(spot_id,date.substring(3))
+				servicePlace.getDetails({placeId: spot_id},
 	          	  		function(place, status) {
 	              		if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	              				console.log('place in OK func',place)
 	                			return;
 	             	 	}
-	  			
+	  				console.log('place.name:',date,index,place.name)
 					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-					spots=[]
-					spots.push(placelatlng);
-					dayplans[date]={'origin':origin,'spots':spots}
-			
+					if(dayplans[date]==undefined){
+	  					spots=[]
+	  					spots.push(placelatlng);
+	  					dayplans[date]={'origin':origin,'spots':spots};
+	  					console.log('없을때')
+					}
+					else{
+		  				dayplans[date]['spots'].push(placelatlng);
+		  				console.log('있을때')
+					}
 	           		 	});
-			}
+			})
 		})////each
 
 	};/////successAjax 
@@ -1096,9 +1106,9 @@ $(function(){
 			
 			<div hidden="true" id=day></div>
 			
-					<input type="text" id="city-no"  value="9" name="city_no" hidden="true" >
+					<input type="text" id="city-no"  value="${city_no}" name="city_no" hidden="true" >
 					<button  class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">자동 완성 불러오기</button>
-			
+					
 			
 			<div class="row">
 				<div class="col-sm-10">

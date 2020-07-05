@@ -19,5 +19,9 @@ public class CityServiceImpl implements CityService {
 	public CityDTO selectCityDTO(int city_no) {
 		return cityDAO.selectOneCity(city_no);
 	}
+	@Override
+	public int selectCityNo(Map map) {
+		return cityDAO.selectOneCityNo(map);
+	}
 	
 }

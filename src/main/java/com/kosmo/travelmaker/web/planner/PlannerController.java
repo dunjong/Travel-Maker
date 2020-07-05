@@ -48,8 +48,9 @@ public class PlannerController {
 	
 	@RequestMapping("Plan.kosmo")
 	public String Plan(@RequestParam Map map, Model model) {
-		
-		
+
+		System.out.println("city_name:"+map.get("origin"));
+		int city_no=cityService.selectCityNo(map);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
 		for(int i=1;i<=5;i++) {
 			List<String> spotIDs=new Vector<String>();
@@ -58,6 +59,7 @@ public class PlannerController {
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("dayPlan",dayPlan);
 		model.addAttribute("origin",map);
+		model.addAttribute("city_no",city_no);
 		return "planner/Plan.tiles";
 		
 	}

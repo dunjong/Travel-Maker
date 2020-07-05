@@ -6,4 +6,8 @@
 	<select id="selectOneCity" resultType="CityDTO" parameterType="int">
 		SELECT * FROM CITY WHERE city_no=#{city_no}
 	</select>
+		
+	<select id="selectOneCityNo" resultType="int" parameterType="java.util.Map">
+		SELECT city_no FROM CITY WHERE city_name=#{origin}
+	</select>
 </mapper>
