@@ -95,5 +95,5 @@ public class MemberController {
 	    return "redirect:/index.jsp";
 	}
 	*/
-
+	
 }
