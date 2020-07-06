@@ -42,20 +42,48 @@ DROP SEQUENCE seq_tag_rel;
 
 /* Create Sequences */
 
-CREATE SEQUENCE seq_acc;
-CREATE SEQUENCE seq_air;
-CREATE SEQUENCE seq_auto_plan;
-CREATE SEQUENCE seq_cities;
-CREATE SEQUENCE seq_city;
-CREATE SEQUENCE seq_hotel;
-CREATE SEQUENCE seq_plan;
-CREATE SEQUENCE seq_planner;
-CREATE SEQUENCE seq_res;
-CREATE SEQUENCE seq_review;
-CREATE SEQUENCE seq_spot_auto;
-CREATE SEQUENCE seq_spot_save;
-CREATE SEQUENCE seq_tag;
-CREATE SEQUENCE seq_tag_rel;
+CREATE SEQUENCE seq_acc
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_air
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_auto_plan
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_cities
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_city
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_hotel
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_plan
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_planner
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_res
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_review
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_spot_auto
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_spot_save
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_tag
+NOCACHE
+NOCYCLE;
+CREATE SEQUENCE seq_tag_rel
+NOCACHE
+NOCYCLE;
 
 
 
@@ -200,15 +228,15 @@ CREATE TABLE tag
 (
 	tag_no number NOT NULL,
 	tag_name nvarchar2(200) NOT NULL,
-	PRIMARY KEY (tag_no)
+	PRIMARY KEY (tag_name)
 );
 
 
 CREATE TABLE tag_rel
 (
-	tag_no number NOT NULL,
-	city_no number NOT NULL,
 	tal_rel_no number NOT NULL,
+	tag_name nvarchar2(200) NOT NULL,
+	city_no number NOT NULL,
 	PRIMARY KEY (tal_rel_no)
 );
 
@@ -218,7 +246,7 @@ CREATE TABLE userinfo
 	user_id nvarchar2(200) NOT NULL,
 	user_name nvarchar2(200),
 	user_pwd nvarchar2(50) NOT NULL,
-	user_rrn number NOT NULL,
+	user_rrn nvarchar2(40) NOT NULL,
 	user_gender nvarchar2(10) NOT NULL,
 	PRIMARY KEY (user_id)
 );
@@ -294,8 +322,8 @@ ALTER TABLE auto_save
 
 
 ALTER TABLE tag_rel
-	ADD FOREIGN KEY (tag_no)
-	REFERENCES tag (tag_no)
+	ADD FOREIGN KEY (tag_name)
+	REFERENCES tag (tag_name)
 ;
 
 
