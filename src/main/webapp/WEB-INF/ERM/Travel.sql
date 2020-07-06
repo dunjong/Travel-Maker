@@ -216,10 +216,10 @@ CREATE TABLE tag_rel
 CREATE TABLE userinfo
 (
 	user_id nvarchar2(200) NOT NULL,
-	user_name nvarchar2(200) NOT NULL,
+	user_name nvarchar2(200),
 	user_pwd nvarchar2(50) NOT NULL,
-	user_rrn number,
-	user_gender nvarchar2(10),
+	user_rrn number NOT NULL,
+	user_gender nvarchar2(10) NOT NULL,
 	PRIMARY KEY (user_id)
 );
 
