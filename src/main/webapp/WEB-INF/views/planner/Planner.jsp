@@ -50,69 +50,61 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="card card-primary">
-										<div class="card">
-											<div class="card-header">
-												<h4 class="card-title">일정 카드</h4>
+										<div class="card-header">
+											<h4 class="card-title">일정 카드</h4>
+										</div>
+										<div class="card-body">
+											<!-- the events -->
+											<div id="external-events">
+												<c:forEach items="${city_no_name}" var="name">
+													<div class="external-event bg-info">${name}</div>
+												</c:forEach>
 											</div>
-											<div class="card-body">
-												<!-- the events -->
-												<div id="external-events">
-													<c:forEach items="${city_no_name}" var="name">
-														<div class="external-event bg-info">${name}</div>
-													</c:forEach>
-												</div>
-											</div>
-											
-											<!-- /.card-body -->
 										</div>
 									</div>
 								</div>
-								
 								<div class="col-md-12">
 									<div class="card card-primary">
 										<div class="card-header">
 											<h4 class="card-title">호텔 예매</h4>
 										</div>
-										
 										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
-											<button class="btn-info" type="button" data-toggle="modal" data-target="#h-modal-${name}" style="width:100%">
+											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#h-modal-${name}" style="width:100%;margin-bottom:4px">
 												${name}주변 호텔 찾아보기
 											</button>
-											
 											<div class="modal fade" id="h-modal-${name}">
 												<div class="modal-dialog">
 													<div class="modal-content">
-													<div class="modal-header bg-info">
-													<h2>호텔검색</h2>
-													</div>
-													<div class="modal-body">
-									              	<div>
-														<form action="#">
-															<div class="row">
-																<div class="col-md-10">
-																	<input id="autocomplete-${name}" placeholder="장소" required="required" value="${name}">
-																	<input type="number" id="adults-${name}"  placeholder="성인" required="required">
-																	<input type="text" id="datepicker-${name}" placeholder="check in" required="required"> 
-																	<input type="number" id="children-${name}" placeholder="미성년">
-																	<input type="text" id="datepicker1-${name}" placeholder="check out" required="required">
-																	<input type="number" id="rooms-${name}" placeholder="방 갯수" required="required">
-																</div>
-																<div class="col-md-2">
-																<button class="btn-info" id="hotelSubmit-${name}" >검색</button>
-																</div>
+														<div class="modal-header bg-info">
+															<h2>호텔검색</h2>
+														</div>
+														<div class="modal-body">
+											              	<div>
+																<form action="#">
+																	<div class="row">
+																		<div class="col-md-10">
+																			<input id="autocomplete-${name}" placeholder="장소" required="required" value="${name}">
+																			<input type="number" id="adults-${name}"  placeholder="성인" required="required">
+																			<input type="text" id="datepicker-${name}" placeholder="check in" required="required"> 
+																			<input type="number" id="children-${name}" placeholder="미성년">
+																			<input type="text" id="datepicker1-${name}" placeholder="check out" required="required">
+																			<input type="number" id="rooms-${name}" placeholder="방 갯수" required="required">
+																		</div>
+																		<div class="col-md-2">
+																			<button class="btn btn-info" id="hotelSubmit-${name}" >검색</button>
+																		</div>
+																	</div>
+																</form>
 															</div>
-														</form>
-													</div>
-										            </div>
-													<div class="modal-footer justify-content-between bg-info">
-										              <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-										              <button type="button" class="btn btn-outline-light">Save changes</button>
-										            </div>
+														</div>
+														<div class="modal-footer justify-content-between bg-info">
+											            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+											            	<button type="button" class="btn btn-outline-light">Save changes</button>
+											            </div>
 													</div>
 												</div>
 											</div>
-											
 											</c:forEach>
 										</div>	
 									</div>
@@ -122,39 +114,31 @@
 										<div class="card-header">
 											<h4 class="card-title">항공권 예매</h4>
 										</div>
-										
 										<div class="card-body">	
-											<button class="btn-info" type="button" data-toggle="modal" data-target="#a-modal" style="width:100%">항공권 검색</button>
+											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#a-modal" style="width:100%">항공권 검색</button>
 											<div class="modal fade" id="a-modal">
-											<div class="modal-dialog">
-												<div class="modal-content">
-												<div class="modal-header bg-info">
-												<h2>항공권 검색</h2>
-												</div>
-												<div class="modal-body">
-									              <div>
-													<form action="#">
-														<div class="row">
-															<div class="col-md-10">
-																<input type="text" name="departure" id="departure" placeholder="출발지" required="required" data-placement="bottom"> 
-																<input type="text" name="arrival" id="arrival" placeholder="도착지" required="required" data-placement="bottom"> 
-																<input type="text" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
-																<input type="text" name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
-																<input type="number" name="adult" id="adult" placeholder="성인" required="required"> 
-																<input type="number" name="children" id="children" placeholder="어린이">
-															</div>
-															<div class="col-md-2">
-															<button class="btn-info" id="airSubmit" >검색</button>
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header bg-info ">
+															<h2>항공권 검색</h2>
+														</div>
+														<div class="modal-body">
+												            <div>
+																<form action="#">
+																	<input type="text" name="departure" id="departure" placeholder="출발지" required="required" data-placement="bottom"> 
+																	<input type="text" name="arrival" id="arrival" placeholder="도착지" required="required" data-placement="bottom"> 
+																	<input type="text" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
+																	<input type="text" name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
+																	<input type="number" name="adult" id="adult" placeholder="성인" required="required"> 
+																	<input type="number" name="children" id="children" placeholder="미성년">
+																</form>
 															</div>
 														</div>
-													</form>
-												 </div>
-										        </div>
-												<div class="modal-footer justify-content-between bg-info">
-									              <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-									              <button type="button" class="btn btn-outline-light">Save changes</button>
-									            </div>
-												</div>
+														<div class="modal-footer justify-content-between bg-info">
+												            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+												            <button type="button" class="btn btn-outline-light">검색</button>
+											            </div>
+													</div>
 												</div>
 											</div>
 										</div>	
@@ -162,46 +146,42 @@
 								</div>
 								<div class="col-md-12">
 									<div class="card card-primary">
-											<div class="card-header">
-												<h4 class="card-title">도시 세부일정</h4>
-											</div>
-											
+										<div class="card-header">
+											<h4 class="card-title">도시 세부일정</h4>
+										</div>
+										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
-											<div class="card-body">	
-												<button class="btn-info" type="button" data-toggle="modal" data-target="#d-modal-${name}" style="width:100%">
+											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#d-modal-${name}" style="width:100%;margin-bottom:4px">
 												${name}에 대한 세부 일정 짜기
 											</button>
-											
 											<div class="modal fade" id="d-modal-${name}">
 												<div class="modal-dialog">
 													<div class="modal-content">
-													<div class="modal-header bg-info">
-													<h2>세부 일정</h2>
-													</div>
-													<div class="modal-body">
-									              	<div>
-														<form action="<c:url value="/TravelMaker/Plan.kosmo"/>">
-											                <input hidden="true" name="origin" value="${name}" /> 
-															<input hidden="true" name="destination" value="공항,${name}" />
-											                <button class="btn-success">세부일정 짜기</button>
-											            </form>
-											            <button class="btn-success">세부목록 보기</button>
-													</div>
-										            </div>
-													<div class="modal-footer justify-content-between bg-info">
-										              <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-										            </div>
+														<div class="modal-header bg-info">
+															<h2>세부 일정 in ${name}</h2>
+														</div>
+														<div class="modal-body">
+											              	<div>
+																<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" style='margin-bottom:4px'>
+													                <input hidden="true" name="origin" value="${name}" /> 
+																	<input hidden="true" name="destination" value="공항,${name}" />
+													                <button class="btn btn btn-success">세부일정 짜기</button>
+													            </form>
+													            <button class="btn btn-success">세부목록 보기</button>
+															</div>
+											            </div>
+														<div class="modal-footer justify-content-between bg-info">
+											            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+											            </div>
 													</div>
 												</div>
 											</div>
-												 
-											</div>	
 											</c:forEach>
+										</div>	
 									</div>
 								</div>
 							</div>
 						</div>
-						
 						<!-- /.col -->
 					</div>
 					<!-- /.row -->
@@ -308,28 +288,35 @@
 
 			var calendar = new Calendar(calendarEl,
 					{
-						plugins : [ 'bootstrap', 'interaction', 'dayGrid',
-								'timeGrid' ],
+						plugins : [ 'bootstrap', 'interaction', 'dayGrid'],
 						header : {
 							left : 'prev,next today',
 							center : 'title',
-							right : 'dayGridMonth,timeGridWeek,timeGridDay'
+							right : 'dayGridMonth'
 						},
 						'themeSystem' : 'bootstrap',
-
+						events: [
+							{
+								start: '2020-01-01',
+								end: '2020-07-06',
+				    	        overlap: false,
+				    	        color: '#ffffff'
+							},
+							
+							<c:forEach items="${city_no_name}" var="name">
+							{
+								title:'${name}',
+								start:'2020-07-07',
+				    	        overlap: false
+							},
+							</c:forEach>
+						],
 						editable : true,
 						droppable : true, // this allows things to be dropped onto the calendar !!!
 						//최초 받는 드롭
 						drop : function(info) {
-							//아이템 드랍시 무조건 삭제
-							// is the "remove after drop" checkbox checked?
-							//if (checkbox.checked) {
-							// if so, remove the element from the "Draggable Events" list
 							info.draggedEl.parentNode.removeChild(info.draggedEl);
 							console.log('drop',info);
-							
-							
-							//}
 						},
 						//최초 받는 드롭
 						eventReceive:function(info){
@@ -394,7 +381,7 @@
 			/* $('.fc-today').appendChild('') */
 			calendar.render();
 			// $('#calendar').fullCalendar()
-			
+			//$('td[data-date=2020-07-05]').prop('style','background-color:red');
 			
 		
 			

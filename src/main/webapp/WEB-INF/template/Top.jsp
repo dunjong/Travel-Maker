@@ -237,13 +237,11 @@
 					<span id="loginfailmessage" style="color: red; font-size: .8em">${NotMember}</span>
 				</form>
 			</div>
-
 			<div class="modal-footer">
 				<div class="text-center mb-3" style="width: 100%; height: 100%">
-					<a href="#"
-						class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
-					<p class="font-small grey-text d-flex justify-content-end">
-						회원이 아니신가요?<a href="#" id="signupmodalbtn" class="blue-text ml-1">
+					<a href="#" id='loginsubmit' class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
+					<p class="font-small grey-text d-flex justify-content-end">회원이 아니신가요?
+						<a href="#" id="signupmodalbtn" class="blue-text ml-1">
 							<i class="fas fa-share animated rotateIn">Click!</i>
 						</a>
 					</p>
@@ -429,6 +427,10 @@ $(function(){
 		e.preventDefault();
 		$('#loginmodal').modal("show");
 	});
+	//로그인용
+	$('#loginsubmit').click(function loginsubmit(){
+		$('#logInForm').submit();
+	})
 	//로그아웃용
 	var logoutForm = document.createElement('form');
 	logoutForm.action = '<c:url value="/TravelMaker/Logout.do"/>'
