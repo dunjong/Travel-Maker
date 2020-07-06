@@ -536,7 +536,7 @@
 									type="checkbox" value="Landmark"/></li>
 								<li><i class="icofont-rounded-right"></i><strong>Sea</strong><input
 									type="checkbox" value="Sea"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Ocean</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Waterfall</strong><input
 									type="checkbox" value="Ocean"/></li>
 								<li><i class="icofont-rounded-right"></i><strong>Historic Site</strong><input 
 								type="checkbox" value="Historic Site"/></li>
@@ -604,7 +604,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-8" style="background-color: red;">
+				<div class="col-md-8">
 					<div class="ui-widget ui-helper-clearfix">
 						<ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
 							<%-- <li class="ui-widget-content ui-corner-tr">
@@ -618,7 +618,7 @@
 						</ul>
 					</div>
 				</div>
-					<div class="col-md-4" style="background-color: blue;">
+					<div class="col-md-4">
 						<div id="trash" class="ui-widget-content ui-state-default" style="width:100%;position:relative;height:100%;">
 							<h5 class="ui-widget-header">
 								저장된 도시:<span id="items">0</span>
