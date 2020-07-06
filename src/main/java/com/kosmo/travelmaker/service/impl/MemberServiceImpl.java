@@ -32,6 +32,10 @@ public class MemberServiceImpl implements MemberService{
 	public List<PlannerDTO> plannerList(Map map) {
 		return memberDAO.myPlannerList(map);
 	}
+	public String kakao(String kakaoemail,String kakoid,MemberDTO dto) {
+		
+		return memberDAO.kakao(dto);
+	}
 	
 	
 

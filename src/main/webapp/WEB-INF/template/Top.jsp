@@ -237,13 +237,11 @@
 					<span id="loginfailmessage" style="color: red; font-size: .8em">${NotMember}</span>
 				</form>
 			</div>
-
 			<div class="modal-footer">
 				<div class="text-center mb-3" style="width: 100%; height: 100%">
-					<a href="#"
-						class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
-					<p class="font-small grey-text d-flex justify-content-end">
-						회원이 아니신가요?<a href="#" id="signupmodalbtn" class="blue-text ml-1">
+					<a href="#" id='loginsubmit' class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
+					<p class="font-small grey-text d-flex justify-content-end">회원이 아니신가요?
+						<a href="#" id="signupmodalbtn" class="blue-text ml-1">
 							<i class="fas fa-share animated rotateIn">Click!</i>
 						</a>
 					</p>
@@ -265,10 +263,29 @@
 							Kakao.API.request({
 								url : '/v2/user/me', 
 								success : function(res) {
-									console.log(res.id);//<-- 아이디
-									console.log(res.kakao_account.email);//<-- 카카오 이메일
-									console.log(authObj.access_token);//<-- 토큰	
 									console.log(res)
+									console.log(res.kakao_account.email);//<-- 카카오 이메일
+									console.log(res.id);//<-- 아이디
+									console.log(res.kakao_account.age_range);//<--나이
+									console.log(res.kakao_account.gender)//<--성별
+									$.ajax({
+										url:"<c:url value='/TravelMaker/kakao.do'/>",//요청할 서버의 URL주소
+										type:'get',//데이타 전송방식(디폴트는 get방식) 
+										dataType:'text',//서버로 부터 응답 받을 데이타의 형식 설정
+										data:{"signUpId":$('#signUpId').prop('value')},
+										success:function(response){
+											if(response=='failure'){
+												$('#idErrormessage').text("아이디가 이미 존재합니다");
+											}
+											else if(response=='success'){
+												$('#idErrormessage').text("중복되는 아이디가 없습니다");
+												$('#idErrormessage').prop('style','color:green;font-size: .8em')
+											}
+										},
+										error:function(data){//서버로부터 비정상적인 응답을 받았을때 호출되는 콜백함수
+											console.log('에러:',data.responseText);				
+										}
+									});
 							
 						            },
 						            fail: function(error) {
@@ -429,6 +446,10 @@ $(function(){
 		e.preventDefault();
 		$('#loginmodal').modal("show");
 	});
+	//로그인용
+	$('#loginsubmit').click(function loginsubmit(){
+		$('#logInForm').submit();
+	})
 	//로그아웃용
 	var logoutForm = document.createElement('form');
 	logoutForm.action = '<c:url value="/TravelMaker/Logout.do"/>'

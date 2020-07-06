@@ -1,46 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script>
-	$(function() {
-		//option을 {}객체(json)로 줄때는 함수의 인자로 처음부터 주거나
-		/* $( "#datepicker" ).datepicker({
-			showAnim: "bounce",
-			dateFormat: "yy년 mm월 dd일"
-		}); */
-		//{}이 아닌 인자로 option을 줄때(setter로)는 datepicker()로 생성후에
-		//$( "#datepicker" ).datepicker();
-		//setter
-		//$( "#datepicker" ).datepicker('option','showAnim','fold');
-		//$( "#datepicker" ).datepicker('option','dateFormat','yy년 mm월 dd일');
-		$("#datepicker").datepicker({
-			showAnim : "slideDown",
-			dateFormat : "yy년 mm월 dd일",
-			minDate : new Date(),
-			onSelect : function(dateText) {
-				$('#display').html(dateText);
-			}
-		});
-		$("#datepicker1").datepicker({
-			showAnim : "slideDown",
-			dateFormat : "yy년 mm월 dd일",
-			minDate : new Date(),
-			onSelect : function(dateText1) {
-				$('#display').html(dateText1);
-			}
-		});
-
-		//버튼 이미지 사용시: 버튼의 크기 조정
-		//$('.ui-datepicker-trigger').prop('style', 'width:40px;height:40px;');
-		//$('.ui-datepicker-trigger > img').prop('style', 'width:40px;height:40px;vertical-align:middle;margin-top:-4px;margin-left:-10px');
-		//이미지 온리 사용시
-	});
-</script>
-
-
-
 <!-- Search -->
-
 <div class="home_search">
 	<div class="container">
 		<div class="row">

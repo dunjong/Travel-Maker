@@ -28,4 +28,8 @@ public class MemberDAO {
 		
 		return sqlMapper.selectList("myPlannerListSelectList",map);
 	}
+	public String kakao(MemberDTO dto) {
+		 
+		return null;
+	}
 }
