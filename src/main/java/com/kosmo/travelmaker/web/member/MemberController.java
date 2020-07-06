@@ -85,7 +85,7 @@ public class MemberController {
 		return memberService.idCheck(signUpId);
 	}
 	
-	
+	/*
 	@RequestMapping(value="snsLogin/{userId}", method=RequestMethod.POST)
 	public String snsLogin(@PathVariable String userId, HttpSession session ) throws Exception{
 	    System.out.println("/user/snsLogin : POST");     
@@ -94,5 +94,6 @@ public class MemberController {
 	        
 	    return "redirect:/index.jsp";
 	}
+	*/
 
 }

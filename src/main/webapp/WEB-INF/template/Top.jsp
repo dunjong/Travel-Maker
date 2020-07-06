@@ -265,10 +265,29 @@
 							Kakao.API.request({
 								url : '/v2/user/me', 
 								success : function(res) {
-									console.log(res.id);//<-- 아이디
-									console.log(res.kakao_account.email);//<-- 카카오 이메일
-									console.log(authObj.access_token);//<-- 토큰	
 									console.log(res)
+									console.log(res.kakao_account.email);//<-- 카카오 이메일
+									console.log(res.id);//<-- 아이디
+									console.log(res.kakao_account.age_range);//<--나이
+									console.log(res.kakao_account.gender)//<--성별
+									$.ajax({
+										url:"<c:url value='/TravelMaker/kakao.do'/>",//요청할 서버의 URL주소
+										type:'get',//데이타 전송방식(디폴트는 get방식) 
+										dataType:'text',//서버로 부터 응답 받을 데이타의 형식 설정
+										data:{"signUpId":$('#signUpId').prop('value')},
+										success:function(response){
+											if(response=='failure'){
+												$('#idErrormessage').text("아이디가 이미 존재합니다");
+											}
+											else if(response=='success'){
+												$('#idErrormessage').text("중복되는 아이디가 없습니다");
+												$('#idErrormessage').prop('style','color:green;font-size: .8em')
+											}
+										},
+										error:function(data){//서버로부터 비정상적인 응답을 받았을때 호출되는 콜백함수
+											console.log('에러:',data.responseText);				
+										}
+									});
 							
 						            },
 						            fail: function(error) {

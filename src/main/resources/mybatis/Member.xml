@@ -15,4 +15,9 @@
 	<select id="myPlannerListSelectList" parameterType="java.util.Map" resultType="PlannerDTO">
 		SELECT * FROM planner WHERE user_id=#{user_id}
 	</select>
+	
+	<insert id="kako" parameterType="MemberDTO">
+		INSERT INTO userinfo(USER_ID,USER_PWD,USER_RRN,USER_GENDER) VALUES(#{kakaoemail},#{kakoid},#{rrn},#{gender})
+	</insert>
 </mapper>
+
