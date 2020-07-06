@@ -30,6 +30,11 @@ public class CityTagServiceImpl implements CityTagService{
 	public List<String> searchCityList(String search_keyword) {
 		return dao.searchCityList(search_keyword);
 	}
+
+	@Override
+	public Map checkcity(String search_city) {
+		return dao.checkcity(search_city);
+	}
 	
 	
 	

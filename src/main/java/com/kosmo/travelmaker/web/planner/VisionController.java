@@ -171,5 +171,16 @@ public class VisionController {
 
 		return ja.toJSONString();
 	}
+	@ResponseBody
+	@RequestMapping(value = "/TravelMaker/checkcity.kosmo", produces = "text/html; charset=UTF-8")
+	public String checkcity(@RequestParam String search_city) {
+		Map map = new HashMap();
+		JSONArray ja = new JSONArray();
+		map = cityTagService.checkcity(search_city);
+		System.out.println(map.get(0));
+		System.out.println(map.get(1));
+		return JSONObject.toJSONString(map);
+	}
+	
 
 }

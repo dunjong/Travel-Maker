@@ -37,6 +37,7 @@ public class PlannerController {
 		
 		List<String> city_no_name=new Vector<String>();
 		String[] city_no_list=map.get("city_no").toString().split(",");
+		String[] city_name_list=map.get("city_name").toString().split(",");
 		for(String no:city_no_list) {
 			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
 		}

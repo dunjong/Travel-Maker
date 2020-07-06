@@ -12,5 +12,7 @@ public interface CityTagService {
 	List CityTag(Map map);
 
 	List<String> searchCityList(String search_keyword);
+
+	Map checkcity(String search_city);
 	
 }

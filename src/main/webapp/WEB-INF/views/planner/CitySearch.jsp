@@ -74,10 +74,44 @@
 		   $('#inputid').keypress(function(e){
 			   if(e.which == '13'){
 			        var string = $('#inputid').val()
-			        console.log('keypress',string)
+			        console.log(string);
+			        $.ajax({
+		        	   url : "<c:url value='/TravelMaker/checkcity.kosmo'/>",
+		               type : "GET",
+		               dataType: "json",
+		               data : {"search_city" : $("#inputid").val()},
+		               success : function(data){
+		            	   var name,no;
+		                 $.each(data,function(key,value){
+		                	 console.log('키:',key);
+		                	 console.log('밸루:',value);
+		                	 if(key=='CITY_NAME'){
+		                		 name=value;
+		                	 }
+		                	 else if(key=='CITY_NO'){
+		                		 no=value;
+		                	 }
+		                 });
+		                 console.log(name);
+		                 console.log(no);
+		                  /* response($.map(data, function(item){
+		                     return {
+		                        label: item,
+		                        value: item
+		                     }
+		                  })); */
+		                  $('#input-divs').prepend('<div class="cityname" style="margin:3px;border:1px solid gray;line-height:50px;font-size:25px;background-color:orange;color:red;display:inline;"><span>'+name+'</span><a href="javascript:;" onclick="wordexit(this);" class="ui-icon ui-icon-close" style="cursor:pointer;">'+no+'</a></div>')
+					        $('#inputid').val('')
+					        $('#inputid').focus()
+		               },
+		               error : function(){ //실패
+		                     alert("통신에 실패했습니다.");
+		                  }
+			        });
+			        /* console.log('keypress',string)
 			        $('#input-divs').prepend('<div class="cityname" style="margin:3px;border:1px solid gray;line-height:50px;font-size:25px;background-color:orange;color:red;display:inline;"><span>'+string+'</span><a href="javascript:;" onclick="wordexit(this);" class="ui-icon ui-icon-close" style="cursor:pointer;">'+string+'</a></div>')
 			        $('#inputid').val('')
-			        $('#inputid').focus()
+			        $('#inputid').focus() */
 			   }
 		   })
 		   
@@ -350,8 +384,34 @@
 	}
 	
 	function basketcity(){
-		
-	}
+		console.log($('#trash ul li').length)
+		var string,no;
+		for(i=0;i<$('#trash ul li').length;i++){
+			string=$('#trash ul li:eq('+i+') input[type=hidden]').attr('name');
+			no=$('#trash ul li:eq('+i+') input[type=hidden]').attr('id');
+			$('#input-divs').prepend('<div class="cityname" style="margin:3px;border:1px solid gray;line-height:50px;font-size:25px;background-color:orange;color:red;display:inline;"><span>'+string+'</span><a href="javascript:;" onclick="wordexit(this);" class="ui-icon ui-icon-close" style="cursor:pointer;">'+no+'</a></div>');
+		}
+	};
+	function citypick(){
+		var city_name=new Array();
+		var city_no=new Array();
+		for(i=0;i<$('.cityname').length;i++){
+			console.log($('div.cityname:eq('+i+') span').html());
+			console.log($('div.cityname:eq('+i+') a').html());
+			city_name.push($('div.cityname:eq('+i+') span').html());
+			city_no.push($('div.cityname:eq('+i+') a').html());
+		}
+		var citynames=city_name.toString();
+		var citynos=city_no.toString();
+		console.log(citynames);
+		console.log(citynos);
+		$('input[name=city_no]').val(citynos);
+		$('input[name=city_name]').val(citynames);
+		console.log($('input[name=city_no]').val());
+		console.log($('input[name=city_name]').val());
+	};
+	
+	
 </script>
 
 <!-- ======= Hero Section ======= -->
@@ -383,10 +443,10 @@
 				<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
 				<div
 					class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-					<input hidden="true" value="2,9,10" name="city_no">
+					<input type="hidden" value="2,9,10" name="city_no">
 					<input type="hidden" id="ctiyname" name="city_name"/>
 					<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
-					<button class="home_search_button citysearch">도시선택</button>
+					<button class="home_search_button citysearch" onclick="citypick();">도시선택</button>
 					<!-- btn-lg float-right -->
 				</div>
 			</form>
@@ -564,11 +624,10 @@
 								저장된 도시:<span id="items">0</span>
 								<!-- <span class="ui-icon ui-icon-trash"></span> Trash -->
 							</h5>
-							
-							<a href="#hero" class="basketcity" onclick="basketcity();" style="position:absolute; right:0px; bottom:0px;">
-								저장완료
-								<!-- <span class="ui-icon ui-icon-trash"></span> Trash -->
-							</a>
+								<a href="#hero" class="basketcity" onclick="basketcity();" style="position:absolute; right:0px; bottom:0px;">
+									저장완료
+									<!-- <span class="ui-icon ui-icon-trash"></span> Trash -->
+								</a>
 						</div>
 					</div>
 			</div>

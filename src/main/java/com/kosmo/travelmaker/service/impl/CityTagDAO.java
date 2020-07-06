@@ -32,6 +32,11 @@ public class CityTagDAO implements CityTagService{
 		
 		return sqlMapper.selectList("searchCityList",search_keyword);
 	}
+
+	@Override
+	public Map checkcity(String search_city) {
+		return sqlMapper.selectOne("checkcity",search_city);
+	}
 	
 	
 }
