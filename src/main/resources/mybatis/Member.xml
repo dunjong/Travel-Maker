@@ -7,7 +7,7 @@
 		SELECT COUNT(*) FROM userinfo WHERE user_id=#{id} AND user_pwd=#{pwd}
 	</select>
 	<select id="androidLogin" parameterType="MemberDTO" resultType="MemberDTO">
-		SELECT * FROM userinfo WHERE user_id=#{user_id} AND user_pwd=#{user_pwd}
+		SELECT * FROM userinfo WHERE user_id=#{id} AND user_pwd=#{pwd}
 	</select>
 	
 	<insert id="signUp" parameterType="MemberDTO">

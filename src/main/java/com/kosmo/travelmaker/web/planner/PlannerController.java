@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -33,20 +34,38 @@ public class PlannerController {
 	private CityServiceImpl cityService;
 	
 	
-	@RequestMapping("Planner.kosmo")
-	public String Planner(@RequestParam Map map,Model model,HttpSession session) {
-		
+
+	@RequestMapping(value = "Planner.kosmo",method=RequestMethod.GET)
+	public String CityToPlanner(@RequestParam Map map,Model model,HttpSession session) {
 		List<String> city_no_name=new Vector<String>();
 		String[] city_no_list=map.get("city_no").toString().split(",");
-		String[] city_name_list=map.get("city_name").toString().split(",");
 		for(String no:city_no_list) {
 			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
 		}
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("city_no_name",city_no_name);
+
 		String user_id=session.getAttribute("id").toString();
 		cityService.makingplanner(user_id);
-		
+		model.addAttribute("returnFromMap",false);
+		return "planner/Planner";
+	}
+	
+	
+	@RequestMapping(value = "Planner.kosmo",method=RequestMethod.POST)
+	public String MapToPlanner(@RequestParam Map map,Model model) {
+		Map planner = new HashMap();
+		List<String> city_no_name=new Vector<String>();
+		String[] city_no_list=map.get("city_no").toString().split(",");
+		int i=0;
+		for(String no:city_no_list) {
+			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
+			planner.put("name"+i, cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
+			planner.put("startdate"+i, cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
+			i++;
+		}
+		model.addAttribute("city_no_name",city_no_name);
+		model.addAttribute("returnFromMap",false);
 		return "planner/Planner";
 	}
 	

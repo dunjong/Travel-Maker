@@ -6,10 +6,14 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kosmo.travelmaker.service.MemberDTO;
@@ -22,7 +26,7 @@ import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
  * POST로 요청시에는 반드시 _csrf값을 전송
  * GET으로 요청시에는  _csrf값을 전송 불필요
  */
-@RestController
+@Controller
 public class RestApiController {
 	
 	
@@ -42,14 +46,11 @@ public class RestApiController {
 	 * isMember=service.isLogin(map); return isMember ? "회원입니다":"회원이 아닙니다"; }
 	 */
 	//JSON으로 제공시
-	@GetMapping(value="/member/json")
+	@ResponseBody
+	@RequestMapping(value="/member/json",produces ="text/html; charset=UTF-8")
 	public MemberDTO isMemberJsonByGet(MemberDTO member) {		
+		System.out.println(member.toString());
 		return service.isLogin(member);		
 	}
-	@PostMapping(value="/member/json")
-	public MemberDTO isMemberJsonByPost(MemberDTO member) {		
-		return service.isLogin(member);		
-	}
-		
 	
 }
