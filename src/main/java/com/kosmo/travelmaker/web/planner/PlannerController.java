@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kosmo.travelmaker.service.SpotsDTO;
 import com.kosmo.travelmaker.service.impl.CityServiceImpl;
+import com.kosmo.travelmaker.service.impl.PlannerServiceImpl;
 import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 
 @Controller
@@ -33,6 +34,8 @@ public class PlannerController {
 	@Resource (name="cityService")
 	private CityServiceImpl cityService;
 	
+	@Resource(name ="plannerService")
+	private PlannerServiceImpl plannerService;
 	
 
 	@RequestMapping(value = "Planner.kosmo")
@@ -41,6 +44,13 @@ public class PlannerController {
 		String[] city_no_list=map.get("city_no").toString().split(",");
 		for(String no:city_no_list) {
 			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
+		}
+		boolean savePlanner = plannerService.insertPlanner(session.getAttribute("id").toString());
+		
+		for(String city_no:city_no_list) {
+			if(plannerService.insertCities(Integer.parseInt(city_no.trim()))) {
+				System.out.println(city_no+" 도시가 저장되었습니다.");
+			};
 		}
 		model.addAttribute("city_no_name",city_no_name);
 		//String user_id=session.getAttribute("id").toString();
