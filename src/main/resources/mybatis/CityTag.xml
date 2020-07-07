@@ -8,13 +8,21 @@
 </select>
 
 <select id="CityTag" parameterType="java.util.Map" resultType="CityTagDTO">
-	SELECT CITY_NAME,COUNT(TAG_NAME) COUNT,C.CITY_NO,CITY_INTRO,CITY_IMG
-	FROM CITY C JOIN TAG_REL TR ON C.CITY_NO=TR.CITY_NO JOIN TAG T ON T.TAG_NO=TR.TAG_NO 
+	SELECT CITY_NAME,COUNT(T.TAG_NAME) COUNT,C.CITY_NO,CITY_INTRO,CITY_IMG
+	FROM CITY C JOIN TAG_REL TR ON C.CITY_NO=TR.CITY_NO JOIN TAG T ON T.TAG_NAME=TR.TAG_NAME  
 	WHERE
 	<foreach collection="tagAr" item="tag" open=" " close=" " separator="OR">
-	TAG_NAME=#{tag}
+	T.TAG_NAME=#{tag}
 	</foreach> 
 	GROUP BY CITY_NAME,C.CITY_NO,CITY_INTRO,CITY_IMG
-	ORDER BY COUNT(TAG_NAME) DESC
+	ORDER BY COUNT(T.TAG_NAME) DESC
+</select>
+
+<select id="searchCityList" parameterType="java.lang.String" resultType="java.lang.String">
+	SELECT CITY_NAME FROM CITY WHERE CITY_NAME LIKE '%' || #{search_keyword} || '%'
+</select>
+
+<select id="checkcity" parameterType="java.lang.String" resultType="java.util.Map">
+	SELECT CITY_NO,CITY_NAME from CITY WHERE CITY_NAME = #{search_city}
 </select>
 </mapper>

@@ -17,7 +17,113 @@
 	  var data = ev.dataTransfer.getData("text");
 	  ev.target.appendChild(document.getElementById(data));
 	} */
-	
+	$(function(){
+		$(".searchcitytag").click(function(event){
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},700);
+		});
+		$(".basketcity").click(function(event){
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},700);
+		});
+		
+		
+		$('#inputid').autocomplete({
+			source : function(request, response) {
+				$.ajax({
+		               url : "<c:url value='/TravelMaker/searchlist.kosmo'/>",
+		               type : "GET",
+		               dataType: "json",
+		               data : {"search_keyword" : $("#inputid").val()},
+		               success : function(data){
+		                  console.log(data);
+		                  response($.map(data, function(item){
+		                     return {
+		                        label: item,
+		                        value: item
+		                     }
+		                  }));
+		               },
+		               error : function(){ //실패
+		                     alert("통신에 실패했습니다.");
+		                  }
+		            });
+			},
+			 minLength : 1,
+	         autoFocus : false,
+	         select : function(evt, ui) {
+	        	 evt.preventDefault();
+	        	 console.log("전체 data: " + JSON.stringify(ui));
+	               console.log(ui.item.label);
+	               $('#inputid').val(ui.item.label);
+	               var e = $.Event( "keypress", { which: 13 } );
+	               $('#inputid').trigger(e);
+	               /* console.log("db Index : " + ui.item.idx);
+	               console.log("검색 데이터 : " + ui.item.value); */
+	               $('#inputid').val("");
+	               $('#inputid').focus();
+	           },
+	           focus : function(evt, ui) {
+	               return false;
+	           },
+	           close : function(evt) {
+	              
+	           }
+		})
+		
+		   $('#inputid').keypress(function(e){
+			   if(e.which == '13'){
+			        var string = $('#inputid').val()
+			        console.log(string);
+			        $.ajax({
+		        	   url : "<c:url value='/TravelMaker/checkcity.kosmo'/>",
+		               type : "GET",
+		               dataType: "json",
+		               data : {"search_city" : $("#inputid").val()},
+		               success : function(data){
+		            	   var name,no;
+		                 $.each(data,function(key,value){
+		                	 console.log('키:',key);
+		                	 console.log('밸루:',value);
+		                	 if(key=='CITY_NAME'){
+		                		 name=value;
+		                	 }
+		                	 else if(key=='CITY_NO'){
+		                		 no=value;
+		                	 }
+		                 });
+		                 console.log(name);
+		                 console.log(no);
+		                  /* response($.map(data, function(item){
+		                     return {
+		                        label: item,
+		                        value: item
+		                     }
+		                  })); */
+		                  $('#input-divs').prepend('<div class="cityname" style="margin:3px;border:1px solid gray;line-height:50px;font-size:25px;background-color:orange;color:red;display:inline;"><span>'+name+'</span><a href="javascript:;" onclick="wordexit(this);" class="ui-icon ui-icon-close" style="cursor:pointer;">'+no+'</a></div>')
+					        $('#inputid').val('')
+					        $('#inputid').focus()
+		               },
+		               error : function(){ //실패
+		                     alert("통신에 실패했습니다.");
+		                  }
+			        });
+			        /* console.log('keypress',string)
+			        $('#input-divs').prepend('<div class="cityname" style="margin:3px;border:1px solid gray;line-height:50px;font-size:25px;background-color:orange;color:red;display:inline;"><span>'+string+'</span><a href="javascript:;" onclick="wordexit(this);" class="ui-icon ui-icon-close" style="cursor:pointer;">'+string+'</a></div>')
+			        $('#inputid').val('')
+			        $('#inputid').focus() */
+			   }
+		   })
+		   
+		   
+	})
+		function wordexit(obj){
+			for(var i=0;i<$('div.cityname').length;i++){
+				if($('div.cityname:eq('+i+') span').html()==$(obj).html()){
+					$('div.cityname:eq('+i+')').remove();
+				}
+			}
+}
 	 function uploadFile(){
         var form = $('#FILE_FORM')[0];
         console.log(form);
@@ -86,14 +192,16 @@
 					var name = cityintroduce['city_name'];
 					var no = cityintroduce['city_no'];
 					var count = cityintroduce['count'];
-					console.log("이름:",name);
+					console.log("주소:",img);
 					var city="<li class=\"ui-widget-content ui-corner-tr\">";
 					city+="<h6 class=\"ui-widget-header\">"+name+"</h6>";
 					city+="<img src=\"/travelmaker"+img+"\" alt=\""+name+"\" width=\"96\" height=\"72\">";
 					city+="<a href=\"/travelmaker"+img+"\" title=\"상세보기\" class=\"ui-icon ui-icon-zoomin\">";
 					city+="상세보기</a>";
 					city+="<a href='link/to/trash/script/when/we/have/js/off' title=\"담기\" class=\"ui-icon ui-icon-plus\">";
-					city+="담기</a></li>";
+					city+="담기</a>";
+					city+="<input type='hidden' name='"+name+"' id='"+no+"' class='h_intro' value='"+intro+"'/>";
+					city+="</li>";
 					$(city).appendTo('#gallery');
 					console.log(city);
 					var $gallery = $("#gallery"),
@@ -101,6 +209,7 @@
 			        $items = $("#items");
 					if(data.length==i+1){
 						 //갤러리 항목을 드래그 할 수있게하십시오
+						 $(function(){
 					    $("li", $gallery).draggable({
 					      cancel: "a.ui-icon", //아이콘을 클릭하면 드래그가 시작되지 않습니다
 					      revert: "invalid", //떨어 뜨리지 않으면 아이템은 원래 위치로 되돌아갑니다
@@ -133,10 +242,13 @@
 
 					    function deleteImage($item) {
 					      var obj = cloneObject($item);
+					      console.log('obj:',obj.html());
+					      console.log(obj.length);
 					      var $list = $("ul", $trash).length ?
 					          $("ul", $trash) :
 					            $("<ul class='gallery ui-helper-reset'/>").appendTo($trash);//삼항 연산자
 					      obj.find("a.ui-icon-plus").remove();
+					            console.log('obj2:',obj.html());
 					      obj.append(recycle_icon).appendTo($list).fadeIn(function() {
 					        obj
 					          .animate({
@@ -163,13 +275,22 @@
 
 					    // image preview function, demonstrating the ui.dialog used as a modal window
 					    
-					   function viewLargerImage($link) {
+					    function viewLargerImage($link) {
 					         var src = $link.attr("href"), 
 					            title = $link.siblings("img").attr("alt"), 
 					            $modal = $("img[src$='" + src + "']");
-					         console.log(src);
-					         console.log($modal);
-					         console.log($modal.length);
+					         console.log($link);
+					         console.log('주소1:',src);
+					         console.log($('input[type=hidden]').val());
+					         $('.modal-body img').attr('src',src);
+					         $('.modal-title').html(title);
+					         $('.modal-body ul p:first').html(title);
+					         $('.modal-body ul p:last').html($('.h_intro[name$="'+title+'"]').val());
+					         $('#js-modal').modal('show');
+					         /* console.log($link) */
+					         /* console.log(src); */
+					         /* console.log($modal); */
+					         /* console.log($modal.length); */
 					         /* if ($modal.length) {
 					            $modal.dialog("open");
 					         }*/ 
@@ -178,7 +299,7 @@
 					            /* var img = $("<img class='sd' alt='" + title + "' style='display: none; padding: 8px;width:100%;height:100%;' />")
 					                  .prop("src",src).appendTo(".asd"); */
 					            /* console.log(img.attr("src")); */
-					            setTimeout(function() {
+					            /*setTimeout(function() {
 					               $("#dia").dialog({
 					                  title : title,
 					                  width : 600,
@@ -189,6 +310,9 @@
 					         /*} */
 					      }
 
+							$('#close').on('click',function(){
+								$('#js-modal').modal('hide');
+							});
 					      function cloneObject($item) {
 					         var obj = $item.clone();
 					         obj.draggable({
@@ -198,9 +322,10 @@
 					            helper : "clone",
 					            cursor : "move"
 					         });
-					         obj.live('click',function(event) {
+					         obj.click(function(event) {
 					            /* event.preventDefault(); */
 					            var $item = $(this), $target = $(event.target);
+					            console.log('타겟:',$target);
 					            if ($target.is("a.ui-icon-plus")) {
 					               deleteImage($item);
 					            } else if ($target.is("a.ui-icon-zoomin")) {
@@ -208,52 +333,47 @@
 					            } else if ($target.is("a.ui-icon-refresh")) {
 					               recycleImage($item);
 					            }
-
 					            return false;
 					         });
 					         return obj;
 					      }
 					      // resolve the icons behavior with event delegation
-					      $("ul.gallery > li").live('click',function(event) {
+					      $("ul.gallery > li").click(function(event) {
 					         var $item = $(this), $target = $(event.target);
-					         console.log($item.find("img").attr("alt"))
+					         console.log('피직컬:',$item.find("img").attr("alt"))
 					         /* $("#trash"). */
 					         if ($target.is("a.ui-icon-plus")) {
-					        	 if($item.find("img").attr("alt")){
-					        		 deleteImage($item);
-					        	 }
+					        	 var overlap=0;
+					        	 /* if($item.find("img").attr("alt")){ */
+					        	console.log('들어간갯수:',$('#trash ul li').length);
+					        	for(i=0;i<$('#trash ul li').length;i++){
+					        		console.log('클릭한이미지:',$(this).find("img").attr("alt"));
+					        		console.log('들어가있는이미지',$('#trash ul li:eq('+i+') img').attr("alt"));
+					        		if($(this).find("img").attr("alt")==$('#trash ul li:eq('+i+') img').attr("alt")){
+					        			overlap=1;
+					        		}
+					        	}
+					        	if(overlap==0){
+					        		deleteImage($item);
+					        	}
+					        	else{
+					        		alert('같은 도시는 장바구니에 넣을 수 없습니다');
+					        	}
+					        		 /* if($('#trash ul '+$item+'.find("img").attr("alt")')) */
+					        	 /* } */
 					         } else if ($target.is("a.ui-icon-zoomin")) {
+					        	 
 					            viewLargerImage($target);
 					         } else if ($target.is("a.ui-icon-refresh")) {
 					            recycleImage($item);
 					         }
 					         return false;
 					      });
-
-					      $("button#save").live('click',
-					            function() {
-					               var items = $("li", $("ul", $trash));
-					               for (var i = 0, len = items.length; i < len; i++) {
-					                  var item = items[i];
-					                  var element = {
-					                     title : $("h5", item).text(),
-					                     img : $("img", item).attr("src")
-					                  }
-					                  localStorage.setItem(i, JSON.stringify(element));
-					               }
-					               // 저장된 것을 확인
-					               for (var i = 0, len = localStorage.length; i < len; i++) {
-					                  var element = JSON.parse(localStorage.getItem(i));
-					                  $("ul#storedItems").append(
-					                        "<li> Title : " + element.title + "　File : "
-					                              + element.img);
-					               }
-					            });
-
-					      $("button#clear").live('click',function() {
-					         localStorage.clear();
-					         $("ul#storedItems li").remove();
-					      });
+							
+					      /* function preventClick(e){
+					    		e.preventDefalut()
+					    	} */
+						 })
 					}
 				});	
 			},
@@ -262,6 +382,36 @@
 			}
 		});
 	}
+	
+	function basketcity(){
+		console.log($('#trash ul li').length)
+		var string,no;
+		for(i=0;i<$('#trash ul li').length;i++){
+			string=$('#trash ul li:eq('+i+') input[type=hidden]').attr('name');
+			no=$('#trash ul li:eq('+i+') input[type=hidden]').attr('id');
+			$('#input-divs').prepend('<div class="cityname" style="margin:3px;border:1px solid gray;line-height:50px;font-size:25px;background-color:orange;color:red;display:inline;"><span>'+string+'</span><a href="javascript:;" onclick="wordexit(this);" class="ui-icon ui-icon-close" style="cursor:pointer;">'+no+'</a></div>');
+		}
+	};
+	function citypick(){
+		var city_name=new Array();
+		var city_no=new Array();
+		for(i=0;i<$('.cityname').length;i++){
+			console.log($('div.cityname:eq('+i+') span').html());
+			console.log($('div.cityname:eq('+i+') a').html());
+			city_name.push($('div.cityname:eq('+i+') span').html());
+			city_no.push($('div.cityname:eq('+i+') a').html());
+		}
+		var citynames=city_name.toString();
+		var citynos=city_no.toString();
+		console.log(citynames);
+		console.log(citynos);
+		$('input[name=city_no]').val(citynos);
+		$('input[name=city_name]').val(citynames);
+		console.log($('input[name=city_no]').val());
+		console.log($('input[name=city_name]').val());
+	};
+	
+	
 </script>
 
 <!-- ======= Hero Section ======= -->
@@ -286,11 +436,20 @@
 					가고 싶은 곳을 입력해보세요 ex)<span class="typed"
 						data-typed-items="세부, 다낭, 괌, 발리, 보라카이"></span>
 				</p>
-				<div>
-					<input type="text" name="searchWord" class="form-control"
-						style="opacity: 0.5;" />
-					<button type="submit" class="btn btn-mycolor">검색</button>
+				<div id="input-divs" style="border:2px solid black;opacity:0.5;border-radius: 5px;width:900px;height:50px;display:table-cell;vertical-align: middle;">
+					<input type="text" name="searchWord" id="inputid" class="form-control"
+						style="line-height:50px;opacity: 0.5;font-weight:bold;height:40px;width:150px;display:inline;" />
 				</div>
+				<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
+				<div
+					class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+					<input type="hidden" value="2,9,10" name="city_no">
+					<input type="hidden" id="ctiyname" name="city_name"/>
+					<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
+					<button class="home_search_button citysearch" onclick="citypick();">도시선택</button>
+					<!-- btn-lg float-right -->
+				</div>
+			</form>
 				<div class="social-links">
 					<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a> <a
 						href="#" class="facebook"><i class="bx bxl-facebook"></i></a> <a
@@ -377,7 +536,7 @@
 									type="checkbox" value="Landmark"/></li>
 								<li><i class="icofont-rounded-right"></i><strong>Sea</strong><input
 									type="checkbox" value="Sea"/></li>
-								<li><i class="icofont-rounded-right"></i><strong>Ocean</strong><input
+								<li><i class="icofont-rounded-right"></i><strong>Waterfall</strong><input
 									type="checkbox" value="Ocean"/></li>
 								<li><i class="icofont-rounded-right"></i><strong>Historic Site</strong><input 
 								type="checkbox" value="Historic Site"/></li>
@@ -392,7 +551,7 @@
 
 							<!-- <button type="submit" class="citysearch" value="관련 도시 검색"></button>
  -->
-							<a class="citytag" href="javascript:citytag();">관련 도시 검색</a>
+							<a class="searchcitytag" href="#resume" onclick="citytag();">관련 도시 검색</a>
 								
 						</div>
 					</div>
@@ -445,47 +604,69 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-8" style="background-color: red;">
+				<div class="col-md-8">
 					<div class="ui-widget ui-helper-clearfix">
 						<ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
-							<li class="ui-widget-content ui-corner-tr">
+							<%-- <li class="ui-widget-content ui-corner-tr">
 								<h6 class="ui-widget-header">세부</h6> <img
-								src="<c:url value='/images/세부.jpg'/>" alt="세부" width="96"
-								height="72"> <a href='<c:url value="/images/세부.jpg"/>'
+								src="<c:url value='/plugins/assets/img/세부.jpg'/>" alt="세부" width="96"
+								height="72"> <a href='<c:url value="/plugins/assets/img/세부.jpg"/>' onclick='preventClick(event)'
 								title="상세보기" class="ui-icon ui-icon-zoomin">View larger</a> <a
 								href="link/to/trash/script/when/we/have/js/off" title="담기"
 								class="ui-icon ui-icon-plus">Delete image</a>
-							</li>
+							</li> --%>
 						</ul>
 					</div>
 				</div>
-					<div class="col-md-4" style="background-color: blue;">
-						<div id="trash" class="ui-widget-content ui-state-default" style="width:100%;height:100%;">
+					<div class="col-md-4">
+						<div id="trash" class="ui-widget-content ui-state-default" style="width:100%;position:relative;height:100%;">
 							<h5 class="ui-widget-header">
 								저장된 도시:<span id="items">0</span>
 								<!-- <span class="ui-icon ui-icon-trash"></span> Trash -->
 							</h5>
+								<a href="#hero" class="basketcity" onclick="basketcity();" style="position:absolute; right:0px; bottom:0px;">
+									저장완료
+									<!-- <span class="ui-icon ui-icon-trash"></span> Trash -->
+								</a>
 						</div>
 					</div>
 			</div>
-			<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
-				<div
-					class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-					<input hidden="true" value="2,9,10" name="city_no">
-					<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
-					<button class="home_search_button citysearch">도시선택</button>
-					<!-- btn-lg float-right -->
-				</div>
-			</form>
 		</div>
-		<div id="dia" style="width: 600px; height: 600px;display:none;">
-            <img src="<c:url value='/images/세부.jpg'/>" alt="세부" align="left"
-               style="width: 300px; height:300px;" />
+		<%-- <div id="dia" style="width: 600px; height: 600px;display:none;">
+            <img src="<c:url value='/plugins/assets/img/세부.jpg'/>" alt="세부" align="left"
+               style="width:300px;height:300px;" />
             <div style="padding-left:5px;">
             <h3>고래상어 스쿠버다이빙과 스페인 종교건축물들이 기다리는 필리핀 옛 수도</h3>
             <a href="<c:url value='/'/>">리뷰바로가기</a>
-        </div>
-      </div>
+        </div> --%>
+		<div class="modal fade" id="js-modal" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">세부</h4>
+						<button class="close" data-dismiss="modal">
+							<span>&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<!-- <button class="close" id="close">
+		    		ad
+		    		</button> -->
+						<img src='<c:url value="/plugins/assets/img/세부.jpg"/>' style="width: 100%;">
+						<ul>
+							<li>도시이름:</li>
+							<p>세부</p>
+							<li>도시소개:</li>
+							<p>한줄평</p>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<a href="#">리뷰이동</a>
+						<button class="btn btn-info" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 	<!-- End Resume Section -->
 	

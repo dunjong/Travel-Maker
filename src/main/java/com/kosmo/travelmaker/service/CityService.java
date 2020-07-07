@@ -5,4 +5,6 @@ import java.util.Map;
 public interface CityService {
 
 	CityDTO selectCityDTO(int city_no);
+
+	int selectCityNo(Map map);
 }

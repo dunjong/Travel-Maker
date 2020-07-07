@@ -81,45 +81,44 @@ public class AirController {
 	  	List<Map> dataList = new Vector<Map>();
 	  	Map itineraryMap = new HashMap();
 	  	List segmentsList = new Vector();
-	  	Map segmentMap = new HashMap();
+	  	Map cityIataCodeMap = new HashMap();
 	  	//data에 왕복티켓1매의 전체정보가 저장되어있음(data[max값],최대갯수는 아마데우스클래스의 인자max로 결정)
         for (FlightOfferSearch data : flightOffersSearches) {
-        	segmentsList = new Vector();
-  			//itinerary[0]출발지에서 경유몇회거쳐서 도착지까지
-        	//itinerary[1]도착지에서 경유몇회거쳐서 출발지까지 즉 itinerary는 2개로 고정
-        	//티켓의 가격정보저장
-        	double totalPrice = flightOffersSearches[0].getPrice().getTotal();
-        	double basePrice = flightOffersSearches[0].getPrice().getBase();
-	  		for (Itinerary itinerary : data.getItineraries()) {
-	  			segmentMap = new HashMap();
+	  		for (int k=0;k<data.getItineraries().length;k++) {
 	  			//출발에서 도착까지 걸리는 시간
-	  			String originToDestTime = itinerary.getDuration();
+	  			String originToDestTime = data.getItineraries()[k].getDuration();
 	  			//도착에서 출발까지 걸리는 시간
-  				String DestToOriginTime = itinerary.getDuration();
+  				String DestToOriginTime = data.getItineraries()[k].getDuration();
   				//출발시간
-  				String startTime = itinerary.getSegments()[0].getDeparture().getAt();
+  				String startTime = data.getItineraries()[k].getSegments()[0].getDeparture().getAt();
   				//도착시간
-  				String endTime = itinerary.getSegments()[itinerary.getSegments().length].getArrival().getAt();
+  				String endTime = data.getItineraries()[k].getSegments()[data.getItineraries()[k].getSegments().length-1].getArrival().getAt();
 	  			//경유 횟수는 segments갯수로 계산함
-	  			int gyeongUCount = itinerary.getSegments().length - 1;
-	  			for (int i=0;i < itinerary.getSegments().length;i++) {
+	  			int gyeongUCount = data.getItineraries()[k].getSegments().length - 1;
+	  			cityIataCodeMap = new HashMap();
+	  			//출발-경유-도착까지의 도시이름, 도착-경유-출발까지의 도시이름을 맵에 전부저장 : key값은 0부터시작하는 i값
+	  			for (int i=0;i < data.getItineraries()[k].getSegments().length;i++) {
 	  				//출발지,경유지들 iataCode 한번씩 저장
-	  				segmentMap.put(i,itinerary.getSegments()[i].getDeparture().getIataCode());
-	  				if(i==itinerary.getSegments().length)
+	  				cityIataCodeMap.put(i,data.getItineraries()[k].getSegments()[i].getDeparture().getIataCode());
+	  				if(i==data.getItineraries()[k].getSegments().length)
 	  					//마지막segment의 출발지를 입력할때 도착지까지입력
 	  					//즉 첫번째 방에 출발지, 마지막 방에 도착지 중간방에 경유지들을 저장
-	  					segmentMap.put(i+1,itinerary.getSegments()[i].getArrival().getIataCode());
+	  					cityIataCodeMap.put(i+1,data.getItineraries()[k].getSegments()[i].getArrival().getIataCode());
 	  			}
+	  			//출발에서 도착까지 필요한 정보들
+	  			segmentsList = new Vector();
 	  			segmentsList.add(originToDestTime);
 	  			segmentsList.add(DestToOriginTime);
 	  			segmentsList.add(startTime);
 	  			segmentsList.add(endTime);
 	  			segmentsList.add(gyeongUCount);
-	  			segmentsList.add(segmentMap);
+	  			segmentsList.add(cityIataCodeMap);
+		  		itineraryMap.put("segmentsList"+k,segmentsList);
 	  		}
-	  		itineraryMap.put("totalPrice",Double.toString(totalPrice));
-	  		itineraryMap.put("basePrice",Double.toString(basePrice));
-	  		itineraryMap.put("segmentsList",segmentsList);
+	  		//왕복티켓하나에서 필요한 정보들
+	  		itineraryMap.put("totalPrice",Double.toString(data.getPrice().getTotal()));
+	  		itineraryMap.put("basePrice",Double.toString(data.getPrice().getBase()));
+	        dataList.add(itineraryMap);
 	  	}
         model.addAttribute("list", dataList);
         model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);

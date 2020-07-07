@@ -326,7 +326,7 @@ var hostnameRegexp = new RegExp('^https?://.+?/');
 var nearSearchType='lodging';
 var keyword='';
 //출발지 선언
-var origin='방콕,태국';
+var origin='${origin.origin}';
 //도착지 선언
 var destination=origin;
 //선택된 장소 넣는 배열 선언
@@ -346,6 +346,7 @@ var span;
 //일차마다 선택된 호텔과 장소들 담는 JSON 선언
 var hotelInfo={}
 var spotInfo={}
+var spotsForSave={};
 //선택된 일차 선언
 var day=1;
 //몇일치 일지 정하는 수 선언(넘어오는 값) 지금은 5일차
@@ -574,18 +575,18 @@ function initMap() {
 	   });////map.addListener
   
 }////initMap
-	
-	
-	
-function getDetailById(placeId){ 
+
+async function getDetailById(placeIds){ 
 	servicePlace = new google.maps.places.PlacesService(map);
-	servicePlace.getDetails({placeId: placeId},
-            function(place, status) {
+	var place_detail=servicePlace.getDetails({placeId: placeIds},
+            await function(place, status) {
               if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                return;
+                return '없음';
               }
+              console.log('place in func',place);
               return place;
             });
+	return place_detail;
 }////getDetailById
 
 $(function(){
@@ -612,22 +613,35 @@ $(function(){
 		console.log('data',data)
 		servicePlace = new google.maps.places.PlacesService(map);
 		
-		$.each(data[0], async function (date,item) {
+		
+		
+		
+		
+		
+		$.each(data[0], function (date,item) {
 			console.log('date:',date,',item:',item);
-			for(var i=0;i<item.length;i++){
-				await servicePlace.getDetails({placeId: item[i]},
+			$.each(item, function (index,spot_id) {
+				placeDetailnSave(spot_id,date.substring(3))
+				servicePlace.getDetails({placeId: spot_id},
 	          	  		function(place, status) {
 	              		if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	              				console.log('place in OK func',place)
 	                			return;
 	             	 	}
-	  			
+	  				console.log('place.name:',date,index,place.name)
 					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
-					spots=[]
-					spots.push(placelatlng);
-					dayplans[date]={'origin':origin,'spots':spots}
-			
+					if(dayplans[date]==undefined){
+	  					spots=[]
+	  					spots.push(placelatlng);
+	  					dayplans[date]={'origin':origin,'spots':spots};
+	  					console.log('없을때')
+					}
+					else{
+		  				dayplans[date]['spots'].push(placelatlng);
+		  				console.log('있을때')
+					}
 	           		 	});
-			}
+			})
 		})////each
 
 	};/////successAjax 
@@ -671,7 +685,6 @@ $(function(){
 	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
 	                return;
 	              }
-	              console.log('place in placeDetail:',place)
 	               if(nearSearchType=='lodging'){
 	            	   console.log('day in save',day)
 	             	   hotelInfo['day'+date]={'hotel':place}
@@ -679,10 +692,13 @@ $(function(){
 	               else{
 	            	   if(spotInfo['day'+date]==undefined){
 		            	   var savedSpot=[]
+		            	   spotsForSave['day'+date]=[];
+		            	   spotsForSave['day'+date].push(place.id);
 		            	   savedSpot.push({'spot':place})
 		            	   spotInfo['day'+date]=savedSpot
 	            	   }
 	            	   else{
+	            		   spotsForSave['day'+date].push(place.id);
 	            		   spotInfo['day'+date].push({'spot':place})
 	            	   }
 	               }
@@ -724,18 +740,20 @@ $(function(){
   }////box
   
   function clearBox(){
-	  if(markers.length!=0){
-		   //확인용
-	    	   //	console.log('click Markers',markers);
-		   //
-	   	    removeMarkers(markers);
-	   	    markers=[];
-	   	   }
-	  var savedSpot=[]
-	  spots=dayplans['day'+day].spots=[];
-	  spotInfo['day'+day]=savedSpot
-	  displayRoute(origin, destination, directionsService,
-		       directionsRenderer,spots);
+	  if(confirm('현재 플랜을 정말 삭제하시겠습니까?')){
+		  if(markers.length!=0){
+			   //확인용
+		    	   //	console.log('click Markers',markers);
+			   //
+		   	    removeMarkers(markers);
+		   	    markers=[];
+		   	   }
+		  var savedSpot=[]
+		  spots=dayplans['day'+day].spots=[];
+		  spotInfo['day'+day]=savedSpot
+		  displayRoute(origin, destination, directionsService,
+			       directionsRenderer,spots);
+	  }
   }////clearBox
   
  
@@ -1054,15 +1072,27 @@ $(function(){
  }
  
  function clearPlanBox() {
-	spotInfo={}
-	dayplans={};
-	alert('모든 플랜들이 삭제되었습니다')
+	 if(confirm('모든 플랜들을 정말 삭제하시겠습니까?')){
+		spotInfo={}
+		dayplans={};
+		alert('모든 플랜들이 삭제되었습니다')
+	 }
 }
  
  function back() {
-	 alert('도시에 대한 일정이 모두 저장되었습니다')
-	 $('#frm').prop('action','<c:url value="/TravelMaker/Planner.kosmo"/>')
- 	 $('#frm').submit()
+	 $.ajax({
+			url:'<c:url value="PlanSave.kosmo"/>',
+			data:{city:origin,day1:spotsForSave.day1,day2:spotsForSave.day2,day3:spotsForSave.day3,day4:spotsForSave.day4,day5:spotsForSave.day5},
+			success:function(){
+				window.location.href="<c:url value='Planner.kosmo?city_no=2,9,10'/>"
+			},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
 	}
  
 </script>	
@@ -1070,15 +1100,12 @@ $(function(){
 	<div class="intro">
 		
 		<div class="intro_container" style="margin-left:150px;width:80%">
-			<div>
-				<form hidden="true" id="frm">
-				</form>
-			</div>
+			
 			<div hidden="true" id=day></div>
 			
-					<input type="text" id="city-no"  value="9" name="city_no" hidden="true" >
+					<input type="text" id="city-no"  value="${city_no}" name="city_no" hidden="true" >
 					<button  class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">자동 완성 불러오기</button>
-			
+					
 			
 			<div class="row">
 				<div class="col-sm-10">

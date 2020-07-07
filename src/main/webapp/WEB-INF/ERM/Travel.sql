@@ -200,15 +200,15 @@ CREATE TABLE tag
 (
 	tag_no number NOT NULL,
 	tag_name nvarchar2(200) NOT NULL,
-	PRIMARY KEY (tag_no)
+	PRIMARY KEY (tag_name)
 );
 
 
 CREATE TABLE tag_rel
 (
-	tag_no number NOT NULL,
-	city_no number NOT NULL,
 	tal_rel_no number NOT NULL,
+	tag_name nvarchar2(200) NOT NULL,
+	city_no number NOT NULL,
 	PRIMARY KEY (tal_rel_no)
 );
 
@@ -216,10 +216,10 @@ CREATE TABLE tag_rel
 CREATE TABLE userinfo
 (
 	user_id nvarchar2(200) NOT NULL,
-	user_name nvarchar2(200) NOT NULL,
+	user_name nvarchar2(200),
 	user_pwd nvarchar2(50) NOT NULL,
-	user_rrn number,
-	user_gender nvarchar2(10),
+	user_rrn nvarchar2(40) NOT NULL,
+	user_gender nvarchar2(10) NOT NULL,
 	PRIMARY KEY (user_id)
 );
 
@@ -294,8 +294,8 @@ ALTER TABLE auto_save
 
 
 ALTER TABLE tag_rel
-	ADD FOREIGN KEY (tag_no)
-	REFERENCES tag (tag_no)
+	ADD FOREIGN KEY (tag_name)
+	REFERENCES tag (tag_name)
 ;
 
 

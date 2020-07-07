@@ -18,5 +18,10 @@ public class CityDAO {
 		return sqlMapper.selectOne("selectOneCity",city_no);
 		
 	}
+
+	public int selectOneCityNo(Map map) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectOneCityNo",map);
+	}
 	
 }

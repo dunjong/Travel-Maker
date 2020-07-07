@@ -4,124 +4,109 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
-    $(function(){   
-/*    console.log('${list[0].get("gyeongUName")[0]}')
-      console.log('${list[0].get("total")}')
-      console.log('${list[0].get("base")}')
-      console.log('${list[0].get("Dtime")}')
-      console.log('${list[0].get("Dcode")}')
-      console.log('${list[0].get("Atime")}')
-      console.log('${list[0].get("Acode")}')
-      console.log('${list[0].get("Tovia")}')
-      console.log('${list[0].get("Devia")}')
-      console.log('${list[0].get("Arvia")}')    */
-      var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
-      for(var i=0;i<5;i++){
-         list+="<div class='container'>";
-         list+="<div class='alert alert-success'>";
-         list+="<div class='row'>";
-         list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
-         list+="<div id='AirList' class='row' style='text-align:center'>";
-         list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
-         list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
-             
-         list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
-         list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[0].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>1회 경유${list[k][i].Dvia}</Strong></div></div>";
-         list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
-         list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
-         list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
-         list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[1].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>1회 경유${list[i][i].Dvia}</Strong></div></div>";       
-         list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
-         list+="</div>";
-         list+="</div>";
-         list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-         list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦<fmt:formatNumber value='${list[0].get("base")}' pattern="#,###"/>원</Strong><br><small>총 가격<fmt:formatNumber value='${list[0].get("total")}' pattern="#,###"/>원</small></div><br>";
-         list+="<a href=<c:url value='/TravelMaker/AirView.kosmo'/>><button type='button' class='btn btn-success btn-lg' style='cursor:pointer;'><Strong>선택 →</Strong></button></a>";
-         list+="</div>";
-         list+="</div>";
-         list+="</div>";
-         list+="</div>";   
-         
-            
+	$(function(){   
+		console.log('${list}')
+		/* 
+		console.log('${list[0].get("total")}')
+		console.log('${list[0].get("base")}')
+		console.log('${list[0].get("Dtime")}')
+		console.log('${list[0].get("Dcode")}')
+		console.log('${list[0].get("Atime")}')
+		console.log('${list[0].get("Acode")}')
+		console.log('${list[0].get("Tovia")}')
+		console.log('${list[0].get("Devia")}')
+		console.log('${list[0].get("Arvia")}')    
+		 */
+		/*
+		var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
+			for(var i=0;i<5;i++){
+			list+="<div class='container'>";
+			list+="<div class='alert alert-success'>";
+			list+="<div class='row'>";
+			list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+			list+="<div id='AirList' class='row' style='text-align:center'>";
+			list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+			list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
 
-      }
-        $('#list').html(list);
-      $( "#departureDate" ).datepicker({
-         showAnim: "slideDown",
-         dateFormat: "yy-mm-dd",
-         minDate: new Date(),
-         onSelect:function(dateText){
-            $('#display').html(dateText);
-         }
-      });
-      $( "#returnDate" ).datepicker({
-         showAnim: "slideDown",
-         dateFormat: "yy-mm-dd",
-         minDate: new Date(),
-         onSelect:function(dateText){
-            $('#display').html(dateText);
-         }
-      });
-      //option을 {}객체(json)로 줄때는 함수의 인자로 처음부터 주거나
-      /* $( "#datepicker" ).datepicker({
-         showAnim: "bounce",
-         dateFormat: "yy년 mm월 dd일"
-      }); */
-      //{}이 아닌 인자로 option을 줄때(setter로)는 datepicker()로 생성후에
-      //$( "#datepicker" ).datepicker();
-      //setter
-      //$( "#datepicker" ).datepicker('option','showAnim','fold');
-      //$( "#datepicker" ).datepicker('option','dateFormat','yy년 mm월 dd일');
-         /* $(function () {
-               $('[data-toggle="popover"]').popover()
-               }) */           
+			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
+			list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[0].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>1회 경유${list[k][i].Dvia}</Strong></div></div>";
+			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
+			list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
+			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
+			list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[1].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>1회 경유${list[i][i].Dvia}</Strong></div></div>";       
+			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
+			list+="</div>";
+			list+="</div>";
+			list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+			list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦<fmt:formatNumber value='${list[0].get("base")}' pattern="#,###"/>원</Strong><br><small>총 가격<fmt:formatNumber value='${list[0].get("total")}' pattern="#,###"/>원</small></div><br>";
+			list+="<a href=<c:url value='/TravelMaker/AirView.kosmo'/>><button type='button' class='btn btn-success btn-lg' style='cursor:pointer;'><Strong>선택 →</Strong></button></a>";
+			list+="</div>";
+			list+="</div>";
+			list+="</div>";
+			list+="</div>";
+		}
+		$('#list').html(list); */
+		$( "#departureDate" ).datepicker({
+			showAnim: "slideDown",
+			dateFormat: "yy-mm-dd",
+			minDate: new Date(),
+			onSelect:function(dateText){
+			$('#display').html(dateText);
+		}
+	});
+    $( "#returnDate" ).datepicker({
+		showAnim: "slideDown",
+		dateFormat: "yy-mm-dd",
+		minDate: new Date(),
+		onSelect:function(dateText){
+		$('#display').html(dateText);
+	}
+});
 		$('#departure').on('keyup',function(){
-            var deplist=document.getElementById('deplist')
-            //deplist.remove();
-            deplist.innerHTML=''
-            var depstr=[]
-            var depname=[]
-             var value=$(this).val();
-             var settings = {
-                   "async" : false,
-                   "crossDomain" : true,
-                   "url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
-                   "method" : "GET",
-                   "headers" : {
-                      "x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-                      "x-rapidapi-key" : "${AutoCompleteApiKey}"
+			var deplist=document.getElementById('deplist')
+			//deplist.remove();
+			deplist.innerHTML=''
+			var depstr=[]
+			var depname=[]
+			var value=$(this).val();
+			var settings = {
+				"async" : false,
+				"crossDomain" : true,
+				"url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
+				"method" : "GET",
+				"headers" : {
+					"x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+					"x-rapidapi-key" : "${AutoCompleteApiKey}"
+				}
+			}
+			$.ajax(settings).done(function(response) {
+				console.log(response)
+				console.log(value)
+                var PlaceId
+                var PlaceName
+                for(var i=0;i<response.Places.length;i++){
+                    PlaceId=response.Places[i].PlaceId
+                    PlaceName=response.Places[i].PlaceName
+                    depstr.push(PlaceId)
+                	depname.push(PlaceName)
                    }
-             }
-            $.ajax(settings).done(function(response) {
-	                console.log(response)
-	                console.log(value)
-	                var PlaceId
-	                var PlaceName
-	                for(var i=0;i<response.Places.length;i++){
-	                    PlaceId=response.Places[i].PlaceId
-	                    PlaceName=response.Places[i].PlaceName
-	                    depstr.push(PlaceId)
-	                	depname.push(PlaceName)
-	                   }
-	                for(var i=1;i<depstr.length;i++){
-	                    	var div=document.createElement('div')
-	                		div.className='btn btn-warning'
-	                        div.setAttribute('name',depstr[i].substring(0,3))
-	                		div.textContent=depname[i]+':'+depstr[i].substring(0,3)
-	                        deplist.appendChild(div)
-	                        }
-	                $('.btn-warning').on('click',function(){
-	                    console.log('this:',this.innerHTML.split(':')[1])
-	                	$('#departure').prop('value',this.innerHTML.split(':')[1])
-	                })
-	                console.log('depstr',depstr)
-	                $('#departure').attr('data-content',depstr.toString());
-	            	
-                });/////
-                $('#deplist').on('click',function(){
-                	deplist.innerHTML='';
+                for(var i=1;i<depstr.length;i++){
+                    	var div=document.createElement('div')
+                		div.className='btn btn-warning'
+                        div.setAttribute('name',depstr[i].substring(0,3))
+                		div.textContent=depname[i]+':'+depstr[i].substring(0,3)
+                        deplist.appendChild(div)
+                        }
+                $('.btn-warning').on('click',function(){
+                    console.log('this:',this.innerHTML.split(':')[1])
+                	$('#departure').prop('value',this.innerHTML.split(':')[1])
                 })
-            
+                console.log('depstr',depstr)
+                $('#departure').attr('data-content',depstr.toString());
+			});/////
+            $('#deplist').on('click',function(){
+            	deplist.innerHTML='';
+            })
         })
           
           $('#arrival').on('keyup',function(){
