@@ -1,5 +1,5 @@
 
-/* Drop Tables */
+/* Drop Tables
 
 DROP TABLE accompany CASCADE CONSTRAINTS;
 DROP TABLE air CASCADE CONSTRAINTS;
@@ -7,21 +7,20 @@ DROP TABLE review CASCADE CONSTRAINTS;
 DROP TABLE auto_spots CASCADE CONSTRAINTS;
 DROP TABLE auto_plan CASCADE CONSTRAINTS;
 DROP TABLE auto_save CASCADE CONSTRAINTS;
+DROP TABLE save_spots CASCADE CONSTRAINTS;
+DROP TABLE plan CASCADE CONSTRAINTS;
 DROP TABLE cities CASCADE CONSTRAINTS;
 DROP TABLE tag_rel CASCADE CONSTRAINTS;
 DROP TABLE city CASCADE CONSTRAINTS;
 DROP TABLE hotel CASCADE CONSTRAINTS;
-DROP TABLE save_spots CASCADE CONSTRAINTS;
-DROP TABLE plan CASCADE CONSTRAINTS;
 DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE planner CASCADE CONSTRAINTS;
 DROP TABLE tag CASCADE CONSTRAINTS;
 DROP TABLE userinfo CASCADE CONSTRAINTS;
 
-
+ */
 
 /* Drop Sequences */
-
 DROP SEQUENCE seq_acc;
 DROP SEQUENCE seq_air;
 DROP SEQUENCE seq_auto_plan;
@@ -40,22 +39,51 @@ DROP SEQUENCE seq_tag_rel;
 
 
 
+
 /* Create Sequences */
 
-CREATE SEQUENCE seq_acc;
-CREATE SEQUENCE seq_air;
-CREATE SEQUENCE seq_auto_plan;
-CREATE SEQUENCE seq_cities;
-CREATE SEQUENCE seq_city;
-CREATE SEQUENCE seq_hotel;
-CREATE SEQUENCE seq_plan;
-CREATE SEQUENCE seq_planner;
-CREATE SEQUENCE seq_res;
-CREATE SEQUENCE seq_review;
-CREATE SEQUENCE seq_spot_auto;
-CREATE SEQUENCE seq_spot_save;
-CREATE SEQUENCE seq_tag;
-CREATE SEQUENCE seq_tag_rel;
+CREATE SEQUENCE seq_acc
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_air
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_auto_plan
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_cities
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_city
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_hotel
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_plan
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_planner
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_res
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_review
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_spot_auto
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_spot_save
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_tag
+NOCYCLE
+NOCACHE;
+CREATE SEQUENCE seq_tag_rel
+NOCYCLE
+NOCACHE;
 
 
 
@@ -114,9 +142,9 @@ CREATE TABLE auto_spots
 
 CREATE TABLE cities
 (
+	cities_no number NOT NULL,
 	city_no number,
 	planner_no number NOT NULL,
-	cities_no number NOT NULL,
 	PRIMARY KEY (cities_no)
 );
 
@@ -151,7 +179,7 @@ CREATE TABLE plan
 (
 	plan_no number NOT NULL,
 	plan_date nvarchar2(200) NOT NULL,
-	planner_no number NOT NULL,
+	cities_no number,
 	PRIMARY KEY (plan_no)
 );
 
@@ -239,6 +267,12 @@ ALTER TABLE review
 ;
 
 
+ALTER TABLE plan
+	ADD FOREIGN KEY (cities_no)
+	REFERENCES cities (cities_no)
+;
+
+
 ALTER TABLE auto_plan
 	ADD FOREIGN KEY (city_no)
 	REFERENCES city (city_no)
@@ -270,12 +304,6 @@ ALTER TABLE accompany
 
 
 ALTER TABLE cities
-	ADD FOREIGN KEY (planner_no)
-	REFERENCES planner (planner_no)
-;
-
-
-ALTER TABLE plan
 	ADD FOREIGN KEY (planner_no)
 	REFERENCES planner (planner_no)
 ;
