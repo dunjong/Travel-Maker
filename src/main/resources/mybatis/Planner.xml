@@ -3,10 +3,10 @@
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Planner">
-	<insert id="insertPlanner">
-		INSERT INTO PLANNER VALUES(seq_planner.nextval,0,'KIM')
+	<insert id="insertPlanner" parameterType="java.lang.String">
+		INSERT INTO PLANNER VALUES(seq_planner.nextval,0,#{id})
 	</insert>
-	<insert id="insertCities" parameterType="java.lang.String">
-		INSERT INTO PLANNER VALUES(seq_cities.nextval,#{city_no},3)
+	<insert id="insertCities" parameterType="int">
+		INSERT INTO cities VALUES(seq_cities.nextval,#{city_no},seq_planner.currval)
 	</insert>
 </mapper>

@@ -21,13 +21,13 @@ public class PlannerServiceImpl implements PlannerService{
 
 
 	@Override
-	public boolean insertPlanner() {
+	public boolean insertPlanner(String id) {
 		// TODO Auto-generated method stub
-		return plannerDAO.insertPlanner();
+		return plannerDAO.insertPlanner(id);
 	}
 
 	@Override
-	public boolean insertCities(String city_no) {
+	public boolean insertCities(int city_no) {
 		return plannerDAO.insertCities(city_no);
 	}
 	

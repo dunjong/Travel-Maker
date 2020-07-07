@@ -46,10 +46,10 @@ public class PlannerController {
 			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
 			
 		}
-		boolean savePlanner = plannerService.insertPlanner();
+		boolean savePlanner = plannerService.insertPlanner(session.getAttribute("id").toString());
 		
 		for(String city_no:city_no_list) {
-			if(plannerService.insertCities(city_no)) {
+			if(plannerService.insertCities(Integer.parseInt(city_no.trim()))) {
 				System.out.println(city_no+" 도시가 저장되었습니다.");
 			};
 		}
