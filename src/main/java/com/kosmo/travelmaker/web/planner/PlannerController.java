@@ -52,23 +52,6 @@ public class PlannerController {
 	}
 	
 	
-	@RequestMapping(value = "Planner.kosmo",method=RequestMethod.POST)
-	public String MapToPlanner(@RequestParam Map map,Model model) {
-		Map planner = new HashMap();
-		List<String> city_no_name=new Vector<String>();
-		String[] city_no_list=map.get("city_no").toString().split(",");
-		int i=0;
-		for(String no:city_no_list) {
-			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
-			planner.put("name"+i, cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
-			planner.put("startdate"+i, cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
-			i++;
-		}
-		model.addAttribute("city_no_name",city_no_name);
-		model.addAttribute("returnFromMap",false);
-		return "planner/Planner";
-	}
-	
 	@RequestMapping("Plan.kosmo")
 	public String Plan(@RequestParam Map map, Model model) {
 
