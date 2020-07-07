@@ -78,23 +78,8 @@
          font-weight:border;
          font-height:30px;
       }
-      #day{
-      	color:green;
-      	border:thick double #32a1ce
-      }
-      #buttons-show,#buttons-plan,#buttons-total,#distance,#logo{
-      	border:thick double #32a1ce;
-      	text-align:center;
-      }
-      #buttons-show > div{
-      	margin: 10px;
-      }
-      #buttons-plan > div{
-      	margin: 10px;
-      }
-      #buttons-total > div{
-      	margin: 10px;
-      }
+     
+      
       #distance h4{
       	color:black;
       }
@@ -102,11 +87,24 @@
       	height:50px;
       	width:50px
       }
+      #buttons-show,#buttons-plan,#buttons-total,#logo{
+      	width:100%;
+      	height:100%;
+      	border:red solid 1px;
+      	border-radius: 6px;
+      	
+      }
+      #distance{
+      	text-align: center;
+      }
       #planBox .row {
-       	border:thick double #32a1ce;
+      	width:100%;
+      	padding-bottom:10px;
+      	border:red solid 1px;
+      	
+       	
       }
        #planBox .row > div > div{
-      	margin:10px;
       }
       #md-image img{
 	      width:580px;
@@ -151,9 +149,9 @@
   background:#1AAB8A;
   color:#fff;
   border:none;
-  position:relative;
   height:55px;
   width:100%;
+  text-align:center;
   line-height:55px;
   font-size:0.9em;
   cursor:pointer;
@@ -163,16 +161,15 @@
 }
 .planview:hover{
   background:#fff;
-  color:#1AAB8A;
+  color:rgba(0, 188, 212, 0.3);
 }
 .planview:before,.planview:after{
   content:'';
-  position:absolute;
   top:0;
   right:0;
   height:2px;
   width:0;
-  background: #1AAB8A;
+  background: rgba(0, 188, 212, 0.3);
   transition:400ms ease all;
 }
 .planview:after{
@@ -232,7 +229,7 @@
 }
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 .snip1535 {
-  background-color: #5858FA;
+  background-color: rgba(0, 188, 212, 0.7);
   border: none;
   color: #ffffff;
   cursor: pointer;
@@ -276,7 +273,7 @@
 }
 .snip1535:hover,
 .snip1535.hover {
-  background-color: #5858FA;
+  background-color: rgba(0, 188, 212, 0.7);
 }
 .snip1535:hover:before,
 .snip1535.hover:before,
@@ -1100,7 +1097,7 @@ $(function(){
 							<div class="row" style="text-align: center">
 								<c:forEach begin="1" end="5" var="days" >
 
-									<div class="planview" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
+									<div class="planview" style="padding-bottom: 10px;" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
 				
 								</c:forEach>
 							</div>
@@ -1112,8 +1109,8 @@ $(function(){
 							<div class="planview" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜 보기!</i></div>
 						</div>
 						<div class="col-sm-12" id="buttons-plan">
-							<div class="btn btn-danger waves-effect" onclick="clearBox();"><i class="far fa-trash-alt"> 플랜 삭제</i></div>
-							<div class="btn btn-danger btn-rounded waves-effect" style="" onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
+							<div class="btn btn-danger waves-effect" style="width:100%;" onclick="clearBox();"><i class="far fa-trash-alt"> 플랜 삭제</i></div>
+							<div class="btn btn-danger btn-rounded waves-effect" style="width:100%;" onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
 						</div>
 						<div class="col-sm-12" id="buttons-total">
 							
