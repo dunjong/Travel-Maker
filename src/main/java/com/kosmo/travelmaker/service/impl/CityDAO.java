@@ -23,5 +23,9 @@ public class CityDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectOne("selectOneCityNo",map);
 	}
+
+	public void makingplanner(String user_id) {
+		sqlMapper.insert("makingplanner",user_id);
+	}
 	
 }

@@ -23,5 +23,8 @@ public class CityServiceImpl implements CityService {
 	public int selectCityNo(Map map) {
 		return cityDAO.selectOneCityNo(map);
 	}
+	public void makingplanner(String user_id) {
+		cityDAO.makingplanner(user_id);
+	}
 	
 }

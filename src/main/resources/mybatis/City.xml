@@ -10,4 +10,8 @@
 	<select id="selectOneCityNo" resultType="int" parameterType="java.util.Map">
 		SELECT city_no FROM CITY WHERE city_name=#{origin}
 	</select>
+	
+	<insert id="makingplanner" parameterType="java.lang.String">
+		INSERT INTO planner VALUES(seq_planner.NEXTVAL,0,#{user_id})
+	</insert>
 </mapper>

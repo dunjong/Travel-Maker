@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -33,7 +34,7 @@ public class PlannerController {
 	
 	
 	@RequestMapping("Planner.kosmo")
-	public String Planner(@RequestParam Map map,Model model) {
+	public String Planner(@RequestParam Map map,Model model,HttpSession session) {
 		
 		List<String> city_no_name=new Vector<String>();
 		String[] city_no_list=map.get("city_no").toString().split(",");
@@ -41,9 +42,11 @@ public class PlannerController {
 		for(String no:city_no_list) {
 			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
 		}
-		
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("city_no_name",city_no_name);
+		String user_id=session.getAttribute("id").toString();
+		cityService.makingplanner(user_id);
+		
 		return "planner/Planner";
 	}
 	
