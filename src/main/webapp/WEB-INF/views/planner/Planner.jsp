@@ -380,7 +380,7 @@
 			//$('td[data-date=2020-07-05]').prop('style','background-color:red');
 			$('#test').click(function(){
 				//console.log(calendar.getEventSources())
-				
+				calendar
 			})
 			$('#test2').click(function(){
 				console.log(calendar)

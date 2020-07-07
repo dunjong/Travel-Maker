@@ -42,9 +42,7 @@ public class PlannerController {
 		for(String no:city_no_list) {
 			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
 		}
-		
 		model.addAttribute("city_no_name",city_no_name);
-
 		//String user_id=session.getAttribute("id").toString();
 		//cityService.makingplanner(user_id);
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
@@ -55,7 +53,6 @@ public class PlannerController {
 	
 	@RequestMapping("Plan.kosmo")
 	public String Plan(@RequestParam Map map, Model model) {
-
 		System.out.println("city_name:"+map.get("origin"));
 		int city_no=cityService.selectCityNo(map);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
@@ -68,7 +65,6 @@ public class PlannerController {
 		model.addAttribute("origin",map);
 		model.addAttribute("city_no",city_no);
 		return "planner/Plan.tiles";
-		
 	}
 	
 	@RequestMapping(value ="PlanSave.kosmo",produces ="text/html; charset=UTF-8")
@@ -81,11 +77,7 @@ public class PlannerController {
 		System.out.println("day3: "+map.get("day3[]"));
 		System.out.println("day4: "+map.get("day4[]"));
 		System.out.println("day5: "+map.get("day5[]"));
-		
-		
 	}
-	
-	
 	@RequestMapping("CitySearch.kosmo")
 	public String CitySearch() {
 		return "planner/CitySearch.main";
@@ -94,7 +86,6 @@ public class PlannerController {
 	public String DayPlanSava() {
 		return "planner/Plan.tiles";
 	}
-	
 	@RequestMapping(value ="SpotList.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public String SpotList(@RequestParam Map map) {
@@ -105,10 +96,7 @@ public class PlannerController {
 				List<String> spotIDs=new Vector<String>();
 				dayPlan.put("day"+i, spotIDs);
 			}
-			
-			
 			for(SpotsDTO dto:list) {
-				
 				System.out.println("장소명:"+dto.getSpot_name()+",일차:"+dto.getAuto_plan_date());
 				String day=dto.getAuto_plan_date();
 				switch(day) {
@@ -132,11 +120,8 @@ public class PlannerController {
 			collections.add(dayPlan);
 			return JSONArray.toJSONString(collections);
 		}
-	
 	@RequestMapping("SpotView.kosmo")
 	public String SpotView() {
 		return "planner/SpotView.tiles";
 	}
-	
-	
 }
