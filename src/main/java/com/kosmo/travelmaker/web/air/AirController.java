@@ -80,7 +80,7 @@ public class AirController {
 	  			for (int i=0;i < data.getItineraries()[k].getSegments().length;i++) {
 	  				//출발지,경유지들 iataCode 한번씩 저장
 	  				cityIataCodeMap.put(i,data.getItineraries()[k].getSegments()[i].getDeparture().getIataCode());
-	  				if(i==data.getItineraries()[k].getSegments().length)
+	  				if(i==data.getItineraries()[k].getSegments().length-1)
 	  					//마지막segment의 출발지를 입력할때 도착지까지입력
 	  					//즉 첫번째 방에 출발지, 마지막 방에 도착지 중간방에 경유지들을 저장
 	  					cityIataCodeMap.put(i+1,data.getItineraries()[k].getSegments()[i].getArrival().getIataCode());
