@@ -35,18 +35,19 @@ public class PlannerController {
 	
 	
 
-	@RequestMapping(value = "Planner.kosmo",method=RequestMethod.GET)
-	public String CityToPlanner(@RequestParam Map map,Model model,HttpSession session) {
+	@RequestMapping(value = "Planner.kosmo")
+	public String Planner(@RequestParam Map map,Model model,HttpSession session) {
 		List<String> city_no_name=new Vector<String>();
 		String[] city_no_list=map.get("city_no").toString().split(",");
 		for(String no:city_no_list) {
 			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
 		}
-		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
+		
 		model.addAttribute("city_no_name",city_no_name);
 
-		String user_id=session.getAttribute("id").toString();
-		cityService.makingplanner(user_id);
+		//String user_id=session.getAttribute("id").toString();
+		//cityService.makingplanner(user_id);
+		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("returnFromMap",false);
 		return "planner/Planner";
 	}

@@ -303,7 +303,7 @@
 						events: [
 							{
 								start: '2020-01-01',
-								end: '2020-07-06',
+								end: '2020-07-07',
 				    	        overlap: false,
 				    	        color: '#ffffff'
 							},
