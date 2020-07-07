@@ -54,16 +54,12 @@ public class AirController {
 	  	Map itineraryMap = new HashMap();
 	  	List segmentsList = new Vector();
 	  	Map cityIataCodeMap = new HashMap();
-	  	int jungbok = 0;
+	  	String jungbok="";
 	  	//data에 왕복티켓1매의 전체정보가 저장되어있음(data[max값],최대갯수는 아마데우스클래스의 인자max로 결정)
         for (FlightOfferSearch data : flightOffersSearches) {
         	//중복체크
-        	if(data.getNumberOfBookableSeats()>1) {
-        		if(data.getNumberOfBookableSeats()==jungbok) {
-        			continue;
-        		}
-        		jungbok = data.getNumberOfBookableSeats();
-        	}
+    		if(data.getItineraries()[0].getDuration().equals(jungbok)) continue;
+    		else jungbok = data.getItineraries()[0].getDuration();
 	  		for (int k=0;k<data.getItineraries().length;k++) {
 	  			//출발에서 도착까지 걸리는 시간
 	  			String originToDestTime = data.getItineraries()[k].getDuration();
