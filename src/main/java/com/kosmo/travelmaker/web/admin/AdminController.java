@@ -5,11 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/TravelMaker/")
-
 public class AdminController {
 @RequestMapping("admin1.kosmo")
 	public String admin1() {
-	return "AdminLTE-3.0.5/admin1.tiles";
+	return "AdminLTE/admin1";
 }
 
 }
