@@ -41,10 +41,11 @@
 								class="d-flex flex-row align-items-start justify-content-start">
 								<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 								<c:if test="${not empty sessionScope.id}">
-								<li><a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a></li>
+									<li><a
+										href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a></li>
 								</c:if>
 								<c:if test="${empty sessionScope.id}">
-								<li><a href="#" id='loginrequired'>PLANNER</a></li>
+									<li><a href="#" id='loginrequired'>PLANNER</a></li>
 								</c:if>
 								<li><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown">REVIEW<span class="caret"></span>
@@ -158,10 +159,10 @@
 		<ul>
 			<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 			<c:if test="${not empty sessionScope.id}">
-			<li><a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a></li>
+				<li><a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a></li>
 			</c:if>
 			<c:if test="${empty sessionScope.id}">
-			<li><a href="#" id='loginrequired2'>PLANNER</a></li>
+				<li><a href="#" id='loginrequired2'>PLANNER</a></li>
 			</c:if>
 			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span
 					class="caret"></span></a>
@@ -179,13 +180,17 @@
 					<c:if test="${empty sessionScope.id}" var="login">
 						<li id="loginbtn2" data-toggle="modal"><a href="#">로그인</a></li>
 					</c:if>
-					<c:if test="${!login}">
+					<c:if test="${!login}"> 
 						<li id="logoutbtn2"><a href="#">로그아웃</a></li>
 					</c:if>
 					<li><a href="#" id="signupmodalbtn">회원가입</a></li>
-					<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
+					<li><a
+						href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
+					<li><a href="" id="admin">관리자</a></li>
 					<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">나의리뷰</a></li>
 				</ul></li>
+				
+			
 			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer
 					Service<span class="caret"></span>
 			</a>
@@ -223,23 +228,30 @@
 				</button>
 			</div>
 			<div class="modal-body mx-4">
-				<form id="logInForm" action="<c:url value='/TravelMaker/LoginProcess.do'/>" method="post">
+				<form id="logInForm"
+					action="<c:url value='/TravelMaker/LoginProcess.do'/>"
+					method="post">
 					<div class="md-form mb-5">
-						<label data-error="wrong" data-success="right" for="Form-id1" class="username"> 아이디 </label> 
-						<input id="id" name="id" type="text" autocomplete="on" class="form-control validate" placeholder="아이디를 입력하세요">
+						<label data-error="wrong" data-success="right" for="Form-id1"
+							class="username"> 아이디 </label> <input id="id" name="id"
+							type="text" autocomplete="on" class="form-control validate"
+							placeholder="아이디를 입력하세요">
 					</div>
 					<div class="md-form pb-3">
-						<label data-error="wrong" data-success="right" for="Form-pass1" class="userpass"> <span style="color: black;">비밀번호</span></label> 
-						<input id="pwd" name="pwd" type="password" class="form-control validate" placeholder="비밀번호를 입력하세요" />
+						<label data-error="wrong" data-success="right" for="Form-pass1"
+							class="userpass"> <span style="color: black;">비밀번호</span></label>
+						<input id="pwd" name="pwd" type="password"
+							class="form-control validate" placeholder="비밀번호를 입력하세요" />
 					</div>
 					<span id="loginfailmessage" style="color: red; font-size: .8em">${NotMember}</span>
 				</form>
 			</div>
 			<div class="modal-footer">
 				<div class="text-center mb-3" style="width: 100%; height: 100%">
-					<a href="#" id='loginsubmit' class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
-					<p class="font-small grey-text d-flex justify-content-end">회원이 아니신가요?
-						<a href="#" id="signupmodalbtn" class="blue-text ml-1">
+					<a href="#" id='loginsubmit'
+						class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
+					<p class="font-small grey-text d-flex justify-content-end">
+						회원이 아니신가요? <a href="#" id="signupmodalbtn" class="blue-text ml-1">
 							<i class="fas fa-share animated rotateIn">Click!</i>
 						</a>
 					</p>
@@ -250,8 +262,8 @@
 				<label>간편 로그인</label>
 				<div></div>
 				<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-				<a id="kakao-login-btn"></a> 
-				<a href="http://developers.kakao.com/logout"></a>
+				<a id="kakao-login-btn"></a> <a
+					href="http://developers.kakao.com/logout"></a>
 				<script type='text/javascript'>
 					//<![CDATA[
 					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5'); //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
@@ -354,8 +366,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div>
-						</div>
+						<div></div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label" style="color: black;">비밀번호</label>
@@ -379,9 +390,10 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label" style="color: black;">나이</label>
 						<div class="col-sm-4">
-							<select class="form-control input-sm" name="rrn" value="${param.rrn}">
+							<select class="form-control input-sm" name="rrn"
+								value="${param.rrn}">
 								<option>출생 연도를 선택하세요</option>
-								<option value="1950" >1950~1959</option>
+								<option value="1950">1950~1959</option>
 								<option value="1960">1960~1969</option>
 								<option value="1970">1970~1979</option>
 								<option value="1980">1980~1989</option>

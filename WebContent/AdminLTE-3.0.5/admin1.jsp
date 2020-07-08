@@ -120,7 +120,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="TravelMaker/ReviewSearch.kosmo" class="nav-link"> 
                   <i class="far fa-circle nav-icon"></i>
                   <p>리뷰관리</p>
                 </a>
