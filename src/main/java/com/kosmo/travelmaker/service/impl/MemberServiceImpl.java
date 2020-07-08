@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.kosmo.travelmaker.service.impl.MemberDAO;
+import com.kosmo.travelmaker.service.AndroidMemberDTO;
 import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.MemberService;
 import com.kosmo.travelmaker.service.PlannerDTO;
@@ -21,7 +22,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.isLogin(map);
 	}
 	
-	public MemberDTO isLogin(MemberDTO dto) {
+	public AndroidMemberDTO isLogin(AndroidMemberDTO dto) {
 		return memberDAO.isLogin(dto);
 	}
 	

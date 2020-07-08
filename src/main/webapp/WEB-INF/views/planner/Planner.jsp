@@ -232,8 +232,6 @@
 	<script>
 		$(function() {
 			var date = new Date();
-			var startDates=[];
-			var endDates=[];
 			/* initialize the external events
 			 -----------------------------------------------------------------*/
 			function ini_events(ele) {
@@ -381,11 +379,31 @@
 			//$('td[data-date=2020-07-05]').prop('style','background-color:red');
 			$('#test').click(function(){
 				//console.log(calendar.getEventSources())
-				calendar
+				calendar.render();
 			})
 			$('#test2').click(function(){
 				console.log(calendar)
 				calendar.getEventSources()[0].refetch()
+			})
+			$('#departure').on('keyup',()=>{
+				var value = $(this)[0].activeElement.value
+				var settings = {
+					"async" : false,
+					"crossDomain" : true,
+					"url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
+					"method" : "GET",
+					"headers" : {
+						"x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+						"x-rapidapi-key" : "${AutoCompleteApiKey}"
+					}
+				}
+				console.log(settings)
+				$.ajax(settings).done(function(response) {
+					console.log(response)
+				})
+			})
+			$('#arrival').on('keyup',()=>{console.log($(this)[0].activeElement.value)
+				
 			})
 		})
 		function dateFiting(date,se){

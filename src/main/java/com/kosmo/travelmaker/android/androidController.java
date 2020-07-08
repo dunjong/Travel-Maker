@@ -3,21 +3,30 @@ package com.kosmo.travelmaker.android;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.kosmo.travelmaker.service.MemberDTO;
+import com.kosmo.travelmaker.service.AndroidMemberDTO;
 import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
 
-@Controller
+@RestController
+@RequestMapping("/android")
 public class androidController {
 	@Resource(name="memberService")
 	private MemberServiceImpl service;
 	
-	@ResponseBody
-	@RequestMapping(value="/member/json",produces ="text/html; charset=UTF-8")
-	public MemberDTO isMemberJsonByGet(MemberDTO member) {		
+//	,produces ="text/html; charset=UTF-8"
+	@CrossOrigin
+	@GetMapping(value="/member/json")
+	public AndroidMemberDTO isMemberJsonByGet(AndroidMemberDTO member) {		
 		System.out.println(member.toString());
-		return service.isLogin(member);		
+		AndroidMemberDTO dto=service.isLogin(member);
+		System.out.println(dto.toString());
+		return dto;		
 	}
+
 }
