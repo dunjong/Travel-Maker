@@ -95,6 +95,12 @@
 											<br> <img src="<c:url value='/images/likes.png'/>"
 												alt="좋아요"> <br> <span>${record.review_no}</span> <span>명</span>
 										</div>
+										<div>
+											<br> <a
+												href="<c:url value='/TravelMaker/ReviewEdit.kosmo?review_no=${record.review_no}'/>"> <img
+												src="<c:url value='/images/edit.png'/>" alt="수정하기">
+											</a><br> <span>수정하기</span>
+										</div>
 										<div class="back">
 											<br> <a
 												href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
