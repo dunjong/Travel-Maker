@@ -3,5 +3,25 @@
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Review">
-	
+	<select id="reviewSelectList" parameterType="java.util.Map" resultType="reviewDTO">
+		SELECT * FROM review
+	</select>
+	<select id="reviewGetTotalRecord" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM review
+	</select>
+	<insert id="reviewInsert" parameterType="java.util.Map">
+		INSERT INTO review(review_no,review_title,review_content,review_date)
+		VALUES(seq_review.NEXTVAL,#{review_title},#{review_content},sysdate)
+	</insert>
+	<select id="reviewSelectOne" parameterType="java.util.Map" resultType="reviewDTO">
+		SELECT * FROM review
+		WHERE review_no = #{review_no}
+	</select>
+	<update id="reviewUpdate" parameterType="java.util.Map">
+		UPDATE review SET review_title=#{review_title},review_content=#{review_content} 
+		WHERE review_no=#{review_no}	
+	</update>
+	<delete id="reviewDelete" parameterType="java.util.Map">
+		DELETE review WHERE review_no=#{review_no}
+	</delete>
 </mapper>
