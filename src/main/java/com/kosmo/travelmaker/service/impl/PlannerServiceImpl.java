@@ -1,11 +1,14 @@
 package com.kosmo.travelmaker.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.kosmo.travelmaker.service.CitiesDTO;
+import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.PlannerService;
 
 @Service("plannerService")
@@ -27,8 +30,26 @@ public class PlannerServiceImpl implements PlannerService{
 	}
 
 	@Override
-	public boolean insertCities(int city_no) {
-		return plannerDAO.insertCities(city_no);
+	public boolean insertCities(Map<String, Integer> maps) {
+		return plannerDAO.insertCities(maps);
+	}
+
+	@Override
+	public List<Integer> selectPlannerList(int planner_no) {
+		return plannerDAO.selectPlannerList(planner_no);
+		
+	}
+
+
+	@Override
+	public int selectPlannerNo() {
+		return plannerDAO.selectPlannerNo();
+	}
+
+
+	@Override
+	public List<CitiesDTO> selectCitiesDTOList(int planner_no) {
+		return plannerDAO.selectCitiesDTOList(planner_no);
 	}
 	
 }
