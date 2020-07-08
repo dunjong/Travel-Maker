@@ -581,7 +581,7 @@ function initMap() {
 
 function getDetailById(placeIds){ 
 	servicePlace = new google.maps.places.PlacesService(map);
-	var place_detail=await servicePlace.getDetails({placeId: placeIds},
+	var place_detail=servicePlace.getDetails({placeId: placeIds},
             function(place, status) {
               if (status !== google.maps.places.PlacesServiceStatus.OK) {
                 return '없음';
