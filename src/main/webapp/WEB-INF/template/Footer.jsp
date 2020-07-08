@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <style>
   df-messenger {
-   --df-messenger-bot-message: #878fac;
-   --df-messenger-button-titlebar-color: #df9b56;
+   --df-messenger-bot-message: #ff4444;
+   --df-messenger-button-titlebar-color: #33b5e5;
    --df-messenger-chat-background-color: #fafafa;
    --df-messenger-font-color: white;
    --df-messenger-send-icon: #878fac;
-   --df-messenger-user-message: #479b3d;
+   --df-messenger-user-message: #0099CC;
   }
 </style>
 <footer class="footer">
@@ -115,6 +116,8 @@
   agent-id="84eaf284-0b6e-4076-8073-6d2aeec051eb"
   language-code="ko"
   chat-icon="<c:url value='/images/마크레스.jpg'/>"
+  
+
 ></df-messenger>
 </footer>
 
