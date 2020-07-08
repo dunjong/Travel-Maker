@@ -27,6 +27,7 @@ public class AirController {
 	// 아마데우스 API 사용을 위한 자바 구문
 	@RequestMapping("AirSearch.kosmo")
 	public String AirSearch(@RequestParam Map map, Model model) throws ResponseException {
+		System.out.println("AirSearch들어옴");
 		Amadeus amadeus = Amadeus.builder(AmadeusFlightApiKey, AmadeusFlightSecretApiKey).build();
 		FlightOfferSearch[] flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
 				Params.with("originLocationCode", map.get("departure"))
@@ -111,6 +112,9 @@ public class AirController {
 	  	}
         model.addAttribute("list", dataList);
         model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
+        if(map.get("from").toString().equals("planner")){
+        	return "planner/Planner";
+        }
         return "air/AirList.tiles";
 	}
 	
