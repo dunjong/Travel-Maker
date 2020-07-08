@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,4 +50,20 @@ public class ReviewController {
 		reviewService.insert(map);
 		return "review/Review.tiles";
 	}
+	@RequestMapping("ReviewEdit.kosmo")
+	public String ReviewEdit(HttpServletRequest req,@RequestParam Map map) {
+		//서비스 호출]
+		ReviewDTO record=reviewService.selectOne(map);
+		//데이타 저장]
+		req.setAttribute("record", record);
+		//수정 폼으로 이동]
+		return "review/ReviewEdit.tiles";
+	}
+
+	@RequestMapping("ReviewEditOK.kosmo")
+	public String ReviewEditOK(@RequestParam Map map) {
+		reviewService.update(map);
+		return "review/Review.tiles";
+	}
+	
 }
