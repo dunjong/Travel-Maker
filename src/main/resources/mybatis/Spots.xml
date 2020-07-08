@@ -6,4 +6,7 @@
 	<select id="spotListSelectList" parameterType="java.util.Map" resultType="SpotsDTO">
 		SELECT spot.*,plan.auto_plan_date FROM  auto_plan plan JOIN auto_spots spot ON plan.auto_plan_no=spot.auto_plan_no WHERE plan.city_no=#{city_no}
 	</select>
+	<insert id="insertSaveSpot" parameterType="SpotsDTO">
+		INSERT INTO save_spots values(seq_spot_save.nextval,#{spot_name},#{spot_id},#{plan_no})
+	</insert>
 </mapper>

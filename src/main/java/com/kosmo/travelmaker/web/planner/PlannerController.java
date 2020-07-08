@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tiles.request.collection.KeySet;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.SpotsDTO;
 import com.kosmo.travelmaker.service.impl.CityServiceImpl;
@@ -53,15 +56,6 @@ public class PlannerController {
 				planner_no=plannerService.selectPlannerNo();
 				System.out.println("planner_no:"+planner_no);
 			};
-			Map<String, Integer> maps=new HashMap<String, Integer>();
-			maps.put("planner_no", planner_no);
-			for(String city_no:city_no_list) {
-				System.out.println("도시번호:"+city_no);
-				maps.put("city_no",Integer.parseInt(city_no.trim()));
-				if(plannerService.insertCities(maps)) {
-					System.out.println(city_no+" 도시가 저장되었습니다.");
-				};
-			}
 			for(String no:city_no_list) {
 				city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
 			}
@@ -88,9 +82,8 @@ public class PlannerController {
 	
 	@RequestMapping("Plan.kosmo")
 	public String Plan(@RequestParam Map map, Model model) {
-
-		System.out.println("city_name:"+map.get("origin"));
-		int city_no=cityService.selectCityNo(map);
+		String city_name=map.get("origin").toString();
+		int city_no=cityService.selectCityNo(city_name);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
 		for(int i=1;i<=5;i++) {
 			List<String> spotIDs=new Vector<String>();
@@ -108,9 +101,56 @@ public class PlannerController {
 	
 	@RequestMapping(value ="PlanSave.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public void PlanSave(@RequestParam Map map) {
-		System.out.println("map"+map);
+	public void PlanSave(@RequestParam Map<String,String> map) {
+		System.out.println("map: "+map);
+		int planner_no=Integer.parseInt(map.get("planner_no"));
+		String city_name=map.get("city_name");
+		int city_no=cityService.selectCityNo(city_name);
+		int cities_no=0;
+		Map<String, Integer> maps=new HashMap<String, Integer>();
+		maps.put("planner_no", planner_no);
+		maps.put("city_no", city_no);
+		if(plannerService.insertCities(maps)) {
+			System.out.println(city_no+" 도시가 저장되었습니다.");
+			cities_no=plannerService.selectCitiesNo();
+			
+		};
 		
+		for(String date:map.keySet()) {
+			String ids="";
+			Map<String, Object> maps2=new HashMap<String, Object>();
+			if(date.contains("day")) {
+				System.out.println("date"+date);
+				maps2.put("plan_date", date);
+				maps2.put("cities_no", cities_no);
+				if(plannerService.insertPlan(maps2)) {
+					System.out.println(date+"일차 plan이 저장되었습니다");
+					int plan_no=plannerService.selectPlanNo();
+					System.out.println("plan_no"+plan_no);
+					SpotsDTO dto=new SpotsDTO();
+					dto.setPlan_no(plan_no);
+					dto.setSpot_name("모름");
+					ids=map.get(date).substring(0,map.get(date).length()-1);
+					for(String id:ids.split(",")) {
+						dto.setSpot_id(id);
+						if(spotsService.insertSaveSpot(dto)) {
+							System.out.println(date+"일차 plan이"+id+"가 저장되었습니다");
+						}
+					}
+					
+				}
+				
+			}
+			
+				System.out.println(date+"일차의 id:"+ids);
+				//spotsService.insertPlan(date);
+				
+			
+		}
+		
+		List<String> list=new Vector<String>();
+	
+		//dto.setCity_no(Integer.parseInt(map.get("city_no").toString()));
 		
 	}
 	

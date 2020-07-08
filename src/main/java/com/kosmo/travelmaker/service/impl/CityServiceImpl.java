@@ -20,8 +20,8 @@ public class CityServiceImpl implements CityService {
 		return cityDAO.selectOneCity(city_no);
 	}
 	@Override
-	public int selectCityNo(Map map) {
-		return cityDAO.selectOneCityNo(map);
+	public int selectCityNo(String city_name) {
+		return cityDAO.selectOneCityNo(city_name);
 	}
 	public void makingplanner(String user_id) {
 		cityDAO.makingplanner(user_id);
