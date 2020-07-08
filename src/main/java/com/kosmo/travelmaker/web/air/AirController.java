@@ -1,14 +1,8 @@
 package com.kosmo.travelmaker.web.air;
-
-import java.text.DecimalFormat;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Vector;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +12,6 @@ import com.amadeus.Amadeus;
 import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
-import com.amadeus.resources.FlightOfferSearch.Itinerary;
-import com.amadeus.resources.FlightOfferSearch.SearchPrice;
-import com.amadeus.resources.FlightOfferSearch.SearchSegment;
-import com.amadeus.resources.FlightPrice;
-import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping("/TravelMaker/")
@@ -76,11 +65,35 @@ public class AirController {
 	  			for (int i=0;i < data.getItineraries()[k].getSegments().length;i++) {
 	  				//출발지,경유지들 iataCode 한번씩 저장
 	  				cityIataCodeMap.put(i,data.getItineraries()[k].getSegments()[i].getDeparture().getIataCode());
-	  				if(i==data.getItineraries()[k].getSegments().length-1)
+
+	  				if(i==data.getItineraries()[k].getSegments().length - 1)
+
 	  					//마지막segment의 출발지를 입력할때 도착지까지입력
 	  					//즉 첫번째 방에 출발지, 마지막 방에 도착지 중간방에 경유지들을 저장
 	  					cityIataCodeMap.put(i+1,data.getItineraries()[k].getSegments()[i].getArrival().getIataCode());
 	  			}
+	  			System.out.println("출발에서도착까지---------------");
+	  			System.out.println("출발시간"+startTime);
+	  			System.out.println("출발IATACODE"+cityIataCodeMap);
+	  			System.out.println("총경유시간"+originToDestTime);
+	  			System.out.println("경유or직항횟수"+gyeongUCount);
+	  			System.out.println("경유IATACODE"+cityIataCodeMap);  			
+	  			System.out.println("도착시간"+endTime);
+	  			System.out.println("도착IATACODE"+cityIataCodeMap);
+	  			System.out.println("기본가"+data.getTravelerPricings()[0].getPrice().getBase());
+	  			System.out.println("총가격"+data.getTravelerPricings()[0].getPrice().getTotal());
+	  			
+	  			System.out.println("도착에서출발로 돌아가기----------------");
+	  			System.out.println("출발시간"+startTime);
+	  			System.out.println("출발IATACODE"+cityIataCodeMap);
+	  			System.out.println("총경유시간"+DestToOriginTime);
+	  			System.out.println("경유or직항횟수"+gyeongUCount);
+	  			System.out.println("경유IATACODE"+cityIataCodeMap);  			
+	  			System.out.println("도착시간"+endTime);
+	  			System.out.println("도착IATACODE"+cityIataCodeMap);
+	  			System.out.println("기본가"+data.getTravelerPricings()[0].getPrice().getBase());
+	  			System.out.println("총가격"+data.getTravelerPricings()[0].getPrice().getTotal());
+	  			
 	  			//출발에서 도착까지 필요한 정보들
 	  			segmentsList = new Vector();
 	  			segmentsList.add(originToDestTime);

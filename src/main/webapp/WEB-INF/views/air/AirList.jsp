@@ -5,7 +5,20 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
 	$(function(){   
-		console.log('${list}')
+
+		console.log('${list[0]}')
+		console.log('${list[1]}')
+		console.log('${list[2]}')
+		console.log('${list[3]}')
+		console.log('${list[4]}')
+		console.log('${list[5]}')
+		console.log('${list[6]}')
+		console.log('${list[7]}')
+		console.log('${list[8]}')
+		console.log('${list[9]}')
+		console.log('${list[10]}')
+		
+
 		/* 
 		console.log('${list[0].get("total")}')
 		console.log('${list[0].get("base")}')
@@ -17,7 +30,7 @@
 		console.log('${list[0].get("Devia")}')
 		console.log('${list[0].get("Arvia")}')    
 		 */
-		/*
+		
 		var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
 			for(var i=0;i<5;i++){
 			list+="<div class='container'>";
@@ -38,14 +51,14 @@
 			list+="</div>";
 			list+="</div>";
 			list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-			list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦<fmt:formatNumber value='${list[0].get("base")}' pattern="#,###"/>원</Strong><br><small>총 가격<fmt:formatNumber value='${list[0].get("total")}' pattern="#,###"/>원</small></div><br>";
-			list+="<a href=<c:url value='/TravelMaker/AirView.kosmo'/>><button type='button' class='btn btn-success btn-lg' style='cursor:pointer;'><Strong>선택 →</Strong></button></a>";
+			list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦<fmt:formatNumber value='${list[0].get("basePrice")}' pattern="#,###"/>원</Strong><br><small>총 가격<fmt:formatNumber value='${list[0].get("totalPrice")}' pattern="#,###"/>원</small></div><br>";
+			list+="<a href=<c:url value='/TravelMaker/AirView.kosmo'/>><button type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button></a>";
 			list+="</div>";
 			list+="</div>";
 			list+="</div>";
 			list+="</div>";
 		}
-		$('#list').html(list); */
+		$('#list').html(list); 
 		$( "#departureDate" ).datepicker({
 			showAnim: "slideDown",
 			dateFormat: "yy-mm-dd",

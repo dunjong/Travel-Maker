@@ -9,7 +9,9 @@
 				<div class="home_search_container">
 					<div>
 						<div class="home_search_title"><a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a></div>
+					
 						<div class="home_search_title" ><a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a></div>
+	
 					</div>			
 				</div>
 			</div>
