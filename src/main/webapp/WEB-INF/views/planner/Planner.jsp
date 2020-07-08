@@ -169,6 +169,7 @@
 																<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" style='margin-bottom:4px'>
 													                <input hidden="true" name="origin" value="${name}" /> 
 																	<input hidden="true" name="destination" value="공항,${name}" />
+																	<input hidden="true" name="planner_no" value="${planner_no}" />
 													                <button class="btn btn btn-success">세부일정 짜기</button>
 													            </form>
 													            <button class="btn btn-success">세부목록 보기</button>

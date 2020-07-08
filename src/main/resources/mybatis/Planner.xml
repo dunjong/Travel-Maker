@@ -7,6 +7,15 @@
 		INSERT INTO PLANNER VALUES(seq_planner.nextval,0,#{id})
 	</insert>
 	<insert id="insertCities" parameterType="int">
-		INSERT INTO cities VALUES(seq_cities.nextval,#{city_no},seq_planner.currval)
+		INSERT INTO cities VALUES(seq_cities.nextval,#{city_no},#{planner_no})
 	</insert>
+	<select id="selectPlannerList" parameterType="int" resultType="int">
+		SELECT city_no from cities WHERE planner_no=#{planner_no}
+	</select>
+	<select id="selectPlannerNo" resultType="int">
+		select seq_planner.currval from dual
+	</select>
+	<select id="selectCitiesDTOList" parameterType="int" resultType="CitiesDTO">
+		SELECT * FROM CITIES WHERE PLANNER_NO=#{planner_no}
+	</select>
 </mapper>
