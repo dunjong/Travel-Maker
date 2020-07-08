@@ -29,6 +29,8 @@ import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 public class PlannerController {
 	@Value("${GoogleMapApiKey}")
 	private String GoogleMapApiKey;
+	@Value("${SkyscannerAirportAutoCompleteApiKey}")
+	private String AutoCompleteApiKey;
 	@Resource(name="spotsService")
 	private SpotsServiceImpl spotsService;
 	@Resource (name="cityService")
@@ -45,18 +47,18 @@ public class PlannerController {
 		for(String no:city_no_list) {
 			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
 		}
-		boolean savePlanner = plannerService.insertPlanner(session.getAttribute("id").toString());
-		
-		for(String city_no:city_no_list) {
-			if(plannerService.insertCities(Integer.parseInt(city_no.trim()))) {
-				System.out.println(city_no+" 도시가 저장되었습니다.");
-			};
-		}
+		/*
+		 * boolean savePlanner =
+		 * plannerService.insertPlanner(session.getAttribute("id").toString());
+		 * for(String city_no:city_no_list) {
+		 * if(plannerService.insertCities(Integer.parseInt(city_no.trim()))) {
+		 * System.out.println(city_no+" 도시가 저장되었습니다."); }; }
+		 */
 		model.addAttribute("city_no_name",city_no_name);
 		//String user_id=session.getAttribute("id").toString();
 		//cityService.makingplanner(user_id);
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
-		model.addAttribute("returnFromMap",false);
+		model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
 		return "planner/Planner";
 	}
 	
