@@ -75,6 +75,9 @@
 											<!-- 리뷰리스트.코스모를 리뷰서치.코스모로 변경: 여동준 --> <a
 											href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a>
 										</li>
+										<li>
+											<a href="<c:url value='TrvavelMaker/admin1.kosmo'/>"> 관리자</a>
+										</li>
 									</ul></li>
 								<li><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown">Customer Service<span class="caret"></span>
