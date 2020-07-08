@@ -48,7 +48,7 @@
 								</c:if>
 								<li><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown">REVIEW<span class="caret"></span>
-								</a> <!-- 탑 리뷰 드롭다운 여동준 -->
+								</a>
 									<ul class="dropdown-menu">
 										<li><a
 											href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">리뷰
@@ -56,7 +56,7 @@
 										<li><a
 											href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">리뷰
 												작성하기</a></li>
-									</ul> <!-- 탑 리뷰 드롭다운 끝 --></li>
+									</ul></li>
 								<li><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown">MEMBER<span class="caret"></span>
 								</a>
