@@ -579,10 +579,10 @@ function initMap() {
   
 }////initMap
 
-async function getDetailById(placeIds){ 
+function getDetailById(placeIds){ 
 	servicePlace = new google.maps.places.PlacesService(map);
 	var place_detail=await servicePlace.getDetails({placeId: placeIds},
-            await function(place, status) {
+            function(place, status) {
               if (status !== google.maps.places.PlacesServiceStatus.OK) {
                 return '없음';
               }
