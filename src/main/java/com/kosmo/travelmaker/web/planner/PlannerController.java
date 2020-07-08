@@ -68,11 +68,11 @@ public class PlannerController {
 		}
 		else {
 			String numbers="";
+			planner_no=Integer.parseInt(map.get("planner_no").toString());
 			for(int no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
 				numbers+=no+",";
 				city_no_name.add(cityService.selectCityDTO(no).getCity_name());
 			}
-			System.out.println("numbers:"+numbers);
 			String city_no=numbers.substring(0, numbers.length()-1);
 			model.addAttribute("city_no",city_no);
 		}
@@ -110,12 +110,6 @@ public class PlannerController {
 	@ResponseBody
 	public void PlanSave(@RequestParam Map map) {
 		System.out.println("map"+map);
-		System.out.println("city: "+map.get("city"));
-		System.out.println("day1: "+map.get("day1[]"));
-		System.out.println("day2: "+map.get("day2[]"));
-		System.out.println("day3: "+map.get("day3[]"));
-		System.out.println("day4: "+map.get("day4[]"));
-		System.out.println("day5: "+map.get("day5[]"));
 		
 		
 	}
@@ -157,6 +151,15 @@ public class PlannerController {
 						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
 						break;
 					case "4":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						break;
+					case "5":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						break;
+					case "6":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						break;
+					case "7":
 						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
 						break;
 					default:

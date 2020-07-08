@@ -326,8 +326,8 @@ var markers=[];
 //잘 모름
 var hostnameRegexp = new RegExp('^https?://.+?/');
 //주변검색 타입,키워드 선언
-var nearSearchType='lodging';
-var keyword='';
+var nearSearchType='attractions';
+var keyword='attractions';
 //출발지 선언
 var origin='${origin.origin}';
 //도착지 선언
@@ -612,21 +612,12 @@ $(function(){
 	
 	
 	var successAjax = function(data){
-		nearSearchType='attractions';	
-		console.log('data',data)
+		spotInfo={};
+		nearSearchType='attractions';
 		servicePlace = new google.maps.places.PlacesService(map);
 		
 	function details(item,date){
-		function start(counter){
-				if(counter < 10){
-					setTimeout(function(){
-					counter++;
-					console.log(counter);
-					start(counter);
-					}, 1000);
-				}
-			}
-			
+		
 		servicePlace.getDetails({placeId: item},
 				function(place, status) {
               		if (status !== google.maps.places.PlacesServiceStatus.OK) {
@@ -658,7 +649,7 @@ $(function(){
 						details(item[x],date)
 						placeDetailnSave(item[x],date.substring(3))
 						console.log(x);
-						}, 3000*x);
+						}, 1300*x);
 					})(i);
 			}
 		})////each
@@ -712,12 +703,12 @@ $(function(){
 	            	   if(spotInfo['day'+date]==undefined){
 		            	   var savedSpot=[]
 		            	   spotsForSave['day'+date]=[];
-		            	   spotsForSave['day'+date].push(place.id);
+		            	   spotsForSave['day'+date].push(place.id+' ');
 		            	   savedSpot.push({'spot':place})
 		            	   spotInfo['day'+date]=savedSpot
 	            	   }
 	            	   else{
-	            		   spotsForSave['day'+date].push(place.id);
+	            		   spotsForSave['day'+date].push(place.id+' ');
 	            		   spotInfo['day'+date].push({'spot':place})
 	            	   }
 	               }
@@ -1101,7 +1092,7 @@ $(function(){
  function back() {
 	 $.ajax({
 			url:'<c:url value="PlanSave.kosmo"/>',
-			data:{city:origin,day1:spotsForSave.day1,day2:spotsForSave.day2,day3:spotsForSave.day3,day4:spotsForSave.day4,day5:spotsForSave.day5},
+			data:spotsForSave,
 			success:function(){
 				window.location.href="<c:url value='Planner.kosmo?planner_no=${planner_no}'/>"
 			},
