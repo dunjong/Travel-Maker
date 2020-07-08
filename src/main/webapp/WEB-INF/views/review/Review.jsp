@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- 리뷰 상세보기 여동준 -->
 <head>
 <style>
 #reviewBack {
@@ -56,11 +55,6 @@
 .reviewFooterBack {
 	text-align: center;
 }
-
-.reviewFooter {
-	
-}
-
 .likesAndBack {
 	color: #3EB489;
 	font-size: 1.5em;
@@ -69,14 +63,6 @@
 
 .likesAndBack img {
 	border-radius: 20px;
-}
-
-.likes {
-	
-}
-
-.back {
-	
 }
 </style>
 </head>
@@ -91,13 +77,12 @@
 						<div class="review">
 							<div class="reviewText">
 								<br>
-								<h4 class="reviewTextTittle">가족끼리 구경하기 좋아요</h4>
+								<h4 class="reviewTextTittle">${record.review_title}</h4>
 								<a href="https://www.google.com/maps/search/몽키+포레스트+거리"
 									target="_blank">
 									<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트 거리</h5>
 								</a>
-								<p>숲이 생각보다 꽤 크고 원숭이가 엄청 많아요 ㅋㅋㅋㅋ 나무들도 넘 멋있고 원숭이도 가까이서보고 중간에
-									미술관도 한번 구경하고~ 다만 겁나 더워요.... 커피가 비쌈..</p>
+								<p>${record.review_content}</p>
 							</div>
 							<div class="reviewMapOrImage">
 								<img src="<c:url value='/images/reviewImage1.PNG'/>"
@@ -108,7 +93,7 @@
 									<div class="likesAndBack">
 										<div class="likes">
 											<br> <img src="<c:url value='/images/likes.png'/>"
-												alt="좋아요"> <br> <span>126</span> <span>명</span>
+												alt="좋아요"> <br> <span>${record.review_no}</span> <span>명</span>
 										</div>
 										<div class="back">
 											<br> <a

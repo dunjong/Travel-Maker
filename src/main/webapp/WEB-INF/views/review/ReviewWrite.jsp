@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- 리뷰 작성하기 여동준 -->
 <head>
 <style>
 #reviewBack {
@@ -122,16 +121,15 @@
 					<div class="home_search_title">리뷰 작성하기</div>
 					<div class="home_search_content">
 						<div class="reviewWrite">
-							<form action="<c:url value='/TravelMaker/Review.kosmo'/>"
-								class="home_search_form" id="home_search_form">
+							<form action="<c:url value='/TravelMaker/ReviewWriteOK.kosmo'/>"
+								class="home_search_form" id="home_search_form" method="post">
 								<input type="text" id="reviewWriteTittle" class="search_input"
-									placeholder="제목을 입력하세요" required="required"
+									name="review_title" placeholder="제목을 입력하세요" required="required"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '제목을 입력하세요'">
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<select class="form-control input-sm" name="age"
-										id="reviewWritePlaceTag">
+									<select class="form-control input-sm" id="reviewWritePlaceTag">
 										<option>리뷰 장소를 선택하세요</option>
 										<option value="city">도시</option>
 										<option value="food">식당</option>
@@ -142,7 +140,8 @@
 										placeholder="장소 이름을 입력하세요" required="required">
 								</div>
 								<textarea rows="" cols="" id="reviewWriteText"
-									placeholder="리뷰 내용을 입력하세요" required="required"></textarea>
+									name="review_content" placeholder="리뷰 내용을 입력하세요"
+									required="required"></textarea>
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 									<input type="file" id="reviewWriteImageUpButtonInput"
@@ -152,7 +151,7 @@
 										사진을 올리시려면 클릭하세요</button>
 									<input type="password" id="reviewWritePwd" class="search_input"
 										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요" required="required">
-									<button id="reviewWriteSubmmit">리뷰 작성 완료</button>
+									<button type="submit" id="reviewWriteSubmmit">리뷰 작성 완료</button>
 								</div>
 							</form>
 							<div class="back">

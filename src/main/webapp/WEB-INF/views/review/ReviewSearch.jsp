@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- 리뷰 검색 여동준 -->
 <head>
 <style>
 #reviewBack {
@@ -111,8 +110,7 @@
 						<form action="#" class="home_search_form" id="home_search_form">
 							<div
 								class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-								<select class="form-control input-sm" name="age"
-									id="reviewSearchTag">
+								<select class="form-control input-sm" id="reviewSearchTag">
 									<option>검색 범위를 선택하세요</option>
 									<option value="city">도시</option>
 									<option value="food">식당</option>
@@ -124,7 +122,46 @@
 								<button id="reviewSearchButton">리뷰 검색</button>
 							</div>
 						</form>
-							<!-- 여기부터 반복처리해야할 부분 -->
+						<c:if test="${empty list}" var="isEmpty">
+							<div class="reviewInformation">
+								<div class="bestReviewAndLikes">
+									<img src=""> <br> <img src=""> <br> <span></span>
+									<span></span>
+								</div>
+								<div class="reviewTextInformation">
+									<br>
+									<h4>등록된 게시물이 없습니다.</h4>
+									<p></p>
+									<h5 class="reviewPlaceInfomation"></h5>
+								</div>
+								<div class="reviewMapOrImage">
+									<img src="" alt="">
+								</div>
+							</div>
+						</c:if>
+						<c:if test="${not isEmpty}">
+							<c:forEach items="${list}" var="item" varStatus="loop">
+								<a href="<c:url value='/TravelMaker/Review.kosmo?review_no=${item.review_no}'/>">
+									<div class="reviewInformation">
+										<div class="bestReviewAndLikes">
+											<br> <img src="<c:url value='/images/likes.png'/>"
+												alt="좋아요"> <br> <span>${item.review_no}</span> <span>명</span>
+										</div>
+										<div class="reviewTextInformation">
+											<br>
+											<h4>${item.review_title}</h4>
+											<p>${item.review_content}</p>
+											<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트 거리</h5>
+										</div>
+										<div class="reviewMapOrImage">
+											<img src="<c:url value='/images/reviewImage1.PNG'/>"
+												alt="리뷰지도/사진">
+										</div>
+									</div>
+								</a>
+							</c:forEach>
+						</c:if>
+						<!-- 구현목표 
 							<a href="<c:url value='/TravelMaker/Review.kosmo'/>">
 								<div class="reviewInformation">
 									<div class="bestReviewAndLikes">
@@ -145,8 +182,6 @@
 									</div>
 								</div>
 							</a>
-							<!-- 여기까지 반복처리해야할 부분 -->
-							<!-- 임시 레이아웃을 위해 반복해놓은 다이브 시작 -->
 							<a href="<c:url value='/TravelMaker/Review.kosmo'/>">
 								<div class="reviewInformation">
 									<div class="bestReviewAndLikes">
@@ -204,8 +239,8 @@
 											alt="리뷰지도/사진">
 									</div>
 								</div>
-							</a>
-							<!-- 임시 레이아웃을 위해 반복해놓은 다이브 끝 -->
+							</a>-->
+						<!-- 구현목표 끝 -->
 					</div>
 				</div>
 			</div>
