@@ -17,5 +17,8 @@ public class SpotsDAO {
 	public List<SpotsDTO> spotList(Map map) {
 		return sqlMapper.selectList("spotListSelectList",map);
 	}
+	public boolean insertSaveSpot(SpotsDTO dto) {
+		return sqlMapper.insert("insertSaveSpot", dto)==1?true:false;
+	}
 
 }

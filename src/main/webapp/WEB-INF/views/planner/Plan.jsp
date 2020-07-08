@@ -323,8 +323,8 @@ var markers=[];
 //잘 모름
 var hostnameRegexp = new RegExp('^https?://.+?/');
 //주변검색 타입,키워드 선언
-var nearSearchType='lodging';
-var keyword='';
+var nearSearchType='attractions';
+var keyword='attractions';
 //출발지 선언
 var origin='${origin.origin}';
 //도착지 선언
@@ -346,7 +346,7 @@ var span;
 //일차마다 선택된 호텔과 장소들 담는 JSON 선언
 var hotelInfo={}
 var spotInfo={}
-var spotsForSave={};
+var spotsForSave={city_name:'${origin.origin}',planner_no:'${planner_no}'};
 //선택된 일차 선언
 var day=1;
 //몇일치 일지 정하는 수 선언(넘어오는 값) 지금은 5일차
@@ -609,21 +609,12 @@ $(function(){
 	
 	
 	var successAjax = function(data){
-		nearSearchType='attractions';	
-		console.log('data',data)
+		spotInfo={};
+		nearSearchType='attractions';
 		servicePlace = new google.maps.places.PlacesService(map);
 		
 	function details(item,date){
-		function start(counter){
-				if(counter < 10){
-					setTimeout(function(){
-					counter++;
-					console.log(counter);
-					start(counter);
-					}, 1000);
-				}
-			}
-			
+		
 		servicePlace.getDetails({placeId: item},
 				function(place, status) {
               		if (status !== google.maps.places.PlacesServiceStatus.OK) {
@@ -655,7 +646,7 @@ $(function(){
 						details(item[x],date)
 						placeDetailnSave(item[x],date.substring(3))
 						console.log(x);
-						}, 3000*x);
+						}, 1300*x);
 					})(i);
 			}
 		})////each
@@ -699,6 +690,7 @@ $(function(){
 	  servicePlace.getDetails({placeId: placeId},
 	            function(place, status) {
 	              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	            	  console.log('detailSave:',status)
 	                return;
 	              }
 	               if(nearSearchType=='lodging'){
@@ -708,13 +700,13 @@ $(function(){
 	               else{
 	            	   if(spotInfo['day'+date]==undefined){
 		            	   var savedSpot=[]
-		            	   spotsForSave['day'+date]=[];
-		            	   spotsForSave['day'+date].push(place.id);
+		            	   spotsForSave['day'+date]='';
+		            	   spotsForSave['day'+date]+=(place.id)+',';
 		            	   savedSpot.push({'spot':place})
 		            	   spotInfo['day'+date]=savedSpot
 	            	   }
 	            	   else{
-	            		   spotsForSave['day'+date].push(place.id);
+	            		   spotsForSave['day'+date]+=(place.id)+',';
 	            		   spotInfo['day'+date].push({'spot':place})
 	            	   }
 	               }
@@ -1096,9 +1088,11 @@ $(function(){
 }
  
  function back() {
+	 var jsonData = JSON.stringify(spotsForSave);
+	 
 	 $.ajax({
 			url:'<c:url value="PlanSave.kosmo"/>',
-			data:{city:origin,day1:spotsForSave.day1,day2:spotsForSave.day2,day3:spotsForSave.day3,day4:spotsForSave.day4,day5:spotsForSave.day5},
+			data:spotsForSave,
 			success:function(){
 				window.location.href="<c:url value='Planner.kosmo?planner_no=${planner_no}'/>"
 			},

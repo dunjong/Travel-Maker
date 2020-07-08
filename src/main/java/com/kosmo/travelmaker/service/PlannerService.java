@@ -10,4 +10,7 @@ public interface PlannerService {
 	public List<Integer> selectPlannerList(int planner_no);
 	public int selectPlannerNo();
 	List<CitiesDTO> selectCitiesDTOList(int planner_no);
+	public int selectCitiesNo();
+	public boolean insertPlan(Map<String, Object> maps2);
+	public int selectPlanNo();
 }

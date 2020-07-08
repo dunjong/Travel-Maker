@@ -18,4 +18,13 @@
 	<select id="selectCitiesDTOList" parameterType="int" resultType="CitiesDTO">
 		SELECT * FROM CITIES WHERE PLANNER_NO=#{planner_no}
 	</select>
+	<select id="selectCitiesNo" resultType="int">
+		select seq_cities.currval from dual
+	</select>
+	<insert id="insertPlan"  parameterType="java.util.Map">
+		Insert into plan VALUES(seq_plan.nextval,#{plan_date},#{cities_no})
+	</insert>
+	<select id="selectPlanNo" resultType="int">
+		select seq_plan.currval from dual
+	</select>
 </mapper>

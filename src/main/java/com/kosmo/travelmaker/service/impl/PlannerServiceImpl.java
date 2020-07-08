@@ -51,5 +51,24 @@ public class PlannerServiceImpl implements PlannerService{
 	public List<CitiesDTO> selectCitiesDTOList(int planner_no) {
 		return plannerDAO.selectCitiesDTOList(planner_no);
 	}
+
+
+	@Override
+	public int selectCitiesNo() {
+		return plannerDAO.selectCitiesNo();
+	}
+
+	@Override
+	public boolean insertPlan(Map<String, Object> maps2) {
+		// TODO Auto-generated method stub
+		return plannerDAO.insertPlan(maps2);
+	}
+
+
+	@Override
+	public int selectPlanNo() {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectPlanNo();
+	}
 	
 }
