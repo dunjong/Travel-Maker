@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kosmo.travelmaker.service.AndroidMemberDTO;
 import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
 
@@ -19,7 +20,7 @@ public class MemberDAO {
 		return (Integer)sqlMapper.selectOne("isLogin",map)==0 ? false : true;
 	}
 	
-	public MemberDTO isLogin(MemberDTO dto) {
+	public AndroidMemberDTO isLogin(AndroidMemberDTO dto) {
 		return sqlMapper.selectOne("androidLogin",dto);
 	}
 	public boolean SignUp(MemberDTO dto) {

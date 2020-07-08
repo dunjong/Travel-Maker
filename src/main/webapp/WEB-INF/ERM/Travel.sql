@@ -1,5 +1,5 @@
 
-/* Drop Tables
+/* Drop Tables */
 
 DROP TABLE accompany CASCADE CONSTRAINTS;
 DROP TABLE air CASCADE CONSTRAINTS;
@@ -18,7 +18,7 @@ DROP TABLE planner CASCADE CONSTRAINTS;
 DROP TABLE tag CASCADE CONSTRAINTS;
 DROP TABLE userinfo CASCADE CONSTRAINTS;
 
- */
+
 
 /* Drop Sequences */
 DROP SEQUENCE seq_acc;

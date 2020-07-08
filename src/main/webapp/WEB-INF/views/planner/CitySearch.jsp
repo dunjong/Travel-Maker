@@ -440,10 +440,10 @@
 					<input type="text" name="searchWord" id="inputid" class="form-control"
 						style="line-height:50px;opacity: 0.5;font-weight:bold;height:40px;width:150px;display:inline;" />
 				</div>
-				<form action="<c:url value='/TravelMaker/Planner.kosmo'/>">
+				<form action="<c:url value='/TravelMaker/Planner.kosmo'/>" >
 				<div
 					class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-					<input type="hidden" value="2,9,10" name="city_no">
+					<input type="hidden" name="city_no">
 					<input type="hidden" id="ctiyname" name="city_name"/>
 					<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
 					<button class="home_search_button citysearch" onclick="citypick();">도시선택</button>
