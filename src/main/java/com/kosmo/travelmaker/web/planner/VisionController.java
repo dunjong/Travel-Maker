@@ -49,6 +49,7 @@ public class VisionController {
 	public Map Vision(@RequestParam("fileObj") MultipartFile file,HttpServletRequest req) throws IllegalStateException, IOException {
 		System.out.println(file);
 		String path= req.getSession().getServletContext().getRealPath("/resources/Upload");
+		System.out.println(path);
 		File f = new File(path+File.separator+file.getOriginalFilename());
 		file.transferTo(f);
 		//String a = GoogleVision.vision(path+File.separator+file.getOriginalFilename());

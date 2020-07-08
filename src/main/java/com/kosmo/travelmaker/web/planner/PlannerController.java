@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,11 +15,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.SpotsDTO;
 import com.kosmo.travelmaker.service.impl.CityServiceImpl;
+import com.kosmo.travelmaker.service.impl.PlannerServiceImpl;
 import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 
 @Controller
@@ -31,21 +35,64 @@ public class PlannerController {
 	@Resource (name="cityService")
 	private CityServiceImpl cityService;
 	
+	@Resource(name ="plannerService")
+	private PlannerServiceImpl plannerService;
 	
-	@RequestMapping("Planner.kosmo")
-	public String Planner(@RequestParam Map map,Model model) {
+
+	@RequestMapping(value = "Planner.kosmo")
+	public String Planner(@RequestParam Map map,Model model,HttpSession session) {
 		
+		int planner_no=0;
+		System.out.println("map.get(\"planner_no\"):"+map.get("planner_no"));
 		List<String> city_no_name=new Vector<String>();
-		String[] city_no_list=map.get("city_no").toString().split(",");
-		String[] city_name_list=map.get("city_name").toString().split(",");
-		for(String no:city_no_list) {
-			city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
+		if(map.get("planner_no")==null) {
+			String[] city_no_list=map.get("city_no").toString().split(",");
+			if(plannerService.insertPlanner(session.getAttribute("id").toString())) {
+				System.out.println("플래너가 저장되었습니다.");
+				planner_no=plannerService.selectPlannerNo();
+				System.out.println("planner_no:"+planner_no);
+			};
+			
+			Map<String, Integer> maps=new HashMap<String, Integer>();
+			maps.put("planner_no", planner_no);
+			
+			for(String city_no:city_no_list) {
+				System.out.println("도시번호:"+city_no);
+				maps.put("city_no",Integer.parseInt(city_no.trim()));
+				
+				if(plannerService.insertCities(maps)) {
+					System.out.println(city_no+" 도시가 저장되었습니다.");
+				};
+			}
+			
+			for(String no:city_no_list) {
+				city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
+				
+			}
+		}
+		else {
+			String numbers="";
+			for(int no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
+				numbers+=no+",";
+				city_no_name.add(cityService.selectCityDTO(no).getCity_name());
+				
+			}
+			System.out.println("numbers:"+numbers);
+			String city_no=numbers.substring(0, numbers.length()-1);
+			
+			model.addAttribute("city_no",city_no);
+			
 		}
 		
-		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
+		model.addAttribute("planner_no",planner_no);
 		model.addAttribute("city_no_name",city_no_name);
+		//String user_id=session.getAttribute("id").toString();
+		//cityService.makingplanner(user_id);
+		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
+		model.addAttribute("returnFromMap",false);
 		return "planner/Planner";
 	}
+	
 	
 	@RequestMapping("Plan.kosmo")
 	public String Plan(@RequestParam Map map, Model model) {
@@ -57,6 +104,8 @@ public class PlannerController {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}
+		//model.addAttribute("planner_no",planner_no);
+		model.addAttribute("planner_no",map.get("planner_no"));
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("dayPlan",dayPlan);
 		model.addAttribute("origin",map);
@@ -99,7 +148,7 @@ public class PlannerController {
 				List<String> spotIDs=new Vector<String>();
 				dayPlan.put("day"+i, spotIDs);
 			}
-			
+	
 			
 			for(SpotsDTO dto:list) {
 				

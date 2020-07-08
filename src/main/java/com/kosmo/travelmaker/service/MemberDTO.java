@@ -50,5 +50,10 @@ public class MemberDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	@Override
+	public String toString() {
+		return "MemberDTO [name=" + name + ", id=" + id + ", pwd=" + pwd + ", password_check=" + password_check
+				+ ", rrn=" + rrn + ", gender=" + gender + "]";
+	}
 	
 }

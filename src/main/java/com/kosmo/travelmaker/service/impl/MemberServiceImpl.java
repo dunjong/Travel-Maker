@@ -20,6 +20,11 @@ public class MemberServiceImpl implements MemberService{
 	public boolean isLogin(Map map) {
 		return memberDAO.isLogin(map);
 	}
+	
+	public MemberDTO isLogin(MemberDTO dto) {
+		return memberDAO.isLogin(dto);
+	}
+	
 	@Override
 	public boolean SignUp(MemberDTO dto) {
 		return memberDAO.SignUp(dto);

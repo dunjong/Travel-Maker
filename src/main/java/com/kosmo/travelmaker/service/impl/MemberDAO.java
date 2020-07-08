@@ -18,6 +18,10 @@ public class MemberDAO {
 	public boolean isLogin(Map map) {
 		return (Integer)sqlMapper.selectOne("isLogin",map)==0 ? false : true;
 	}
+	
+	public MemberDTO isLogin(MemberDTO dto) {
+		return sqlMapper.selectOne("androidLogin",dto);
+	}
 	public boolean SignUp(MemberDTO dto) {
 		return sqlMapper.insert("signUp",dto)==0 ? false : true;
 	}

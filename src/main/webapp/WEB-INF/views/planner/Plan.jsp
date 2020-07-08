@@ -1084,7 +1084,7 @@ $(function(){
 			url:'<c:url value="PlanSave.kosmo"/>',
 			data:{city:origin,day1:spotsForSave.day1,day2:spotsForSave.day2,day3:spotsForSave.day3,day4:spotsForSave.day4,day5:spotsForSave.day5},
 			success:function(){
-				window.location.href="<c:url value='Planner.kosmo?city_no=2,9,10'/>"
+				window.location.href="<c:url value='Planner.kosmo?planner_no=${planner_no}'/>"
 			},
 			error:function(request,error){
 				console.log('상태코드:',request.status);

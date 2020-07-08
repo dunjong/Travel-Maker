@@ -56,9 +56,11 @@
 										<div class="card-body">
 											<!-- the events -->
 											<div id="external-events">
+												<c:if test="${!returnFromMap}">
 												<c:forEach items="${city_no_name}" var="name">
 													<div class="external-event bg-info">${name}</div>
 												</c:forEach>
+												</c:if>
 											</div>
 										</div>
 									</div>
@@ -115,6 +117,8 @@
 											<h4 class="card-title">항공권 예매</h4>
 										</div>
 										<div class="card-body">	
+											<button id='test' class="btn btn-info" type="button" style="width:100%">test</button>
+											<button id='test2' class="btn btn-info" type="button" style="width:100%">test2</button>
 											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#a-modal" style="width:100%">항공권 검색</button>
 											<div class="modal fade" id="a-modal">
 												<div class="modal-dialog">
@@ -165,6 +169,7 @@
 																<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" style='margin-bottom:4px'>
 													                <input hidden="true" name="origin" value="${name}" /> 
 																	<input hidden="true" name="destination" value="공항,${name}" />
+																	<input hidden="true" name="planner_no" value="${planner_no}" />
 													                <button class="btn btn btn-success">세부일정 짜기</button>
 													            </form>
 													            <button class="btn btn-success">세부목록 보기</button>
@@ -225,9 +230,10 @@
 	
 	
 	<script>
-	var date = new Date();
 		$(function() {
-
+			var date = new Date();
+			var startDates=[];
+			var endDates=[];
 			/* initialize the external events
 			 -----------------------------------------------------------------*/
 			function ini_events(ele) {
@@ -235,7 +241,8 @@
 					// create an Event Object (https://fullcalendar.io/docs/event-object)
 					// it doesn't need to have a start or end
 					var eventObject = {
-						title : $.trim($(this).text())
+						title : $.trim($(this).text()),
+						overlab : false
 					// use the element's text as the event title
 					}
 
@@ -264,7 +271,6 @@
 			var Draggable = FullCalendarInteraction.Draggable;
 
 			var containerEl = document.getElementById('external-events');
-			var checkbox = document.getElementById('drop-remove');
 			var calendarEl = document.getElementById('calendar');
 
 			// initialize the external events
@@ -298,11 +304,11 @@
 						events: [
 							{
 								start: '2020-01-01',
-								end: '2020-07-06',
+								end: '2020-07-07',
 				    	        overlap: false,
 				    	        color: '#ffffff'
 							},
-							
+							<c:if test="${returnFromMap}">
 							<c:forEach items="${city_no_name}" var="name">
 							{
 								title:'${name}',
@@ -310,27 +316,22 @@
 				    	        overlap: false
 							},
 							</c:forEach>
+							</c:if>
 						],
 						editable : true,
 						droppable : true, // this allows things to be dropped onto the calendar !!!
-						//최초 받는 드롭
+						//카드에서 드랍시 한번만 1
 						drop : function(info) {
 							info.draggedEl.parentNode.removeChild(info.draggedEl);
 							console.log('drop',info);
 						},
-						//최초 받는 드롭
+						//카드에서 드랍시 한번만 2
 						eventReceive:function(info){
 							alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s'));
 							console.log('eventReceive',info);
-							//console.log($('.fc-event-container')) 확인용
-							if(date>=info.event.start){
-								if (!confirm("과거에 예약하는 병신이세요?")) {
-									//info.revert(); V5에만 있음
-									//그래서 에러를 발생시켜서 함수 실행 안되게 해야할듯..
-								    }
-							}
 							if(info.event.end==null){
 								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker1-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
 							}
 							else{
 								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
@@ -341,23 +342,18 @@
 						//옮기는 드롭
 						eventDrop: function(info) {
 							if(info.event.end==null){
-								alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s'));
+								alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s')+',끝날짜:'+dateFiting(info.event.start.toISOString(),'s'));
 							}
 							else{
 								alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s')+',끝날짜:'+dateFiting(info.event.end.toISOString(),'e'));
 							}
 							console.log('eventDrop',info);
 							if(date>=info.event.start){
-								if (!confirm("과거에 예약하는 병신이세요?")) {
-								      info.revert();
-								    }
-								else{
-									alert('병신이어도 이건 아니에요..')
-									info.revert();
-								}
+								info.revert();
 							}
 							if(info.event.end==null){
 								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker1-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
 							}
 							else{
 								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
@@ -370,6 +366,7 @@
 							console.log('eventResize',info);
 							if(info.event.end==null){
 								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker1-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
 							}
 							else{
 								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
@@ -382,9 +379,14 @@
 			calendar.render();
 			// $('#calendar').fullCalendar()
 			//$('td[data-date=2020-07-05]').prop('style','background-color:red');
-			
-		
-			
+			$('#test').click(function(){
+				//console.log(calendar.getEventSources())
+				calendar
+			})
+			$('#test2').click(function(){
+				console.log(calendar)
+				calendar.getEventSources()[0].refetch()
+			})
 		})
 		function dateFiting(date,se){
 			var date=date.split('T')[0]
