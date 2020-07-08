@@ -576,10 +576,10 @@ function initMap() {
   
 }////initMap
 
-async function getDetailById(placeIds){ 
+function getDetailById(placeIds){ 
 	servicePlace = new google.maps.places.PlacesService(map);
 	var place_detail=servicePlace.getDetails({placeId: placeIds},
-            await function(place, status) {
+            function(place, status) {
               if (status !== google.maps.places.PlacesServiceStatus.OK) {
                 return '없음';
               }
@@ -613,22 +613,23 @@ $(function(){
 		console.log('data',data)
 		servicePlace = new google.maps.places.PlacesService(map);
 		
-		
-		
-		
-		
-		
-		$.each(data[0], function (date,item) {
-			console.log('date:',date,',item:',item);
-			$.each(item, function (index,spot_id) {
-				placeDetailnSave(spot_id,date.substring(3))
-				servicePlace.getDetails({placeId: spot_id},
-	          	  		function(place, status) {
-	              		if (status !== google.maps.places.PlacesServiceStatus.OK) {
-	              				console.log('place in OK func',place)
-	                			return;
-	             	 	}
-	  				console.log('place.name:',date,index,place.name)
+	function details(item,date){
+		function start(counter){
+				if(counter < 10){
+					setTimeout(function(){
+					counter++;
+					console.log(counter);
+					start(counter);
+					}, 1000);
+				}
+			}
+			
+		servicePlace.getDetails({placeId: item},
+				function(place, status) {
+              		if (status !== google.maps.places.PlacesServiceStatus.OK) {
+              				console.log('status in func:',status)
+                			return;
+             	 	}
 					var placelatlng={location:place.geometry.location.lat()+','+place.geometry.location.lng()}
 					if(dayplans[date]==undefined){
 	  					spots=[]
@@ -640,8 +641,23 @@ $(function(){
 		  				dayplans[date]['spots'].push(placelatlng);
 		  				console.log('있을때')
 					}
-	           		 	});
-			})
+           		})
+	}
+		
+		
+		
+		
+		$.each(data[0], function (date,item) {
+			console.log('date:',date,',item:',item);
+			for(var i=0;i<item.length;i++){
+				(function(x) {
+					setTimeout(function() {
+						details(item[x],date)
+						placeDetailnSave(item[x],date.substring(3))
+						console.log(x);
+						}, 3000*x);
+					})(i);
+			}
 		})////each
 
 	};/////successAjax 
