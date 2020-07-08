@@ -6,5 +6,5 @@ public interface CityService {
 
 	CityDTO selectCityDTO(int city_no);
 
-	int selectCityNo(Map map);
+	int selectCityNo(String city_name);
 }

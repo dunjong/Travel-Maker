@@ -32,4 +32,13 @@ public class PlannerDAO {
 	public List<CitiesDTO> selectCitiesDTOList(int planner_no) {
 		return sqlMapper.selectList("selectCitiesDTOList",planner_no);
 	}
+	public int selectCitiesNo() {
+		return sqlMapper.selectOne("selectCitiesNo");
+	}
+	public boolean insertPlan(Map<String, Object> maps2) {
+		return sqlMapper.insert("insertPlan", maps2)==1?true:false;
+	}
+	public int selectPlanNo() {
+		return sqlMapper.selectOne("selectPlanNo");
+	}
 }

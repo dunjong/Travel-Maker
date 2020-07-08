@@ -20,7 +20,7 @@ public class ReviewDAO implements ReviewService {
 	@Override
 	public List<ReviewDTO> selectList(Map map) {
 		
-		return sqlMapper.selectList("reviewlectList",map);
+		return sqlMapper.selectList("reviewSelectList",map);
 	}
 
 	@Override

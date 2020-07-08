@@ -21,5 +21,11 @@ public class SpotsServiceImpl implements SpotsService{
 		// TODO Auto-generated method stub
 		return spotsDAO.spotList(map);
 	}
+
+	@Override
+	public boolean insertSaveSpot(SpotsDTO dto) {
+		// TODO Auto-generated method stub
+		return spotsDAO.insertSaveSpot(dto);
+	}
 	
 }

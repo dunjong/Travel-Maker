@@ -190,7 +190,7 @@ CREATE TABLE save_spots
 (
 	save_spot_no number NOT NULL,
 	spot_name nvarchar2(200) NOT NULL,
-	spot_id nvarchar2(200) NOT NULL UNIQUE,
+	spot_id nvarchar2(200) NOT NULL,
 	plan_no number,
 	PRIMARY KEY (save_spot_no)
 );

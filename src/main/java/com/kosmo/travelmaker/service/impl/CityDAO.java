@@ -19,9 +19,9 @@ public class CityDAO {
 		
 	}
 
-	public int selectOneCityNo(Map map) {
+	public int selectOneCityNo(String city_name) {
 		// TODO Auto-generated method stub
-		return sqlMapper.selectOne("selectOneCityNo",map);
+		return sqlMapper.selectOne("selectOneCityNo",city_name);
 	}
 
 	public void makingplanner(String user_id) {
