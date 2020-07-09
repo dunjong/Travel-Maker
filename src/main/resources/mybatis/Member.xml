@@ -14,7 +14,7 @@
 		INSERT INTO userinfo VALUES(#{id},#{name},#{pwd},#{rrn},#{gender})
 	</insert>
 	<select id="idCheck" parameterType="java.lang.String" resultType="int">
-		SELECT COUNT(*) FROM userinfo WHERE id=#{id}
+		SELECT COUNT(*) FROM userinfo WHERE user_id=#{id}
 	</select>	
 	<select id="myPlannerListSelectList" parameterType="java.lang.String" resultType="PlannerDTO">
 		SELECT * FROM planner WHERE user_id=#{id}
@@ -23,5 +23,11 @@
 	<insert id="kako" parameterType="MemberDTO">
 		INSERT INTO userinfo(USER_ID,USER_PWD,USER_RRN,USER_GENDER) VALUES(#{kakaoemail},#{kakoid},#{rrn},#{gender})
 	</insert>
+	<select id="selectMemberDTO" resultType="MemberDTO" parameterType="java.lang.String" >
+		SELECT * FROM userinfo WHERE user_id=#{id}
+	</select>
+	<update id="updateMemberDTO" parameterType="java.util.Map">
+		UPDATE userinfo SET ${updateColumn}=#{value} where user_id=#{id}
+	</update>
 </mapper>
 

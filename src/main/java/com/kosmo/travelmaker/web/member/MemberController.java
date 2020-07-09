@@ -42,12 +42,23 @@ public class MemberController {
 	
 
 	@RequestMapping("MyInfo.kosmo")
-	public String MyInfo() {
+	public String MyInfo(@RequestParam Map map, HttpSession session,Model model) {
+		MemberDTO dto = memberService.selectMemberDTO(session.getAttribute("id").toString());
+		model.addAttribute("id",dto.getUser_id());
+		model.addAttribute("name",dto.getUser_name());
+		model.addAttribute("gender",dto.getUser_gender());
+		model.addAttribute("rrn",dto.getUser_rrn());
 		return "member/MyInfo.tiles";
 	}
 	@RequestMapping("MyInfoEdit.kosmo")
-	public String MyInfoEdit() {
-		return "member/MyInfoEdit.tiles";
+	public String MyInfoEdit(@RequestParam Map map, HttpSession session) {
+
+		if(memberService.updateMemberDTO(map)) {
+			
+			System.out.println(map.get("updateColumn").toString()+"수정이 완료되었습니다");
+		}
+		
+		return "forward:/TravelMaker/MyInfo.kosmo";
 	}
 	@RequestMapping("BookMark.kosmo")
 	public String BookMark() {
@@ -98,7 +109,7 @@ public class MemberController {
 	@RequestMapping("SignUp.do")
 	public String SignUp(MemberDTO dto, HttpSession session){
 		if(memberService.SignUp(dto)) {
-			session.setAttribute("id", dto.getId());
+			session.setAttribute("id", dto.getUser_id());
 		}
 		return "/home.tiles";
 	}

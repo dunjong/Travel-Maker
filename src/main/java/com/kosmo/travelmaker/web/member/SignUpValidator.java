@@ -25,23 +25,23 @@ public class SignUpValidator implements Validator{
 	public void validate(Object command, Errors errors) {
 		//오류시 errors타입에 에러정보 저장 rejectValue(cmd의 속성명,에러코드); - 에러코드(중복 불가능) 임의로 정하면됨
 		MemberDTO cmd = (MemberDTO)command;
-		if (cmd.getName() == null || cmd.getName().trim().isEmpty()) {
+		if (cmd.getUser_name() == null || cmd.getUser_name().trim().isEmpty()) {
 			errors.rejectValue("name","nameError");
 		}
 		
-		if (cmd.getRrn() == null || cmd.getRrn().equals("출생 연도를 선택하세요")) {
+		if (cmd.getUser_rrn() == null || cmd.getUser_rrn().equals("출생 연도를 선택하세요")) {
 			errors.rejectValue("rrn","ageError");
 		}
-		if (cmd.getGender() == null) {
+		if (cmd.getUser_gender() == null) {
 			errors.rejectValue("gender", "genderError");
 		}
-		if (cmd.getPassword() == null) {
+		if (cmd.getUser_pwd() == null) {
 			errors.rejectValue("password", "passwordError");
 		} 
-		else if(cmd.getPassword_check() == null || !cmd.getPassword().equals(cmd.getPassword_check())) {
+		else if(cmd.getPassword_check() == null || !cmd.getUser_pwd().equals(cmd.getPassword_check())) {
 			errors.rejectValue("password_check", "password_checkError");
 		}
-		if (cmd.getId() == null || cmd.getId().equals("")) {
+		if (cmd.getUser_id() == null || cmd.getUser_id().equals("")) {
 			errors.rejectValue("id", "idError");
 		}
 	}
