@@ -342,7 +342,7 @@
 								name="user_id" value="${param.user_id}" placeholder="아이디를 입력하세요">
 						</div>
 						<div>
-							<a class="btn btn-info" id="signUpIdCheckBtn">아이디 확인</a> <span
+							<a class="btn btn-success" id="signUpIdCheckBtn">아이디 확인</a> <span
 								id="idErrormessage" style="color: red; font-size: .8em">${idError}<form:errors
 									path="memberDTO.user_id" /></span>
 						</div>
@@ -411,9 +411,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn" id="sighUpSubmit" type="submit">확인</button>
-						<button class="btn" type="button" data-dismiss="modal"
-							style="color: red;">취소</button>
+						<button class="btn btn-info" id="sighUpSubmit" type="submit">확인</button>
+						<button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
 					</div>
 				</form>
 			</div>
