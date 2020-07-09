@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +29,27 @@ public class androidController {
 		System.out.println(dto.toString());
 		return dto;		
 	}
-
+	
+	@CrossOrigin
+	@GetMapping(value="/membercheck/json")
+	public String isMemberCheck(@RequestParam String id) {
+		System.out.println(id);
+		String check = service.idCheck(id);
+		System.out.println(check);
+		return check;
+	}
+	
+	@CrossOrigin
+	@GetMapping(value="/register/json")
+	public String registerInsert(AndroidMemberDTO member) {
+		System.out.println(member.toString());
+		int i = service.registerInsert(member);
+		String value=null;
+		System.out.println(i);
+		if(i==1) {
+			value="success";
+		}
+		return value;
+	}
+	
 }

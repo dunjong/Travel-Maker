@@ -43,6 +43,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.kakao(dto);
 	}
 
+	public int registerInsert(AndroidMemberDTO member) {
+		return memberDAO.registerInsert(member);
+	}
+
 	@Override
 	public MemberDTO selectMemberDTO(String id) {
 		// TODO Auto-generated method stub
@@ -53,7 +57,4 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.updateMemberDTO(map);
 		
 	}
-	
-	
-
 }

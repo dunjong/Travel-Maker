@@ -48,5 +48,4 @@ public class MemberDTO {
 		this.user_gender = user_gender;
 	}
 	
-	
 }
