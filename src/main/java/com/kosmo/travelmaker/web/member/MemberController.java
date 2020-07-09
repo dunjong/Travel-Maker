@@ -59,7 +59,7 @@ public class MemberController {
 			System.out.println(map.get("updateColumn").toString()+"수정이 완료되었습니다");
 		}
 		
-		return "forward:/TravelMaker/MyInfo.kosmo";
+		return "member/MyInfoEdit.tiles";
 	}
 	@RequestMapping("BookMark.kosmo")
 	public String BookMark() {
