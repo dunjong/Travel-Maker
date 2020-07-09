@@ -93,6 +93,13 @@ public class PlannerController {
 	@RequestMapping("Plan.kosmo")
 	public String Plan(@RequestParam Map map, Model model) {
 		String cities_no=map.get("cities_no").toString();
+		
+		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
+		System.out.println("받아온 cities_no:"+cities_no);
+		for(int no:plan_no_list) {
+			
+			System.out.println("찾아온 plan_no:"+no);
+		}
 		String city_name=map.get("origin").toString();
 		int city_no=cityService.selectCityNo(city_name);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();

@@ -44,4 +44,8 @@ public class PlannerDAO {
 	public int selectCitiesNoByMap(Map<String, Integer> maps) {
 		return sqlMapper.selectOne("selectCitiesNoByMap", maps);
 	}
+	public List<Integer> selectPlanNoByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectPlanNoByCitiesNo",cities_no);
+	}
 }
