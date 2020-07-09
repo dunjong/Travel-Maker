@@ -23,26 +23,27 @@ public class SignUpValidator implements Validator{
 	//-개발자가 컨트롤러 메소드에서 호출한다
 	@Override
 	public void validate(Object command, Errors errors) {
+		System.out.println(((MemberDTO)command).getUser_name());
 		//오류시 errors타입에 에러정보 저장 rejectValue(cmd의 속성명,에러코드); - 에러코드(중복 불가능) 임의로 정하면됨
 		MemberDTO cmd = (MemberDTO)command;
-		if (cmd.getName() == null || cmd.getName().trim().isEmpty()) {
-			errors.rejectValue("name","nameError");
+		if (cmd.getUser_name() == null || cmd.getUser_name().trim().isEmpty()) {
+			errors.rejectValue("user_name","nameError");
 		}
 		
-		if (cmd.getRrn() == null || cmd.getRrn().equals("출생 연도를 선택하세요")) {
-			errors.rejectValue("rrn","ageError");
+		if (cmd.getUser_rrn() == null || cmd.getUser_rrn().equals("출생 연도를 선택하세요")) {
+			errors.rejectValue("user_rrn","ageError");
 		}
-		if (cmd.getGender() == null) {
-			errors.rejectValue("gender", "genderError");
+		if (cmd.getUser_gender() == null) {
+			errors.rejectValue("user_gender", "genderError");
 		}
-		if (cmd.getPassword() == null) {
-			errors.rejectValue("password", "passwordError");
+		if (cmd.getUser_pwd() == null) {
+			errors.rejectValue("user_pwd", "passwordError");
 		} 
-		else if(cmd.getPassword_check() == null || !cmd.getPassword().equals(cmd.getPassword_check())) {
+		else if(cmd.getPassword_check() == null || !cmd.getUser_pwd().equals(cmd.getPassword_check())) {
 			errors.rejectValue("password_check", "password_checkError");
 		}
-		if (cmd.getId() == null || cmd.getId().equals("")) {
-			errors.rejectValue("id", "idError");
+		if (cmd.getUser_id() == null || cmd.getUser_id().equals("")) {
+			errors.rejectValue("user_id", "idError");
 		}
 	}
 }
