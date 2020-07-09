@@ -28,7 +28,7 @@ public class AuthController {
 		boolean flag=memberService.isLogin(map);
 		if(flag) {//회원
 			//세션 영역에 데이타 저장
-			session.setAttribute("id",map.get("id"));
+			session.setAttribute("id",map.get("user_id"));
 		}
 		else//비회원이거나 아이디가 틀린경우
 			model.addAttribute("NotMember", "아이디와 비밀번호를 찾지 못했습니다");
