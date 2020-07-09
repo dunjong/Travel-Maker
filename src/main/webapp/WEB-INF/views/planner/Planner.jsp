@@ -566,20 +566,18 @@
 					for (var i = 0; i < response.data.length; i++) {
 						img = document.createElement('img');
 						img.alt = 'no image';
-						if (response.data[i].photo.images.medium.url != null) {
+						if (response.data[i].photo.images.medium.url != null) 
 							img.src = response.data[i].photo.images.medium.url;
-						}
-						else if (response.data[i].photo.images.medium.url != null) {
+						else if (response.data[i].photo.images.large.url != null) 
+							img.src = response.data[i].photo.images.large.url;
+						else if (response.data[i].photo.images.original.url != null) 
+							img.src = response.data[i].photo.images.original.url;
+						else if (response.data[i].photo.images.small.url != null) 
+							img.src = response.data[i].photo.images.small.url;
+						else if (response.data[i].photo.images.medium.url != null) 
 							img.src = response.data[i].photo.images.medium.url;
-						}
-						else if (response.data[i].photo.images.medium.url != null) {
-							img.src = response.data[i].photo.images.medium.url;
-						}
-						else if (response.data[i].photo.images.medium.url != null) {
-							img.src = response.data[i].photo.images.medium.url;
-						}
-						else if (response.data[i].photo.images.medium.url != null) {
-							img.src = response.data[i].photo.images.medium.url;
+						else{
+							img.src = <c:url value='images/hotel_icon'/>
 						}
 						var div = document.createElement('div');
 						div.className = 'col-sm-6';
