@@ -58,7 +58,7 @@
 											<div id="external-events">
 												<c:if test="${!returnFromMap}">
 												<c:forEach items="${city_no_name}" var="name">
-													<div class="external-event bg-info">${name}</div>
+													<div class="external-event bg-info">${name.key}</div>
 												</c:forEach>
 												</c:if>
 											</div>
@@ -72,10 +72,10 @@
 										</div>
 										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
-											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#h-modal-${name}" style="width:100%;margin-bottom:4px">
-												${name}주변 호텔 찾아보기
+											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#h-modal-${name.key}" style="width:100%;margin-bottom:4px">
+												${name.key}주변 호텔 찾아보기
 											</button>
-											<div class="modal fade" id="h-modal-${name}">
+											<div class="modal fade" id="h-modal-${name.key}">
 												<div class="modal-dialog">
 													<div class="modal-content">
 														<div class="modal-header bg-info">
@@ -84,18 +84,18 @@
 														<div class="modal-body">
 											              	<div>
 																<form action="#">
-																	<input id="autocomplete-${name}" placeholder="장소" required="required" value="${name}">
-																	<input type="number" id="adults-${name}"  placeholder="성인" required="required">
-																	<input type="text" id="datepicker-${name}" placeholder="check in" required="required"> 
-																	<input type="number" id="children-${name}" placeholder="미성년">
-																	<input type="text" id="datepicker1-${name}" placeholder="check out" required="required">
-																	<input type="number" id="rooms-${name}" placeholder="방 갯수" required="required">
+																	<input id="autocomplete-${name.key}" placeholder="장소" required="required" value="${name}">
+																	<input type="number" id="adults-${name.key}"  placeholder="성인" required="required">
+																	<input type="text" id="datepicker-${name.key}" placeholder="check in" required="required"> 
+																	<input type="number" id="children-${name.key}" placeholder="미성년">
+																	<input type="text" id="datepicker1-${name.key}" placeholder="check out" required="required">
+																	<input type="number" id="rooms-${name.key}" placeholder="방 갯수" required="required">
 																</form>
 															</div>
 														</div>
 														<div class="modal-footer justify-content-between bg-info">
 											            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-											            	<button type="button" class="btn btn-outline-light">검색</button>
+											            	<button type="button" class="btn btn-outline-light" id='hotelsubmit'>검색</button>
 											            </div>
 													</div>
 												</div>
@@ -166,21 +166,22 @@
 										</div>
 										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
-											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#d-modal-${name}" style="width:100%;margin-bottom:4px">
-												${name}에 대한 세부 일정 짜기
+											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#d-modal-${name.key}" style="width:100%;margin-bottom:4px">
+												${name.key}에 대한 세부 일정 짜기
 											</button>
-											<div class="modal fade" id="d-modal-${name}">
+											<div class="modal fade" id="d-modal-${name.key}">
 												<div class="modal-dialog">
 													<div class="modal-content">
 														<div class="modal-header bg-info">
-															<h2>세부 일정 in ${name}</h2>
+															<h2>세부 일정 in ${name.key}</h2>
 														</div>
 														<div class="modal-body">
 											              	<div>
 																<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" style='margin-bottom:4px'>
-													                <input hidden="true" name="origin" value="${name}" /> 
-																	<input hidden="true" name="destination" value="공항,${name}" />
+													                <input hidden="true" name="origin" value="${name.key}" /> 
+																	<input hidden="true" name="destination" value="공항,${name.key}" />
 																	<input hidden="true" name="planner_no" value="${planner_no}" />
+																	<input hidden="true" name="cities_no" value="${name.value}"/>
 													                <button class="btn btn btn-success">세부일정 짜기</button>
 													            </form>
 													            <button class="btn btn-success">세부목록 보기</button>
@@ -441,7 +442,6 @@
 			  /*close : function(evt) {}  */
 	   		 
 			})
-			
 			$('#departure').autocomplete({
 				source : function(request, response) {
 					console.log($('#ui-id-2').prop('style'))

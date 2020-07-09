@@ -346,7 +346,7 @@ var span;
 //일차마다 선택된 호텔과 장소들 담는 JSON 선언
 var hotelInfo={}
 var spotInfo={}
-var spotsForSave={city_name:'${origin.origin}',planner_no:'${planner_no}'};
+var spotsForSave={city_name:'${origin.origin}',planner_no:'${planner_no}',cities_no:'${cities_no}'};
 //선택된 일차 선언
 var day=1;
 //몇일치 일지 정하는 수 선언(넘어오는 값) 지금은 5일차
