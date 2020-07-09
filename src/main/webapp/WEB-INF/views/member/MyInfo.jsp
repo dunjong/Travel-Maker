@@ -13,10 +13,44 @@
 					<div class="home_search_container">
 						<div class="home_search_title">회원정보</div>
 						<div class="home_search_content">
-							<div>이름</div>
-							<div>나이</div>
-							<div>아이디</div>
-							<div>등등</div>
+							<div>아이디:${id}</div>
+							
+							<form action="<c:url value='MyInfoEdit.kosmo'/>">
+								<div>이름:</div>
+								<input type="text" name="value" value="${name}" >
+								<input type="text" name="updateColumn" hidden="true" value="user_name" >
+								<input type="text" name="id" hidden="true" value="${id}" >
+								<button>수정</button>
+							</form>
+							<form action="<c:url value='MyInfoEdit.kosmo'/>">
+								<div>비밀번호:</div>
+								<input type="text" name="value" value="${pwd}" >
+								<input type="text" name="updateColumn" hidden="true" value="user_pwd" >
+								<input type="text" name="id" hidden="true" value="${id}" >
+								<button>수정</button>
+							</form>
+							<form action="<c:url value='MyInfoEdit.kosmo'/>">
+								<div>출생연도:</div>
+								<input type="text" name="value" value="${rrn}" >
+								<input type="text" name="updateColumn" hidden="true" value="user_rrn" >
+								<input type="text" name="id" hidden="true" value="${id}" >
+								<button>수정</button>
+							</form>
+							<form action="<c:url value='MyInfoEdit.kosmo'/>">
+								<div>성별:</div>
+								<input type="text" name="value" value="${gender}" >
+								<input type="text" name="updateColumn" hidden="true" value="user_gender" >
+								<input type="text" name="id" hidden="true" value="${id}" >
+								<button>수정</button>
+							</form>
+							
+							
+							
+							
+							
+							
+							
+							
 						</div>
 					</div>
 				</div>

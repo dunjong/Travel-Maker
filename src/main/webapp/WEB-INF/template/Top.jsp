@@ -76,7 +76,7 @@
 											href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a>
 										</li>
 										<li>
-											<a href="<c:url value='TrvavelMaker/admin1.kosmo'/>"> 관리자</a>
+											<a href="<c:url value='/TravelMaker/admin1.kosmo'/>"> 관리자</a>
 										</li>
 									</ul></li>
 								<li><a href="#" class="dropdown-toggle"

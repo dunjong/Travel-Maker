@@ -130,8 +130,8 @@
 								</div>
 								<div class="reviewTextInformation">
 									<br>
-									<h4>등록된 게시물이 없습니다.</h4>
-									<p></p>
+									<h4></h4>
+									<p>등록된 게시물이 없습니다.</p>
 									<h5 class="reviewPlaceInfomation"></h5>
 								</div>
 								<div class="reviewMapOrImage">
