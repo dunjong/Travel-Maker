@@ -72,10 +72,10 @@
 										</div>
 										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
-											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#h-modal-${name.key}" style="width:100%;margin-bottom:4px">
+											<button id='h_${name.key}' class="btn btn-info" type="button" data-toggle="modal" data-target="#h_modal_${name.key}" style="width:100%;margin-bottom:4px">
 												${name.key}주변 호텔 찾아보기
 											</button>
-											<div class="modal fade" id="h-modal-${name.key}">
+											<div class="modal fade" id="h_modal_${name.key}">
 												<div class="modal-dialog">
 													<div class="modal-content">
 														<div class="modal-header bg-info">
@@ -84,23 +84,38 @@
 														<div class="modal-body">
 											              	<div>
 																<form action="#">
-																	<input id="autocomplete-${name.key}" placeholder="장소" required="required" value="${name}">
-																	<input type="number" id="adults-${name.key}"  placeholder="성인" required="required">
-																	<input type="text" id="datepicker-${name.key}" placeholder="check in" required="required"> 
-																	<input type="number" id="children-${name.key}" placeholder="미성년">
-																	<input type="text" id="datepicker1-${name.key}" placeholder="check out" required="required">
-																	<input type="number" id="rooms-${name.key}" placeholder="방 갯수" required="required">
+																	<input id="autocomplete_${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
+																	<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
+																	<input type="date" id="datepicker_${name.key}" placeholder="check in" required="required"> 
+																	<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
+																	<input type="date" id="datepicker1_${name.key}" placeholder="check out" required="required">
+																	<input type="number" id="rooms_${name.key}" placeholder="방 갯수" required="required">
 																</form>
 															</div>
 														</div>
 														<div class="modal-footer justify-content-between bg-info">
 											            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-											            	<button type="button" class="btn btn-outline-light" id='hotelsubmit'>검색</button>
+											            	<button type="button" class="btn btn-outline-light" onclick="resultHotelModal('${name.key}')">검색</button>
 											            </div>
 													</div>
 												</div>
 											</div>
 											</c:forEach>
+											<div class="modal fade" id="h_modal_result" >
+												<div class="modal-dialog modal-lg">
+													<div class="modal-content">
+														<div class="modal-header bg-info">
+															<h2>호텔 검색결과</h2>
+														</div>
+														<div class="modal-body">
+															<div id='h_places'></div>
+														</div>
+														<div class="modal-footer justify-content-between bg-info">
+												            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+											            </div>
+													</div>
+												</div>
+											</div>
 										</div>	
 									</div>
 								</div>
@@ -130,7 +145,7 @@
 																	<label>도착</label>
 																	<input type="date" value='2020-07-08' name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
 																	<input type="number" name="adult" id="adult" placeholder="성인" required="required"> 
-																	<input type="number" name="children" id="children" placeholder="미성년">
+																	<input type="number" name="children" id="children" placeholder="미성년(선택사항)">
 																</form>
 															</div>
 														</div>
@@ -141,10 +156,10 @@
 													</div>
 												</div>
 											</div>
-											<div class="modal fade" id="a_modal_result">
-												<div class="modal-dialog">
+											<div class="modal fade" id="a_modal_result" >
+												<div class="modal-dialog modal-lg">
 													<div class="modal-content">
-														<div class="modal-header bg-info ">
+														<div class="modal-header bg-info">
 															<h2>항공권 검색결과</h2>
 														</div>
 														<div class="modal-body">
@@ -237,15 +252,14 @@
 	<script
 		src="<c:url value='/plugins/cal_plugins/fullcalendar-bootstrap/main.min.js'/>"></script>
 	<!-- Page specific script -->
-	
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMkei418dalW2Ho3I-ovwq0aMKWhUlwUA&libraries=places"></script>
 	
 	
 	
 	<script>
+		var lat,lng;//호텔용
 		$(function() {
 			var date = new Date();
-			var a_departure,a_arrival,a_departure_date,a_arrival_date,a_adult,a_children;
-			var h_departure,h_arrival,h_departure_date,h_arrival_date,h_adult,h_children;
 			/* initialize the external events
 			 -----------------------------------------------------------------*/
 			function ini_events(ele) {
@@ -316,19 +330,10 @@
 						events: [
 							{
 								start: '2020-01-01',
-								end: '2020-07-07',
+								end: '2020-07-12',
 				    	        overlap: false,
 				    	        color: '#ffffff'
-							},
-							<c:if test="${returnFromMap}">
-							<c:forEach items="${city_no_name}" var="name">
-							{
-								title:'${name}',
-								start:'2020-07-07',
-				    	        overlap: false
-							},
-							</c:forEach>
-							</c:if>
+							}
 						],
 						editable : true,
 						droppable : true, // this allows things to be dropped onto the calendar !!!
@@ -392,12 +397,11 @@
 			// $('#calendar').fullCalendar()
 			//$('td[data-date=2020-07-05]').prop('style','background-color:red');
 			$('#test').click(function(){
-				//console.log(calendar.getEventSources())
-				calendar.render();
+				
 			})
 			$('#test2').click(function(){
-				console.log(calendar)
-				calendar.getEventSources()[0].refetch()
+				console.log($('div.pac-container'))
+				calendar.getEventSources()[0].refetch()//////event옵션으로 동적생성한 이벤트들을 처음자리로 돌려보냄
 			})
 			$('#arrival').autocomplete({
 				source : function(request, response) {
@@ -496,6 +500,24 @@
 			  /*close : function(evt) {}  */
 	   		 
 			})
+			<c:forEach items="${city_no_name}" var="name" varStatus='h_i'>
+			var input_${name.key} = document.getElementById('autocomplete_${name.key}');
+			var autocomplete_${name.key} = new google.maps.places.Autocomplete(input_${name.key});
+			google.maps.event.addListener(autocomplete_${name.key}, 'place_changed', function () {
+				var place = autocomplete_${name.key}.getPlace();
+				console.log('lat', place.geometry.location.lat())
+		        console.log('lng', place.geometry.location.lng())
+		        lat = place.geometry.location.lat()
+		        lng = place.geometry.location.lng()
+			})
+			$('#h_${name.key}').click(()=>{
+				console.log($('div.pac-container'))
+				$('div.pac-container')[${h_i.index}].style.zIndex=2000;
+			})
+			</c:forEach>
+			
+			
+			
 		})
 		function dateFiting(date,se){
 			var date=date.split('T')[0]
@@ -516,121 +538,139 @@
 				return (year+'-'+month+'-'+day);
 			}
 		}
-		function resultHotelModal(){
-			$('#h_modal').modal('hide');
-			function hotelC(){
-				var adults = $('#adults').prop('value');
-				var children = $('#children').prop('value');
-				var rooms = $('#rooms').prop('value');
-				var checkin = $('#datepicker').prop('value');
-				var checkout = $('#datepicker1').prop('value');
-				var urlStr = "https://tripadvisor1.p.rapidapi.com/hotels/list-by-latlng?lang=ko_KR&hotel_class=1%252C2%252C3&limit=10&adults="+adults+"&rooms="+rooms+"&currency=KRW&latitude="+lat+"&longitude="+lng;
-				var settings = {
-						"async" : true,
-						"crossDomain" : true,
-						"url" : urlStr,
-						"method" : "GET",
-						"headers" : {
-							"x-rapidapi-host" : "tripadvisor1.p.rapidapi.com",
-							"x-rapidapi-key" : '${TripAdviserHotelApiKey}'
+		function resultHotelModal(name){
+			$('#h_modal_'+name).modal('hide');
+			var adult = $('#h_adult_'+name).prop('value');
+			var children = $('#h_children_'+name).prop('value');
+			var rooms = $('#h_rooms_'+name).prop('value');
+			var checkin = $('#h_datepicker_'+name).prop('value');
+			var checkout = $('#h_datepicker1_'+name).prop('value');
+			var urlStr = "https://tripadvisor1.p.rapidapi.com/hotels/list-by-latlng?lang=ko_KR&hotel_class=1%252C2%252C3&limit=10&adult="+adult+"&rooms="+rooms+"&currency=KRW&latitude="+lat+"&longitude="+lng;
+			var settings = {
+					"async" : true,
+					"crossDomain" : true,
+					"url" : urlStr,
+					"method" : "GET",
+					"headers" : {
+						"x-rapidapi-host" : "tripadvisor1.p.rapidapi.com",
+						"x-rapidapi-key" : '${TripAdviserHotelApiKey}'
+					}
+			}//settings
+			$.ajax(settings).done(
+				function(response) {
+					console.log(response)
+					var placesList = document.getElementById('h_places');
+					console.log(placesList)
+					placesList.removeAttribute('value')
+					var img;
+					for (var i = 0; i < response.data.length; i++) {
+						img = document.createElement('img');
+						img.alt = 'no image';
+						if (response.data[i].photo.images.medium.url != null) 
+							img.src = response.data[i].photo.images.medium.url;
+						else if (response.data[i].photo.images.large.url != null) 
+							img.src = response.data[i].photo.images.large.url;
+						else if (response.data[i].photo.images.original.url != null) 
+							img.src = response.data[i].photo.images.original.url;
+						else if (response.data[i].photo.images.small.url != null) 
+							img.src = response.data[i].photo.images.small.url;
+						else if (response.data[i].photo.images.medium.url != null) 
+							img.src = response.data[i].photo.images.medium.url;
+						else{
+							img.src = <c:url value='images/hotel_icon'/>
 						}
-				}//settings
-				$.ajax(settings).done(
-					function(response) {
-						console.log(response)
-						var placesList = document.getElementById('places');
-						var img;
-						for (var i = 0; i < response.data.length; i++) {
-							console.log
-							img = document.createElement('img');
-							img.alt = 'no image';
-							if (response.data[i].photo.images != null) {
-								img.src = response.data[i].photo.images.medium.url;
-							}
-							var div = document.createElement('div');
-							div.className = 'col-sm-6';
-							var div2 = document.createElement('div');
-							div2.className = 'col-sm-6';
+						var div = document.createElement('div');
+						div.className = 'col-sm-6';
+						var div2 = document.createElement('div');
+						div2.className = 'col-sm-6';
 
-							var row = document.createElement('div');
-							row.className = 'row';
-							var row2 = document.createElement('div');
-							row2.className = 'row';
-							var div_name = document.createElement('div');
-							div_name.className = 'col-sm-12';
-							var div_rating = document.createElement('div');
-							div_rating.className = 'col-sm-12';
-							var div_location = document.createElement('div');
-							div_location.className = 'col-sm-12';
-							var div_price_level = document.createElement('div');
-							div_price_level.className = 'col-sm-12';
+						var row = document.createElement('div');
+						row.className = 'row';
+						var row2 = document.createElement('div');
+						row2.className = 'row';
+						var div_name = document.createElement('div');
+						div_name.className = 'col-sm-12';
+						var div_rating = document.createElement('div');
+						div_rating.className = 'col-sm-12';
+						var div_location = document.createElement('div');
+						div_location.className = 'col-sm-12';
+						var div_price_level = document.createElement('div');
+						div_price_level.className = 'col-sm-12';
 
-							div_name.textContent = '호텔이름: '
-									+ response.data[i].name;
-							div_rating.textContent = '평점:'
-									+ response.data[i].rating + '점';
-							div_location.textContent = '위치정보(경도,위도): 경도: '
-									+ response.data[i].latitude
-									+ ',위도: '
-									+ response.data[i].longitude;
-							div_price_level.textContent = '가격: '
-									+ response.data[i].price;
+						div_name.textContent = '호텔이름: '
+								+ response.data[i].name;
+						div_rating.textContent = '평점:'
+								+ response.data[i].rating + '점';
+						div_location.textContent = '위치정보(경도,위도): 경도: '
+								+ response.data[i].latitude
+								+ ',위도: '
+								+ response.data[i].longitude;
+						div_price_level.textContent = '가격: '
+								+ response.data[i].price;
 
-							br = document.createElement('br');
+						br = document.createElement('br');
 
-							placesList.appendChild(row);
-							row.appendChild(div);
-							div.appendChild(img);
-							row.appendChild(div2);
-							div2.appendChild(row2);
-							row2.appendChild(div_name);
-							row2.appendChild(div_rating);
-							row2.appendChild(div_location);
-							row2.appendChild(div_price_level);
+						placesList.appendChild(row);
+						row.appendChild(div);
+						div.appendChild(img);
+						row.appendChild(div2);
+						div2.appendChild(row2);
+						row2.appendChild(div_name);
+						row2.appendChild(div_rating);
+						row2.appendChild(div_location);
+						row2.appendChild(div_price_level);
 
-						}
-						$('#places img').css({
-							width : '300px',
-							height : '200px'
-						});
-						$('#places .row').css({
-							width : '70%',
-							height : '100%',
-							margin : '10px',
-							padding : '20px',
-							backgroundColor : 'white',
-							boxShadow : '1px 1px 1px 1px gray',
-							borderRadius : '11px /11px'
-						})
+					}
+					$('#places img').css({
+						width : '300px',
+						height : '200px'
+					});
+					$('#places .row').css({
+						width : '70%',
+						height : '100%',
+						margin : '10px',
+						padding : '20px',
+						backgroundColor : 'white',
+						boxShadow : '1px 1px 1px 1px gray',
+						borderRadius : '11px /11px'
+					})
 
-					});//ajax.done()
-			}///////noNameFunction
+				});//ajax.done()
 			$('#h_modal_result').modal('show');
-		}////////////////resultModal()
+		}////////////////resultHotelModal()
 		function resultAirModal(){
 			$('#a_modal').modal('hide');
-				console.log('ajax시작')
-				var settings = {
-					url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
-					type : "GET",
-					dataType: "json",
-					data : {"departure" : $('#departure').prop('value'),
-							"arrival":$('#arrival').prop('value'),
-							"adult":$('#adult').prop('value'),
-							"children":$('#children').prop('value'),
-							"departureDate":$('#departureDate').prop('value'),
-							"returnDate":$('#returnDate').prop('value')
-					},
-					error : function(e){
-						console.log(e);
-					}
-				}//settings
+			$('#a_places').html(""); 
+			console.log('ajax시작')
+			var settings = {
+				url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
+				type : "GET",
+				dataType: "json",
+				data : {"departure" : $('#departure').prop('value'),
+						"arrival":$('#arrival').prop('value'),
+						"adult":$('#adult').prop('value'),
+						"children":$('#children').prop('value'),
+						"departureDate":$('#departureDate').prop('value'),
+						"returnDate":$('#returnDate').prop('value')
+				},
+				error : function(e){
+					console.log(e);
+				}
+			}//settings
 				$.ajax(settings).done(function(res) {
 					console.log(res)
-					console.log(res[0])
-					console.log(res[0].totalPrice)
 					var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
 					for(var i=0;i<res.length-1;i++){
+						if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
+						else if(res[i].segmentsList0[2]==1) var code = res[i].segmentsList0[3].code2;
+						else if(res[i].segmentsList0[2]==2) var code = res[i].segmentsList0[3].code3;
+						else if(res[i].segmentsList0[2]==3) var code = res[i].segmentsList0[3].code4;
+						else if(true) var code = "";
+						if(res[i].segmentsList1[2]==0) var code2 = res[i].segmentsList1[3].code1;
+						else if(res[i].segmentsList1[2]==1) var code2 = res[i].segmentsList1[3].code2;
+						else if(res[i].segmentsList1[2]==2) var code2 = res[i].segmentsList1[3].code3;
+						else if(res[i].segmentsList1[2]==3) var code2 = res[i].segmentsList1[3].code4;
+						else if(true) var code2 = "";
 						list+="<div class='container'>";
 						list+="<div class='alert alert-success'>";
 						list+="<div class='row'>";
@@ -638,29 +678,31 @@
 						list+="<div id='AirList' class='row' style='text-align:center'>";
 						list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
 						list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
-	
-						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList0[0
-							]+"</Strong><br>${list[0].get('Dcode')}</div>";
-						list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[0].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>1회 경유${list[k][i].Dvia}</Strong></div></div>";
-						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
-						list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
-						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
-						list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[1].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>1회 경유${list[i][i].Dvia}</Strong></div></div>";       
-						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
+	 
+						list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
+						list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
+						list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
+						list+="<div class='col-md-2' style='color:black; height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
+						list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList1[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList1[3].code0+"</div>";
+						list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].DestToOriginTime.substring(2,res[i].DestToOriginTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>"+res[i].segmentsList1[2]+"회 경유</Strong></div></div>";       
+						list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList1[1].substr(11,5)+"</Strong><br>"+code2+"</div>";
 						list+="</div>";
 						list+="</div>";
-						list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-						list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦<fmt:formatNumber value='${list[0].get("basePrice")}' pattern='#,###'/>원</Strong><br><small>총 가격<fmt:formatNumber value='${list[0].get("totalPrice")}' pattern='#,###'/>원</small></div><br>";
-						list+="<a href=<c:url value='/TravelMaker/AirView.kosmo'/>><button type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button></a>";
+						list+="<div class='col-sm-4' style='color:black; height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+						list+="<div class='col-md-12' style='color:black; height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦"+res[i].basePrice.split('.')[0]+"원</Strong><br><small>총 가격 "+res[i].totalPrice.split('.')[0]+"원</small></div><br>";
+						list+="<button id='a_select_"+i+"' type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
 						list+="</div>";
 						list+="</div>";
 						list+="</div>";
 						list+="</div>";
 					}
 					$('#a_places').html(list); 
+					console.log($('#a_select_'+0));
+					$('#a_modal_result').modal('show');
 				});//ajax.done()
-			$('#a_modal_result').modal('show');
+			
 		}
 	</script>
+	
 </body>
 </html>
