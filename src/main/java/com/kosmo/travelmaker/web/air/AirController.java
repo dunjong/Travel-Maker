@@ -68,11 +68,11 @@ public class AirController {
 	  			//출발-경유-도착까지의 도시이름, 도착-경유-출발까지의 도시이름을 맵에 전부저장 : key값은 0부터시작하는 i값
 	  			for (int i=0;i < flightOffersSearches[f].getItineraries()[k].getSegments().length;i++) {
 	  				//출발지,경유지들 iataCode 한번씩 저장
-	  				cityIataCodeMap.put(i,flightOffersSearches[f].getItineraries()[k].getSegments()[i].getDeparture().getIataCode());
+	  				cityIataCodeMap.put("code"+i,flightOffersSearches[f].getItineraries()[k].getSegments()[i].getDeparture().getIataCode());
 	  				if(i==flightOffersSearches[f].getItineraries()[k].getSegments().length - 1)
 	  					//마지막segment의 출발지를 입력할때 도착지까지입력
 	  					//즉 첫번째 방에 출발지, 마지막 방에 도착지 중간방에 경유지들을 저장
-	  					cityIataCodeMap.put(i+1,flightOffersSearches[f].getItineraries()[k].getSegments()[i].getArrival().getIataCode());
+	  					cityIataCodeMap.put("code"+(i+1),flightOffersSearches[f].getItineraries()[k].getSegments()[i].getArrival().getIataCode());
 	  			}
 	  			//출발에서 도착까지 필요한 정보들
 	  			segmentsList = new Vector();
