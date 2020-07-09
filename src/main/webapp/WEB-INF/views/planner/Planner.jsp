@@ -84,25 +84,18 @@
 														<div class="modal-body">
 											              	<div>
 																<form action="#">
-																	<div class="row">
-																		<div class="col-md-10">
-																			<input id="autocomplete-${name.key}" placeholder="장소" required="required" value="${name.key}">
-																			<input type="number" id="adults-${name.key}"  placeholder="성인" required="required">
-																			<input type="text" id="datepicker-${name.key}" placeholder="check in" required="required"> 
-																			<input type="number" id="children-${name.key}" placeholder="미성년">
-																			<input type="text" id="datepicker1-${name.key}" placeholder="check out" required="required">
-																			<input type="number" id="rooms-${name.key}" placeholder="방 갯수" required="required">
-																		</div>
-																		<div class="col-md-2">
-																			<button class="btn btn-info" id="hotelSubmit-${name.key}" >검색</button>
-																		</div>
-																	</div>
+																	<input id="autocomplete-${name.key}" placeholder="장소" required="required" value="${name}">
+																	<input type="number" id="adults-${name.key}"  placeholder="성인" required="required">
+																	<input type="text" id="datepicker-${name.key}" placeholder="check in" required="required"> 
+																	<input type="number" id="children-${name.key}" placeholder="미성년">
+																	<input type="text" id="datepicker1-${name.key}" placeholder="check out" required="required">
+																	<input type="number" id="rooms-${name.key}" placeholder="방 갯수" required="required">
 																</form>
 															</div>
 														</div>
 														<div class="modal-footer justify-content-between bg-info">
 											            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-											            	<button type="button" class="btn btn-outline-light">Save changes</button>
+											            	<button type="button" class="btn btn-outline-light" id='hotelsubmit'>검색</button>
 											            </div>
 													</div>
 												</div>
@@ -119,20 +112,23 @@
 										<div class="card-body">	
 											<button id='test' class="btn btn-info" type="button" style="width:100%">test</button>
 											<button id='test2' class="btn btn-info" type="button" style="width:100%">test2</button>
-											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#a-modal" style="width:100%">항공권 검색</button>
-											<div class="modal fade" id="a-modal">
+											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#a_modal" style="width:100%">항공권 검색</button>
+											<div class="modal fade" id="a_modal">
 												<div class="modal-dialog">
 													<div class="modal-content">
 														<div class="modal-header bg-info ">
 															<h2>항공권 검색</h2>
 														</div>
 														<div class="modal-body">
-												            <div>
+															<div>
 																<form action="#">
 																	<input type="text" name="departure" id="departure" placeholder="출발지" required="required" data-placement="bottom"> 
-																	<input type="text" name="arrival" id="arrival" placeholder="도착지" required="required" data-placement="bottom"> 
-																	<input type="text" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
-																	<input type="text" name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
+																	<input type="text" name="arrival" id="arrival" placeholder="도착지" required="required" data-placement="bottom">
+																	<br>
+																	<label>출발</label>
+																	<input type="date" value="2020-07-08" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
+																	<label>도착</label>
+																	<input type="date" value='2020-07-08' name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
 																	<input type="number" name="adult" id="adult" placeholder="성인" required="required"> 
 																	<input type="number" name="children" id="children" placeholder="미성년">
 																</form>
@@ -140,7 +136,22 @@
 														</div>
 														<div class="modal-footer justify-content-between bg-info">
 												            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-												            <button type="button" class="btn btn-outline-light">검색</button>
+												            <button type="button" class="btn btn-outline-light" onclick='resultAirModal()'>검색</button>
+											            </div>
+													</div>
+												</div>
+											</div>
+											<div class="modal fade" id="a_modal_result">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header bg-info ">
+															<h2>항공권 검색결과</h2>
+														</div>
+														<div class="modal-body">
+															<div id='a_places'></div>
+														</div>
+														<div class="modal-footer justify-content-between bg-info">
+												            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
 											            </div>
 													</div>
 												</div>
@@ -233,6 +244,8 @@
 	<script>
 		$(function() {
 			var date = new Date();
+			var a_departure,a_arrival,a_departure_date,a_arrival_date,a_adult,a_children;
+			var h_departure,h_arrival,h_departure_date,h_arrival_date,h_adult,h_children;
 			/* initialize the external events
 			 -----------------------------------------------------------------*/
 			function ini_events(ele) {
@@ -386,24 +399,103 @@
 				console.log(calendar)
 				calendar.getEventSources()[0].refetch()
 			})
-			$('#departure').on('keyup',()=>{
-				var value = $(this)[0].activeElement.value
-				var settings = {
-					"async" : false,
-					"crossDomain" : true,
-					"url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
-					"method" : "GET",
-					"headers" : {
-						"x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-						"x-rapidapi-key" : "${AutoCompleteApiKey}"
-					}
-				}
-				console.log(settings)
-				$.ajax(settings).done(function(response) {
-					console.log(response)
-				})
+			$('#arrival').autocomplete({
+				source : function(request, response) {
+					console.log($('#ui-id-1').prop('style'))
+					$('#ui-id-1').prop('style').zIndex=1051;
+					$('#ui-id-1').prop('style').backgroundColor='white';
+					$('#ui-id-1').prop('style').maxWidth='400px';
+					$('#ui-id-1').prop('style').listStyle='none';
+					$('#ui-id-1').prop('style').paddingLeft='10px';
+					$.ajax({
+						async : false,
+						crossDomain : true,
+			            url : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/",
+			            method : "GET",
+			            headers : {
+							"x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+							"x-rapidapi-key" : "${AutoCompleteApiKey}"
+						},
+			            data : {"query" : request.term},
+			            success : function(data){
+			            	response($.map(data.Places, function(item){
+								return {
+									label: item.PlaceName+'('+item.PlaceId.split('-')[0]+')',
+			                        value: item.PlaceId.split('-')[0]
+								}
+							}));
+						},
+						error : function(){ //실패
+								alert("통신에 실패했습니다.");
+						}
+					});
+				},
+				minLength : 1,
+		        autoFocus : false,
+				focus : function(evt, ui) {
+					for(let child of evt.delegateTarget.children){
+			   			child.children[0].style="";
+			   		}
+			   		evt.toElement.style.backgroundColor='cyan';
+			   		evt.toElement.style.color='white';
+				},
+			  /*close : function(evt) {}  */
+	   		 
 			})
-			
+			$('#departure').autocomplete({
+				source : function(request, response) {
+					console.log($('#ui-id-2').prop('style'))
+					$('#ui-id-2').prop('style').zIndex=1051;
+					$('#ui-id-2').prop('style').backgroundColor='white';
+					$('#ui-id-2').prop('style').maxWidth='400px';
+					$('#ui-id-2').prop('style').listStyle='none';
+					$('#ui-id-2').prop('style').paddingLeft='10px';
+					$.ajax({
+						async : false,
+						crossDomain : true,
+			            url : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/",
+			            method : "GET",
+			            headers : {
+							"x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+							"x-rapidapi-key" : "${AutoCompleteApiKey}"
+						},
+			            data : {"query" : request.term},
+			            success : function(data){
+			            	response($.map(data.Places, function(item){
+								return {
+									label: item.PlaceName+'('+item.PlaceId.split('-')[0]+')',
+			                        value: item.PlaceId.split('-')[0]
+								}
+							}));
+						},
+						error : function(){ //실패
+								alert("통신에 실패했습니다.");
+						}
+					});
+				},
+				minLength : 1,
+		        autoFocus : false,
+		        //엔터키로 넣는 코드 사용하려면 수정필요
+				/* select : function(evt, ui) {
+					evt.preventDefault();
+					console.log("전체 data: " + JSON.stringify(ui));
+						console.log(ui.item.label);
+						$('#departure').val(ui.item.label);
+		                var e = $.Event( "keypress", { which: 13 } );
+		                $('#departure').trigger(e);
+		                $('#departure').val("");
+		                $('#departure').focus();
+				}, */
+				focus : function(evt, ui) {
+					for(let child of evt.delegateTarget.children){
+			   			child.children[0].style="";
+			   		}
+			   		evt.toElement.style.backgroundColor='cyan';
+			   		evt.toElement.style.color='white';
+				},
+			  /*close : function(evt) {}  */
+	   		 
+			})
 		})
 		function dateFiting(date,se){
 			var date=date.split('T')[0]
@@ -423,6 +515,151 @@
 				day=(parseInt(day)).toString();
 				return (year+'-'+month+'-'+day);
 			}
+		}
+		function resultHotelModal(){
+			$('#h_modal').modal('hide');
+			function hotelC(){
+				var adults = $('#adults').prop('value');
+				var children = $('#children').prop('value');
+				var rooms = $('#rooms').prop('value');
+				var checkin = $('#datepicker').prop('value');
+				var checkout = $('#datepicker1').prop('value');
+				var urlStr = "https://tripadvisor1.p.rapidapi.com/hotels/list-by-latlng?lang=ko_KR&hotel_class=1%252C2%252C3&limit=10&adults="+adults+"&rooms="+rooms+"&currency=KRW&latitude="+lat+"&longitude="+lng;
+				var settings = {
+						"async" : true,
+						"crossDomain" : true,
+						"url" : urlStr,
+						"method" : "GET",
+						"headers" : {
+							"x-rapidapi-host" : "tripadvisor1.p.rapidapi.com",
+							"x-rapidapi-key" : '${TripAdviserHotelApiKey}'
+						}
+				}//settings
+				$.ajax(settings).done(
+					function(response) {
+						console.log(response)
+						var placesList = document.getElementById('places');
+						var img;
+						for (var i = 0; i < response.data.length; i++) {
+							console.log
+							img = document.createElement('img');
+							img.alt = 'no image';
+							if (response.data[i].photo.images != null) {
+								img.src = response.data[i].photo.images.medium.url;
+							}
+							var div = document.createElement('div');
+							div.className = 'col-sm-6';
+							var div2 = document.createElement('div');
+							div2.className = 'col-sm-6';
+
+							var row = document.createElement('div');
+							row.className = 'row';
+							var row2 = document.createElement('div');
+							row2.className = 'row';
+							var div_name = document.createElement('div');
+							div_name.className = 'col-sm-12';
+							var div_rating = document.createElement('div');
+							div_rating.className = 'col-sm-12';
+							var div_location = document.createElement('div');
+							div_location.className = 'col-sm-12';
+							var div_price_level = document.createElement('div');
+							div_price_level.className = 'col-sm-12';
+
+							div_name.textContent = '호텔이름: '
+									+ response.data[i].name;
+							div_rating.textContent = '평점:'
+									+ response.data[i].rating + '점';
+							div_location.textContent = '위치정보(경도,위도): 경도: '
+									+ response.data[i].latitude
+									+ ',위도: '
+									+ response.data[i].longitude;
+							div_price_level.textContent = '가격: '
+									+ response.data[i].price;
+
+							br = document.createElement('br');
+
+							placesList.appendChild(row);
+							row.appendChild(div);
+							div.appendChild(img);
+							row.appendChild(div2);
+							div2.appendChild(row2);
+							row2.appendChild(div_name);
+							row2.appendChild(div_rating);
+							row2.appendChild(div_location);
+							row2.appendChild(div_price_level);
+
+						}
+						$('#places img').css({
+							width : '300px',
+							height : '200px'
+						});
+						$('#places .row').css({
+							width : '70%',
+							height : '100%',
+							margin : '10px',
+							padding : '20px',
+							backgroundColor : 'white',
+							boxShadow : '1px 1px 1px 1px gray',
+							borderRadius : '11px /11px'
+						})
+
+					});//ajax.done()
+			}///////noNameFunction
+			$('#h_modal_result').modal('show');
+		}////////////////resultModal()
+		function resultAirModal(){
+			$('#a_modal').modal('hide');
+				console.log('ajax시작')
+				var settings = {
+					url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
+					type : "GET",
+					dataType: "json",
+					data : {"departure" : $('#departure').prop('value'),
+							"arrival":$('#arrival').prop('value'),
+							"adult":$('#adult').prop('value'),
+							"children":$('#children').prop('value'),
+							"departureDate":$('#departureDate').prop('value'),
+							"returnDate":$('#returnDate').prop('value')
+					},
+					error : function(e){
+						console.log(e);
+					}
+				}//settings
+				$.ajax(settings).done(function(res) {
+					console.log(res)
+					console.log(res[0])
+					console.log(res[0].totalPrice)
+					var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
+					for(var i=0;i<res.length-1;i++){
+						list+="<div class='container'>";
+						list+="<div class='alert alert-success'>";
+						list+="<div class='row'>";
+						list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+						list+="<div id='AirList' class='row' style='text-align:center'>";
+						list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+						list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
+	
+						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList0[0
+							]+"</Strong><br>${list[0].get('Dcode')}</div>";
+						list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[0].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>1회 경유${list[k][i].Dvia}</Strong></div></div>";
+						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
+						list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
+						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
+						list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[1].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>1회 경유${list[i][i].Dvia}</Strong></div></div>";       
+						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
+						list+="</div>";
+						list+="</div>";
+						list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+						list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦<fmt:formatNumber value='${list[0].get("basePrice")}' pattern='#,###'/>원</Strong><br><small>총 가격<fmt:formatNumber value='${list[0].get("totalPrice")}' pattern='#,###'/>원</small></div><br>";
+						list+="<a href=<c:url value='/TravelMaker/AirView.kosmo'/>><button type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button></a>";
+						list+="</div>";
+						list+="</div>";
+						list+="</div>";
+						list+="</div>";
+					}
+					$('#a_places').html(list); 
+				});//ajax.done()
+			$('#a_modal_result').modal('show');
 		}
 	</script>
 </body>

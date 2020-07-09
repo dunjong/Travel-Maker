@@ -35,6 +35,8 @@ public class PlannerController {
 	private String GoogleMapApiKey;
 	@Value("${SkyscannerAirportAutoCompleteApiKey}")
 	private String AutoCompleteApiKey;
+	@Value("${TripAdviserHotelApiKey}")
+	private String TripAdviserHotelApiKey;
 	@Resource(name="spotsService")
 	private SpotsServiceImpl spotsService;
 	@Resource (name="cityService")
@@ -84,6 +86,7 @@ public class PlannerController {
 		model.addAttribute("city_no_name",city_no_name);
 		//String user_id=session.getAttribute("id").toString();
 		//cityService.makingplanner(user_id);
+		model.addAttribute("TripAdviserHotelApiKey",TripAdviserHotelApiKey);
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
 		return "planner/Planner";
