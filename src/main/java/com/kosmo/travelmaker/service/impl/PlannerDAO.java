@@ -48,4 +48,8 @@ public class PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectPlanNoByCitiesNo",cities_no);
 	}
+	public List<PlannerDTO> selectPlanDTOByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectPlanDTOByCitiesNo",cities_no );
+	}
 }

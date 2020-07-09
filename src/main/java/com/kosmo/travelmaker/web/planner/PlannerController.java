@@ -96,10 +96,16 @@ public class PlannerController {
 		
 		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
 		System.out.println("받아온 cities_no:"+cities_no);
-		for(int no:plan_no_list) {
-			
-			System.out.println("찾아온 plan_no:"+no);
+		for(int plan_no:plan_no_list) {
+			List<SpotsDTO> spot_dto_list=spotsService.selectSpotDTOList(plan_no);
+			for(SpotsDTO spot_dto:spot_dto_list) {
+				System.out.println("저장된 스팟 넘버: "+spot_dto.getSave_spot_no());
+				System.out.println("저장된 플랜 넘버: "+spot_dto.getPlan_no());
+				System.out.println("저장된 스팟 이름: "+spot_dto.getSpot_name());
+				System.out.println("저장된 스팟 id: "+spot_dto.getSpot_id());
+			}
 		}
+		
 		String city_name=map.get("origin").toString();
 		int city_no=cityService.selectCityNo(city_name);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();

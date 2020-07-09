@@ -27,5 +27,10 @@ public class SpotsServiceImpl implements SpotsService{
 		// TODO Auto-generated method stub
 		return spotsDAO.insertSaveSpot(dto);
 	}
+	@Override
+	public List<SpotsDTO> selectSpotDTOList(int plan_no) {
+		// TODO Auto-generated method stub
+		return spotsDAO.selectSpotDTOList(plan_no);
+	}
 	
 }

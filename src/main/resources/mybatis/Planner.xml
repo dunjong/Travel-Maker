@@ -33,4 +33,7 @@
 	<select id="selectPlanNoByCitiesNo" parameterType="int" resultType="int">
 		SELECT plan_no FROM plan WHERE cities_no=#{cities_no}
 	</select>
+	<select id="selectPlanDTOByCitiesNo" parameterType="int" resultType="PlanDTO">
+		SELECT * FROM PLAN WHERE cities_no=#{cities_no}
+	</select>
 </mapper>

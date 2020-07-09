@@ -9,4 +9,7 @@
 	<insert id="insertSaveSpot" parameterType="SpotsDTO">
 		INSERT INTO save_spots values(seq_spot_save.nextval,#{spot_name},#{spot_id},#{plan_no})
 	</insert>
+	<select id="selectSpotDTOList" parameterType="int" resultType="SpotsDTO">
+		SELECT * FROM save_spots WHERE plan_no=#{plan_no}
+	</select>
 </mapper>

@@ -20,5 +20,9 @@ public class SpotsDAO {
 	public boolean insertSaveSpot(SpotsDTO dto) {
 		return sqlMapper.insert("insertSaveSpot", dto)==1?true:false;
 	}
+	public List<SpotsDTO> selectSpotDTOList(int plan_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectSpotDTOList",plan_no);
+	}
 
 }

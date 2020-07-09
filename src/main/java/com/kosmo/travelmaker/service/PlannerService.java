@@ -15,4 +15,5 @@ public interface PlannerService {
 	public int selectPlanNo();
 	int selectCitiesNoByMap(Map<String, Integer> maps);
 	List<Integer> selectPlanNoByCitiesNo(int cities_no);
+	List<PlannerDTO> selectPlanDTOByCitiesNo(int cities_no);
 }
