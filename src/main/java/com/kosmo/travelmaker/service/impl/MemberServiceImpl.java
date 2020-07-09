@@ -42,6 +42,17 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDAO.kakao(dto);
 	}
+
+	@Override
+	public MemberDTO selectMemberDTO(String id) {
+		// TODO Auto-generated method stub
+		return memberDAO.selectMemberDTO(id);
+	}
+	@Override
+	public boolean updateMemberDTO(Map map) {
+		return memberDAO.updateMemberDTO(map);
+		
+	}
 	
 	
 
