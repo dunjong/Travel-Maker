@@ -36,4 +36,7 @@
 	<select id="selectPlanDTOByCitiesNo" parameterType="int" resultType="PlanDTO">
 		SELECT * FROM PLAN WHERE cities_no=#{cities_no}
 	</select>
+	<delete id="deletePlanByNo" parameterType="int">
+		DELETE FROM plan WHERE plan_no=#{plan_no}
+	</delete>
 </mapper>

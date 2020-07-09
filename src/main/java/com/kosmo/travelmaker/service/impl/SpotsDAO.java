@@ -24,5 +24,13 @@ public class SpotsDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectSpotDTOList",plan_no);
 	}
+	public List<SpotsDTO> spotListByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("spotListByCitiesNo", cities_no);
+	}
+	public boolean deleteSpotByPlanNo(int plan_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteSpotByPlanNo",plan_no)==1?true:false;
+	}
 
 }

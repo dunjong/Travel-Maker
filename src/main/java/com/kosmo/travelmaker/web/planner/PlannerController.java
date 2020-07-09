@@ -97,18 +97,6 @@ public class PlannerController {
 	public String Plan(@RequestParam Map map, Model model) {
 		String cities_no=map.get("cities_no").toString();
 		
-		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
-		System.out.println("받아온 cities_no:"+cities_no);
-		for(int plan_no:plan_no_list) {
-			List<SpotsDTO> spot_dto_list=spotsService.selectSpotDTOList(plan_no);
-			for(SpotsDTO spot_dto:spot_dto_list) {
-				System.out.println("저장된 스팟 넘버: "+spot_dto.getSave_spot_no());
-				System.out.println("저장된 플랜 넘버: "+spot_dto.getPlan_no());
-				System.out.println("저장된 스팟 이름: "+spot_dto.getSpot_name());
-				System.out.println("저장된 스팟 id: "+spot_dto.getSpot_id());
-			}
-		}
-		
 		String city_name=map.get("origin").toString();
 		int city_no=cityService.selectCityNo(city_name);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
@@ -128,10 +116,66 @@ public class PlannerController {
 		return "planner/Plan.tiles";
 		
 	}
+	@RequestMapping(value ="SavedPlan.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String SavedPlan(@RequestParam Map map) {
+		String cities_no=map.get("cities_no").toString();
+		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
+		System.out.println("받아온 cities_no:"+cities_no);
+		
+		List<SpotsDTO> list=spotsService.spotListByCitiesNo(Integer.parseInt(cities_no));
+		
+		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
+		for(int i=1;i<=8;i++) {
+			List<String> spotIDs=new Vector<String>();
+			dayPlan.put("day"+i, spotIDs);
+		}
+
+		
+		for(SpotsDTO dto:list) {
+			
+			System.out.println("장소명:"+dto.getSpot_name()+",일차:"+dto.getPlan_date()+",id:"+dto.getSpot_id());
+			String day=dto.getPlan_date();
+			switch(day) {
+				case "1":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				case "2":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				case "3":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				case "4":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				case "5":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				case "6":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				case "7":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				default:
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+			}
+		}
+		List<Map> collections = new Vector<Map>();
+		collections.add(dayPlan);
+		return JSONArray.toJSONString(collections);
+		
+		
+		
+		
+	}
+	
 	
 	@RequestMapping(value ="PlanSave.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public void PlanSave(@RequestParam Map<String,String> map) {
+		
 		System.out.println("map: "+map);
 		int planner_no=Integer.parseInt(map.get("planner_no"));
 		String city_name=map.get("city_name");
@@ -139,38 +183,46 @@ public class PlannerController {
 		
 		int cities_no=Integer.parseInt(map.get("cities_no"));
 		
+		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(cities_no);
+		
+		for(int plan_no:plan_no_list ){
+			if(spotsService.deleteSpotByPlanNo(plan_no)) {
+				System.out.println("spot들 삭제 완료");
+				if(plannerService.deletePlanByNo(plan_no)){
+					System.out.println("plan들 삭제 완료");
+				};
+			};
+		}
 		
 		for(String date:map.keySet()) {
 			String ids="";
 			Map<String, Object> maps2=new HashMap<String, Object>();
 			if(date.contains("day")) {
-				System.out.println("date"+date);
-				maps2.put("plan_date", date);
+				maps2.put("plan_date", date.substring(3));
 				maps2.put("cities_no", cities_no);
 				if(plannerService.insertPlan(maps2)) {
 					System.out.println(date+"일차 plan이 저장되었습니다");
 					int plan_no=plannerService.selectPlanNo();
-					System.out.println("plan_no"+plan_no);
 					SpotsDTO dto=new SpotsDTO();
 					dto.setPlan_no(plan_no);
 					dto.setSpot_name("모름");
 					ids=map.get(date).substring(0,map.get(date).length()-1);
+					System.out.println(date+"일차 아이디들: "+ids);
 					for(String id:ids.split(",")) {
 						dto.setSpot_id(id);
 						if(spotsService.insertSaveSpot(dto)) {
 							System.out.println(date+"일차 plan이"+id+"가 저장되었습니다");
-						}
-					}
+						}///if
+					}///for
 					
-				}
+				}///if
 				
-			}
+			}///if
 			
-				System.out.println(date+"일차의 id:"+ids);
 				//spotsService.insertPlan(date);
 				
 			
-		}
+		}///for
 		
 		List<String> list=new Vector<String>();
 	
@@ -194,7 +246,7 @@ public class PlannerController {
 			System.out.println("city_no:"+map.get("city_no"));
 			List<SpotsDTO> list=spotsService.spotList(map);
 			Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-			for(int i=1;i<=5;i++) {
+			for(int i=1;i<=8;i++) {
 				List<String> spotIDs=new Vector<String>();
 				dayPlan.put("day"+i, spotIDs);
 			}
@@ -206,28 +258,28 @@ public class PlannerController {
 				String day=dto.getAuto_plan_date();
 				switch(day) {
 					case "1":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 						break;
 					case "2":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 						break;
 					case "3":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 						break;
 					case "4":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 						break;
 					case "5":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 						break;
 					case "6":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 						break;
 					case "7":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 						break;
 					default:
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString());
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 				}
 			}
 			List<Map> collections = new Vector<Map>();

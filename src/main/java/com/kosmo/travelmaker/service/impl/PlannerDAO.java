@@ -52,4 +52,8 @@ public class PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectPlanDTOByCitiesNo",cities_no );
 	}
+	public boolean deletePlanByNo(int plan_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deletePlanByNo",plan_no)==1?true:false;
+	}
 }

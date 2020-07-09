@@ -32,5 +32,15 @@ public class SpotsServiceImpl implements SpotsService{
 		// TODO Auto-generated method stub
 		return spotsDAO.selectSpotDTOList(plan_no);
 	}
+	@Override
+	public List<SpotsDTO> spotListByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return spotsDAO.spotListByCitiesNo(cities_no);
+	}
+	@Override
+	public boolean deleteSpotByPlanNo(int plan_no) {
+		// TODO Auto-generated method stub
+		return spotsDAO.deleteSpotByPlanNo(plan_no);
+	}
 	
 }

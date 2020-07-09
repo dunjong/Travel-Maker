@@ -88,5 +88,11 @@ public class PlannerServiceImpl implements PlannerService{
 		// TODO Auto-generated method stub
 		return plannerDAO.selectPlanDTOByCitiesNo(cities_no);
 	}
+
+	@Override
+	public boolean deletePlanByNo(int plan_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.deletePlanByNo(plan_no);
+	}
 	
 }
