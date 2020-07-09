@@ -148,7 +148,7 @@
 															<h2>항공권 검색결과</h2>
 														</div>
 														<div class="modal-body">
-															<div id='places'></div>
+															<div id='a_places'></div>
 														</div>
 														<div class="modal-footer justify-content-between bg-info">
 												            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
@@ -613,87 +613,51 @@
 				var settings = {
 					url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
 					type : "GET",
-					//dataType: "json",
+					dataType: "json",
 					data : {"departure" : $('#departure').prop('value'),
 							"arrival":$('#arrival').prop('value'),
 							"adult":$('#adult').prop('value'),
 							"children":$('#children').prop('value'),
 							"departureDate":$('#departureDate').prop('value'),
-							"returnDate":$('#returnDate').prop('value'),
-							"from":"planner"
+							"returnDate":$('#returnDate').prop('value')
 					},
 					error : function(e){
 						console.log(e);
 					}
 				}//settings
-				$.ajax(settings).done(function(response) {
-					console.log(${list})
-					
-					/* var placesList = document.getElementById('places');
-					var img;
-					for (var i = 0; i < response.data.length; i++) {
-						console.log
-						img = document.createElement('img');
-						img.alt = 'no image';
-						if (response.data[i].photo.images != null) {
-							img.src = response.data[i].photo.images.medium.url;
-						}
-						var div = document.createElement('div');
-						div.className = 'col-sm-6';
-						var div2 = document.createElement('div');
-						div2.className = 'col-sm-6';
-
-						var row = document.createElement('div');
-						row.className = 'row';
-						var row2 = document.createElement('div');
-						row2.className = 'row';
-						var div_name = document.createElement('div');
-						div_name.className = 'col-sm-12';
-						var div_rating = document.createElement('div');
-						div_rating.className = 'col-sm-12';
-						var div_location = document.createElement('div');
-						div_location.className = 'col-sm-12';
-						var div_price_level = document.createElement('div');
-						div_price_level.className = 'col-sm-12';
-
-						div_name.textContent = '호텔이름: '
-								+ response.data[i].name;
-						div_rating.textContent = '평점:'
-								+ response.data[i].rating + '점';
-						div_location.textContent = '위치정보(경도,위도): 경도: '
-								+ response.data[i].latitude
-								+ ',위도: '
-								+ response.data[i].longitude;
-						div_price_level.textContent = '가격: '
-								+ response.data[i].price;
-
-						br = document.createElement('br');
-
-						placesList.appendChild(row);
-						row.appendChild(div);
-						div.appendChild(img);
-						row.appendChild(div2);
-						div2.appendChild(row2);
-						row2.appendChild(div_name);
-						row2.appendChild(div_rating);
-						row2.appendChild(div_location);
-						row2.appendChild(div_price_level);
-
+				$.ajax(settings).done(function(res) {
+					console.log(res)
+					console.log(res[0])
+					console.log(res[0].totalPrice)
+					var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
+					for(var i=0;i<res.length-1;i++){
+						list+="<div class='container'>";
+						list+="<div class='alert alert-success'>";
+						list+="<div class='row'>";
+						list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+						list+="<div id='AirList' class='row' style='text-align:center'>";
+						list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+						list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
+	
+						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList0[0
+							]+"</Strong><br>${list[0].get('Dcode')}</div>";
+						list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[0].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>1회 경유${list[k][i].Dvia}</Strong></div></div>";
+						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
+						list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
+						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
+						list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[1].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>1회 경유${list[i][i].Dvia}</Strong></div></div>";       
+						list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
+						list+="</div>";
+						list+="</div>";
+						list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+						list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦<fmt:formatNumber value='${list[0].get("basePrice")}' pattern='#,###'/>원</Strong><br><small>총 가격<fmt:formatNumber value='${list[0].get("totalPrice")}' pattern='#,###'/>원</small></div><br>";
+						list+="<a href=<c:url value='/TravelMaker/AirView.kosmo'/>><button type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button></a>";
+						list+="</div>";
+						list+="</div>";
+						list+="</div>";
+						list+="</div>";
 					}
-					$('#places img').css({
-						width : '300px',
-						height : '200px'
-					});
-					$('#places .row').css({
-						width : '70%',
-						height : '100%',
-						margin : '10px',
-						padding : '20px',
-						backgroundColor : 'white',
-						boxShadow : '1px 1px 1px 1px gray',
-						borderRadius : '11px /11px'
-					})
-	*/
+					$('#a_places').html(list); 
 				});//ajax.done()
 			$('#a_modal_result').modal('show');
 		}
