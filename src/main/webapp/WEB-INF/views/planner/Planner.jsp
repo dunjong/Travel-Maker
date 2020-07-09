@@ -101,13 +101,14 @@
 												</div>
 											</div>
 											</c:forEach>
+											
 											<div class="modal fade" id="h_modal_result" >
 												<div class="modal-dialog modal-lg">
-													<div class="modal-content">
+													<div class="modal-content"style='height:800px;'>
 														<div class="modal-header bg-info">
 															<h2>호텔 검색결과</h2>
 														</div>
-														<div class="modal-body">
+														<div class="modal-body" style='overflow-y:scroll;'>
 															<div id='h_places'></div>
 														</div>
 														<div class="modal-footer justify-content-between bg-info">
@@ -116,6 +117,7 @@
 													</div>
 												</div>
 											</div>
+											
 										</div>	
 									</div>
 								</div>
@@ -540,6 +542,7 @@
 		}
 		function resultHotelModal(name){
 			$('#h_modal_'+name).modal('hide');
+			$('#h_places').html('')
 			var adult = $('#h_adult_'+name).prop('value');
 			var children = $('#h_children_'+name).prop('value');
 			var rooms = $('#h_rooms_'+name).prop('value');
@@ -577,7 +580,7 @@
 						else if (response.data[i].photo.images.medium.url != null) 
 							img.src = response.data[i].photo.images.medium.url;
 						else{
-							img.src = <c:url value='images/hotel_icon'/>
+							img.src = "<c:url value='images/hotel_icon'/>"
 						}
 						var div = document.createElement('div');
 						div.className = 'col-sm-6';
@@ -700,7 +703,7 @@
 					console.log($('#a_select_'+0));
 					$('#a_modal_result').modal('show');
 				});//ajax.done()
-			
+				
 		}
 	</script>
 	
