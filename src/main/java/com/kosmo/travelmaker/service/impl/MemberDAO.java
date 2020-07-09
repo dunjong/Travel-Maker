@@ -38,6 +38,10 @@ public class MemberDAO {
 		return null;
 	}
 
+	public int registerInsert(AndroidMemberDTO member) {
+		
+		return sqlMapper.insert("registerInsert",member);
+	}
 	public MemberDTO selectMemberDTO(String id) {
 		// TODO Auto-generated method stub
 		System.out.println("id of dao: "+id);
