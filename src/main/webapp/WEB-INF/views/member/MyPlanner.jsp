@@ -1,8 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false" contentType="text/html; charset=UTF-8"%>
 <script>
-	console.log(${lists})
-
+var lists_planner=${lists_planner};
+	console.log(lists_planner);
+var lists_cities=${lists_cities};
+	console.log(lists_cities);
 
 </script>
 
@@ -17,8 +19,7 @@
 						<!-- Intro Item -->
 						
 						<div class="col-lg-4 intro_col">
-							<div
-								class="intro_item d-flex flex-row align-items-end justify-content-start">
+							<div class="intro_item d-flex flex-row align-items-end justify-content-start">
 								<div class="intro_icon">
 									<img src="<c:url value='/images/beach.svg'/>" alt="">
 								</div>
@@ -62,7 +63,7 @@
 								</div>
 							</div>
 						</div>
-
+					
 					</div>
 				</div>
 			</div>
@@ -85,6 +86,7 @@
 					<div class="destinations_container item_grid">
 
 						<!-- Destination -->
+						
 						<div class="destination item">
 							<div class="destination_image">
 								<img src="<c:url value='/images/destination_1.jpg'/>" alt="">

@@ -35,6 +35,8 @@ public class PlannerController {
 	private String GoogleMapApiKey;
 	@Value("${SkyscannerAirportAutoCompleteApiKey}")
 	private String AutoCompleteApiKey;
+	@Value("${TripAdviserHotelApiKey}")
+	private String TripAdviserHotelApiKey;
 	@Resource(name="spotsService")
 	private SpotsServiceImpl spotsService;
 	@Resource (name="cityService")
@@ -48,32 +50,43 @@ public class PlannerController {
 	public String Planner(@RequestParam Map map,Model model,HttpSession session) {
 		int planner_no=0;
 		System.out.println("map.get(\"planner_no\"):"+map.get("planner_no"));
-		List<String> city_no_name=new Vector<String>();
+		Map<String,Integer> city_no_name=new HashMap<String, Integer>();
 		if(map.get("planner_no")==null) {
 			String[] city_no_list=map.get("city_no").toString().split(",");
 			if(plannerService.insertPlanner(session.getAttribute("id").toString())) {
 				System.out.println("플래너가 저장되었습니다.");
 				planner_no=plannerService.selectPlannerNo();
 				System.out.println("planner_no:"+planner_no);
-			};
-			for(String no:city_no_list) {
-				city_no_name.add(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name());
-			}
-		}
+				for(String no:city_no_list) {
+					Map<String, Integer> maps=new HashMap<String, Integer>();
+					maps.put("planner_no", planner_no);
+					maps.put("city_no", Integer.parseInt(no));
+					if(plannerService.insertCities(maps)) {
+						System.out.println(no+" 도시가 저장되었습니다.");
+						int cities_no=plannerService.selectCitiesNo();
+						city_no_name.put(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name(),cities_no);
+					}///if
+					
+				}///for
+			};///if
+			
+		}///if
 		else {
-			String numbers="";
 			planner_no=Integer.parseInt(map.get("planner_no").toString());
 			for(int no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
-				numbers+=no+",";
-				city_no_name.add(cityService.selectCityDTO(no).getCity_name());
+				Map<String, Integer> maps=new HashMap<String, Integer>();
+				maps.put("planner_no", planner_no);
+				maps.put("city_no", no);
+				int cities_no=plannerService.selectCitiesNoByMap(maps);
+				city_no_name.put(cityService.selectCityDTO(no).getCity_name(),cities_no);
 			}
-			String city_no=numbers.substring(0, numbers.length()-1);
-			model.addAttribute("city_no",city_no);
 		}
+		
 		model.addAttribute("planner_no",planner_no);
 		model.addAttribute("city_no_name",city_no_name);
 		//String user_id=session.getAttribute("id").toString();
 		//cityService.makingplanner(user_id);
+		model.addAttribute("TripAdviserHotelApiKey",TripAdviserHotelApiKey);
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
 		return "planner/Planner";
@@ -82,6 +95,14 @@ public class PlannerController {
 	
 	@RequestMapping("Plan.kosmo")
 	public String Plan(@RequestParam Map map, Model model) {
+		String cities_no=map.get("cities_no").toString();
+		
+		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
+		System.out.println("받아온 cities_no:"+cities_no);
+		for(int no:plan_no_list) {
+			
+			System.out.println("찾아온 plan_no:"+no);
+		}
 		String city_name=map.get("origin").toString();
 		int city_no=cityService.selectCityNo(city_name);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
@@ -90,11 +111,14 @@ public class PlannerController {
 			dayPlan.put("day"+i, spotIDs);
 		}
 		//model.addAttribute("planner_no",planner_no);
+		
 		model.addAttribute("planner_no",map.get("planner_no"));
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("dayPlan",dayPlan);
 		model.addAttribute("origin",map);
 		model.addAttribute("city_no",city_no);
+		model.addAttribute("cities_no",cities_no);
+		
 		return "planner/Plan.tiles";
 		
 	}
@@ -106,15 +130,9 @@ public class PlannerController {
 		int planner_no=Integer.parseInt(map.get("planner_no"));
 		String city_name=map.get("city_name");
 		int city_no=cityService.selectCityNo(city_name);
-		int cities_no=0;
-		Map<String, Integer> maps=new HashMap<String, Integer>();
-		maps.put("planner_no", planner_no);
-		maps.put("city_no", city_no);
-		if(plannerService.insertCities(maps)) {
-			System.out.println(city_no+" 도시가 저장되었습니다.");
-			cities_no=plannerService.selectCitiesNo();
-			
-		};
+		
+		int cities_no=Integer.parseInt(map.get("cities_no"));
+		
 		
 		for(String date:map.keySet()) {
 			String ids="";

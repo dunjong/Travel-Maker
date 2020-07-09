@@ -13,4 +13,6 @@ public interface PlannerService {
 	public int selectCitiesNo();
 	public boolean insertPlan(Map<String, Object> maps2);
 	public int selectPlanNo();
+	int selectCitiesNoByMap(Map<String, Integer> maps);
+	List<Integer> selectPlanNoByCitiesNo(int cities_no);
 }

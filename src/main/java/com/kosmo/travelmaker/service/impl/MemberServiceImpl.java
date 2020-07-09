@@ -35,8 +35,8 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.idCheck(id)?"failure":"success";
 	}
 	@Override
-	public List<PlannerDTO> plannerList(Map map) {
-		return memberDAO.myPlannerList(map);
+	public List<PlannerDTO> plannerList(String id) {
+		return memberDAO.myPlannerList(id);
 	}
 	public String kakao(String kakaoemail,String kakoid,MemberDTO dto) {
 		

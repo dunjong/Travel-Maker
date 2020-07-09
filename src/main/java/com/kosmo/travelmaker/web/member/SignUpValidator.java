@@ -27,10 +27,12 @@ public class SignUpValidator implements Validator{
 		//오류시 errors타입에 에러정보 저장 rejectValue(cmd의 속성명,에러코드); - 에러코드(중복 불가능) 임의로 정하면됨
 		MemberDTO cmd = (MemberDTO)command;
 		if (cmd.getUser_name() == null || cmd.getUser_name().trim().isEmpty()) {
+
 			errors.rejectValue("user_name","nameError");
 		}
 		
 		if (cmd.getUser_rrn() == null || cmd.getUser_rrn().equals("출생 연도를 선택하세요")) {
+
 			errors.rejectValue("user_rrn","ageError");
 		}
 		if (cmd.getUser_gender() == null) {
