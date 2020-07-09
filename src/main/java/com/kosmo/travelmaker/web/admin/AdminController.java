@@ -10,5 +10,8 @@ public class AdminController {
 	public String admin1() {
 	return "AdminLTE/admin1";
 }
-
+@RequestMapping("admin2.kosmo")
+public String admin2() {
+return "AdminLTE/admin2";
+}
 }
