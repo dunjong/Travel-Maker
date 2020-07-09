@@ -37,4 +37,10 @@ public class MemberDAO {
 		 
 		return null;
 	}
+
+	public int registerInsert(AndroidMemberDTO member) {
+		
+		return sqlMapper.insert("registerInsert",member);
+	}
+
 }
