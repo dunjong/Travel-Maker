@@ -229,11 +229,11 @@
 				<form id="logInForm" action="<c:url value='/TravelMaker/LoginProcess.do'/>" method="post">
 					<div class="md-form mb-5">
 						<label data-error="wrong" data-success="right" for="Form-id1" class="username"> 아이디 </label> 
-						<input id="id" name="id" type="text" autocomplete="on" class="form-control validate" placeholder="아이디를 입력하세요">
+						<input id="id" name="user_id" type="text" autocomplete="on" class="form-control validate" placeholder="아이디를 입력하세요">
 					</div>
 					<div class="md-form pb-3">
 						<label data-error="wrong" data-success="right" for="Form-pass1" class="userpass"> <span style="color: black;">비밀번호</span></label> 
-						<input id="pwd" name="pwd" type="password" class="form-control validate" placeholder="비밀번호를 입력하세요" />
+						<input id="pwd" name="user_pwd" type="password" class="form-control validate" placeholder="비밀번호를 입력하세요" />
 					</div>
 					<span id="loginfailmessage" style="color: red; font-size: .8em">${NotMember}</span>
 				</form>
