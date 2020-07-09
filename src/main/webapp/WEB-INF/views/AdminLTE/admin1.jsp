@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,13 +37,13 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    <ul class="navbar-nav"> 
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
+      <li class="nav-item d-none d-sm-inline-block"> 
+        <a href="admin1.kosmo" class="nav-link">Home</a>
+      </li> 
     </ul>
 
     <!-- Right navbar links -->
@@ -77,7 +77,7 @@
           <a href="#" class="d-block">관리자</a>
         </div>
       </div>
-
+ 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -93,13 +93,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./admin1.jsp" class="nav-link active">   
+                <a href="admin1.kosmo" class="nav-link active">   
                   <i class="far fa-circle nav-icon"></i>
                   <p>페이지 관리</p>
-                </a>
+                </a> 
               </li>
               <li class="nav-item">
-                <a href="./admin2.jsp" class="nav-link">
+                <a href="admin2.kosmo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>회원관리</p> 
                 </a>  
@@ -118,15 +118,15 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview"> 
               <li class="nav-item">
-                <a href="TravelMaker/ReviewSearch.kosmo" class="nav-link"> 
+                <a href="ReviewSearch.kosmo" class="nav-link"> 
                   <i class="far fa-circle nav-icon"></i>
                   <p>리뷰관리</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="CustomerService.kosmo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>공지사항 관리</p>
                 </a>
@@ -204,16 +204,16 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-warning"> 
               <div class="inner">
                 <h3>6명</h3>  
-
+              
                 <p>새로운 회원</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i> 
+                <i class="ion ion-person-add"></i>  
               </div>
-              <a href="./admin2.jsp" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="admin2.kosmo" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
