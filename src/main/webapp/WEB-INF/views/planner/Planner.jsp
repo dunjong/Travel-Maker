@@ -86,10 +86,10 @@
 																<form action="#">
 																	<input id="autocomplete_${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
 																	<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
-																	<input type="date" id="datepicker_${name.key}" placeholder="check in" required="required"> 
+																	<input type="date" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
 																	<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
-																	<input type="date" id="datepicker1_${name.key}" placeholder="check out" required="required">
-																	<input type="number" id="rooms_${name.key}" placeholder="방 갯수" required="required">
+																	<input type="date" id="datepicker1_${name.key}" value="" placeholder="check out" required="required">
+																	<input type="number" id="rooms_${name.key}"  placeholder="방 갯수" required="required">
 																</form>
 															</div>
 														</div>
@@ -106,7 +106,7 @@
 												<div class="modal-dialog modal-lg">
 													<div class="modal-content"style='height:800px;'>
 														<div class="modal-header bg-info">
-															<h2>호텔 검색결과</h2>
+															<h2>호텔 검색결과</h2><h4 id="hotel_date"></h4><h4 id="city_name"></h4>
 														</div>
 														<div class="modal-body" style='overflow-y:scroll;'>
 															<div id='h_places'></div>
@@ -143,9 +143,9 @@
 																	<input type="text" name="arrival" id="arrival" placeholder="도착지" required="required" data-placement="bottom">
 																	<br>
 																	<label>출발</label>
-																	<input type="date" value="2020-07-08" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
+																	<input type="date" value="2020-07-12" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
 																	<label>도착</label>
-																	<input type="date" value='2020-07-08' name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
+																	<input type="date" value='' name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
 																	<input type="number" name="adult" id="adult" placeholder="성인" required="required"> 
 																	<input type="number" name="children" id="children" placeholder="미성년(선택사항)">
 																</form>
@@ -214,6 +214,16 @@
 										</div>	
 									</div>
 								</div>
+								<div class="col-md-12">
+									<div class="card card-danger">
+										<div class="card-header">
+											<h4 class="card-title">전체 저장</h4>
+										</div>
+										<div class="card-body">	
+											<a class="btn btn-danger"  style="width:100%" href="<c:url value="/"/>">전체 저장</a>
+										</div>	
+									</div>
+								</div>
 							</div>
 						</div>
 						<!-- /.col -->
@@ -259,7 +269,6 @@
 	
 	
 	<script>
-	console.log(${'city_no_name'})
 		var lat,lng;//호텔용
 		$(function() {
 			var date = new Date();
@@ -350,12 +359,12 @@
 							alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s'));
 							console.log('eventReceive',info);
 							if(info.event.end==null){
-								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
 							}
 							else{
-								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1-'+info.event.title).val(dateFiting(info.event.end.toISOString(),'e'));
+								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
 							}
 							
 						},
@@ -373,12 +382,12 @@
 							}
 							if(info.event.end==null){
 								console.log('eventDrop',info)
-								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
 							}
 							else{
-								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1-'+info.event.title).val(dateFiting(info.event.end.toISOString(),'e'));
+								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
 							}
 						},
 						//크기 변경
@@ -386,12 +395,12 @@
 						    alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s')+',끝 날짜:'+dateFiting(info.event.end.toISOString(),'e'));
 							console.log('eventResize',info);
 							if(info.event.end==null){
-								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
 							}
 							else{
-								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1-'+info.event.title).val(dateFiting(info.event.end.toISOString(),'e'));
+								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
 							}
 						    
 						  }
@@ -547,12 +556,16 @@
 		function resultHotelModal(name){
 			$('#h_modal_'+name).modal('hide');
 			$('#h_places').html('')
-			var adult = $('#h_adult_'+name).prop('value');
-			var children = $('#h_children_'+name).prop('value');
-			var rooms = $('#h_rooms_'+name).prop('value');
-			var checkin = $('#h_datepicker_'+name).prop('value');
-			var checkout = $('#h_datepicker1_'+name).prop('value');
+			$('#city_name').html(name);
+			var adult = $('#adult_'+name).prop('value');
+			var children = $('#children_'+name).prop('value');
+			var rooms = $('#rooms_'+name).prop('value');
+			var checkin = $('#datepicker_'+name).prop('value');
+			var checkout = $('#datepicker1_'+name).prop('value');
 			var urlStr = "https://tripadvisor1.p.rapidapi.com/hotels/list-by-latlng?lang=ko_KR&hotel_class=1%252C2%252C3&limit=10&adult="+adult+"&rooms="+rooms+"&currency=KRW&latitude="+lat+"&longitude="+lng;
+			
+			$('#hotel_date').html(checkin+'부터 '+checkout+' 까지' );
+			
 			var settings = {
 					"async" : true,
 					"crossDomain" : true,
@@ -587,14 +600,21 @@
 							img.src = "<c:url value='images/hotel_icon'/>"
 						}
 						var div = document.createElement('div');
-						div.className = 'col-sm-6';
+						div.className = 'col-sm-5';
 						var div2 = document.createElement('div');
-						div2.className = 'col-sm-6';
-
+						div2.className = 'col-sm-5';
+						var div3 = document.createElement('div');
+						div3.className = 'col-sm-2';
+						var btn = document.createElement('div');
+						btn.className = 'btn btn-danger';
+						btn.textContent='예약하기';
+						btn.setAttribute('name',i);
+						btn.setAttribute('onclick','getHotelDetails(this)')
 						var row = document.createElement('div');
 						row.className = 'row';
 						var row2 = document.createElement('div');
 						row2.className = 'row';
+						row2.id='hotel_'+i;
 						var div_name = document.createElement('div');
 						div_name.className = 'col-sm-12';
 						var div_rating = document.createElement('div');
@@ -621,6 +641,8 @@
 						row.appendChild(div);
 						div.appendChild(img);
 						row.appendChild(div2);
+						row.appendChild(div3);
+						div3.appendChild(btn);
 						div2.appendChild(row2);
 						row2.appendChild(div_name);
 						row2.appendChild(div_rating);
@@ -645,6 +667,41 @@
 				});//ajax.done()
 			$('#h_modal_result').modal('show');
 		}////////////////resultHotelModal()
+		
+		function getHotelDetails(data){
+			console.log('getHotelDetails.data',data.getAttribute('name'));
+			
+			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html());
+			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html());
+			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(2)').html());
+			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html());
+			
+			$.ajax({
+				url:'<c:url value="/TravelMaker/HotelTest.kosmo"/>',
+				data:
+				{"checkIn" : $('#datepicker_'+$('#city_name').html()).prop('value'),
+				"checkOut":$('#datepicker1_'+$('#city_name').html()).prop('value'),
+				"name":$('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html(),
+				"score":$('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html(),
+				"latlng":$('#hotel_'+data.getAttribute('name')+' > div:eq(2)').html(),
+				"price":$('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html(),
+				},
+				dataType:'String',
+				success:function(data){successAjax(data)},
+				error:function(request,error){
+					console.log('상태코드:',request.status);
+					console.log('서버로부터 받은 HTML데이타:',request.responseText);
+					console.log('에러:',error);
+				}
+				
+			})
+			
+		}
+		function successAjax(data){
+			console.log('성공:',data);
+		}
+		
+		
 		function resultAirModal(){
 			$('#a_modal').modal('hide');
 			$('#a_places').html(""); 
