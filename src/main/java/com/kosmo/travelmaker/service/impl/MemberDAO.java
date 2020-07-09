@@ -29,12 +29,28 @@ public class MemberDAO {
 	public boolean idCheck(String id) {
 		return (Integer)sqlMapper.selectOne("idCheck",id)==0 ? false : true;
 	}
-	public List<PlannerDTO> myPlannerList(Map map) {
+	public List<PlannerDTO> myPlannerList(String id) {
 		
-		return sqlMapper.selectList("myPlannerListSelectList",map);
+		return sqlMapper.selectList("myPlannerListSelectList",id);
 	}
 	public String kakao(MemberDTO dto) {
 		 
 		return null;
+	}
+
+	public int registerInsert(AndroidMemberDTO member) {
+		
+		return sqlMapper.insert("registerInsert",member);
+	}
+	public MemberDTO selectMemberDTO(String id) {
+		// TODO Auto-generated method stub
+		System.out.println("id of dao: "+id);
+		return sqlMapper.selectOne("selectMemberDTO",id);
+	}
+
+	public boolean updateMemberDTO(Map map) {
+		// TODO Auto-generated method stub
+		System.out.println(map.get("value").toString()+map.get("updateColumn")+map.get("id"));
+		return sqlMapper.update("updateMemberDTO", map)==1?true:false;
 	}
 }

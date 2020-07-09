@@ -17,6 +17,7 @@
 			<typeAlias alias="CityTagDTO" type="com.kosmo.travelmaker.service.CityTagDTO"/>
 			<typeAlias alias="CityDTO" type="com.kosmo.travelmaker.service.CityDTO"/>
 			<typeAlias alias="CitiesDTO" type="com.kosmo.travelmaker.service.CitiesDTO"/>
+			<typeAlias alias="PlanDTO" type="com.kosmo.travelmaker.service.PlanDTO"/>
 		</typeAliases>
 		
 		<mappers>

@@ -1,11 +1,13 @@
 package com.kosmo.travelmaker.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
 import com.kosmo.travelmaker.service.CityService;
 
@@ -25,6 +27,11 @@ public class CityServiceImpl implements CityService {
 	}
 	public void makingplanner(String user_id) {
 		cityDAO.makingplanner(user_id);
+	}
+	@Override
+	public List<CitiesDTO> selectCitiesDTO(int planner_no) {
+		// TODO Auto-generated method stub
+		return cityDAO.selectCitiesDTO(planner_no);
 	}
 	
 }

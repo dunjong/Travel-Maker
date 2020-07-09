@@ -70,5 +70,29 @@ public class PlannerServiceImpl implements PlannerService{
 		// TODO Auto-generated method stub
 		return plannerDAO.selectPlanNo();
 	}
+
+	@Override
+	public int selectCitiesNoByMap(Map<String, Integer> maps) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectCitiesNoByMap(maps);
+	}
+
+	@Override
+	public List<Integer> selectPlanNoByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectPlanNoByCitiesNo(cities_no);
+	}
+
+	@Override
+	public List<PlannerDTO> selectPlanDTOByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectPlanDTOByCitiesNo(cities_no);
+	}
+
+	@Override
+	public boolean deletePlanByNo(int plan_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.deletePlanByNo(plan_no);
+	}
 	
 }

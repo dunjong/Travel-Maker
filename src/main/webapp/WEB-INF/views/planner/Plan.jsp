@@ -346,7 +346,7 @@ var span;
 //일차마다 선택된 호텔과 장소들 담는 JSON 선언
 var hotelInfo={}
 var spotInfo={}
-var spotsForSave={city_name:'${origin.origin}',planner_no:'${planner_no}'};
+var spotsForSave={city_name:'${origin.origin}',planner_no:'${planner_no}',cities_no:'${cities_no}'};
 //선택된 일차 선언
 var day=1;
 //몇일치 일지 정하는 수 선언(넘어오는 값) 지금은 5일차
@@ -590,6 +590,24 @@ function getDetailById(placeIds){
 }////getDetailById
 
 $(function(){
+	$('#saved_spots').click(function(){
+		$.ajax({
+			url:'<c:url value="SavedPlan.kosmo"/>',
+			data:$('#cities-no').serialize(),
+			dataType:'json',
+			success:function(data){successAjax(data)},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+		
+	})
+	
+	
+	
 	$('#auto-spots').click(function(){
 		
 		$.ajax({
@@ -610,12 +628,13 @@ $(function(){
 	
 	var successAjax = function(data){
 		spotInfo={};
+		dayplans={};
 		nearSearchType='attractions';
 		servicePlace = new google.maps.places.PlacesService(map);
 		
 	function details(item,date){
-		
-		servicePlace.getDetails({placeId: item},
+		console.log('일차:',date,',details안의 item:',item)
+		servicePlace.getDetails({placeId:item},
 				function(place, status) {
               		if (status !== google.maps.places.PlacesServiceStatus.OK) {
               				console.log('status in func:',status)
@@ -626,14 +645,12 @@ $(function(){
 	  					spots=[]
 	  					spots.push(placelatlng);
 	  					dayplans[date]={'origin':origin,'spots':spots};
-	  					console.log('없을때')
 					}
 					else{
 		  				dayplans[date]['spots'].push(placelatlng);
-		  				console.log('있을때')
 					}
            		})
-	}
+	}//details
 		
 		
 		
@@ -646,7 +663,7 @@ $(function(){
 						details(item[x],date)
 						placeDetailnSave(item[x],date.substring(3))
 						console.log(x);
-						}, 1300*x);
+						}, 2000*x);
 					})(i);
 			}
 		})////each
@@ -701,12 +718,12 @@ $(function(){
 	            	   if(spotInfo['day'+date]==undefined){
 		            	   var savedSpot=[]
 		            	   spotsForSave['day'+date]='';
-		            	   spotsForSave['day'+date]+=(place.id)+',';
+		            	   spotsForSave['day'+date]+=(place.place_id)+',';
 		            	   savedSpot.push({'spot':place})
 		            	   spotInfo['day'+date]=savedSpot
 	            	   }
 	            	   else{
-	            		   spotsForSave['day'+date]+=(place.id)+',';
+	            		   spotsForSave['day'+date]+=(place.place_id)+',';
 	            		   spotInfo['day'+date].push({'spot':place})
 	            	   }
 	               }
@@ -1112,10 +1129,10 @@ $(function(){
 		<div class="intro_container" style="margin-left:150px;width:80%">
 			
 			<div hidden="true" id=day></div>
-			
+					<input type="text" id="cities-no"  value="${cities_no}" name="cities_no" hidden="true" >
 					<input type="text" id="city-no"  value="${city_no}" name="city_no" hidden="true" >
 					<button  class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">자동 완성 불러오기</button>
-					
+					<button  class="btn aqua-gradient" id="saved_spots" style="border-radius: 9px;">이전 플랜 불러오기</button>
 			
 			<div class="row">
 				<div class="col-sm-10">

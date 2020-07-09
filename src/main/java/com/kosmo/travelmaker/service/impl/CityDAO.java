@@ -1,5 +1,6 @@
 package com.kosmo.travelmaker.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -7,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
 
 @Repository
@@ -26,6 +28,11 @@ public class CityDAO {
 
 	public void makingplanner(String user_id) {
 		sqlMapper.insert("makingplanner",user_id);
+	}
+
+	public List<CitiesDTO> selectCitiesDTO(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectCitiesDTO", planner_no);
 	}
 	
 }

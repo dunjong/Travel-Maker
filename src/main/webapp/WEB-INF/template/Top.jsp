@@ -76,7 +76,7 @@
 											href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a>
 										</li>
 										<li>
-											<a href="<c:url value='TrvavelMaker/admin1.kosmo'/>"> 관리자</a>
+											<a href="<c:url value='/TravelMaker/admin1.kosmo'/>"> 관리자</a>
 										</li>
 									</ul></li>
 								<li><a href="#" class="dropdown-toggle"
@@ -229,11 +229,11 @@
 				<form id="logInForm" action="<c:url value='/TravelMaker/LoginProcess.do'/>" method="post">
 					<div class="md-form mb-5">
 						<label data-error="wrong" data-success="right" for="Form-id1" class="username"> 아이디 </label> 
-						<input id="id" name="id" type="text" autocomplete="on" class="form-control validate" placeholder="아이디를 입력하세요">
+						<input id="id" name="user_id" type="text" autocomplete="on" class="form-control validate" placeholder="아이디를 입력하세요">
 					</div>
 					<div class="md-form pb-3">
 						<label data-error="wrong" data-success="right" for="Form-pass1" class="userpass"> <span style="color: black;">비밀번호</span></label> 
-						<input id="pwd" name="pwd" type="password" class="form-control validate" placeholder="비밀번호를 입력하세요" />
+						<input id="pwd" name="user_pwd" type="password" class="form-control validate" placeholder="비밀번호를 입력하세요" />
 					</div>
 					<span id="loginfailmessage" style="color: red; font-size: .8em">${NotMember}</span>
 				</form>
@@ -339,21 +339,21 @@
 						<label class="col-sm-2 control-label" style="color: black;">아이디</label>
 						<div>
 							<input id="signUpId" type="text" class="form-control input-lg"
-								name="id" value="${param.id}" placeholder="아이디를 입력하세요">
+								name="user_id" value="${param.user_id}" placeholder="아이디를 입력하세요">
 						</div>
 						<div>
 							<a class="btn btn-info" id="signUpIdCheckBtn">아이디 확인</a> <span
 								id="idErrormessage" style="color: red; font-size: .8em">${idError}<form:errors
-									path="memberDTO.id" /></span>
+									path="memberDTO.user_id" /></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">이름</label>
 						<div>
-							<input type="text" class="form-control input-lg" name="name"
-								value="${param.name}" placeholder="이름을 입력하세요"> <span
+							<input type="text" class="form-control input-lg" name="user_name"
+								value="${param.user_name}" placeholder="이름을 입력하세요"> <span
 								style="color: red; font-size: .8em">${nameError}<form:errors
-									path="memberDTO.name" /></span>
+									path="memberDTO.user_name" /></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -364,9 +364,9 @@
 						<label class="col-sm-4 control-label" style="color: black;">비밀번호</label>
 						<div>
 							<input type="password" class="form-control input-lg"
-								name="password" placeholder="비밀번호를 입력하세요"> <span
+								name="user_pwd" placeholder="비밀번호를 입력하세요"> <span
 								style="color: red; font-size: .8em">${passwordError}<form:errors
-									path="memberDTO.password" /></span>
+									path="memberDTO.user_pwd" /></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -382,7 +382,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label" style="color: black;">나이</label>
 						<div class="col-sm-4">
-							<select class="form-control input-sm" name="rrn" value="${param.rrn}">
+							<select class="form-control input-sm" name="user_rrn" value="${param.user_rrn}">
 								<option>출생 연도를 선택하세요</option>
 								<option value="1950" >1950~1959</option>
 								<option value="1960">1960~1969</option>
@@ -393,7 +393,7 @@
 								<option value="2010">2010~2019</option>
 								<option value="2020">2020~</option>
 							</select> <span style="color: red; font-size: .8em">${ageError}<form:errors
-									path="memberDTO.rrn" /></span>
+									path="memberDTO.user_rrn" /></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -401,13 +401,13 @@
 						<div class="col-sm-4">
 							<!--  가로 배치 -->
 							<div class="radio">
-								<label><input type="radio" value="남자" name="gender"
-									<c:if test="${param.gender=='남자' }">checked</c:if>>남자</label> <label><input
+								<label><input type="radio" value="남자" name="user_gender"
+									<c:if test="${param.user_gender=='남자' }">checked</c:if>>남자</label> <label><input
 									type="radio" value="여자" name="gender"
-									<c:if test="${param.gender=='여자' }">checked</c:if>>여자</label>
+									<c:if test="${param.user_gender=='여자' }">checked</c:if>>여자</label>
 							</div>
 							<span style="color: red; font-size: .8em">${genderError}<form:errors
-									path="memberDTO.gender" /></span>
+									path="memberDTO.user_gender" /></span>
 						</div>
 					</div>
 					<div class="modal-footer">

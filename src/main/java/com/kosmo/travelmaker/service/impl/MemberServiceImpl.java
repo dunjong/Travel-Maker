@@ -35,14 +35,26 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.idCheck(id)?"failure":"success";
 	}
 	@Override
-	public List<PlannerDTO> plannerList(Map map) {
-		return memberDAO.myPlannerList(map);
+	public List<PlannerDTO> plannerList(String id) {
+		return memberDAO.myPlannerList(id);
 	}
 	public String kakao(String kakaoemail,String kakoid,MemberDTO dto) {
 		
 		return memberDAO.kakao(dto);
 	}
-	
-	
 
+	public int registerInsert(AndroidMemberDTO member) {
+		return memberDAO.registerInsert(member);
+	}
+
+	@Override
+	public MemberDTO selectMemberDTO(String id) {
+		// TODO Auto-generated method stub
+		return memberDAO.selectMemberDTO(id);
+	}
+	@Override
+	public boolean updateMemberDTO(Map map) {
+		return memberDAO.updateMemberDTO(map);
+		
+	}
 }

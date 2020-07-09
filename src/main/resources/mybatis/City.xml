@@ -14,4 +14,7 @@
 	<insert id="makingplanner" parameterType="java.lang.String">
 		INSERT INTO planner VALUES(seq_planner.NEXTVAL,0,#{user_id})
 	</insert>
+	<select id="selectCitiesDTO" parameterType="int" resultType="CitiesDTO">
+		Select * from cities where planner_no=#{planner_no}
+	</select>
 </mapper>
