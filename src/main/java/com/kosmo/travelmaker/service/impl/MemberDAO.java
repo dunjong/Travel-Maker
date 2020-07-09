@@ -37,4 +37,16 @@ public class MemberDAO {
 		 
 		return null;
 	}
+
+	public MemberDTO selectMemberDTO(String id) {
+		// TODO Auto-generated method stub
+		System.out.println("id of dao: "+id);
+		return sqlMapper.selectOne("selectMemberDTO",id);
+	}
+
+	public boolean updateMemberDTO(Map map) {
+		// TODO Auto-generated method stub
+		System.out.println(map.get("value").toString()+map.get("updateColumn")+map.get("id"));
+		return sqlMapper.update("updateMemberDTO", map)==1?true:false;
+	}
 }

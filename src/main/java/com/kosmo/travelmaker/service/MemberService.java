@@ -10,5 +10,7 @@ public interface MemberService {
 	boolean SignUp(MemberDTO dto);
 	String idCheck(String id);
 	List<PlannerDTO> plannerList(Map map);
+	MemberDTO selectMemberDTO(String id);
+	boolean updateMemberDTO(Map map);
 }
 
