@@ -6,8 +6,16 @@ import org.springframework.stereotype.Repository;
 public class PlannerDTO {
 
 	private int planner_no;
+	private int planner_acc;
 	private int city_no;
 	private String user_id;
+	
+	public int getPlanner_acc() {
+		return planner_acc;
+	}
+	public void setPlanner_acc(int planner_acc) {
+		this.planner_acc = planner_acc;
+	}
 	public int getPlanner_no() {
 		return planner_no;
 	}

@@ -41,4 +41,7 @@ public class PlannerDAO {
 	public int selectPlanNo() {
 		return sqlMapper.selectOne("selectPlanNo");
 	}
+	public int selectCitiesNoByMap(Map<String, Integer> maps) {
+		return sqlMapper.selectOne("selectCitiesNoByMap", maps);
+	}
 }

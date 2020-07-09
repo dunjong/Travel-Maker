@@ -29,9 +29,9 @@ public class MemberDAO {
 	public boolean idCheck(String id) {
 		return (Integer)sqlMapper.selectOne("idCheck",id)==0 ? false : true;
 	}
-	public List<PlannerDTO> myPlannerList(Map map) {
+	public List<PlannerDTO> myPlannerList(String id) {
 		
-		return sqlMapper.selectList("myPlannerListSelectList",map);
+		return sqlMapper.selectList("myPlannerListSelectList",id);
 	}
 	public String kakao(MemberDTO dto) {
 		 
