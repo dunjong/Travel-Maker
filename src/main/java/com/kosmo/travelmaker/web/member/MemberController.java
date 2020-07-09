@@ -83,6 +83,8 @@ public class MemberController {
 			maps_cities.put("name", dto_city.getCity_name());
 			maps_cities.put("intro", dto_city.getCity_intro());
 			maps_cities.put("cities_no",Integer.toString(cities_no));
+			maps_cities.put("planner_no", Integer.toString(planner_no));
+			maps_cities.put("city_no",Integer.toString(city_no));
 			collections.add(maps_cities);
 		}
 		

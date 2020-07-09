@@ -79,7 +79,7 @@
 												<div class="modal-dialog">
 													<div class="modal-content">
 														<div class="modal-header bg-info">
-															<h2>호텔검색</h2>
+															<h2>${name.key}호텔검색</h2>
 														</div>
 														<div class="modal-body">
 											              	<div>
@@ -257,6 +257,7 @@
 	
 	
 	<script>
+	console.log(${'city_no_name'})
 		var lat,lng;//호텔용
 		$(function() {
 			var date = new Date();
@@ -369,6 +370,7 @@
 								info.revert();
 							}
 							if(info.event.end==null){
+								console.log('eventDrop',info)
 								$('#datepicker-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
 								$('#datepicker1-'+info.event.title).val(dateFiting(info.event.start.toISOString(),'s'));
 							}
@@ -500,7 +502,9 @@
 			  /*close : function(evt) {}  */
 	   		 
 			})
+			
 			<c:forEach items="${city_no_name}" var="name" varStatus='h_i'>
+			console.log(${name})
 			var input_${name.key} = document.getElementById('autocomplete_${name.key}');
 			var autocomplete_${name.key} = new google.maps.places.Autocomplete(input_${name.key});
 			google.maps.event.addListener(autocomplete_${name.key}, 'place_changed', function () {
