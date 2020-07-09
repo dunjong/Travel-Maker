@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-	
-
 	<!-- Search -->
 
 	<div class="home_search">
@@ -17,31 +15,25 @@
 							
 							<form action="<c:url value='MyInfoEdit.kosmo'/>">
 								<div>이름:</div>
-								<input type="text" name="value" value="${name}" >
+								<input type="text" name="value" readonly="readonly" value="${name}" >
 								<input type="text" name="updateColumn" hidden="true" value="user_name" >
 								<input type="text" name="id" hidden="true" value="${id}" >
-								<button>수정</button>
-							</form>
-							<form action="<c:url value='MyInfoEdit.kosmo'/>">
+								
 								<div>비밀번호:</div>
-								<input type="text" name="value" value="${pwd}" >
+								<input type="text" name="value" readonly="readonly" value="${pwd}" >
 								<input type="text" name="updateColumn" hidden="true" value="user_pwd" >
 								<input type="text" name="id" hidden="true" value="${id}" >
-								<button>수정</button>
-							</form>
-							<form action="<c:url value='MyInfoEdit.kosmo'/>">
+			
 								<div>출생연도:</div>
-								<input type="text" name="value" value="${rrn}" >
+								<input type="text" name="value" readonly="readonly" value="${rrn}" >
 								<input type="text" name="updateColumn" hidden="true" value="user_rrn" >
 								<input type="text" name="id" hidden="true" value="${id}" >
-								<button>수정</button>
-							</form>
-							<form action="<c:url value='MyInfoEdit.kosmo'/>">
+				
 								<div>성별:</div>
-								<input type="text" name="value" value="${gender}" >
+								<input type="text" name="value" readonly="readonly" value="${gender}" >
 								<input type="text" name="updateColumn" hidden="true" value="user_gender" >
 								<input type="text" name="id" hidden="true" value="${id}" >
-								<button>수정</button>
+								<button class="btn btn-success" style="float: right;">수정</button>
 							</form>
 							
 							
