@@ -23,6 +23,9 @@
 	<insert id="kako" parameterType="MemberDTO">
 		INSERT INTO userinfo(USER_ID,USER_PWD,USER_RRN,USER_GENDER) VALUES(#{kakaoemail},#{kakoid},#{rrn},#{gender})
 	</insert>
+	<insert id="registerInsert" parameterType="AndroidMemberDTO">
+		INSERT INTO userinfo VALUES(#{user_id},#{user_name},#{user_pwd},#{user_rrn},#{user_gender})
+	</insert>
 	<select id="selectMemberDTO" resultType="MemberDTO" parameterType="java.lang.String" >
 		SELECT * FROM userinfo WHERE user_id=#{user_id}
 	</select>
