@@ -46,7 +46,6 @@ public class MemberController {
 		MemberDTO dto = memberService.selectMemberDTO(session.getAttribute("id").toString());
 		model.addAttribute("id",dto.getUser_id());
 		model.addAttribute("name",dto.getUser_name());
-		model.addAttribute("pwd",dto.getUser_pwd());
 		model.addAttribute("gender",dto.getUser_gender());
 		model.addAttribute("rrn",dto.getUser_rrn());
 		return "member/MyInfo.tiles";
@@ -59,7 +58,7 @@ public class MemberController {
 			System.out.println(map.get("updateColumn").toString()+"수정이 완료되었습니다");
 		}
 		
-		return "member/MyInfoEdit.tiles";
+		return "forward:/TravelMaker/MyInfo.kosmo";
 	}
 	@RequestMapping("BookMark.kosmo")
 	public String BookMark() {
