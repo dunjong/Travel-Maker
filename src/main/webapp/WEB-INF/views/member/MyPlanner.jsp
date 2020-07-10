@@ -44,7 +44,7 @@ function successAjax(data){
 	 tableString+="<div class='destination_image'>";
 	 tableString+="<img src='/travelmaker"+city.img+"' alt=''>";
 	 tableString+="</div><div class='destination_content'>";
-	 tableString+="<div class='destination_title'><a href='<c:url value='/TravelMaker/Plan.kosmo?cities_no="+city.cities_no+"&origin="+city.name+"&planner_no="+city.planner_no+"&city_no="+city.city_no+"'/>'>";
+	 tableString+="<div class='destination_title'><a href='<c:url value='/TravelMaker/Plan.kosmo?cities_no="+city.cities_no+"&origin="+city.name+"&planner_no="+city.planner_no+"'/>'>";
 	 tableString+=city.name;
 	 tableString+="</a></div><div class='destination_subtitle'><p>";
 	 tableString+=city.intro;
