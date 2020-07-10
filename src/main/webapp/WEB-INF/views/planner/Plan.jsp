@@ -327,7 +327,7 @@ var nearSearchType='attractions';
 var keyword='attractions';
 //출발지 선언
 var origin='${hotel.hotel_latlng}';
-console.log('위도경도','${hotel.hotel_latlng}')
+
 //도착지 선언
 var destination=origin;
 //선택된 장소 넣는 배열 선언
@@ -347,7 +347,7 @@ var span;
 //일차마다 선택된 호텔과 장소들 담는 JSON 선언
 var hotelInfo={}
 var spotInfo={}
-var spotsForSave={city_name:'${origin.origin}',planner_no:'${planner_no}',cities_no:'${cities_no}'};
+var spotsForSave={city_name:'${origin}',planner_no:'${planner_no}',cities_no:'${cities_no}'};
 //선택된 일차 선언
 var day=1;
 //몇일치 일지 정하는 수 선언(넘어오는 값) 지금은 5일차
@@ -1150,7 +1150,7 @@ $(function(){
 					<div class="row">
 						<div class="col-sm-12" id="planBox">
 							<div class="row" style="text-align: center">
-								<c:forEach begin="1" end="8" var="days" >
+								<c:forEach begin="1" end="${gap}" var="days" >
 
 									<div class="planview" style="padding-bottom: 10px;" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
 				
