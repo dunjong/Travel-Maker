@@ -166,10 +166,11 @@
 											<br>
 											<h4>${item.review_title}</h4>
 											<p>${item.review_content}</p>
-											<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트 거리</h5>
+											<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트</h5>
+											<p>작성일시 : ${item.review_date}</p>
 										</div>
 										<div class="reviewMapOrImage">
-											<img src="<c:url value='/images/reviewImage1.PNG'/>"
+											<img src="<c:url value='/images/reviewImage${item.review_no%4+1}.PNG'/>"
 												alt="리뷰지도/사진">
 										</div>
 									</div>

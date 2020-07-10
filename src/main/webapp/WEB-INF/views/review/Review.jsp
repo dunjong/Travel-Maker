@@ -80,16 +80,17 @@
 							<div class="reviewText">
 								<br>
 								<h4 class="reviewTextTittle">${record.review_title}</h4>
-								<a href="https://www.google.com/maps/search/몽키+포레스트+거리"
+								<a href="https://www.google.com/maps/search/몽키+포레스트"
 									target="_blank">
-									<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트 거리</h5>
+									<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트</h5>
 								</a>
 								<p>${record.review_content}</p>
 							</div>
 							<div class="reviewMapOrImage">
-								<img src="<c:url value='/images/reviewImage1.PNG'/>"
+								<img src="<c:url value='/images/reviewImage${tmpImgNo}.PNG'/>"
 									alt="리뷰지도/사진">
 							</div>
+								<p>&nbsp&nbsp&nbsp&nbsp작성일시 : ${record.review_date}</p>
 							<div class="reviewFooterUtil">
 								<br> <img src="<c:url value='/images/likes.png'/>"
 									alt="좋아요"> <br> <span>${record.review_no}</span> <span>명</span>
@@ -100,7 +101,7 @@
 								href="<c:url value='/TravelMaker/ReviewEdit.kosmo?review_no=${record.review_no}'/>">
 								<img src="<c:url value='/images/edit.png'/>" alt="수정하기">
 							</a><span>&nbsp&nbsp&nbsp&nbsp</span><a
-								href="<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>">
+								href="javascript:isDelete();">
 								<img src="<c:url value='/images/delete.png'/>" alt="삭제하기">
 							</a><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><a
 								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
@@ -123,3 +124,9 @@
 <div id=reviewBack>
 	<div id="reviewBackImage"></div>
 </div>
+<script>	
+	function isDelete(){
+		if(confirm("정말로 삭제 하시겠습니까?"))
+			location.replace("<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>");
+	}
+</script>
