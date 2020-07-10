@@ -106,9 +106,19 @@
 	cursor: pointer;
 	width: 20%;
 }
-
-.back {
+.reviewFooterUtil {
 	text-align: center;
+	color: #3EB489;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.reviewFooterUtil img {
+	border-radius: 20px;
+}
+
+.reviewFooterUtil span {
+	color: #3EB489;
 }
 </style>
 </head>
@@ -154,12 +164,12 @@
 									<button type="submit" id="reviewWriteSubmmit">리뷰 작성 완료</button>
 								</div>
 							</form>
-							<div class="back">
-								<br> <a
-									href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
-									src="<c:url value='/images/back.png'/>" alt="돌아가기">
-								</a><br> <span>목록으로 돌아가기</span>
-							</div>
+						</div>
+						<div class="reviewFooterUtil">
+							<br> <a
+								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
+								src="<c:url value='/images/back.png'/>" alt="돌아가기">
+							</a><br> <span>목록으로 돌아가기</span>
 						</div>
 					</div>
 				</div>

@@ -1,10 +1,109 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false" contentType="text/html; charset=UTF-8"%>
-<script>
-	console.log(${lists})
 
+<style>
+.destination_image{
+	height: 261.37px;
+	width: 360px;
+}
+
+</style>
+<script>
+function detail(data){
+	
+	  $.ajax({
+			url:'<c:url value="MyPlannerDetails.kosmo"/>',
+			data:{planner_no:data.value},
+			dataType:'json',
+			success:function(data){successAjax(data)},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+	  var offset=$('#destinations').offset();
+	  $('html, body').animate({scrollTop : offset.top}, 400);
+	  
+}////detail
+
+function fnMove(data){
+	
+	 var offset = $("#div" + seq).offset();
+}
+
+
+function successAjax(data){
+	console.log('data',data);
+	 var tableString="";
+	 var cities=document.getElementById('cities');
+	 
+	$.each(data,function(index,city){
+	 tableString+="<div class='destination item'>";
+	 tableString+="<div class='destination_image'>";
+	 tableString+="<img src='/travelmaker"+city.img+"' alt=''>";
+	 tableString+="</div><div class='destination_content'>";
+	 tableString+="<div class='destination_title'><a href='<c:url value='/TravelMaker/Plan.kosmo?cities_no="+city.cities_no+"&origin="+city.name+"&planner_no="+city.planner_no+"'/>'>";
+	 tableString+=city.name;
+	 tableString+="</a></div><div class='destination_subtitle'><p>";
+	 tableString+=city.intro;
+	 tableString+="</p></div><div class='destination_price'>From $699</div></div></div>"
+	 
+	})
+	$('#cities').html(tableString);
+	var size=$('#cities > div').length;
+	console.log('size',size);
+	$('#cities img').css({width:'360px',height:'261.37px'})
+	var j=0;
+	for(var i=1;i<=size;i++){
+		switch(j){
+		case 0:
+			switch(i%3){
+			case 1:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'0px'})
+				break;
+			case 2:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'390px',top:'0px'})
+				break;
+			default:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'780px',top:'0px'});
+				j+=1;
+			}
+			break;
+		case 1:
+			switch(i%3){
+			case 1:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'415px'})
+				break;
+			case 2:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'390px',top:'415px'})
+				break;
+			default:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'780px',top:'415px'});
+				j+=1;
+			}
+			break;
+		default :
+			switch(i%3){
+			case 1:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'830px'})
+				break;
+			case 2:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'390px',top:'830pxpx'})
+				break;
+			default:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'780px',top:'830pxpx'});
+				j+=1;
+			}
+			break;
+		}
+	}
+}
 
 </script>
+
+
 
 <div class="intro">
 	<div class="intro_background"></div>
@@ -15,55 +114,29 @@
 					<div class="row">
 
 						<!-- Intro Item -->
+						<c:forEach items="${list}" var="planner">
+							<div class="col-lg-4 intro_col">
+								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
+									<div class="intro_icon">
+										<img src="<c:url value='/images/suitcase.svg'/>" alt="">
+									</div>
+									<div class="intro_content">
+										<div class="intro_subtitle">
+											<p>동행자 수:${planner.planner_acc}명</p>
+										</div>
+										<div class="intro_title">
+											<input name="planner_no" class="btn btn-info" onclick="detail(this)" value="${planner.planner_no}" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
 						
-						<div class="col-lg-4 intro_col">
-							<div
-								class="intro_item d-flex flex-row align-items-end justify-content-start">
-								<div class="intro_icon">
-									<img src="<c:url value='/images/beach.svg'/>" alt="">
-								</div>
-								<div class="intro_content">
-									<div class="intro_title">인기 여행지</div>
-									<div class="intro_subtitle">
-										<p>#여행</p>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- Intro Item -->
-						<div class="col-lg-4 intro_col">
-							<div
-								class="intro_item d-flex flex-row align-items-end justify-content-start">
-								<div class="intro_icon">
-									<img src="<c:url value='/images/wallet.svg'/>" alt="">
-								</div>
-								<div class="intro_content">
-									<div class="intro_title">최고의 가격</div>
-									<div class="intro_subtitle">
-										<p>Best Price</p>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- Intro Item -->
-						<div class="col-lg-4 intro_col">
-							<div
-								class="intro_item d-flex flex-row align-items-end justify-content-start">
-								<div class="intro_icon">
-									<img src="<c:url value='/images/suitcase.svg'/>" alt="">
-								</div>
-								<div class="intro_content">
-									<div class="intro_title">놀라운 서비스</div>
-									<div class="intro_subtitle">
-										<p>Amazing Service</p>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
+						
+					
+					</div><!-- row -->
+					
+					
 				</div>
 			</div>
 		</div>
@@ -82,9 +155,11 @@
 			</div>
 			<div class="row destinations_row">
 				<div class="col">
-					<div class="destinations_container item_grid">
+					<div class="destinations_container item_grid" id="cities">
 
 						<!-- Destination -->
+						
+						
 						<div class="destination item">
 							<div class="destination_image">
 								<img src="<c:url value='/images/destination_1.jpg'/>" alt="">
@@ -112,48 +187,34 @@
 						<!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="<c:url value='/images/destination_3.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">San Francisco</a></div>
-								<div class="destination_subtitle"><p>너 코가 어딨어? 산프란 시스코로 떠나보세요</p></div>
-								<div class="destination_price">From $699</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_4.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Paris</a></div>
-								<div class="destination_subtitle"><p>위이이이잉~~파리로 떠나보세요</p></div>
-								<div class="destination_price">From $8282</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_5.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Phi Phi Island</a></div>
-								<div class="destination_subtitle"><p>어딘지 모르는데 가보세요!</p></div>
-								<div class="destination_price">From $9</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
 								<img src="<c:url value='/images/destination_6.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">Mykonos</a></div>
 								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
 								<div class="destination_price">From $679</div>
+							</div>
+						</div>
+						<!-- Destination -->
+						<div class="destination item">
+							<div class="destination_image">
+								<img src="<c:url value='/images/destination_2.jpg'/>" alt="">
+							</div>
+							<div class="destination_content">
+								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
+								<div class="destination_subtitle"><p>인도는 지금 몇시야?인도네시아로 떠나보세요</p></div>
+								<div class="destination_price">From $444</div>
+							</div>
+						</div>
+						<!-- Destination -->
+						<div class="destination item">
+							<div class="destination_image">
+								<img src="<c:url value='/images/destination_2.jpg'/>" alt="">
+							</div>
+							<div class="destination_content">
+								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
+								<div class="destination_subtitle"><p>인도는 지금 몇시야?인도네시아로 떠나보세요</p></div>
+								<div class="destination_price">From $444</div>
 							</div>
 						</div>
 

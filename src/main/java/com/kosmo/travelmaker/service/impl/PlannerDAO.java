@@ -41,4 +41,19 @@ public class PlannerDAO {
 	public int selectPlanNo() {
 		return sqlMapper.selectOne("selectPlanNo");
 	}
+	public int selectCitiesNoByMap(Map<String, Integer> maps) {
+		return sqlMapper.selectOne("selectCitiesNoByMap", maps);
+	}
+	public List<Integer> selectPlanNoByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectPlanNoByCitiesNo",cities_no);
+	}
+	public List<PlannerDTO> selectPlanDTOByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectPlanDTOByCitiesNo",cities_no );
+	}
+	public boolean deletePlanByNo(int plan_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deletePlanByNo",plan_no)==1?true:false;
+	}
 }

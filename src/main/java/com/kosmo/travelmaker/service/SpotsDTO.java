@@ -11,12 +11,26 @@ public class SpotsDTO {
 	private String spot_name;
 	private String spot_id;
 	private String auto_plan_date;
+	private String plan_date;
 	private int auto_spot_no;
 	private int city_no;
 	private int plan_no;
+	private String latlng;
 	
 	
 	
+	public String getLatlng() {
+		return latlng;
+	}
+	public void setLatlng(String latlng) {
+		this.latlng = latlng;
+	}
+	public String getPlan_date() {
+		return plan_date;
+	}
+	public void setPlan_date(String plan_date) {
+		this.plan_date = plan_date;
+	}
 	public int getSave_spot_no() {
 		return save_spot_no;
 	}

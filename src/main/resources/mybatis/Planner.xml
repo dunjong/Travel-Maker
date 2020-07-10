@@ -27,4 +27,16 @@
 	<select id="selectPlanNo" resultType="int">
 		select seq_plan.currval from dual
 	</select>
+	<select id="selectCitiesNoByMap" parameterType="java.util.Map" resultType="int">
+		SELECT cities_no FROM cities WHERE city_no=#{city_no} and planner_no=#{planner_no}
+	</select>
+	<select id="selectPlanNoByCitiesNo" parameterType="int" resultType="int">
+		SELECT plan_no FROM plan WHERE cities_no=#{cities_no}
+	</select>
+	<select id="selectPlanDTOByCitiesNo" parameterType="int" resultType="PlanDTO">
+		SELECT * FROM PLAN WHERE cities_no=#{cities_no}
+	</select>
+	<delete id="deletePlanByNo" parameterType="int">
+		DELETE FROM plan WHERE plan_no=#{plan_no}
+	</delete>
 </mapper>

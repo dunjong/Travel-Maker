@@ -9,7 +9,7 @@ public interface MemberService {
 	AndroidMemberDTO isLogin(AndroidMemberDTO dto);
 	boolean SignUp(MemberDTO dto);
 	String idCheck(String id);
-	List<PlannerDTO> plannerList(Map map);
+	List<PlannerDTO> plannerList(String id);
 	MemberDTO selectMemberDTO(String id);
 	boolean updateMemberDTO(Map map);
 }
