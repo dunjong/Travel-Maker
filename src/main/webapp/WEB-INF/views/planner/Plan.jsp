@@ -326,7 +326,8 @@ var hostnameRegexp = new RegExp('^https?://.+?/');
 var nearSearchType='attractions';
 var keyword='attractions';
 //출발지 선언
-var origin='${origin.origin}';
+var origin='${hotel.hotel_latlng}';
+console.log('위도경도','${hotel.hotel_latlng}')
 //도착지 선언
 var destination=origin;
 //선택된 장소 넣는 배열 선언
@@ -791,7 +792,7 @@ $(function(){
  function displayRoute(origin, destination, service, display,spots) {
      service.route({
      origin: origin,//출발지
-     destination: destination,//도착지
+     destination:destination,//도착지
      waypoints:spots,/*,{location: 'ubud, 발리'},{location: '공항, 발리'}*///여기에 경유지 추가
      travelMode: 'DRIVING',
      /*탈것 추가
@@ -1149,7 +1150,7 @@ $(function(){
 					<div class="row">
 						<div class="col-sm-12" id="planBox">
 							<div class="row" style="text-align: center">
-								<c:forEach begin="1" end="5" var="days" >
+								<c:forEach begin="1" end=8" var="days" >
 
 									<div class="planview" style="padding-bottom: 10px;" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
 				
