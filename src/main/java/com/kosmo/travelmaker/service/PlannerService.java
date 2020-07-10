@@ -6,7 +6,7 @@ import java.util.Map;
 public interface PlannerService {
 	public String AllPlan();
 	public boolean insertPlanner(String id);
-	public boolean insertCities(Map<String, Integer> maps);
+	public boolean insertCities(Map<String, String> maps);
 	public List<Integer> selectPlannerList(int planner_no);
 	public int selectPlannerNo();
 	List<CitiesDTO> selectCitiesDTOList(int planner_no);

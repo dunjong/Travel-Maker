@@ -34,5 +34,15 @@ public class CityDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectCitiesDTO", planner_no);
 	}
+
+	public String selectCitiesDate(int cities_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectCitiesDate", cities_no);
+	}
+
+	public boolean updateCitiesDate(Map map) {
+		// TODO Auto-generated method stub
+		return sqlMapper.update("updateCitiesDate", map)==1?true:false;
+	}
 	
 }

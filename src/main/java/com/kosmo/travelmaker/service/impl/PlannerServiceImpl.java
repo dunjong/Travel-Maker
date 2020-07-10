@@ -30,7 +30,7 @@ public class PlannerServiceImpl implements PlannerService{
 	}
 
 	@Override
-	public boolean insertCities(Map<String, Integer> maps) {
+	public boolean insertCities(Map<String, String> maps) {
 		return plannerDAO.insertCities(maps);
 	}
 

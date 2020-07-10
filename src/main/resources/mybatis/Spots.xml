@@ -3,18 +3,20 @@
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Spots">
+	<insert id="insertSaveSpot" parameterType="SpotsDTO">
+		INSERT INTO save_spots(save_spot_no,spot_name,spot_id,spot_latlng,plan_no) values(seq_spot_save.nextval,#{spot_name},#{spot_id},#{spot_latlng},#{plan_no})
+	</insert>
+	
 	<select id="spotListSelectList" parameterType="java.util.Map" resultType="SpotsDTO">
 		SELECT spot.*,plan.auto_plan_date FROM  auto_plan plan JOIN auto_spots spot ON plan.auto_plan_no=spot.auto_plan_no WHERE plan.city_no=#{city_no}
 	</select>
-	<insert id="insertSaveSpot" parameterType="SpotsDTO">
-		INSERT INTO save_spots values(seq_spot_save.nextval,#{spot_name},#{spot_id},#{plan_no})
-	</insert>
 	<select id="selectSpotDTOList" parameterType="int" resultType="SpotsDTO">
 		SELECT * FROM save_spots WHERE plan_no=#{plan_no}
 	</select>
 	<select id="spotListByCitiesNo" parameterType="int" resultType="SpotsDTO">
 		SELECT spot.*,plan.plan_date FROM  plan JOIN save_spots spot ON plan.plan_no=spot.plan_no WHERE plan.cities_no=#{cities_no}
 	</select>
+	
 	<delete id="deleteSpotByPlanNo" parameterType="int">
 		DELETE FROM save_spots WHERE plan_no=#{plan_no}
 	</delete>

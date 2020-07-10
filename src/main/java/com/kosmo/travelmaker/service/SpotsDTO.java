@@ -15,15 +15,15 @@ public class SpotsDTO {
 	private int auto_spot_no;
 	private int city_no;
 	private int plan_no;
-	private String latlng;
+	private String spot_latlng;
 	
 	
 	
 	public String getLatlng() {
-		return latlng;
+		return spot_latlng;
 	}
 	public void setLatlng(String latlng) {
-		this.latlng = latlng;
+		this.spot_latlng = latlng;
 	}
 	public String getPlan_date() {
 		return plan_date;

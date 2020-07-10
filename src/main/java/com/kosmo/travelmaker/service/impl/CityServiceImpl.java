@@ -33,5 +33,15 @@ public class CityServiceImpl implements CityService {
 		// TODO Auto-generated method stub
 		return cityDAO.selectCitiesDTO(planner_no);
 	}
+	@Override
+	public String selectCitiesDate(int cities_no) {
+		// TODO Auto-generated method stub
+		return cityDAO.selectCitiesDate(cities_no);
+	}
+	@Override
+	public boolean updateCitiesDate(Map map) {
+		// TODO Auto-generated method stub
+		return cityDAO.updateCitiesDate(map);
+	}
 	
 }

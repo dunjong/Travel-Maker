@@ -10,4 +10,8 @@ public interface CityService {
 	int selectCityNo(String city_name);
 
 	List<CitiesDTO> selectCitiesDTO(int planner_no);
+
+	String selectCitiesDate(int cities_no);
+
+	boolean updateCitiesDate(Map map);
 }

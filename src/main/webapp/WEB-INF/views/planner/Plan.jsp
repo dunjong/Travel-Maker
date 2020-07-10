@@ -591,7 +591,6 @@ function getDetailById(placeIds){
 }////getDetailById
 
 $(function(){
-	$('#saved_spots').click(function(){
 		$.ajax({
 			url:'<c:url value="SavedPlan.kosmo"/>',
 			data:$('#cities-no').serialize(),
@@ -603,9 +602,7 @@ $(function(){
 				console.log('에러:',error);
 			}
 			
-		});
-		
-	})
+		})
 	
 	
 	
@@ -664,8 +661,15 @@ $(function(){
 						details(item[x],date)
 						placeDetailnSave(item[x],date.substring(3))
 						console.log(x);
+							if(x==2){
+								spots=dayplans['day1'].spots
+								displayRoute(origin,destination , directionsService,
+									      directionsRenderer,spots);
+							}
 						}, 2000*x);
+					
 					})(i);
+				
 			}
 		})////each
 
@@ -718,13 +722,16 @@ $(function(){
 	               else{
 	            	   if(spotInfo['day'+date]==undefined){
 		            	   var savedSpot=[]
+		            	   var latlng=place.geometry.location.lat()+','+place.geometry.location.lng();
+		            	   console.log('place in Detail save: ',place.name);
 		            	   spotsForSave['day'+date]='';
-		            	   spotsForSave['day'+date]+=(place.place_id)+',';
+		            	   spotsForSave['day'+date]+=(place.place_id)+':'+latlng+':'+place.name+'&';
 		            	   savedSpot.push({'spot':place})
 		            	   spotInfo['day'+date]=savedSpot
 	            	   }
 	            	   else{
-	            		   spotsForSave['day'+date]+=(place.place_id)+',';
+	            		   var latlng=place.geometry.location.lat()+','+place.geometry.location.lng();
+	            		   spotsForSave['day'+date]+=(place.place_id)+':'+latlng+':'+place.name+'&';
 	            		   spotInfo['day'+date].push({'spot':place})
 	            	   }
 	               }
@@ -1133,7 +1140,6 @@ $(function(){
 					<input type="text" id="cities-no"  value="${cities_no}" name="cities_no" hidden="true" >
 					<input type="text" id="city-no"  value="${city_no}" name="city_no" hidden="true" >
 					<button  class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">자동 완성 불러오기</button>
-					<button  class="btn aqua-gradient" id="saved_spots" style="border-radius: 9px;">이전 플랜 불러오기</button>
 			
 			<div class="row">
 				<div class="col-sm-10">

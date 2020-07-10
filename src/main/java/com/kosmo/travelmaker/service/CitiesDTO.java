@@ -8,7 +8,16 @@ public class CitiesDTO {
 	private int cities_no;
 	private int city_no;
 	private int planner_no;
+	private String cities_date;
 	
+	
+	
+	public String getCities_date() {
+		return cities_date;
+	}
+	public void setCities_date(String cities_date) {
+		this.cities_date = cities_date;
+	}
 	public int getCities_no() {
 		return cities_no;
 	}

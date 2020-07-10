@@ -57,9 +57,11 @@
 											<!-- the events -->
 											<div id="external-events">
 												<c:if test="${!returnFromMap}">
-												<c:forEach items="${city_no_name}" var="name">
-													<div class="external-event bg-info">${name.key}</div>
-												</c:forEach>
+													<c:if test="${empty city_name_date}">
+														<c:forEach items="${city_no_name}" var="name">
+															<div class="external-event bg-info">${name.key}</div>
+														</c:forEach>
+													</c:if>
 												</c:if>
 											</div>
 										</div>
@@ -270,8 +272,37 @@
 	
 	
 	<script>
+		
+		
+		
+		
 		var lat,lng;//호텔용
 		$(function() {
+			console.log('today: ${today}');
+			var events=[
+				{
+				start: '2020-01-01',
+				end: '${today}',
+		        overlap: false,
+		        color: '#ffffff'
+				}
+			]
+
+			if('${date.value}'!=''){
+				<c:forEach items="${city_name_date}" var="date" >
+					$('#datepicker_${date.key}').attr('value','${date.value}'.split(',')[0]);
+					$('#datepicker1_${date.key}').attr('value','${date.value}'.split(',')[1]);
+					var cityBar={
+						start: '${date.value}'.split(',')[0],
+						end: dateFiting('${date.value}'.split(',')[1],'c'),
+				        overlap: true,
+				        color: '#17A2B8',
+				        title:'${date.key}'
+					}
+					events.push(cityBar);
+				
+				</c:forEach>
+			}
 			var date = new Date();
 			/* initialize the external events
 			 -----------------------------------------------------------------*/
@@ -340,14 +371,7 @@
 							right : 'dayGridMonth'
 						},
 						'themeSystem' : 'bootstrap',
-						events: [
-							{
-								start: '2020-01-01',
-								end: '2020-07-12',
-				    	        overlap: false,
-				    	        color: '#ffffff'
-							}
-						],
+						events:events,
 						editable : true,
 						droppable : true, // this allows things to be dropped onto the calendar !!!
 						//카드에서 드랍시 한번만 1
@@ -362,10 +386,46 @@
 							if(info.event.end==null){
 								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
 								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+								
+								$.ajax({
+									url:'<c:url value="SaveDates.kosmo"/>',
+									data:{
+										'city_name':info.event.title,
+										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.start.toISOString(),'s'),
+										'planner_no':'${planner_no}'
+										
+									},
+									dataType:'text',
+									success:function(data){console.log(data)},
+									error:function(request,error){
+										console.log('상태코드:',request.status);
+										console.log('서버로부터 받은 HTML데이타:',request.responseText);
+										console.log('에러:',error);
+									}
+									
+								});
 							}
 							else{
 								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
 								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
+								
+								$.ajax({
+									url:'<c:url value="SaveDates.kosmo"/>',
+									data:{
+										'city_name':info.event.title,
+										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.end.toISOString(),'e'),
+										'planner_no':'${planner_no}'
+										
+									},
+									dataType:'text',
+									success:function(data){console.log(data)},
+									error:function(request,error){
+										console.log('상태코드:',request.status);
+										console.log('서버로부터 받은 HTML데이타:',request.responseText);
+										console.log('에러:',error);
+									}
+									
+								});
 							}
 							
 						},
@@ -385,10 +445,46 @@
 								console.log('eventDrop',info)
 								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
 								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+								
+								$.ajax({
+									url:'<c:url value="SaveDates.kosmo"/>',
+									data:{
+										'city_name':info.event.title,
+										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.start.toISOString(),'s'),
+										'planner_no':'${planner_no}'
+										
+									},
+									dataType:'text',
+									success:function(data){console.log(data)},
+									error:function(request,error){
+										console.log('상태코드:',request.status);
+										console.log('서버로부터 받은 HTML데이타:',request.responseText);
+										console.log('에러:',error);
+									}
+									
+								});
 							}
 							else{
 								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
 								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
+								
+								$.ajax({
+									url:'<c:url value="SaveDates.kosmo"/>',
+									data:{
+										'city_name':info.event.title,
+										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.end.toISOString(),'e'),
+										'planner_no':'${planner_no}'
+										
+									},
+									dataType:'text',
+									success:function(data){console.log(data)},
+									error:function(request,error){
+										console.log('상태코드:',request.status);
+										console.log('서버로부터 받은 HTML데이타:',request.responseText);
+										console.log('에러:',error);
+									}
+									
+								});
 							}
 						},
 						//크기 변경
@@ -398,10 +494,47 @@
 							if(info.event.end==null){
 								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
 								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+								
+								$.ajax({
+									url:'<c:url value="SaveDates.kosmo"/>',
+									data:{
+										'city_name':info.event.title,
+										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.start.toISOString(),'s'),
+										'planner_no':'${planner_no}'
+										
+									},
+									dataType:'text',
+									success:function(data){console.log(data)},
+									error:function(request,error){
+										console.log('상태코드:',request.status);
+										console.log('서버로부터 받은 HTML데이타:',request.responseText);
+										console.log('에러:',error);
+									}
+									
+								});
 							}
 							else{
 								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
 								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
+								
+								$.ajax({
+									url:'<c:url value="SaveDates.kosmo"/>',
+									data:{
+										'city_name':info.event.title,
+										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.end.toISOString(),'e'),
+										'planner_no':'${planner_no}'
+										
+										
+									},
+									dataType:'text',
+									success:function(data){console.log(data)},
+									error:function(request,error){
+										console.log('상태코드:',request.status);
+										console.log('서버로부터 받은 HTML데이타:',request.responseText);
+										console.log('에러:',error);
+									}
+									
+								});
 							}
 						    
 						  }
@@ -545,12 +678,20 @@
 				day=(parseInt(day)+1).toString();
 				return (year+'-'+month+'-'+day);
 			}
-			else{
+			else if(se=='e'){
 				var dates=date.split('-')
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
 				day=(parseInt(day)).toString();
+				return (year+'-'+month+'-'+day);
+			}
+			else{
+				var dates=date.split('-')
+				var year=dates[0];
+				var month=dates[1];
+				var day=dates[2];
+				day=(parseInt(day)+1).toString();
 				return (year+'-'+month+'-'+day);
 			}
 		}

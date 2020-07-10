@@ -107,6 +107,7 @@ CREATE TABLE auto_spots
 	auto_spot_no number NOT NULL,
 	spot_name nvarchar2(200) NOT NULL,
 	spot_id nvarchar2(200) NOT NULL UNIQUE,
+	spot_latlng nvarchar2(200) NOT NULL,
 	auto_plan_no number NOT NULL,
 	PRIMARY KEY (auto_spot_no)
 );
@@ -117,6 +118,7 @@ CREATE TABLE cities
 	cities_no number NOT NULL,
 	city_no number NOT NULL,
 	planner_no number NOT NULL,
+	cities_date nvarchar2(200),
 	PRIMARY KEY (cities_no)
 );
 
@@ -127,6 +129,7 @@ CREATE TABLE city
 	city_name nvarchar2(200) NOT NULL,
 	city_intro nvarchar2(200),
 	city_img nvarchar2(500) NOT NULL,
+	city_latlng nvarchar2(200) NOT NULL,
 	PRIMARY KEY (city_no)
 );
 
@@ -180,6 +183,7 @@ CREATE TABLE review
 	review_no number NOT NULL,
 	user_id nvarchar2(200),
 	auto_spot_no number,
+	city_no number NOT NULL,
 	review_title nvarchar2(100) NOT NULL,
 	review_content nvarchar2(1000) NOT NULL,
 	review_date date NOT NULL,
@@ -192,6 +196,7 @@ CREATE TABLE save_spots
 	save_spot_no number NOT NULL,
 	spot_name nvarchar2(200) NOT NULL,
 	spot_id nvarchar2(200) NOT NULL,
+	spot_latlng nvarchar2(200) NOT NULL,
 	plan_no number,
 	PRIMARY KEY (save_spot_no)
 );
@@ -265,6 +270,12 @@ ALTER TABLE auto_plan
 
 
 ALTER TABLE cities
+	ADD FOREIGN KEY (city_no)
+	REFERENCES city (city_no)
+;
+
+
+ALTER TABLE review
 	ADD FOREIGN KEY (city_no)
 	REFERENCES city (city_no)
 ;

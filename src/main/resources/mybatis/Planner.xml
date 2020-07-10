@@ -6,9 +6,13 @@
 	<insert id="insertPlanner" parameterType="java.lang.String">
 		INSERT INTO PLANNER VALUES(seq_planner.nextval,0,#{id})
 	</insert>
-	<insert id="insertCities" parameterType="int">
-		INSERT INTO cities VALUES(seq_cities.nextval,#{city_no},#{planner_no})
+	<insert id="insertCities" parameterType="java.util.Map">
+		INSERT INTO cities(cities_no,city_no,planner_no,cities_date) VALUES(seq_cities.nextval,#{city_no},#{planner_no},#{cities_date})
 	</insert>
+	<insert id="insertPlan"  parameterType="java.util.Map">
+		Insert into plan VALUES(seq_plan.nextval,#{plan_date},#{cities_no})
+	</insert>
+	
 	<select id="selectPlannerList" parameterType="int" resultType="int">
 		SELECT city_no from cities WHERE planner_no=#{planner_no}
 	</select>
@@ -21,9 +25,6 @@
 	<select id="selectCitiesNo" resultType="int">
 		select seq_cities.currval from dual
 	</select>
-	<insert id="insertPlan"  parameterType="java.util.Map">
-		Insert into plan VALUES(seq_plan.nextval,#{plan_date},#{cities_no})
-	</insert>
 	<select id="selectPlanNo" resultType="int">
 		select seq_plan.currval from dual
 	</select>
@@ -36,6 +37,9 @@
 	<select id="selectPlanDTOByCitiesNo" parameterType="int" resultType="PlanDTO">
 		SELECT * FROM PLAN WHERE cities_no=#{cities_no}
 	</select>
+	
+	
+	
 	<delete id="deletePlanByNo" parameterType="int">
 		DELETE FROM plan WHERE plan_no=#{plan_no}
 	</delete>

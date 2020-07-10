@@ -9,6 +9,16 @@ public class CityDTO {
 	private String city_name;
 	private String city_intro;
 	private String city_img;
+	private String city_latlng;
+	
+	
+	
+	public String getCity_latlng() {
+		return city_latlng;
+	}
+	public void setCity_latlng(String city_latlng) {
+		this.city_latlng = city_latlng;
+	}
 	public int getCity_no() {
 		return city_no;
 	}

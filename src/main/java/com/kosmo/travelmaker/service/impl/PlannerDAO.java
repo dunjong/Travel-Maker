@@ -19,7 +19,7 @@ public class PlannerDAO {
 	public boolean insertPlanner(String id) {
 		return sqlMapper.insert("insertPlanner",id)==1?true:false;
 	}
-	public boolean insertCities(Map<String, Integer> maps) {
+	public boolean insertCities(Map<String, String> maps) {
 		return sqlMapper.insert("insertCities",maps)==1?true:false;
 	}
 	public List<Integer> selectPlannerList(int planner_no) {

@@ -3,18 +3,26 @@
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.City">
-	<select id="selectOneCity" resultType="CityDTO" parameterType="int">
-		SELECT * FROM CITY WHERE city_no=#{city_no}
-	</select>
-		
-	<select id="selectOneCityNo" resultType="int" parameterType="java.util.Map">
-		SELECT city_no FROM CITY WHERE city_name=#{origin}
-	</select>
+	
 	
 	<insert id="makingplanner" parameterType="java.lang.String">
 		INSERT INTO planner VALUES(seq_planner.NEXTVAL,0,#{user_id})
 	</insert>
+	
+	
 	<select id="selectCitiesDTO" parameterType="int" resultType="CitiesDTO">
 		Select * from cities where planner_no=#{planner_no}
 	</select>
+	<select id="selectCitiesDate" parameterType="int" resultType="java.lang.String">
+		SELECT cities_date FROM cities WHERE cities_no=#{cities_no}
+	</select>
+	<select id="selectOneCity" resultType="CityDTO" parameterType="int">
+		SELECT * FROM CITY WHERE city_no=#{city_no}
+	</select>
+	<select id="selectOneCityNo" resultType="int" parameterType="java.util.Map">
+		SELECT city_no FROM CITY WHERE city_name=#{origin}
+	</select>
+	<update id="updateCitiesDate" parameterType="java.util.Map">
+		UPDATE cities SET cities_date=#{cities_date} WHERE city_no=#{city_no} and planner_no=#{planner_no}
+	</update>
 </mapper>
