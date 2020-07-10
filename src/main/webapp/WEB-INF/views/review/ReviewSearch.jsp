@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <head>
 <style>
 #reviewBack {
@@ -97,6 +98,7 @@
 	max-width: 100%;
 	border-radius: 20px;
 }
+
 .reviewFooterUtil {
 	text-align: center;
 	color: #3EB489;
@@ -163,26 +165,27 @@
 												alt="좋아요"> <br> <span>${item.review_no}</span> <span>명</span>
 										</div>
 										<div class="reviewTextInformation">
-											<br>
+											<br />
 											<h4>${item.review_title}</h4>
-											<p>${item.review_content}</p>
+											<p>${fn:length(item.review_content)<94? item.review_content: fn:substring(item.review_content,0,94)}
+											${fn:length(item.review_content)<94? "" : "..." }</p>
 											<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트</h5>
 											<p>작성일시 : ${item.review_date}</p>
 										</div>
 										<div class="reviewMapOrImage">
-											<img src="<c:url value='/images/reviewImage${item.review_no%4+1}.PNG'/>"
+											<img
+												src="<c:url value='/images/reviewImage${item.review_no%4+1}.PNG'/>"
 												alt="리뷰지도/사진">
 										</div>
 									</div>
 								</a>
 							</c:forEach>
 						</c:if>
-						<div class="reviewFooterUtil"><br/>
-						<a
-							href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">
-							<img src="<c:url value='/images/edit.png'/>" alt="리뷰 작성하기">
-							<br/><span>리뷰 작성하기</span>
-						</a>
+						<div class="reviewFooterUtil">
+							<br /> <a href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">
+								<img src="<c:url value='/images/edit.png'/>" alt="리뷰 작성하기">
+								<br /> <span>리뷰 작성하기</span>
+							</a>
 						</div>
 						<!-- 구현목표 
 							<a href="<c:url value='/TravelMaker/Review.kosmo'/>">

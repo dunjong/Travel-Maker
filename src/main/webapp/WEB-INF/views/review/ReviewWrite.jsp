@@ -147,7 +147,7 @@
 										<option value="hotels">숙소</option>
 										<option value="myPlanner">내 플래너</option>
 									</select> <input type="text" id="reviewWritePlace" class="search_input"
-										placeholder="장소 이름을 입력하세요" required="required">
+										placeholder="장소 이름을 입력하세요">
 								</div>
 								<textarea rows="" cols="" id="reviewWriteText"
 									name="review_content" placeholder="리뷰 내용을 입력하세요"
@@ -160,7 +160,7 @@
 									<button id="reviewWriteImageUpButton" type="button">
 										사진을 올리시려면 클릭하세요</button>
 									<input type="password" id="reviewWritePwd" class="search_input"
-										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요" required="required">
+										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요">
 									<button type="submit" id="reviewWriteSubmmit">리뷰 작성 완료</button>
 								</div>
 							</form>

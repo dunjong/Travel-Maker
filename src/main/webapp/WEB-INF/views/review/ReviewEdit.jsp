@@ -150,7 +150,7 @@
 										<option value="hotels">숙소</option>
 										<option value="myPlanner">내 플래너</option>
 									</select> <input type="text" id="reviewWritePlace" class="search_input"
-										placeholder="장소 이름을 입력하세요" required="required">
+										placeholder="장소 이름을 입력하세요">
 								</div>
 								<textarea rows="" cols="" id="reviewWriteText"
 									name="review_content" placeholder="리뷰 내용을 입력하세요"
@@ -163,16 +163,16 @@
 									<button id="reviewWriteImageUpButton" type="button">
 										사진을 올리시려면 클릭하세요</button>
 									<input type="password" id="reviewWritePwd" class="search_input"
-										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요" required="required">
+										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요">
 									<button type="submit" id="reviewWriteSubmmit">리뷰 수정 완료</button>
 								</div>
 							</form>
 						</div>
 						<div class="reviewFooterUtil">
 							<br> <a
-								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
-								src="<c:url value='/images/reviewBack.png'/>" alt="목록으로 돌아가기">
-							</a><br> <span>목록으로 돌아가기</span>
+								href="javascript:isReturn();"> <img
+								src="<c:url value='/images/reviewList.png'/>" alt="리뷰로 돌아가기">
+							</a><br> <span>리뷰로 돌아가기</span>
 						</div>
 					</div>
 				</div>
@@ -202,5 +202,9 @@
 			node = parentObj.replaceChild(obj.cloneNode(true), obj);
 			return false;
 		}
+	}
+	function isReturn(){
+		if(confirm("정말로 리뷰로 돌아가시겠습니까? 수정하신 내용이 있다면 반영되지 않습니다"))
+			location.replace("<c:url value='/TravelMaker/Review.kosmo?review_no=${record.review_no}'/>");
 	}
 </script>
