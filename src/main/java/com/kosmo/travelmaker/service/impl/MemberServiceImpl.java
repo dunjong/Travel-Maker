@@ -14,7 +14,6 @@ import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.MemberService;
 import com.kosmo.travelmaker.service.PlannerDTO;
 @Service("memberService")
-
 public class MemberServiceImpl implements MemberService{
 	@Resource(name = "memberDAO")
 	MemberDAO memberDAO;
@@ -71,5 +70,4 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
