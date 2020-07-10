@@ -1,5 +1,8 @@
 package com.kosmo.travelmaker.web.planner;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +25,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.kosmo.travelmaker.service.HotelDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.SpotsDTO;
 import com.kosmo.travelmaker.service.impl.CityServiceImpl;
+import com.kosmo.travelmaker.service.impl.HotelServiceImpl;
 import com.kosmo.travelmaker.service.impl.PlannerServiceImpl;
 import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 
@@ -44,6 +49,9 @@ public class PlannerController {
 	
 	@Resource(name ="plannerService")
 	private PlannerServiceImpl plannerService;
+	
+	@Resource(name="hotelService")
+	private HotelServiceImpl hotelService;
 	
 
 	@RequestMapping(value = "Planner.kosmo")
@@ -94,22 +102,44 @@ public class PlannerController {
 	
 	
 	@RequestMapping("Plan.kosmo")
-	public String Plan(@RequestParam Map map, Model model) {
+	public String Plan(@RequestParam Map map, Model model) throws ParseException {
 		String cities_no=map.get("cities_no").toString();
+		int gap=8;
+
+		Map<String, String> maps=new HashMap<String, String>();
+		
+		//호텔
+		List<HotelDTO> hotel_dto_list=hotelService.selectHotelDTOByCitiesNo(Integer.parseInt(cities_no));
+		if(hotel_dto_list.size()!=0) {
+			HotelDTO hotel_dto =hotel_dto_list.get(0);
+			SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
+			Date checkIn=transFormat.parse(hotel_dto.getHotel_in());
+			Date checkOut=transFormat.parse(hotel_dto.getHotel_out());
+			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
+			maps.put("hotel_name", hotel_dto.getHotel_name());
+			maps.put("hotel_latlng",hotel_dto.getHotel_latlng());
+			maps.put("hotel_date",Integer.toString(gap));
+			maps.put("hotel_price",hotel_dto.getHotel_price());;
+			//;
+		}
+		//호텔
+		
 		
 		String city_name=map.get("origin").toString();
 		int city_no=cityService.selectCityNo(city_name);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-		for(int i=1;i<=5;i++) {
+		for(int i=1;i<=gap;i++) {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}
-		//model.addAttribute("planner_no",planner_no);
 		
+		model.addAttribute("gap",gap);
+		model.addAttribute("hotel", maps);
 		model.addAttribute("planner_no",map.get("planner_no"));
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("dayPlan",dayPlan);
 		model.addAttribute("origin",map);
+		
 		model.addAttribute("city_no",city_no);
 		model.addAttribute("cities_no",cities_no);
 		
@@ -118,15 +148,26 @@ public class PlannerController {
 	}
 	@RequestMapping(value ="SavedPlan.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public String SavedPlan(@RequestParam Map map) {
+	public String SavedPlan(@RequestParam Map map) throws ParseException {
 		String cities_no=map.get("cities_no").toString();
+		int gap=8;
 		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
-		System.out.println("받아온 cities_no:"+cities_no);
+		
+		List<HotelDTO> hotel_dto_list=hotelService.selectHotelDTOByCitiesNo(Integer.parseInt(cities_no));
+		if(hotel_dto_list.size()!=0) {
+			HotelDTO hotel_dto =hotel_dto_list.get(0);
+			SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
+			Date checkIn=transFormat.parse(hotel_dto.getHotel_in());
+			Date checkOut=transFormat.parse(hotel_dto.getHotel_out());
+			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24));
+			//;
+		}
 		
 		List<SpotsDTO> list=spotsService.spotListByCitiesNo(Integer.parseInt(cities_no));
 		
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-		for(int i=1;i<=8;i++) {
+		
+		for(int i=1;i<=gap;i++) {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}

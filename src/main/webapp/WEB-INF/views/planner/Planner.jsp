@@ -95,7 +95,7 @@
 														</div>
 														<div class="modal-footer justify-content-between bg-info">
 											            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-											            	<button type="button" class="btn btn-outline-light" onclick="resultHotelModal('${name.key}')">검색</button>
+											            	<button type="button" class="btn btn-outline-light" onclick="resultHotelModal('${name.key}','${name.value}')">검색</button>
 											            </div>
 													</div>
 												</div>
@@ -113,6 +113,7 @@
 														</div>
 														<div class="modal-footer justify-content-between bg-info">
 												            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+												            <input type="text"  value="" id="h_cities_no">
 											            </div>
 													</div>
 												</div>
@@ -553,10 +554,11 @@
 				return (year+'-'+month+'-'+day);
 			}
 		}
-		function resultHotelModal(name){
+		function resultHotelModal(name,cities_no){
 			$('#h_modal_'+name).modal('hide');
 			$('#h_places').html('')
 			$('#city_name').html(name);
+			$('#h_cities_no').prop('value',cities_no);
 			var adult = $('#adult_'+name).prop('value');
 			var children = $('#children_'+name).prop('value');
 			var rooms = $('#rooms_'+name).prop('value');
@@ -585,6 +587,8 @@
 					var img;
 					for (var i = 0; i < response.data.length; i++) {
 						img = document.createElement('img');
+						img.style.height='167px';
+						img.style.width='250px';
 						img.alt = 'no image';
 						if (response.data[i].photo.images.medium.url != null) 
 							img.src = response.data[i].photo.images.medium.url;
@@ -675,18 +679,25 @@
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(2)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html());
-			
+			console.log($('#datepicker_'+$('#city_name').html()).prop('value'));
+			console.log($('#h_cities_no').prop('value'))
+			var latlng=$('#hotel_'+data.getAttribute('name')+' > div:eq(2)').html().substring(13);
 			$.ajax({
 				url:'<c:url value="/TravelMaker/HotelTest.kosmo"/>',
 				data:
-				{"checkIn" : $('#datepicker_'+$('#city_name').html()).prop('value'),
-				"checkOut":$('#datepicker1_'+$('#city_name').html()).prop('value'),
-				"name":$('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html(),
-				"score":$('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html(),
-				"latlng":$('#hotel_'+data.getAttribute('name')+' > div:eq(2)').html(),
-				"price":$('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html(),
+				{
+				"hotel_name":$('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html(),
+				"hotel_city":$('#city_name').html(),
+				"hotel_in":$('#datepicker_'+$('#city_name').html()).prop('value'),
+				"hotel_out":$('#datepicker1_'+$('#city_name').html()).prop('value'),
+				"hotel_customer":$('#adult_'+$('#city_name').html()).prop('value'),
+				"hotel_room":$('#rooms_'+$('#city_name').html()).prop('value'),
+				"hotel_price":$('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html(),
+				"hotel_latlng":latlng.split(",")[0].split(":")[1].trim()+","+latlng.split(",")[1].split(":")[1].trim(),
+				"hotel_score":$('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html(),
+				"cities_no":$('#h_cities_no').prop('value') 
 				},
-				dataType:'String',
+				dataType:'text',
 				success:function(data){successAjax(data)},
 				error:function(request,error){
 					console.log('상태코드:',request.status);
@@ -699,6 +710,7 @@
 		}
 		function successAjax(data){
 			console.log('성공:',data);
+			alert('예약테이블'+data)
 		}
 		
 		

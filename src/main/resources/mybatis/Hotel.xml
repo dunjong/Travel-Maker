@@ -7,4 +7,13 @@
 	<delete id="deleteHotelByCitiesNo" parameterType="int">
 		DELETE FROM hotel WHERE cities_no=#{cities_no}
 	</delete>
+	<insert id="insertHotelByMap" parameterType="java.util.Map">
+		INSERT INTO hotel values(seq_hotel.nextval,
+		#{hotel_name},#{hotel_city},#{hotel_in},#{hotel_out},
+		#{hotel_customer},#{hotel_room},#{hotel_price},
+		#{hotel_latlng},#{hotel_score},#{cities_no})
+	</insert>
+	<select id="selectHotelDTOByCitiesNo" parameterType="int" resultType="HotelDTO">
+		SELECT * FROM hotel WHERE cities_no=#{cities_no}
+	</select>
 </mapper>
