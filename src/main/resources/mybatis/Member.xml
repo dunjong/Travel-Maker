@@ -33,7 +33,7 @@
 		UPDATE userinfo SET ${updateColumn}=#{value} where user_id=#{user_id}
 	</update>
 	
-	<select id="memberlist" resultType="MemberDTO" parameterType="java.lang.String" >
+	<select id="members" resultType="MemberDTO">
 		SELECT * FROM userinfo 
 	</select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.kosmo.travelmaker.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,5 +13,7 @@ public interface MemberService {
 	List<PlannerDTO> plannerList(String id);
 	MemberDTO selectMemberDTO(String id);
 	boolean updateMemberDTO(Map map);
+	public ArrayList<MemberDTO> members();
+	public ArrayList<MemberDTO> userInfo(String id);
 }
 
