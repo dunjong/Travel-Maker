@@ -52,17 +52,19 @@
 	border-radius: 20px;
 }
 
-.reviewFooterBack {
+.reviewFooterUtil {
 	text-align: center;
-}
-.likesAndBack {
 	color: #3EB489;
 	font-size: 1.5em;
 	font-weight: bold;
 }
 
-.likesAndBack img {
+.reviewFooterUtil img {
 	border-radius: 20px;
+}
+
+.reviewFooterUtil span {
+	color: #3EB489;
 }
 </style>
 </head>
@@ -88,27 +90,28 @@
 								<img src="<c:url value='/images/reviewImage1.PNG'/>"
 									alt="리뷰지도/사진">
 							</div>
-							<div class="reviewFooterBack">
-								<div class="reviewFooter">
-									<div class="likesAndBack">
-										<div class="likes">
-											<br> <img src="<c:url value='/images/likes.png'/>"
-												alt="좋아요"> <br> <span>${record.review_no}</span> <span>명</span>
-										</div>
-										<div>
-											<br> <a
-												href="<c:url value='/TravelMaker/ReviewEdit.kosmo?review_no=${record.review_no}'/>"> <img
-												src="<c:url value='/images/edit.png'/>" alt="수정하기">
-											</a><br> <span>수정하기</span>
-										</div>
-										<div class="back">
-											<br> <a
-												href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
-												src="<c:url value='/images/back.png'/>" alt="돌아가기">
-											</a><br> <span>목록으로 돌아가기</span>
-										</div>
-									</div>
-								</div>
+							<div class="reviewFooterUtil">
+								<br> <img src="<c:url value='/images/likes.png'/>"
+									alt="좋아요"> <br> <span>${record.review_no}</span> <span>명</span>
+							</div>
+							<div class="reviewFooterUtil">
+								<br> <a
+									href="<c:url value='/TravelMaker/ReviewEdit.kosmo?review_no=${record.review_no}'/>">
+									<img src="<c:url value='/images/edit.png'/>" alt="수정하기">
+								</a><span>&nbsp&nbsp&nbsp&nbsp</span><a
+									href="<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>">
+									<img src="<c:url value='/images/delete.png'/>" alt="삭제하기">
+								</a><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><a
+									href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
+									src="<c:url value='/images/back.png'/>" alt="목록보기">
+								</a> <br> <a
+									href="<c:url value='/TravelMaker/ReviewEdit.kosmo?review_no=${record.review_no}'/>">
+									<span>수정하기</span>
+								</a><span> &nbsp&nbsp </span> <a
+									href="<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>">
+									<span>삭제하기</span>
+								</a><span> &nbsp&nbsp </span> <a
+									href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"><span>목록보기</span></a>
 							</div>
 						</div>
 					</div>
