@@ -35,7 +35,7 @@
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
 									<div class="intro_icon"><img src="<c:url value='/images/beach.svg'/>" alt=""></div>
 									<div class="intro_content">
-										<div class="intro_title">인기 여행지</div>
+										<div class="intro_title">인기 여행지!</div>
 										<div class="intro_subtitle"><p>#여행</p></div>
 									</div>
 								</div>
