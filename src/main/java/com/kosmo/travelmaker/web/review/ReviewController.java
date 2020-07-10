@@ -65,5 +65,13 @@ public class ReviewController {
 		reviewService.update(map);
 		return "review/Review.tiles";
 	}
+	//삭제처리]
+	@RequestMapping("ReviewDelete.kosmo")
+	public String delete(@RequestParam Map map) {
+		//서비스 호출
+		reviewService.delete(map);
+		//뷰정보 반환]
+		return "review/ReviewSearch.tiles";
+	}
 	
 }

@@ -17,7 +17,6 @@ public class MemberDAO {
 	@Resource(name="template")
 	private SqlSessionTemplate sqlMapper;
 	public boolean isLogin(Map map) {
-		System.out.println("isLogin.map: "+map);
 		return (Integer)sqlMapper.selectOne("isLogin",map)==0 ? false : true;
 	}
 	

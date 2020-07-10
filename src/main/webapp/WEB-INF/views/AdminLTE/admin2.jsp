@@ -222,7 +222,7 @@
                     <td>장연수</td>
                     <td>JANG</td>
                     <td>1990~2000</td>
-                    <td>여자</td>
+                    <td>여자</td> 
                   </tr>
                   <tr>
                     <td>6</td>
@@ -230,6 +230,9 @@
                     <td>DONG</td>
                     <td>1990~2000</td>
                     <td>남자</td> 
+                  </tr>
+                  <tr>
+                  	<td>${dto.user_id}</td>
                   </tr>
                   </tbody>
                   <tfoot>  
