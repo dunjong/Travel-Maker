@@ -188,11 +188,12 @@ public class PlannerController {
 		for(int plan_no:plan_no_list ){
 			if(spotsService.deleteSpotByPlanNo(plan_no)) {
 				System.out.println("spot들 삭제 완료");
-				if(plannerService.deletePlanByNo(plan_no)){
-					System.out.println("plan들 삭제 완료");
-				};
+				
 			};
 		}
+		if(plannerService.deletePlanByCitiesNo(cities_no)){
+			System.out.println("plan들 삭제 완료");
+		};
 		
 		for(String date:map.keySet()) {
 			String ids="";

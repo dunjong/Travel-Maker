@@ -2,18 +2,18 @@
 /* Drop Tables */
 
 DROP TABLE accompany CASCADE CONSTRAINTS;
+DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE air CASCADE CONSTRAINTS;
 DROP TABLE review CASCADE CONSTRAINTS;
 DROP TABLE auto_spots CASCADE CONSTRAINTS;
 DROP TABLE auto_plan CASCADE CONSTRAINTS;
 DROP TABLE auto_save CASCADE CONSTRAINTS;
+DROP TABLE hotel CASCADE CONSTRAINTS;
 DROP TABLE save_spots CASCADE CONSTRAINTS;
 DROP TABLE plan CASCADE CONSTRAINTS;
 DROP TABLE cities CASCADE CONSTRAINTS;
 DROP TABLE tag_rel CASCADE CONSTRAINTS;
 DROP TABLE city CASCADE CONSTRAINTS;
-DROP TABLE hotel CASCADE CONSTRAINTS;
-DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE planner CASCADE CONSTRAINTS;
 DROP TABLE tag CASCADE CONSTRAINTS;
 DROP TABLE userinfo CASCADE CONSTRAINTS;
@@ -64,8 +64,8 @@ CREATE SEQUENCE seq_tag_rel;
 CREATE TABLE accompany
 (
 	acc_no number NOT NULL,
-	planner_no number,
-	user_id nvarchar2(200),
+	planner_no number NOT NULL,
+	user_id nvarchar2(200) NOT NULL,
 	PRIMARY KEY (acc_no)
 );
 
@@ -115,7 +115,7 @@ CREATE TABLE auto_spots
 CREATE TABLE cities
 (
 	cities_no number NOT NULL,
-	city_no number,
+	city_no number NOT NULL,
 	planner_no number NOT NULL,
 	PRIMARY KEY (cities_no)
 );
@@ -143,6 +143,7 @@ CREATE TABLE hotel
 	hotel_price nvarchar2(200) NOT NULL,
 	hotel_latlng nvarchar2(200) NOT NULL,
 	hotel_score nvarchar2(50) NOT NULL,
+	cities_no number NOT NULL,
 	PRIMARY KEY (hotel_no)
 );
 
@@ -167,10 +168,10 @@ CREATE TABLE planner
 
 CREATE TABLE reservation
 (
+	air_res_no number NOT NULL,
 	planner_no number,
-	res_no number NOT NULL,
-	h_a_res_no nvarchar2(100) NOT NULL,
-	PRIMARY KEY (res_no)
+	air_no number NOT NULL,
+	PRIMARY KEY (air_res_no)
 );
 
 
@@ -227,6 +228,12 @@ CREATE TABLE userinfo
 
 /* Create Foreign Keys */
 
+ALTER TABLE reservation
+	ADD FOREIGN KEY (air_no)
+	REFERENCES air (air_no)
+;
+
+
 ALTER TABLE auto_spots
 	ADD FOREIGN KEY (auto_plan_no)
 	REFERENCES auto_plan (auto_plan_no)
@@ -236,6 +243,12 @@ ALTER TABLE auto_spots
 ALTER TABLE review
 	ADD FOREIGN KEY (auto_spot_no)
 	REFERENCES auto_spots (auto_spot_no)
+;
+
+
+ALTER TABLE hotel
+	ADD FOREIGN KEY (cities_no)
+	REFERENCES cities (cities_no)
 ;
 
 

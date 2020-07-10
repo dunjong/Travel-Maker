@@ -23,9 +23,12 @@ import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
 import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
+import com.kosmo.travelmaker.service.impl.AirServiceImpl;
 import com.kosmo.travelmaker.service.impl.CityServiceImpl;
+import com.kosmo.travelmaker.service.impl.HotelServiceImpl;
 import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
 import com.kosmo.travelmaker.service.impl.PlannerServiceImpl;
+import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 
 
 @Controller
@@ -39,6 +42,12 @@ public class MemberController {
 	private PlannerServiceImpl plannerService;
 	@Resource(name="cityService")
 	private CityServiceImpl cityService;
+	@Resource(name="spotsService")
+	private SpotsServiceImpl spotsService;
+	@Resource(name="hotelService")
+	private HotelServiceImpl hotelService;
+	@Resource(name="airService")
+	private AirServiceImpl airService;
 	
 
 	@RequestMapping("MyInfo.kosmo")
@@ -88,6 +97,55 @@ public class MemberController {
 		}
 		
 		return JSONArray.toJSONString(collections);
+	}
+	
+	
+	@RequestMapping(value="MyPlannerDelete.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String MyPlannerDelete(@RequestParam Map map) {
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		List<CitiesDTO> cities_dto_list= plannerService.selectCitiesDTOList(planner_no);
+		for(CitiesDTO cities_dto:cities_dto_list) {
+			int cities_no=cities_dto.getCities_no();
+			System.out.println("cities_no: "+cities_no);
+			List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(cities_no);
+			for(int plan_no:plan_no_list ){
+				System.out.println("plan_no: "+plan_no);
+				if(spotsService.deleteSpotByPlanNo(plan_no)) {
+					System.out.println("spot들 삭제 완료");
+					
+				};
+			}
+			if(plannerService.deletePlanByCitiesNo(cities_no)){
+				System.out.println("plan들 삭제 완료");
+				
+			};
+			if(hotelService.deleteHotelByCitiesNo(cities_no)){
+				System.out.println("호텔들 삭제 완료");
+				
+			};
+			
+			
+			
+		}
+		
+		if(plannerService.deleteCitiesByPlannerNo(planner_no)) {
+			System.out.println("Cities들 삭제 완료");
+			
+		};
+		if(airService.deleteResByCitiesNo(planner_no)){
+			System.out.println("항공권예약들 삭제 완료");
+			
+		};
+		
+		
+		if(plannerService.deletePlannerByNo(planner_no)) {
+			System.out.println("planner 삭제 완료");
+		}
+		
+		
+		
+		return "삭제 성공";
 	}
 	
 	
