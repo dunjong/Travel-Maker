@@ -104,8 +104,10 @@ public class PlannerController {
 	@RequestMapping("Plan.kosmo")
 	public String Plan(@RequestParam Map map, Model model) throws ParseException {
 		String cities_no=map.get("cities_no").toString();
-		int gap=8;
-
+		String city_name=map.get("origin").toString();
+		
+		int gap=5;
+		
 		Map<String, String> maps=new HashMap<String, String>();
 		
 		//호텔
@@ -122,10 +124,15 @@ public class PlannerController {
 			maps.put("hotel_price",hotel_dto.getHotel_price());;
 			//;
 		}
+		else {
+			maps.put("hotel_latlng", city_name);
+			maps.put("hotel_name", "없음");
+			maps.put("hotel_date", "없음");
+			maps.put("hotel_price", "없음");
+		}
+		
 		//호텔
 		
-		
-		String city_name=map.get("origin").toString();
 		int city_no=cityService.selectCityNo(city_name);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
 		for(int i=1;i<=8;i++) {
@@ -138,8 +145,7 @@ public class PlannerController {
 		model.addAttribute("planner_no",map.get("planner_no"));
 		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
 		model.addAttribute("dayPlan",dayPlan);
-		model.addAttribute("origin",map);
-		
+		model.addAttribute("origin",city_name);
 		model.addAttribute("city_no",city_no);
 		model.addAttribute("cities_no",cities_no);
 		
@@ -150,7 +156,7 @@ public class PlannerController {
 	@ResponseBody
 	public String SavedPlan(@RequestParam Map map) throws ParseException {
 		String cities_no=map.get("cities_no").toString();
-		int gap=8;
+		int gap=5;
 		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
 		
 		List<HotelDTO> hotel_dto_list=hotelService.selectHotelDTOByCitiesNo(Integer.parseInt(cities_no));
@@ -159,7 +165,7 @@ public class PlannerController {
 			SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
 			Date checkIn=transFormat.parse(hotel_dto.getHotel_in());
 			Date checkOut=transFormat.parse(hotel_dto.getHotel_out());
-			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24));
+			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
 			//;
 		}
 		
