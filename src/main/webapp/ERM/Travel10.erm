@@ -89,7 +89,7 @@
 				<is_open_after_saved>true</is_open_after_saved>
 			</export_html_setting>
 			<export_image_setting>
-				<output_file_path>C:\Users\kosmo_15\Desktop\Travel10.png</output_file_path>
+				<output_file_path>C:\Users\kosmo_05\Pictures\항공 상세보기\Travel10.png</output_file_path>
 				<category_dir_path></category_dir_path>
 				<with_category_image>true</with_category_image>
 				<is_open_after_saved>true</is_open_after_saved>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2020-05-01 18:25:33</creation_date>
-			<updated_date>2020-07-10 09:46:57</updated_date>
+			<updated_date>2020-07-10 10:11:50</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
