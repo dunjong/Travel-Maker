@@ -97,6 +97,20 @@
 	max-width: 100%;
 	border-radius: 20px;
 }
+.reviewFooterUtil {
+	text-align: center;
+	color: #3EB489;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.reviewFooterUtil img {
+	border-radius: 20px;
+}
+
+.reviewFooterUtil span {
+	color: #3EB489;
+}
 </style>
 </head>
 <!-- Search -->
@@ -141,7 +155,8 @@
 						</c:if>
 						<c:if test="${not isEmpty}">
 							<c:forEach items="${list}" var="item" varStatus="loop">
-								<a href="<c:url value='/TravelMaker/Review.kosmo?review_no=${item.review_no}'/>">
+								<a
+									href="<c:url value='/TravelMaker/Review.kosmo?review_no=${item.review_no}'/>">
 									<div class="reviewInformation">
 										<div class="bestReviewAndLikes">
 											<br> <img src="<c:url value='/images/likes.png'/>"
@@ -161,6 +176,13 @@
 								</a>
 							</c:forEach>
 						</c:if>
+						<div class="reviewFooterUtil"><br/>
+						<a
+							href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">
+							<img src="<c:url value='/images/edit.png'/>" alt="리뷰 작성하기">
+							<br/><span>리뷰 작성하기</span>
+						</a>
+						</div>
 						<!-- 구현목표 
 							<a href="<c:url value='/TravelMaker/Review.kosmo'/>">
 								<div class="reviewInformation">
