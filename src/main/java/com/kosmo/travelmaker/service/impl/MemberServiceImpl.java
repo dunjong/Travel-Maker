@@ -60,13 +60,19 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public ArrayList<MemberDTO> members() {
+	public MemberDTO selectMember(String id) {
+	
+		return memberDAO.selectMember(id);
+	}
+
+	@Override
+	public ArrayList<MemberDTO> userInfo(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<MemberDTO> userInfo(String id) {
+	public ArrayList<MemberDTO> members() {
 		// TODO Auto-generated method stub
 		return null;
 	}

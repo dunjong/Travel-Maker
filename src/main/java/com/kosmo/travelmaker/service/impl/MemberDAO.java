@@ -52,4 +52,7 @@ public class MemberDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.update("updateMemberDTO", map)==1?true:false;
 	}
+	public MemberDTO selectMember(String id) {
+		return sqlMapper.selectOne("selectMember",id);
+	}
 }
