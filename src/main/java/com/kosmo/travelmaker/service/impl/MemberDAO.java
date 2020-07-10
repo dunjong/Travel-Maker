@@ -50,7 +50,9 @@ public class MemberDAO {
 
 	public boolean updateMemberDTO(Map map) {
 		// TODO Auto-generated method stub
-		System.out.println(map.get("value").toString()+map.get("updateColumn")+map.get("id"));
 		return sqlMapper.update("updateMemberDTO", map)==1?true:false;
+	}
+	public MemberDTO selectMember(String id) {
+		return sqlMapper.selectOne("selectMember",id);
 	}
 }

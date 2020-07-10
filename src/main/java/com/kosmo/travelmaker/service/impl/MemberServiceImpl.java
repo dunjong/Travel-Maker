@@ -14,7 +14,6 @@ import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.MemberService;
 import com.kosmo.travelmaker.service.PlannerDTO;
 @Service("memberService")
-
 public class MemberServiceImpl implements MemberService{
 	@Resource(name = "memberDAO")
 	MemberDAO memberDAO;
@@ -61,9 +60,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public ArrayList<MemberDTO> members() {
-		// TODO Auto-generated method stub
-		return null;
+	public MemberDTO selectMember(String id) {
+	
+		return memberDAO.selectMember(id);
 	}
 
 	@Override
@@ -72,4 +71,9 @@ public class MemberServiceImpl implements MemberService{
 		return null;
 	}
 
+	@Override
+	public ArrayList<MemberDTO> members() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
