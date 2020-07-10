@@ -168,8 +168,8 @@
 										<div class="reviewTextInformation">
 											<br />
 											<h4>${item.review_title}</h4>
-											<p>${fn:length(item.review_content)<94? item.review_content: fn:substring(item.review_content,0,94)}
-											${fn:length(item.review_content)<94? "" : "..." }</p>
+											<p>${fn:length(item.review_content)<79? item.review_content: fn:substring(item.review_content,0,79)}
+											${fn:length(item.review_content)<79? "" : "..." }</p>
 											<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트</h5>
 											<fmt:formatDate value="${item.review_date}" pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate"/>
 											<p>작성일시 : ${postdate}</p>
@@ -185,90 +185,10 @@
 						</c:if>
 						<div class="reviewFooterUtil">
 							<br /> <a href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">
-								<img src="<c:url value='/images/edit.png'/>" alt="리뷰 작성하기">
+								<img src="<c:url value='/images/reviewEdit.png'/>" alt="리뷰 작성하기">
 								<br /> <span>리뷰 작성하기</span>
 							</a>
 						</div>
-						<!-- 구현목표 
-							<a href="<c:url value='/TravelMaker/Review.kosmo'/>">
-								<div class="reviewInformation">
-									<div class="bestReviewAndLikes">
-										<img src="<c:url value='/images/reviewGoldCrown.png'/>" alt="1등">
-										<br> <img src="<c:url value='/images/reviewLikes.png'/>"
-											alt="좋아요"> <br> <span>126</span> <span>명</span>
-									</div>
-									<div class="reviewTextInformation">
-										<br>
-										<h4>가족끼리 구경하기 좋아요</h4>
-										<p>숲이 생각보다 꽤 크고 원숭이가 엄청 많아요 ㅋㅋㅋㅋ 나무들도 넘 멋있고 원숭이도 가까이서보고
-											중간에 미술관도 한번 구경하고~ 다만 겁나 더워요.... 커피가 비쌈..</p>
-										<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트 거리</h5>
-									</div>
-									<div class="reviewMapOrImage">
-										<img src="<c:url value='/images/reviewImage1.PNG'/>"
-											alt="리뷰지도/사진">
-									</div>
-								</div>
-							</a>
-							<a href="<c:url value='/TravelMaker/Review.kosmo'/>">
-								<div class="reviewInformation">
-									<div class="bestReviewAndLikes">
-										<img src="<c:url value='/images/silverCrown.png'/>" alt="2등">
-										<br> <img src="<c:url value='/images/reviewLikes.png'/>"
-											alt="좋아요"> <br> <span>95</span> <span>명</span>
-									</div>
-									<div class="reviewTextInformation">
-										<br>
-										<h4>즐거웠습니다.</h4>
-										<p>우리들이 보기 편하게 꾸미지 않았지만 원숭이들이 스스로와 터를 잡은 만큼 우리는 그들에게 피해주지
-											않고 잘 관람하는게 예절이라 생각하고 즐기고 왔습니다.</p>
-										<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트 거리</h5>
-									</div>
-									<div class="reviewMapOrImage">
-										<img src="<c:url value='/images/reviewImage2.PNG'/>"
-											alt="리뷰지도/사진">
-									</div>
-								</div>
-							</a> <a href="<c:url value='/TravelMaker/Review.kosmo'/>">
-								<div class="reviewInformation">
-									<div class="bestReviewAndLikes">
-										<br> <img src="<c:url value='/images/likes.png'/>"
-											alt="좋아요"> <br> <span>36</span> <span>명</span>
-									</div>
-									<div class="reviewTextInformation">
-										<br>
-										<h4>매우 많은 원숭이와 함께 할 수 있음</h4>
-										<p>정말 엄청나게 많은 원숭이들을 볼 수 있고 귀엽다. 정말 많은 원숭이들이 있으며 귀여움. 원숭이들이
-											장난기가 많다. 덥긴 덥다. 나시 입고 가면 팔이 타는 고통을 느낄 수 있으나 원숭이가 귀여우니 참을 수
-											있다. 우붓가면 돌아보는데 얼마 안걸리니 꼭 가보길 추천한다.</p>
-										<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트 거리</h5>
-									</div>
-									<div class="reviewMapOrImage">
-										<img src="<c:url value='/images/reviewImage3.PNG'/>"
-											alt="리뷰지도/사진">
-									</div>
-								</div>
-							</a> <a href="<c:url value='/TravelMaker/Review.kosmo'/>">
-								<div class="reviewInformation">
-									<div class="bestReviewAndLikes">
-										<br> <img src="<c:url value='/images/likes.png'/>"
-											alt="좋아요"> <br> <span>27</span> <span>명</span>
-									</div>
-									<div class="reviewTextInformation">
-										<br>
-										<h4>여전히 좋아요</h4>
-										<p>두 번째 방문이네요. 일행이 첫 방문이라 같이 갔는데 여전히 멋진 곳입니다.예전보다 원숭이와 람께
-											사진을 찍을 수 읶는 포인트도 늘어난 것 같습니다. 한번 쯤은 꼭 방문해야 하는 곳인듯 합니다. 물론
-											원숭이들중에는 관광객들의 가방을 털려고 하거나 시비를 걸 수도 있으니 조심해야 합니다^^</p>
-										<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트 거리</h5>
-									</div>
-									<div class="reviewMapOrImage">
-										<img src="<c:url value='/images/reviewImage4.PNG'/>"
-											alt="리뷰지도/사진">
-									</div>
-								</div>
-							</a>-->
-						<!-- 구현목표 끝 -->
 					</div>
 				</div>
 			</div>
