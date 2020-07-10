@@ -159,7 +159,7 @@
 									href="<c:url value='/TravelMaker/Review.kosmo?review_no=${item.review_no}'/>">
 									<div class="reviewInformation">
 										<div class="bestReviewAndLikes">
-											<br> <img src="<c:url value='/images/likes.png'/>"
+											<br> <img src="<c:url value='/images/reviewLikes.png'/>"
 												alt="좋아요"> <br> <span>${item.review_no}</span> <span>명</span>
 										</div>
 										<div class="reviewTextInformation">
@@ -188,8 +188,8 @@
 							<a href="<c:url value='/TravelMaker/Review.kosmo'/>">
 								<div class="reviewInformation">
 									<div class="bestReviewAndLikes">
-										<img src="<c:url value='/images/goldCrown.png'/>" alt="1등">
-										<br> <img src="<c:url value='/images/likes.png'/>"
+										<img src="<c:url value='/images/reviewGoldCrown.png'/>" alt="1등">
+										<br> <img src="<c:url value='/images/reviewLikes.png'/>"
 											alt="좋아요"> <br> <span>126</span> <span>명</span>
 									</div>
 									<div class="reviewTextInformation">
@@ -209,7 +209,7 @@
 								<div class="reviewInformation">
 									<div class="bestReviewAndLikes">
 										<img src="<c:url value='/images/silverCrown.png'/>" alt="2등">
-										<br> <img src="<c:url value='/images/likes.png'/>"
+										<br> <img src="<c:url value='/images/reviewLikes.png'/>"
 											alt="좋아요"> <br> <span>95</span> <span>명</span>
 									</div>
 									<div class="reviewTextInformation">

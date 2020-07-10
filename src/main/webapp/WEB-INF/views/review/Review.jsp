@@ -92,20 +92,20 @@
 							</div>
 								<p>&nbsp&nbsp&nbsp&nbsp작성일시 : ${record.review_date}</p>
 							<div class="reviewFooterUtil">
-								<br> <img src="<c:url value='/images/likes.png'/>"
+								<br> <img src="<c:url value='/images/reviewLikes.png'/>"
 									alt="좋아요"> <br> <span>${record.review_no}</span> <span>명</span>
 							</div>
 						</div>
 						<div class="reviewFooterUtil">
 							<br> <a
 								href="<c:url value='/TravelMaker/ReviewEdit.kosmo?review_no=${record.review_no}'/>">
-								<img src="<c:url value='/images/edit.png'/>" alt="수정하기">
+								<img src="<c:url value='/images/reviewEdit.png'/>" alt="수정하기">
 							</a><span>&nbsp&nbsp&nbsp&nbsp</span><a
 								href="javascript:isDelete();">
-								<img src="<c:url value='/images/delete.png'/>" alt="삭제하기">
+								<img src="<c:url value='/images/reviewDelete.png'/>" alt="삭제하기">
 							</a><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><a
 								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
-								src="<c:url value='/images/back.png'/>" alt="목록보기">
+								src="<c:url value='/images/reviewBack.png'/>" alt="목록보기">
 							</a> <br> <a
 								href="<c:url value='/TravelMaker/ReviewEdit.kosmo?review_no=${record.review_no}'/>">
 								<span>수정하기</span>
