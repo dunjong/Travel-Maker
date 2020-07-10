@@ -15,5 +15,6 @@ public interface MemberService {
 	boolean updateMemberDTO(Map map);
 	public ArrayList<MemberDTO> members();
 	public ArrayList<MemberDTO> userInfo(String id);
+	MemberDTO selectMember(String id);
 }
 
