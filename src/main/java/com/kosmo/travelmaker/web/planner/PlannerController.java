@@ -128,7 +128,7 @@ public class PlannerController {
 		String city_name=map.get("origin").toString();
 		int city_no=cityService.selectCityNo(city_name);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-		for(int i=1;i<=gap;i++) {
+		for(int i=1;i<=8;i++) {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}
@@ -167,7 +167,7 @@ public class PlannerController {
 		
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
 		
-		for(int i=1;i<=gap;i++) {
+		for(int i=1;i<=8;i++) {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}
