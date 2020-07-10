@@ -1150,7 +1150,7 @@ $(function(){
 					<div class="row">
 						<div class="col-sm-12" id="planBox">
 							<div class="row" style="text-align: center">
-								<c:forEach begin="1" end="8" var="days" >
+								<c:forEach begin="1" end=8" var="days" >
 
 									<div class="planview" style="padding-bottom: 10px;" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
 				
