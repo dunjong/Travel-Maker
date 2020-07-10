@@ -170,9 +170,9 @@
 						</div>
 						<div class="reviewFooterUtil">
 							<br> <a
-								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
-								src="<c:url value='/images/reviewBack.png'/>" alt="목록으로 돌아가기">
-							</a><br> <span>목록으로 돌아가기</span>
+								href="javascript:isReturn();"> <img
+								src="<c:url value='/images/reviewList.png'/>" alt="리뷰로 돌아가기">
+							</a><br> <span>리뷰로 돌아가기</span>
 						</div>
 					</div>
 				</div>
@@ -202,5 +202,9 @@
 			node = parentObj.replaceChild(obj.cloneNode(true), obj);
 			return false;
 		}
+	}
+	function isReturn(){
+		if(confirm("정말로 리뷰로 돌아가시겠습니까? 수정하신 내용이 있다면 반영되지 않습니다"))
+			location.replace("<c:url value='/TravelMaker/Review.kosmo?review_no=${record.review_no}'/>");
 	}
 </script>
