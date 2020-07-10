@@ -4,4 +4,7 @@
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Hotel">
 	
+	<delete id="deleteHotelByCitiesNo" parameterType="int">
+		DELETE FROM hotel WHERE cities_no=#{cities_no}
+	</delete>
 </mapper>
