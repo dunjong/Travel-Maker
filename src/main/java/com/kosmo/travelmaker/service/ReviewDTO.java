@@ -12,6 +12,15 @@ public class ReviewDTO {
 	private String review_title;
 	private String review_content;
 	private Date review_date;
+	private int city_no;
+	
+	
+	public int getCity_no() {
+		return city_no;
+	}
+	public void setCity_no(int city_no) {
+		this.city_no = city_no;
+	}
 	public int getReview_no() {
 		return review_no;
 	}
