@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <head>
 <style>
 #reviewBack {
@@ -90,7 +91,9 @@
 								<img src="<c:url value='/images/reviewImage${tmpImgNo}.PNG'/>"
 									alt="리뷰지도/사진">
 							</div>
-								<p>&nbsp&nbsp&nbsp&nbsp작성일시 : ${record.review_date}</p>
+							<fmt:formatDate value="${record.review_date}"
+								pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate" />
+							<p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp작성일시 : ${postdate}</p>
 							<div class="reviewFooterUtil">
 								<br> <img src="<c:url value='/images/reviewLikes.png'/>"
 									alt="좋아요"> <br> <span>${record.review_no}</span> <span>명</span>
@@ -100,8 +103,7 @@
 							<br> <a
 								href="<c:url value='/TravelMaker/ReviewEdit.kosmo?review_no=${record.review_no}'/>">
 								<img src="<c:url value='/images/reviewEdit.png'/>" alt="수정하기">
-							</a><span>&nbsp&nbsp&nbsp&nbsp</span><a
-								href="javascript:isDelete();">
+							</a><span>&nbsp&nbsp&nbsp&nbsp</span><a href="javascript:isDelete();">
 								<img src="<c:url value='/images/reviewDelete.png'/>" alt="삭제하기">
 							</a><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><a
 								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
@@ -124,9 +126,10 @@
 <div id=reviewBack>
 	<div id="reviewBackImage"></div>
 </div>
-<script>	
-	function isDelete(){
-		if(confirm("정말로 삭제 하시겠습니까?"))
-			location.replace("<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>");
+<script>
+	function isDelete() {
+		if (confirm("정말로 삭제 하시겠습니까?"))
+			location
+					.replace("<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>");
 	}
 </script>

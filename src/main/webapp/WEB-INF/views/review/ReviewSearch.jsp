@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <head>
 <style>
 #reviewBack {
@@ -170,7 +171,8 @@
 											<p>${fn:length(item.review_content)<94? item.review_content: fn:substring(item.review_content,0,94)}
 											${fn:length(item.review_content)<94? "" : "..." }</p>
 											<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트</h5>
-											<p>작성일시 : ${item.review_date}</p>
+											<fmt:formatDate value="${item.review_date}" pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate"/>
+											<p>작성일시 : ${postdate}</p>
 										</div>
 										<div class="reviewMapOrImage">
 											<img
