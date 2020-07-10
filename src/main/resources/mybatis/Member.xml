@@ -33,7 +33,7 @@
 		UPDATE userinfo SET user_name=#{user_name},user_pwd=#{user_pwd}, user_rrn=#{user_rrn}, user_gender=#{user_gender} where user_id=#{user_id}
 	</update>
 	
-	<select id="memberlist" resultType="MemberDTO" parameterType="java.lang.String" >
+	<select id="members" resultType="MemberDTO">
 		SELECT * FROM userinfo 
 	</select>
 </mapper>

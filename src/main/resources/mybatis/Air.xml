@@ -3,5 +3,10 @@
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Air">
-	
+	<delete id="deleteResByCitiesNo">
+		DELETE FROM reservation WHERE planner_no=#{planner_no}
+	</delete>
+	<select id="selectAirResNoByPlannerNo">
+		SELECT air_res_no FROM reservation where planner_no=#{planner_no}
+	</select>
 </mapper>

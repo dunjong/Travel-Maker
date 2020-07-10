@@ -29,13 +29,17 @@ public class ReviewController {
 		//줄바꿈 처리
 		record.setReview_content(record.getReview_content().replace("\r\n", "<br/>"));
 		model.addAttribute("record", record);
+		//사진 임시 처리
+		int tmpImgNo=(record.getReview_no())%4+1;
+		System.out.println(tmpImgNo);
+		model.addAttribute("tmpImgNo", tmpImgNo);
 		//뷰정보 반환:
 		return "review/Review.tiles";
 	}
 
 	@RequestMapping("ReviewSearch.kosmo")
-	public String ReviewSearch(@RequestParam Map map,Model model) {
-		List<ReviewDTO> list=reviewService.selectList(map);
+	public String ReviewSearch(Model model) {
+		List<ReviewDTO> list=reviewService.selectList();
 		model.addAttribute("list", list);
 		return "review/ReviewSearch.tiles";
 	}
@@ -46,9 +50,9 @@ public class ReviewController {
 	}
 
 	@RequestMapping("ReviewWriteOK.kosmo")
-	public String ReviewWriteOK(@RequestParam Map map) {
+	public String ReviewWriteOK(@RequestParam Map map,Model model) {
 		reviewService.insert(map);
-		return "review/Review.tiles";
+		return "forward:/TravelMaker/ReviewSearch.kosmo";
 	}
 	@RequestMapping("ReviewEdit.kosmo")
 	public String ReviewEdit(HttpServletRequest req,@RequestParam Map map) {
@@ -63,7 +67,7 @@ public class ReviewController {
 	@RequestMapping("ReviewEditOK.kosmo")
 	public String ReviewEditOK(@RequestParam Map map) {
 		reviewService.update(map);
-		return "review/Review.tiles";
+		return "forward:/TravelMaker/Review.kosmo";
 	}
 	//삭제처리]
 	@RequestMapping("ReviewDelete.kosmo")
@@ -71,7 +75,7 @@ public class ReviewController {
 		//서비스 호출
 		reviewService.delete(map);
 		//뷰정보 반환]
-		return "review/ReviewSearch.tiles";
+		return "forward:/TravelMaker/ReviewSearch.kosmo";
 	}
 	
 }

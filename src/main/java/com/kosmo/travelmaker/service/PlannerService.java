@@ -17,4 +17,8 @@ public interface PlannerService {
 	List<Integer> selectPlanNoByCitiesNo(int cities_no);
 	List<PlannerDTO> selectPlanDTOByCitiesNo(int cities_no);
 	boolean deletePlanByNo(int plan_no);
+	boolean deleteCitiesByNo(int cities_no);
+	boolean deletePlannerByNo(int planner_no);
+	boolean deletePlanByCitiesNo(int cities_no);
+	boolean deleteCitiesByPlannerNo(int planner_no);
 }

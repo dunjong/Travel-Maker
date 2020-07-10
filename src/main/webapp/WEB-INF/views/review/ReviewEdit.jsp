@@ -171,7 +171,7 @@
 						<div class="reviewFooterUtil">
 							<br> <a
 								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
-								src="<c:url value='/images/back.png'/>" alt="돌아가기">
+								src="<c:url value='/images/reviewBack.png'/>" alt="목록으로 돌아가기">
 							</a><br> <span>목록으로 돌아가기</span>
 						</div>
 					</div>

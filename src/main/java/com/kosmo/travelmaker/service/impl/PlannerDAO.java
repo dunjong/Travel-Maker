@@ -56,4 +56,20 @@ public class PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.delete("deletePlanByNo",plan_no)==1?true:false;
 	}
+	public boolean deleteCitiesByNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteCitiesByNo", planner_no)==1?true:false;
+	}
+	public boolean deletePlannerByNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deletePlannerByNo", planner_no)==1?true:false;
+	}
+	public boolean deletePlanByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deletePlanByCitiesNo",cities_no )==1?true:false;
+	}
+	public boolean deleteCitiesByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteCitiesByPlannerNo",planner_no )==1?true:false;
+	}
 }

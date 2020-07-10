@@ -11,7 +11,7 @@ public class ReviewDTO {
 	private int spot_no;
 	private String review_title;
 	private String review_content;
-	private Date revuew_date;
+	private Date review_date;
 	public int getReview_no() {
 		return review_no;
 	}
@@ -42,11 +42,11 @@ public class ReviewDTO {
 	public void setReview_content(String review_content) {
 		this.review_content = review_content;
 	}
-	public Date getRevuew_date() {
-		return revuew_date;
+	public Date getReview_date() {
+		return review_date;
 	}
-	public void setRevuew_date(Date revuew_date) {
-		this.revuew_date = revuew_date;
+	public void setReview_date(Date review_date) {
+		this.review_date = review_date;
 	}
 	
 	

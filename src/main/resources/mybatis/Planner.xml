@@ -39,4 +39,16 @@
 	<delete id="deletePlanByNo" parameterType="int">
 		DELETE FROM plan WHERE plan_no=#{plan_no}
 	</delete>
+	<delete id="deleteCitiesByNo" parameterType="int">
+		DELETE FROM cities WHERE cities_no=#{cities_no}
+	</delete>
+	<delete id="deletePlannerByNo" parameterType="int">
+		DELETE FROM planner WHERE planner_no=#{planner_no}
+	</delete>
+	<delete id="deletePlanByCitiesNo" parameterType="int">
+		DELETE FROM plan WHERE cities_no=#{cities_no}
+	</delete>
+	<delete id="deleteCitiesByPlannerNo" parameterType="int">
+		DELETE FROM cities WHERE planner_no=#{planner_no}
+	</delete>
 </mapper>

@@ -9,13 +9,39 @@
 
 </style>
 <script>
-function detail(data){
+
+function deleteFunc(num){
+	$.ajax({
+		url:'<c:url value="MyPlannerDelete.kosmo"/>',
+		data:{planner_no:num.value},
+		dataType:'text',
+		success:function(data){successAjaxDelete(data,num.value)},
+		error:function(request,error){
+			console.log('상태코드:',request.status);
+			console.log('서버로부터 받은 HTML데이타:',request.responseText);
+			console.log('에러:',error);
+		}
+		
+	});
+}
+
+function successAjaxDelete(data,num){
+	console.log('data:',data,',num:',num)
+	if(data=="삭제 성공"){
+		alert(num+'번 planner가 삭제되었습니다')
+		$('#'+num).html('');
+		$('#cities').html('');
+	}
+	
+}
+
+function detail(num){
 	
 	  $.ajax({
 			url:'<c:url value="MyPlannerDetails.kosmo"/>',
-			data:{planner_no:data.value},
+			data:{planner_no:num.value},
 			dataType:'json',
-			success:function(data){successAjax(data)},
+			success:function(data){successAjaxDetail(data)},
 			error:function(request,error){
 				console.log('상태코드:',request.status);
 				console.log('서버로부터 받은 HTML데이타:',request.responseText);
@@ -34,7 +60,7 @@ function fnMove(data){
 }
 
 
-function successAjax(data){
+function successAjaxDetail(data){
 	console.log('data',data);
 	 var tableString="";
 	 var cities=document.getElementById('cities');
@@ -115,7 +141,7 @@ function successAjax(data){
 
 						<!-- Intro Item -->
 						<c:forEach items="${list}" var="planner">
-							<div class="col-lg-4 intro_col">
+							<div class="col-lg-4 intro_col" id="${planner.planner_no}">
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
 									<div class="intro_icon">
 										<img src="<c:url value='/images/suitcase.svg'/>" alt="">
@@ -125,7 +151,12 @@ function successAjax(data){
 											<p>동행자 수:${planner.planner_acc}명</p>
 										</div>
 										<div class="intro_title">
-											<input name="planner_no" class="btn btn-info" onclick="detail(this)" value="${planner.planner_no}" />
+											<label>planner 상세 보기</label>
+											<input name="detail" class="btn btn-info" onclick="detail(this)" value="${planner.planner_no}" />
+										</div>
+										<div class="intro_title">
+											<label>planner 삭제 하기</label>
+											<input name="delete" class="btn btn-danger" onclick="deleteFunc(this)" value="${planner.planner_no}" />
 										</div>
 									</div>
 								</div>
