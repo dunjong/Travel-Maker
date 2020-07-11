@@ -57,11 +57,18 @@
 											<!-- the events -->
 											<div id="external-events">
 												<c:if test="${!returnFromMap}">
-													<c:if test="${empty city_name_date}">
-														<c:forEach items="${city_no_name}" var="name">
-															<div class="external-event bg-info">${name.key}</div>
-														</c:forEach>
-													</c:if>
+														<c:if test="${empty city_name_date}" var="dateTest">
+															<c:forEach items="${city_no_name}" var="name">
+																	<div class="external-event bg-info">${name.key}</div>
+															</c:forEach>
+														</c:if>
+														<c:if test="${!dateTest}">
+															<c:forEach items="${city_name_date}" var="name">
+																<c:if test="${empty name.value}" >
+																	<div class="external-event bg-info">${name.key}</div>
+																</c:if>
+															</c:forEach>
+														</c:if>
 												</c:if>
 											</div>
 										</div>
@@ -278,6 +285,7 @@
 		var lat,lng;//호텔용
 		$(function() {
 			console.log('today: ${today}');
+			console.log('city_name_date','${city_name_date}');
 			var events=[
 				{
 				start: '2020-01-01',
@@ -289,18 +297,18 @@
 			if('${city_name_date}'!=''){
 				
 				<c:forEach items="${city_name_date}" var="date" >
-				
+					if('${date.value}'!=''){
 					$('#datepicker_${date.key}').attr('value','${date.value}'.split(',')[0]);
 					$('#datepicker1_${date.key}').attr('value','${date.value}'.split(',')[1]);
 					var cityBar={
 						start: '${date.value}'.split(',')[0],
 						end: dateFiting('${date.value}'.split(',')[1],'c'),
-				        overlap: true,
+				        overlap: false,
 				        color: '#17A2B8',
 				        title:'${date.key}'
 					}
 					events.push(cityBar);
-				
+					}
 				</c:forEach>
 				console.log('events',events);
 			}
@@ -545,13 +553,6 @@
 			calendar.render();
 			// $('#calendar').fullCalendar()
 			//$('td[data-date=2020-07-05]').prop('style','background-color:red');
-			$('#test').click(function(){
-				
-			})
-			$('#test2').click(function(){
-				console.log($('div.pac-container'))
-				calendar.getEventSources()[0].refetch()//////event옵션으로 동적생성한 이벤트들을 처음자리로 돌려보냄
-			})
 			$('#arrival').autocomplete({
 				source : function(request, response) {
 					console.log($('#ui-id-1').prop('style'))

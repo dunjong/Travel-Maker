@@ -56,13 +56,13 @@ public class HotelController {
 		if(hotelService.insertHotelByMap(map)) {
 			flag="성공!";
 		}
-		String hotel_name=map.get("hotel_name").toString().split(":")[1];
+		String hotel_name=map.get("hotel_name").toString();
 		String hotel_city=map.get("hotel_city").toString();
 		String hotel_in=map.get("hotel_in").toString();
 		String hotel_out=map.get("hotel_out").toString();
 		String hotel_customer=map.get("hotel_customer").toString();
 		String hotel_room=map.get("hotel_room").toString();
-		String hotel_price=map.get("hotel_price").toString().split(":")[1];
+		String hotel_price=map.get("hotel_price").toString();
 		String hotel_latlng=map.get("hotel_latlng").toString();
 		String hotel_score=map.get("hotel_score").toString();
 		String cities_no=map.get("cities_no").toString();
