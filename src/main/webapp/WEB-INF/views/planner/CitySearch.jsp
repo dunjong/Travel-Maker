@@ -119,7 +119,9 @@
 	})
 		function wordexit(obj){
 			for(var i=0;i<$('div.cityname').length;i++){
-				if($('div.cityname:eq('+i+') span').html()==$(obj).html()){
+				console.log($('div.cityname:eq('+i+') span').html());
+				console.log($(obj).html());
+				if($('div.cityname:eq('+i+') a').html()==$(obj).html()){
 					$('div.cityname:eq('+i+')').remove();
 				}
 			}
