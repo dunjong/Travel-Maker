@@ -42,5 +42,10 @@ public class SpotsServiceImpl implements SpotsService{
 		// TODO Auto-generated method stub
 		return spotsDAO.deleteSpotByPlanNo(plan_no);
 	}
+	@Override
+	public String selectPlanDateByNo(int plan_no) {
+		// TODO Auto-generated method stub
+		return spotsDAO.selectPlanDateByNo(plan_no);
+	}
 	
 }

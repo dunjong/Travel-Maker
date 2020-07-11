@@ -32,5 +32,9 @@ public class SpotsDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.delete("deleteSpotByPlanNo",plan_no)==1?true:false;
 	}
+	public String selectPlanDateByNo(int plan_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectPlanDateByNo",plan_no);
+	}
 
 }

@@ -2,6 +2,7 @@ package com.kosmo.travelmaker.web.planner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -128,7 +129,25 @@ public class PlannerController {
 		
 		return flag;
 	}
-	
+	@RequestMapping(value ="SelectPlanDetails.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String SelectPlanDetails(@RequestParam String cities_no){
+		List<Integer> plan_nos= plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
+		Map<String, String> maps=new HashMap<String, String>();
+		for(int plan_no:plan_nos) {
+			String plan_date=spotsService.selectPlanDateByNo(plan_no);
+			List<SpotsDTO> spot_dto_list= spotsService.selectSpotDTOList(plan_no);
+			String spot_names="";
+			for(SpotsDTO spot_dto:spot_dto_list) {
+				spot_names+=","+spot_dto.getSpot_name();
+			}
+			spot_names=spot_names.substring(1);
+			maps.put(plan_date, spot_names);
+		}
+		List<Map> collections = new Vector<Map>();
+		collections.add(maps);
+		return JSONArray.toJSONString(collections);
+	}
 	
 	
 	@RequestMapping("Plan.kosmo")

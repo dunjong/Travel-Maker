@@ -210,7 +210,9 @@
 																	<input hidden="true" name="cities_no" value="${name.value}"/>
 													                <button class="btn btn btn-success">세부일정 짜기</button>
 													            </form>
-													            <button class="btn btn-success">세부목록 보기</button>
+													            <button class="btn btn-success" onclick="callPlanDetails(${name.value},'${name.key}')" >세부목록 보기</button>
+													            <div class="well" id="planDetail_${name.key}">
+																</div>
 															</div>
 											            </div>
 														<div class="modal-footer justify-content-between bg-info">
@@ -856,7 +858,39 @@
 			console.log('성공:',data);
 			alert('예약테이블'+data)
 		}
-		
+		function callPlanDetails(cities_no,city_name){
+			var planDetail=document.getElementById('planDetail_'+city_name)
+			planDetail.innerHTML=''
+			$.ajax({
+				url:'<c:url value="SelectPlanDetails.kosmo"/>',
+				data:{
+					'cities_no':cities_no
+					
+				},
+				dataType:'json',
+				success:function(data){
+					
+					console.log('detailData:',data)
+					$.each(data[0],function(index,value){
+						
+						console.log(index,':',value)
+						
+						
+						var div=document.createElement('div');
+						div.textContent=index+'일차: '+value;
+						planDetail.appendChild(div)
+						
+					});
+					
+				},
+				error:function(request,error){
+					console.log('상태코드:',request.status);
+					console.log('서버로부터 받은 HTML데이타:',request.responseText);
+					console.log('에러:',error);
+				}
+				
+			});
+		}
 		
 		function resultAirModal(){
 			$('#a_modal').modal('hide');

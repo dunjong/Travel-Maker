@@ -16,8 +16,13 @@
 	<select id="spotListByCitiesNo" parameterType="int" resultType="SpotsDTO">
 		SELECT spot.*,plan.plan_date FROM  plan JOIN save_spots spot ON plan.plan_no=spot.plan_no WHERE plan.cities_no=#{cities_no}
 	</select>
+	<select id="selectPlanDateByNo" parameterType="int" resultType="java.lang.String">
+		SELECT plan_date FROM plan WHERE plan_no=#{plan_no}
+	</select>
+	
 	
 	<delete id="deleteSpotByPlanNo" parameterType="int">
 		DELETE FROM save_spots WHERE plan_no=#{plan_no}
 	</delete>
+	
 </mapper>

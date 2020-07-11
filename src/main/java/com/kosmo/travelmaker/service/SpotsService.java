@@ -9,4 +9,5 @@ public interface SpotsService {
 	List<SpotsDTO> selectSpotDTOList(int plan_no);
 	List<SpotsDTO> spotListByCitiesNo(int cities_no);
 	boolean deleteSpotByPlanNo(int plan_no);
+	String selectPlanDateByNo(int plan_no);
 }
