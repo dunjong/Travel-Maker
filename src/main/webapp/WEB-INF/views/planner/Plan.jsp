@@ -32,25 +32,43 @@
         line-height: 30px;
         padding-left: 10px;
       }
+      #bottom-panel{
+      	position: absolute;
+        top: 90%;
+        left: 5%;
+        z-index: 5;
+        padding: 5px;
+      }
+      #rightBottom-panel{
+        position: absolute;
+        top: 90%;
+        left: 80%;
+        z-index: 5;
+        padding: 5px;
+      }
+      #delete-panel{
+      	position: absolute;
+        top: 70%;
+        z-index: 5;
+        padding: 5px;
+      }
 
-	  #floating-panel {
+	  #attractionBtn {
         position: absolute;
         top: 10px;
-        left: 38%;
+        left: 30%;
         z-index: 5;
-        background-color: #fff;
         padding: 5px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 10px;
       }
-      #floating-panel {
-        margin-left: 10px;
+       #foodBtn {
+        position: absolute;
+        top: 10px;
+        left: 55%;
+        z-index: 5;
+        padding: 5px;
       }
       #map {
-        height: 100%;
+        height: 800px;
         width: 100%;
         border:thick double #32a1ce;
       }
@@ -108,15 +126,7 @@
       #distance{
       	text-align: center;
       }
-      #planBox .row {
-      	width:100%;
-      	padding-bottom:10px;
-      	border:red solid 1px;
-      	
-       	
-      }
-       #planBox .row > div > div{
-      }
+     
       #md-image img{
 	      width:580px;
 	      height:380px;
@@ -129,9 +139,7 @@
       #review{
       	margin-left:300px;
       }
-      #rightBox{
-       height:600px;
-      }
+     
       .myButton {
 	box-shadow:inset 0px 1px 0px 0px #efdcfb;
 	background:linear-gradient(to bottom, #dfbdfa 5%, #bc80ea 100%);
@@ -508,8 +516,7 @@ function initMap() {
     directionsService = new google.maps.DirectionsService;
     directionsRenderer = new google.maps.DirectionsRenderer({
     draggable:false,//드래그 가능 여부
-    map: map,//맵
-    panel: document.getElementById('right-panel')//패널 dom 객체
+    map: map
   });
   directionsRenderer.addListener('directions_changed', function() {
     computeTotalDistance(directionsRenderer.getDirections());//총 거리 계산
@@ -726,11 +733,7 @@ $(function(){
 	            	  console.log('detailSave:',status)
 	                return;
 	              }
-	               if(nearSearchType=='lodging'){
-	            	   console.log('day in save',day)
-	             	   hotelInfo['day'+date]={'hotel':place}
-	               }
-	               else{
+	            	   hotelInfo['day'+date]={'hotel':origin}
 	            	   if(spotInfo['day'+date]==undefined){
 		            	   var savedSpot=[]
 		            	   var latlng=place.geometry.location.lat()+','+place.geometry.location.lng();
@@ -745,7 +748,7 @@ $(function(){
 	            		   spotsForSave['day'+date]+=(place.place_id)+':'+latlng+':'+place.name+'&';
 	            		   spotInfo['day'+date].push({'spot':place})
 	            	   }
-	               }
+	               
 	            });
   }////placeDetail
   
@@ -753,27 +756,18 @@ $(function(){
 	  var boxOrigin='';
 	  var sp_waypoints=document.getElementById('sp-waypoints');
 	  sp_waypoints.innerHTML=''
-	  if(nearSearchType=='lodging'){
-		  placeDetailnSave($('#iw-id').html(),day)
-		  
-		  boxOrigin=$('#iw-lanlng').html();
-		  displayRoute(boxOrigin,boxOrigin , directionsService,
-			       directionsRenderer,spots);
+	  
+	  console.log('dd',dayplans['day'+day]);
+	  if(dayplans['day'+day]==undefined){
+		  dayplans['day'+day]={'origin':origin,'spots':[]};
 	  }
-	  else{
-		  console.log('dd',dayplans['day'+day]);
-		  if(dayplans['day'+day]==undefined){
-			  dayplans['day'+day]={'origin':origin,'spots':[]};
-		  }
-		  sp_waypoints.innerHTML=''
-		  placeDetailnSave($('#iw-id').html(),day)
-		  dayplans['day'+day].spots.push({location:$('#iw-lanlng').html()});
-		  //console.log('lanlng',$('#iw-lanlng').html())
-		  spots=dayplans['day'+day].spots;
-	  	  displayRoute(origin, destination, directionsService,
-		       directionsRenderer,spots);
-		  
-	  }
+	  sp_waypoints.innerHTML=''
+	  placeDetailnSave($('#iw-id').html(),day)
+	  dayplans['day'+day].spots.push({location:$('#iw-lanlng').html()});
+	  //console.log('lanlng',$('#iw-lanlng').html())
+	  spots=dayplans['day'+day].spots;
+  	  displayRoute(origin, destination, directionsService,directionsRenderer,spots);
+		
 	  if(markers.length!=0){
 		   //확인용
     	   //	console.log('click Markers',markers);
@@ -850,10 +844,8 @@ $(function(){
  function createMarkers(places) {
 	  var bounds = new google.maps.LatLngBounds();
 	  var logo;
-	  if(nearSearchType=='lodging'){
-	  	logo='<c:url value="/images/hotelIcon.png"/>';
-	  }
-	  else if(nearSearchType=='restaurant'){
+	  
+	  if(nearSearchType=='restaurant'){
 		logo='<c:url value="/images/foodIcon.png"/>';
 	  }
 	  else{
@@ -879,10 +871,14 @@ $(function(){
           title: place.name,
           position: place.geometry.location
         });
+          
          marker.placeResult = place;
          google.maps.event.addListener(marker, 'click', showInfoWindow);
          markers.push(marker)
          var div = document.createElement("div");
+         div.setAttribute('id',place.place_id)
+         div.setAttribute('class','btn btn-info')
+         div.setAttribute('onclick','searchedSpotBtn(this)')
          div.textContent = place.name;
          placesList.appendChild(div);
          
@@ -894,6 +890,49 @@ $(function(){
       }
       map.fitBounds(bounds);
  }///createMarkers
+ 
+ 
+ function searchedSpotBtn(data){
+	 
+	 console.log('searchedSpotBtn:',data.innerHTML,'아이디: ',data.getAttribute('id'))
+	 
+	 var logo;
+	  
+	  if(nearSearchType=='restaurant'){
+		logo='<c:url value="/images/foodIcon.png"/>';
+	  }
+	  else{
+		logo='<c:url value="/images/spotIcon.png"/>';
+	  }
+	  var image = {
+	          url: logo,
+	          size: new google.maps.Size(71, 71),
+	          origin: new google.maps.Point(0, 0),
+	          anchor: new google.maps.Point(17, 34),
+	          scaledSize: new google.maps.Size(25, 25)
+	        };
+	 
+	 servicePlace.getDetails({placeId: data.getAttribute('id')},
+            function(place, status) {
+              if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+              marker = new google.maps.Marker({
+                  map: map,
+                  title: data.innerHTML,
+                  icon: image,
+                  position: place.geometry.location
+                });
+              markers.push(marker);
+              infoWindow.open(map, marker);
+              buildIWContent(place);
+              buildDetailContent(place);
+            });
+	 
+	 var offset=$('#intro').offset();
+	  $('html, body').animate({scrollTop : offset.top}, 400);
+ }///searchedSpotBtn
+ 
  
  //3-1]주변 마커 제거
  function removeMarkers(markers){
@@ -911,7 +950,8 @@ $(function(){
 	 	//console.log('marker.placeResult',marker.placeResult)
 	 	///
         var marker = this;
-        
+        console.log('marker:',marker)
+	 	
         servicePlace.getDetails({placeId: marker.placeResult.place_id},
             function(place, status) {
               if (status !== google.maps.places.PlacesServiceStatus.OK) {
@@ -927,10 +967,8 @@ $(function(){
  function buildIWContent(place) {
 	 
 	 var logo;
-	  if(nearSearchType=='lodging'){
-	  	logo='<i class="fas fa-hotel fa-2x"></i>';
-	  }
-	  else if(nearSearchType=='restaurant'){
+	  
+	  if(nearSearchType=='restaurant'){
 		logo='<i class="fas fa-utensils fa-2x"></i>';
 	  }
 	  else{
@@ -1031,14 +1069,8 @@ $(function(){
 	 var sp_waypoints=document.getElementById('sp-waypoints');
 	 
 	 sp_destination.textContent='도착지:'+destination
-	 //확인용
-	 	console.log('hotelInfo:',hotelInfo)
-	 //
-	 console.log('hotelInfo',hotelInfo['day'+day])
-	 if(hotelInfo['day'+day]!=undefined)
-	 	 sp_origin.textContent='출발지:'+hotelInfo['day'+day].hotel.name
-	 else
-		 sp_origin.textContent='출발지:'+origin
+	 sp_origin.textContent='출발지:'+origin
+	 
 	
 	 
 	 
@@ -1062,10 +1094,6 @@ $(function(){
 			sp_waypoints.appendChild(h4)
 			h4=document.createElement('h4')
 	 	 	h4.textContent='주소'+spotArr[i].spot.formatted_address
-	 	 	sp_waypoints.appendChild(h4)
-	 	 	h4=document.createElement('h4')
-	 	 	h4.textContent='위치 아이디:'
-	 	 	+spotArr[i].spot.id
 	 	 	sp_waypoints.appendChild(h4)
 		 }
 	 }
@@ -1145,82 +1173,77 @@ $(function(){
 			
 		});
 	}
+ function AddDayPlan(){
+	 var div=document.createElement('div');
+	 var div2=document.createElement('div');
+	 var i=document.createElement('i');
+	 div.setAttribute('class','col-sm-2')
+	 div2.setAttribute('class','planview')
+	 div2.setAttribute('id','day.${gap+1}')
+	 div2.setAttribute('onclick','DayPlan(this)')
+	 i.setAttribute('class','fas fa-bookmark)')
+	 i.textContent=' ${gap+1}일차 플랜'
+	 
+	 div2.appendChild(i)
+	 div.appendChild(div2)
+	 
+	 $('#dayPlanRow').append(div);
+ }
  
 </script>	
 		
-	<div class="intro">
+	<div class="intro" id="intro">
 		
-		<div class="intro_container" style="margin-left:150px;width:80%">
+		<div class="intro_container" style="width:100%">
 			
-			<div hidden="true" id=day></div>
-					<input type="text" id="cities-no"  value="${cities_no}" name="cities_no" hidden="true" >
-					<input type="text" id="city-no"  value="${city_no}" name="city_no" hidden="true" >
-					<button  class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">자동 완성 불러오기</button>
+			<input type="text" id="cities-no"  value="${cities_no}" name="cities_no" hidden="true" >
+			<input type="text" id="city-no"  value="${city_no}" name="city_no" hidden="true" >
+			
 			
 			<div class="row">
-				<div class="col-sm-10">
-					<div id="floating-panel">
-						<div id="type">
-								<div class="snip1535" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
-								<div class="snip1535" style="border-radius: 12px;" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
-								<!--  <div><h4><small id=day>1일차 플랜</small></h4></div>-->
-					    </div>
-				    </div>
-				    
-					<div id="map"></div>
-					
-				</div>
-				<div class="col-sm-2" id=rightBox>
-					<div class="row">
-						<div class="col-sm-12" id="planBox">
-							<div class="row" style="text-align: center">
-								<c:forEach begin="1" end="${gap}" var="days" >
-
-									<div class="planview" style="padding-bottom: 10px;" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
-				
-								</c:forEach>
+				<div class="col-sm-12">
+					<div id="attractionBtn" class="snip1535" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
+					<div id="foodBtn" class="snip1535" style="border-radius: 12px;" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
+					<div  id="map"></div>
+					<div id="bottom-panel">
+						<div id="dayPlanRow" class="row">
+						<c:forEach begin="1" end="${gap}" var="days" >
+							<div class="col-sm-2">
+								<div class="planview" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
 							</div>
-						</div>
-						<div class="col-sm-12">
-							<br>
-						</div>
-						<div class="col-sm-12" id="buttons-show">
-							<div class="planview" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜 보기!</i></div>
-						</div>
-						<div class="col-sm-12" id="buttons-plan">
-							<div class="btn btn-danger waves-effect" style="width:100%;" onclick="clearBox();"><i class="far fa-trash-alt"> 플랜 삭제</i></div>
-							<div class="btn btn-danger btn-rounded waves-effect" style="width:100%;" onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
-						</div>
-						<div class="col-sm-12" id="buttons-total">
+						</c:forEach>
+						<c:if test="${hotel.hotel_name=='없음'}">
+							<div class="col-sm-2">
+								<div class="planview" style="background-color:#ff9999" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜 </i></div>
+							</div>
 							
-							<div class="planview" onclick="back()">전체 저장후 planner로 이동 <i class="fas fa-download"></i></div>	
+						</c:if>
 						</div>
-						<div class="col-sm-12">
-							<br>
-						</div>						
-						<div class="col-sm-12">
-							<br>
-						</div>
-					</div>					
+						
+					</div>
+					<div id="rightBottom-panel">
+						<div class="planview" onclick="back()">전체 저장후 planner로 이동 <i class="fas fa-download"></i></div>	
+					</div>
+					<div id="delete-panel">
+						<button class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">자동 완성 불러오기</button>
+						<div class="btn btn-danger waves-effect"  onclick="clearBox();"><i class="far fa-trash-alt"> 플랜 삭제</i></div>
+						<div class="btn btn-danger btn-rounded waves-effect"  onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
+					</div>
 				</div>
-			<div class="col-sm-12" id="distance">
-				<h2>현재 플랜에대한 상세 정보</h2>
-				<h4>전체 거리: <span id="total"></span></h4>
+				 
+				<div class="col-sm-12" id="distance">
+					<h2>현재 플랜에대한 상세 정보</h2>
+					<h4>전체 이동 거리: <span id="total"></span></h4>
 				</div>
+				<div class="col-sm-12"  id="right-panel">
+					<div id="places"></div>
+				</div>	
 			</div>	
-			<div class="col-sm-12">
-				<div id="right-panel">
-				</div>
-			</div>
-			<div class="col-sm-12" id="places">
-			</div>
 					
 		</div>
-		<!-- makerclick -->
-	
-		
-		
 	</div>
+	
+	
 		<div style="display: none">
 	      <div id="info-content">
 	        <table>

@@ -70,7 +70,7 @@
 								<div class="col-md-12">
 									<div class="card card-primary">
 										<div class="card-header">
-											<h4 class="card-title">호텔 예매</h4>
+											<h4 class="card-title">호텔 등록</h4>
 										</div>
 										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
@@ -130,8 +130,7 @@
 											<h4 class="card-title">항공권 예매</h4>
 										</div>
 										<div class="card-body">	
-											<button id='test' class="btn btn-info" type="button" style="width:100%">test</button>
-											<button id='test2' class="btn btn-info" type="button" style="width:100%">test2</button>
+											
 											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#a_modal" style="width:100%">항공권 검색</button>
 											<div class="modal fade" id="a_modal">
 												<div class="modal-dialog">
