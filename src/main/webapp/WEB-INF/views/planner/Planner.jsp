@@ -287,9 +287,10 @@
 		        color: '#ffffff'
 				}
 			]
-
-			if('${date.value}'!=''){
+			if('${city_name_date}'!=''){
+				
 				<c:forEach items="${city_name_date}" var="date" >
+				
 					$('#datepicker_${date.key}').attr('value','${date.value}'.split(',')[0]);
 					$('#datepicker1_${date.key}').attr('value','${date.value}'.split(',')[1]);
 					var cityBar={
@@ -302,6 +303,7 @@
 					events.push(cityBar);
 				
 				</c:forEach>
+				console.log('events',events);
 			}
 			var date = new Date();
 			/* initialize the external events
@@ -381,6 +383,7 @@
 						},
 						//카드에서 드랍시 한번만 2
 						eventReceive:function(info){
+							
 							alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s'));
 							console.log('eventReceive',info);
 							if(info.event.end==null){

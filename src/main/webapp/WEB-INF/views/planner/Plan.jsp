@@ -22,6 +22,17 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 <style>
+ 	  #right-panel {
+       
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: left;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
 	  #floating-panel {
         position: absolute;
         top: 10px;
@@ -540,7 +551,7 @@ function initMap() {
   
   map.addListener('click', function(event) {
 	   
-	   
+	   $('#places').html('');
 	   if(markers.length!=0){
 		   //확인용
      	   //	console.log('click Markers',markers);
@@ -852,6 +863,7 @@ $(function(){
       
       for (var i = 0, place; place = places[i]; i++) {
         //console.log('place.icon',place.icon)
+        var placesList = document.getElementById("places");
     	var image = {
           url: logo,
           size: new google.maps.Size(71, 71),
@@ -870,6 +882,10 @@ $(function(){
          marker.placeResult = place;
          google.maps.event.addListener(marker, 'click', showInfoWindow);
          markers.push(marker)
+         var div = document.createElement("div");
+         div.textContent = place.name;
+         placesList.appendChild(div);
+         
         //마커 확인
    	 	//console.log('마커',marker.position.toString());
          //console.log('place.geometry.location',place.geometry.location);
@@ -1150,7 +1166,9 @@ $(function(){
 								<!--  <div><h4><small id=day>1일차 플랜</small></h4></div>-->
 					    </div>
 				    </div>
+				    
 					<div id="map"></div>
+					
 				</div>
 				<div class="col-sm-2" id=rightBox>
 					<div class="row">
@@ -1186,9 +1204,17 @@ $(function(){
 					</div>					
 				</div>
 			<div class="col-sm-12" id="distance">
+				<h2>현재 플랜에대한 상세 정보</h2>
 				<h4>전체 거리: <span id="total"></span></h4>
 				</div>
-			</div>			
+			</div>	
+			<div class="col-sm-12">
+				<div id="right-panel">
+				</div>
+			</div>
+			<div class="col-sm-12" id="places">
+			</div>
+					
 		</div>
 		<!-- makerclick -->
 	
