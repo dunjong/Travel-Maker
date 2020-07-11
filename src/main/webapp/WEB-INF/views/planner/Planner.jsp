@@ -829,15 +829,15 @@
 				url:'<c:url value="/TravelMaker/HotelTest.kosmo"/>',
 				data:
 				{
-				"hotel_name":$('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html(),
+				"hotel_name":$('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html().split(":")[1],
 				"hotel_city":$('#city_name').html(),
 				"hotel_in":$('#datepicker_'+$('#city_name').html()).prop('value'),
 				"hotel_out":$('#datepicker1_'+$('#city_name').html()).prop('value'),
 				"hotel_customer":$('#adult_'+$('#city_name').html()).prop('value'),
 				"hotel_room":$('#rooms_'+$('#city_name').html()).prop('value'),
-				"hotel_price":$('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html(),
+				"hotel_price":$('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html().split(":")[1],
 				"hotel_latlng":latlng.split(",")[0].split(":")[1].trim()+","+latlng.split(",")[1].split(":")[1].trim(),
-				"hotel_score":$('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html(),
+				"hotel_score":$('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html().split(":")[1],
 				"cities_no":$('#h_cities_no').prop('value') 
 				},
 				dataType:'text',

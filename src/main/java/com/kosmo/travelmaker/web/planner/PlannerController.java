@@ -160,7 +160,7 @@ public class PlannerController {
 		}
 		else {
 			maps.put("hotel_latlng", city_name);
-			maps.put("hotel_name", "없음");
+			maps.put("hotel_name", city_name);
 			maps.put("hotel_date", "없음");
 			maps.put("hotel_price", "없음");
 		}

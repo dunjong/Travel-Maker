@@ -30,12 +30,15 @@
         text-align: left;
         font-family: 'Roboto','sans-serif';
         line-height: 30px;
-        padding-left: 10px;
+       
       }
-      #bottom-panel{
+      #places{
+       margin-left: 60px;
+      }
+      #bottomPlanBox-panel{
       	position: absolute;
-        top: 90%;
-        left: 5%;
+        top: 5%;
+        left:90%;
         z-index: 5;
         padding: 5px;
       }
@@ -46,11 +49,29 @@
         z-index: 5;
         padding: 5px;
       }
-      #delete-panel{
+      #callSpot-panel{
       	position: absolute;
-        top: 70%;
+        top: 78%;
+        left: 4%;
         z-index: 5;
         padding: 5px;
+      }
+      #watchNowPlan{
+        position: absolute;
+        top: 90%;
+        left: 35%;
+        width:487px;
+        z-index: 5;
+        padding: 5px;
+      }
+      
+      #autocomplete_box{
+      	position: absolute;
+        top: 80%;
+        left: 35%;
+        z-index: 5;
+        padding: 5px;
+        width:"300px";
       }
 
 	  #attractionBtn {
@@ -177,6 +198,7 @@
   transition:800ms ease all;
   border-radius:6px;
   outline:none;
+  margin:5px;
 }
 .planview:hover{
   background:#fff;
@@ -346,6 +368,7 @@ var nearSearchType='attractions';
 var keyword='attractions';
 //출발지 선언
 var origin='${hotel.hotel_latlng}';
+var hotelname='${hotel.hotel_name}'
 
 //도착지 선언
 var destination=origin;
@@ -553,7 +576,42 @@ function initMap() {
 	tilt_changed
 	zoom_changed
   */
-  
+  	var input = document.getElementById('autocomplete');
+  	
+	var autocomplete = new google.maps.places.Autocomplete(input);
+	google.maps.event.addListener(autocomplete, 'place_changed', function () {
+		var bounds = new google.maps.LatLngBounds();
+		var searchedPlace=autocomplete.getPlace();
+		console.log('autocomplete place',searchedPlace);
+		 var logo;
+		  
+		 if(nearSearchType=='restaurant'){
+			logo='<c:url value="/images/foodIcon.png"/>';
+		 }
+		 else{
+			logo='<c:url value="/images/spotIcon.png"/>';
+		 }
+		 var image = {
+		          url: logo,
+		          size: new google.maps.Size(71, 71),
+		          origin: new google.maps.Point(0, 0),
+		          anchor: new google.maps.Point(17, 34),
+		          scaledSize: new google.maps.Size(25, 25)
+		       };
+		 marker = new google.maps.Marker({
+	          map: map,
+	          icon: image,
+	          animation: google.maps.Animation.DROP,
+	          title: searchedPlace.name,
+	          position: searchedPlace.geometry.location
+	        });
+         markers.push(marker);
+         infoWindow.open(map, marker);
+         buildIWContent(searchedPlace);
+         buildDetailContent(searchedPlace);
+         bounds.extend(searchedPlace.geometry.location);  
+         map.fitBounds(bounds);
+	})
   
   
   map.addListener('click', function(event) {
@@ -877,7 +935,7 @@ $(function(){
          markers.push(marker)
          var div = document.createElement("div");
          div.setAttribute('id',place.place_id)
-         div.setAttribute('class','btn btn-info')
+         div.setAttribute('class','btn btn-info col-sm-5')
          div.setAttribute('onclick','searchedSpotBtn(this)')
          div.textContent = place.name;
          placesList.appendChild(div);
@@ -921,6 +979,7 @@ $(function(){
                   map: map,
                   title: data.innerHTML,
                   icon: image,
+                  animation: google.maps.Animation.DROP,
                   position: place.geometry.location
                 });
               markers.push(marker);
@@ -1068,8 +1127,8 @@ $(function(){
 	 var sp_destination=document.getElementById('sp-destination')
 	 var sp_waypoints=document.getElementById('sp-waypoints');
 	 
-	 sp_destination.textContent='도착지:'+destination
-	 sp_origin.textContent='출발지:'+origin
+	 sp_destination.textContent='도착지:'+hotelname
+	 sp_origin.textContent='출발지:'+hotelname
 	 
 	
 	 
@@ -1189,6 +1248,10 @@ $(function(){
 	 
 	 $('#dayPlanRow').append(div);
  }
+ function autoComplete(){
+	 $('#autocomplete').val('')
+		
+ }
  
 </script>	
 		
@@ -1199,35 +1262,34 @@ $(function(){
 			<input type="text" id="cities-no"  value="${cities_no}" name="cities_no" hidden="true" >
 			<input type="text" id="city-no"  value="${city_no}" name="city_no" hidden="true" >
 			
-			
 			<div class="row">
 				<div class="col-sm-12">
 					<div id="attractionBtn" class="snip1535" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
 					<div id="foodBtn" class="snip1535" style="border-radius: 12px;" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
 					<div  id="map"></div>
-					<div id="bottom-panel">
-						<div id="dayPlanRow" class="row">
-						<c:forEach begin="1" end="${gap}" var="days" >
-							<div class="col-sm-2">
-								<div class="planview" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
-							</div>
-						</c:forEach>
-						<c:if test="${hotel.hotel_name=='없음'}">
-							<div class="col-sm-2">
-								<div class="planview" style="background-color:#ff9999" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜 </i></div>
-							</div>
-							
-						</c:if>
+					<div id="autocomplete_box" class="input-group input-group-lg col-sm-3">
+						<input type="text" id="autocomplete" class="form-control" placeholder="찾는 명소이름 직접 입력" onfocus="autoComplete()" >
+					</div>
+					<div id="bottomPlanBox-panel">
+						<div id="dayPlanRow">
+							<c:forEach begin="1" end="${gap}" var="days" >
+									<div class="planview" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
+									
+							</c:forEach>
+							<div class="btn btn-danger waves-effect"  onclick="clearBox();"><i class="far fa-trash-alt"> 현재 삭제</i></div>
+							<div class="btn btn-danger btn-rounded waves-effect"  onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
+							<button class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">하나투어 패키지 불러오기</button>
 						</div>
 						
 					</div>
 					<div id="rightBottom-panel">
 						<div class="planview" onclick="back()">전체 저장후 planner로 이동 <i class="fas fa-download"></i></div>	
 					</div>
-					<div id="delete-panel">
-						<button class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">자동 완성 불러오기</button>
-						<div class="btn btn-danger waves-effect"  onclick="clearBox();"><i class="far fa-trash-alt"> 플랜 삭제</i></div>
-						<div class="btn btn-danger btn-rounded waves-effect"  onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
+					<div id="callSpot-panel">
+						
+					</div>
+					<div id="watchNowPlan">
+						<div class="planview" style="background-color:#ff9999" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜  상세 보기</i></div>
 					</div>
 				</div>
 				 
@@ -1236,7 +1298,7 @@ $(function(){
 					<h4>전체 이동 거리: <span id="total"></span></h4>
 				</div>
 				<div class="col-sm-12"  id="right-panel">
-					<div id="places"></div>
+					<div class="row" id="places"></div>
 				</div>	
 			</div>	
 					
@@ -1272,7 +1334,7 @@ $(function(){
 	            <td id="iw-lanlng"></td>
 	          </tr>
 	          <tr class="iw_table_row">
-	            <td class="iw_attribute_name">위치 아이디: </td>
+	            <td class="iw_attribute_name">위치 아이디:</td>
 	            <td id="iw-id"></td>
 	          </tr>
 	          <tr class="iw_table_row">
