@@ -8,6 +8,7 @@
 		<!-- 자바빈 별칭 -->
 		<typeAliases>
 			<typeAlias alias="AndroidMemberDTO" type="com.kosmo.travelmaker.service.AndroidMemberDTO"/>
+			<typeAlias alias="AndroidCityDTO" type="com.kosmo.travelmaker.service.AndroidCityDTO"/>
 			<typeAlias alias="MemberDTO" type="com.kosmo.travelmaker.service.MemberDTO"/>
 			<typeAlias alias="SpotsDTO" type="com.kosmo.travelmaker.service.SpotsDTO"/>	
 			<typeAlias alias="AirDTO" type="com.kosmo.travelmaker.service.AirDTO"/>
@@ -22,6 +23,7 @@
 		
 		<mappers>
 			<mapper resource="mybatis/Member.xml" />
+			<mapper resource="mybatis/Android.xml" />
 			<mapper resource="mybatis/Spots.xml" />
 			<mapper resource="mybatis/Air.xml" />
 			<mapper resource="mybatis/Hotel.xml" />
