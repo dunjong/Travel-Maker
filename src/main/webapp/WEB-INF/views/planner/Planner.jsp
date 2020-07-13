@@ -81,35 +81,35 @@
 										</div>
 										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
-												<button id='h_${name.key}' class="btn btn-info" type="button" data-toggle="modal" data-target="#h_modal_${name.key}" style="width:100%;margin-bottom:4px">
-													${name.key}주변 호텔 찾아보기
-												</button>
-												
-												<div class="modal fade" id="h_modal_${name.key}">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div class="modal-header bg-info">
-																<h2>${name.key}호텔검색</h2>
-															</div>
-															<div class="modal-body">
-												              	<div>
-																	<form action="#">
-																		<input id="autocomplete_${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
-																		<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
-																		<input type="date" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
-																		<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
-																		<input type="date" id="datepicker1_${name.key}" value="" placeholder="check out" required="required">
-																		<input type="number" id="rooms_${name.key}"  placeholder="방 갯수" required="required">
-																	</form>
+														<button id='h_${name.key}' class="btn btn-info" type="button" data-toggle="modal" data-target="#h_modal_${name.key}" style="width:100%;margin-bottom:4px">
+															${name.key}주변 호텔 찾아보기
+														</button>
+														
+														<div class="modal fade" id="h_modal_${name.key}">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header bg-info">
+																		<h2>${name.key}호텔검색</h2>
+																	</div>
+																	<div class="modal-body">
+														              	<div>
+																			<form action="#">
+																				<input id="autocomplete_${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
+																				<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
+																				<input type="date" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
+																				<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
+																				<input type="date" id="datepicker1_${name.key}" value="" placeholder="check out" required="required">
+																				<input type="number" id="rooms_${name.key}"  placeholder="방 갯수" required="required">
+																			</form>
+																		</div>
+																	</div>
+																	<div class="modal-footer justify-content-between bg-info">
+														            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+														            	<button type="button" class="btn btn-outline-light" onclick="resultHotelModal('${name.key}','${name.value}')">검색</button>
+														            </div>
 																</div>
 															</div>
-															<div class="modal-footer justify-content-between bg-info">
-												            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-												            	<button type="button" class="btn btn-outline-light" onclick="resultHotelModal('${name.key}','${name.value}')">검색</button>
-												            </div>
 														</div>
-													</div>
-												</div>
 											</c:forEach>
 											
 											<div class="modal fade" id="h_modal_result" >
@@ -193,35 +193,37 @@
 										</div>
 										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
-											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#d-modal-${name.key}" style="width:100%;margin-bottom:4px">
-												${name.key}에 대한 세부 일정 짜기
-											</button>
-											<div class="modal fade" id="d-modal-${name.key}">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header bg-info">
-															<h2>세부 일정 in ${name.key}</h2>
-														</div>
-														<div class="modal-body">
-											              	<div>
-																<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" style='margin-bottom:4px'>
-													                <input hidden="true" name="origin" value="${name.key}" /> 
-																	<input hidden="true" name="destination" value="공항,${name.key}" />
-																	<input hidden="true" name="planner_no" value="${planner_no}" />
-																	<input hidden="true" name="cities_no" value="${name.value}"/>
-													                <button class="btn btn btn-success">세부일정 짜기</button>
-													            </form>
-													            <button class="btn btn-success" onclick="callPlanDetails(${name.value},'${name.key}')" >세부목록 보기</button>
-													            <div class="well" id="planDetail_${name.key}">
+												
+														<button class="btn btn-info" type="button" data-toggle="modal" data-target="#d-modal-${name.key}" style="width:100%;margin-bottom:4px">
+															${name.key}에 대한 세부 일정 짜기
+														</button>
+														<div class="modal fade" id="d-modal-${name.key}">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header bg-info">
+																		<h2>세부 일정 in ${name.key}</h2>
+																	</div>
+																	<div class="modal-body">
+														              	<div>
+																			<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" style='margin-bottom:4px'>
+																                <input hidden="true" name="origin" value="${name.key}" /> 
+																				<input hidden="true" name="destination" value="공항,${name.key}" />
+																				<input hidden="true" name="planner_no" value="${planner_no}" />
+																				<input hidden="true" name="cities_no" value="${name.value}"/>
+																                <button class="btn btn btn-success">세부일정 짜기</button>
+																            </form>
+																            <button class="btn btn-success" onclick="callPlanDetails(${name.value},'${name.key}')" >세부목록 보기</button>
+																            <div class="well" id="planDetail_${name.key}">
+																			</div>
+																		</div>
+														            </div>
+																	<div class="modal-footer justify-content-between bg-info">
+														            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+														            </div>
 																</div>
 															</div>
-											            </div>
-														<div class="modal-footer justify-content-between bg-info">
-											            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-											            </div>
-													</div>
-												</div>
-											</div>
+														</div>
+														
 											</c:forEach>
 										</div>	
 									</div>

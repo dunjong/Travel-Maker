@@ -64,6 +64,8 @@
         z-index: 5;
         padding: 5px;
       }
+      #loadingImg{
+      }
       
       #autocomplete_box{
       	position: absolute;
@@ -91,7 +93,6 @@
       #map {
         height: 800px;
         width: 100%;
-        border:thick double #32a1ce;
       }
       table {
         font-size: 12px;
@@ -738,9 +739,11 @@ $(function(){
 						placeDetailnSave(item[x],date.substring(3))
 						console.log(x);
 							if(x==2){
-								spots=dayplans['day1'].spots
-								displayRoute(origin,destination , directionsService,
-									      directionsRenderer,spots);
+								setTimeout(function() {
+									spots=dayplans['day1'].spots
+									displayRoute(origin,destination , directionsService,
+										      directionsRenderer,spots);
+								},2000)
 							}
 						}, 2000*x);
 					
@@ -1217,6 +1220,7 @@ $(function(){
  
  function back() {
 	 var jsonData = JSON.stringify(spotsForSave);
+	 console.log('LAST spotsForSave:',spotsForSave);
 	 
 	 $.ajax({
 			url:'<c:url value="PlanSave.kosmo"/>',
@@ -1290,6 +1294,9 @@ $(function(){
 					</div>
 					<div id="watchNowPlan">
 						<div class="planview" style="background-color:#ff9999" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜  상세 보기</i></div>
+					</div>
+					<div id="loadingImg" >
+						
 					</div>
 				</div>
 				 

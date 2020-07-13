@@ -28,6 +28,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
+import com.kosmo.travelmaker.service.CityService;
 import com.kosmo.travelmaker.service.HotelDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.SpotsDTO;
@@ -64,6 +65,7 @@ public class PlannerController {
 		System.out.println("map.get(\"planner_no\"):"+map.get("planner_no"));
 		Map<String,Integer> city_no_name=new HashMap<String, Integer>();
 		Map<String, String> city_name_date=new HashMap<String, String>();
+		Map<String, Integer> city_hotel=new HashMap<String, Integer>();
 		if(map.get("planner_no")==null) {
 			String[] city_no_list=map.get("city_no").toString().split(",");
 			if(plannerService.insertPlanner(session.getAttribute("id").toString())) {
@@ -78,7 +80,9 @@ public class PlannerController {
 					if(plannerService.insertCities(maps)) {
 						System.out.println(no+" 도시가 저장되었습니다.");
 						int cities_no=plannerService.selectCitiesNo();
-						city_no_name.put(cityService.selectCityDTO(Integer.parseInt(no)).getCity_name(),cities_no);
+						String city_name=cityService.selectCityDTO(Integer.parseInt(no)).getCity_name();
+						city_hotel.put(city_name,0);
+						city_no_name.put(city_name,cities_no);
 					}///if
 					
 				}///for
@@ -97,6 +101,9 @@ public class PlannerController {
 				CityDTO cityDTO= cityService.selectCityDTO(city_no);
 				maps.put("city_no", city_no);
 				int cities_no=plannerService.selectCitiesNoByMap(maps);
+				if(hotelService.selectHotelDTOByCitiesNo(cities_no)!=null) {
+					city_hotel.put(cityDTO.getCity_name(),1);
+				}
 				city_no_name.put(cityDTO.getCity_name(),cities_no);
 				city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
 				
@@ -109,6 +116,7 @@ public class PlannerController {
 		model.addAttribute("planner_no",planner_no);
 		model.addAttribute("city_no_name",city_no_name);
 		model.addAttribute("city_name_date",city_name_date);
+		model.addAttribute("city_hotel",city_hotel);
 		//String user_id=session.getAttribute("id").toString();
 		//cityService.makingplanner(user_id);
 		model.addAttribute("TripAdviserHotelApiKey",TripAdviserHotelApiKey);
@@ -165,12 +173,11 @@ public class PlannerController {
 		int gap=5;
 		
 		Map<String, String> maps=new HashMap<String, String>();
-		
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
 		//호텔
 		List<HotelDTO> hotel_dto_list=hotelService.selectHotelDTOByCitiesNo(Integer.parseInt(cities_no));
 		if(hotel_dto_list.size()!=0) {
 			HotelDTO hotel_dto =hotel_dto_list.get(0);
-			SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
 			Date checkIn=transFormat.parse(hotel_dto.getHotel_in());
 			Date checkOut=transFormat.parse(hotel_dto.getHotel_out());
 			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
@@ -181,10 +188,25 @@ public class PlannerController {
 			//;
 		}
 		else {
+			String calendarDate=cityService.selectCitiesDate(Integer.parseInt(cities_no));
+			
+			System.out.println("calendarDate:"+calendarDate);
 			maps.put("hotel_latlng", city_name);
 			maps.put("hotel_name", city_name);
-			maps.put("hotel_date", "없음");
 			maps.put("hotel_price", "없음");
+			if(calendarDate!="") {
+				Date checkIn=transFormat.parse(calendarDate.split(",")[0]);
+				Date checkOut=transFormat.parse(calendarDate.split(",")[1]);
+				gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
+				maps.put("hotel_date",Integer.toString(gap));
+			}
+			else {
+				maps.put("hotel_date", "없음");
+				
+			}
+			
+			
+			
 		}
 		
 		//호텔
@@ -302,6 +324,7 @@ public class PlannerController {
 			String ids="";
 			Map<String, Object> maps2=new HashMap<String, Object>();
 			if(date.contains("day")) {
+				
 				maps2.put("plan_date", date.substring(3));
 				maps2.put("cities_no", cities_no);
 				if(plannerService.insertPlan(maps2)) {
@@ -312,7 +335,7 @@ public class PlannerController {
 					
 					ids=map.get(date).substring(0,map.get(date).length()-1);
 					System.out.println(date+"일차 아이디들: "+ids);
-					for(String id:ids.split("&")) {
+					for(String id:ids.substring(0,ids.length()-1).split("&")) {
 						dto.setSpot_id(id.split(":")[0]);
 						dto.setLatlng(id.split(":")[1]);
 						dto.setSpot_name(id.split(":")[2]);
