@@ -19,10 +19,6 @@
 	<select id="myPlannerListSelectList" parameterType="java.lang.String" resultType="PlannerDTO">
 		SELECT * FROM planner WHERE user_id=#{id}
 	</select>
-	
-	<insert id="kako" parameterType="MemberDTO">
-		INSERT INTO userinfo(USER_ID,USER_PWD,USER_RRN,USER_GENDER) VALUES(#{kakaoemail},#{kakoid},#{rrn},#{gender})
-	</insert>
 	<insert id="registerInsert" parameterType="AndroidMemberDTO">
 		INSERT INTO userinfo VALUES(#{user_id},#{user_name},#{user_pwd},#{user_rrn},#{user_gender})
 	</insert>

@@ -181,6 +181,22 @@ public class MemberController {
 		}
 		return "/home.tiles";
 	}
+	@ResponseBody
+	@RequestMapping("kakao.do")
+	public String KSignUp(MemberDTO dto,HttpSession session) {
+		if(memberService.idCheck(dto.getUser_id())=="failure"){
+			session.setAttribute("id", dto.getUser_id());
+			return "login";
+		}
+		if(dto.getUser_gender()==null) dto.setUser_gender("male");
+		if(dto.getUser_name()==null) dto.setUser_name("이름없음");
+		if(dto.getUser_rrn()==null) dto.setUser_rrn("0");
+		if(memberService.SignUp(dto)) { 
+			session.setAttribute("id", dto.getUser_id());
+			return "signup";
+		}
+		return "failure";
+	}
 	@RequestMapping("IdCheck.do")
 	@ResponseBody
 	public String IdCheck(@RequestParam String signUpId) {

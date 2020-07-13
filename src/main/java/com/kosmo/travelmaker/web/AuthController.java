@@ -11,8 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
 
@@ -40,7 +39,7 @@ public class AuthController {
 	public String logout(HttpSession session) {
 		//로그아웃 처리-세션영역 데이타 삭제
 		session.invalidate();
-		return "/home.tiles";	
+		return "redirect:/";	
 	}//////////logout
 	
 }
