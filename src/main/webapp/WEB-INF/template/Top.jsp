@@ -412,6 +412,34 @@
 		</div>
 	</div>
 </div>
+<div class="modal-chatbot">
+	<button class="" type="button" data-toggle="modal" data-target="#ChatModal" style="text-align: right;"><img src="images/마크레스.jpg" alt=""></button>
+	<div class="modal fade" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info">
+    <div class="modal-content">
+      <div class="modal-header d-flex justify-content-center">        
+        <h4 class="modal-title" id="myModalLabel" style="color:white;">TravelMaker</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+		<iframe
+          id="iframe"
+          style="min-height: 60vh; "
+          width="100%"
+          height="90%"
+          src="https://193a82c8a2e8.ngrok.io">                        
+      </iframe>
+       </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+</div>
 <script>
 $(function(){
 	//회원가입 validate에러 발생시
