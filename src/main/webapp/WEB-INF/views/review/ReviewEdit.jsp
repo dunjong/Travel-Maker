@@ -49,7 +49,7 @@
 	font-weight: 400;
 }
 #reviewWritePlace {
-	width: 75%;
+	width: 60%;
 	border-radius: 20px;
 }
 
@@ -151,21 +151,20 @@
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 									<select class="form-control input-sm" id="reviewWriteCityTag" name="city_no" required="required">
-										<option value="">도시를 선택하세요</option>
-										<option value="1">세부</option>
-										<option value="2">보라카이</option>
-										<option value="3">마닐라</option>
-										<option value="4">하노이</option>
-										<option value="5">나트랑</option>
-										<option value="6">다낭</option>
-										<option value="7">푸켓</option>
-										<option value="8">방콕</option>
-										<option value="9">발리</option>
-										<option value="10">롬복</option>
-										<option value="11">쿠알라룸푸르</option>
-										<option value="12">코타키나발루</option>
-										<option value="13">싱가포르</option>
-										<option value="14">라오스</option>
+										<option value="1" <c:if test="${record.city_no == '1'}">selected</c:if>>세부</option>
+										<option value="2" <c:if test="${record.city_no == '2'}">selected</c:if>>보라카이</option>
+										<option value="3" <c:if test="${record.city_no == '3'}">selected</c:if>>마닐라</option>
+										<option value="4" <c:if test="${record.city_no == '4'}">selected</c:if>>하노이</option>
+										<option value="5" <c:if test="${record.city_no == '5'}">selected</c:if>>나트랑</option>
+										<option value="6" <c:if test="${record.city_no == '6'}">selected</c:if>>다낭</option>
+										<option value="7" <c:if test="${record.city_no == '7'}">selected</c:if>>푸켓</option>
+										<option value="8" <c:if test="${record.city_no == '8'}">selected</c:if>>방콕</option>
+										<option value="9" <c:if test="${record.city_no == '9'}">selected</c:if>>발리</option>
+										<option value="10" <c:if test="${record.city_no == '10'}">selected</c:if>>롬복</option>
+										<option value="11" <c:if test="${record.city_no == '11'}">selected</c:if>>쿠알라룸푸르</option>
+										<option value="12" <c:if test="${record.city_no == '12'}">selected</c:if>>코타키나발루</option>
+										<option value="13" <c:if test="${record.city_no == '13'}">selected</c:if>>싱가포르</option>
+										<option value="14" <c:if test="${record.city_no == '14'}">selected</c:if>>라오스</option>
 									</select> <select class="form-control input-sm" id="reviewWritePlaceTag">
 										<option>리뷰 장소를 선택하세요</option>
 										<option value="food">식당</option>
