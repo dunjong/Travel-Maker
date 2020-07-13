@@ -684,57 +684,56 @@
 				data-aos-delay="100">
 
 				<div class="testimonial-item">
-					<img src="<c:url value='/plugins/assets/img/bananaman.jpg'/>"
+					<img src="<c:url value='/plugins/assets/img/dibo.PNG'/>"
 						class="testimonial-img" alt="">
-					<h3>바나나맨</h3>
-					<h4>banana &amp; banana</h4>
+					<h3>박종현</h3>
+					<h4>시원한 동남아로 Pick!</h4>
 					<p>
-						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 바나나는 이렇게
-						먹는거에요.. <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 지친마음을 시원한 바다와 함께 날려보는 것은 어떨까요? <i class="bx bxs-quote-alt-right quote-icon-right"></i>
 					</p>
 				</div>
 
 				<div class="testimonial-item">
-					<img src="<c:url value='/plugins/assets/img/bananaman.jpg'/>"
+					<img src="<c:url value='/plugins/assets/img/yeonsu2.PNG'/>"
 						class="testimonial-img" alt="">
-					<h3>바나나맨 박종현</h3>
-					<h4>banana man</h4>
+					<h3>장연수</h3>
+					<h4>여행을 떠나자!</h4>
 					<p>
-						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 바나나란 심오한거에오
+						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 트래블메이커가 세상에 하나뿐인,나만의 여행을 만들어드립니다.😆
 						<i class="bx bxs-quote-alt-right quote-icon-right"></i>
 					</p>
 				</div>
 
 				<div class="testimonial-item">
-					<img src="<c:url value='/plugins/assets/img/bananaman.jpg'/>"
+					<img src="<c:url value='/plugins/assets/img/jongmin.jpg'/>"
 						class="testimonial-img" alt="">
-					<h3>바나나좋아하는 박조년</h3>
-					<h4>banana designer</h4>
+					<h3>김종민</h3>
+					<h4>행복한 여행</h4>
 					<p>
-						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 바나나를 디자인해보아오
+						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 제가 제일 좋았던 여행지는 세부였어요!
 						<i class="bx bxs-quote-alt-right quote-icon-right"></i>
 					</p>
 				</div>
 
 				<div class="testimonial-item">
-					<img src="<c:url value='/plugins/assets/img/bananaman.jpg'/>"
+					<img src="<c:url value='/plugins/assets/img/dongjun.PNG'/>"
 						class="testimonial-img" alt="">
-					<h3>바나나 많이 먹는 박종현</h3>
-					<h4>banana many eat man</h4>
+					<h3>여동준</h3>
+					<h4>설레임을 갖는 여행</h4>
 					<p>
-						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 바나나 많이 먹게하는중
+						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 여행계획을 세울때 느끼는 설렘을 동행가는 사람과 함께 느껴보는 것은 어떨까요?
 						<i class="bx bxs-quote-alt-right quote-icon-right"></i>
 					</p>
 				</div>
 
 				<div class="testimonial-item">
-					<img src="<c:url value='/plugins/assets/img/bananaman.jpg'/>"
+					<img src="<c:url value='/plugins/assets/img/dongmin.jpg'/>"
 						class="testimonial-img" alt="">
-					<h3>바나나만 먹는 박종현</h3>
-					<h4>physical</h4>
+					<h3>임동민</h3>
+					<h4>지친마음을 여행으로!</h4>
 					<p>
-						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 바나나 먹는 걸
-						습관화합시다 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 힐링하는 여행으로 숲속으로 떠나는 것도 좋은거같아요!
+						<i class="bx bxs-quote-alt-right quote-icon-right"></i>
 					</p>
 				</div>
 

@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestMethod; 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -147,7 +147,7 @@ public class MemberController {
 		
 		return "삭제 성공";
 	}
-	
+	//변경됨
 	@RequestMapping("MyPlanner.kosmo")
 	public String MyPlanner(@RequestParam Map map,Model model,HttpSession session) {
 		List<PlannerDTO> list_planner=memberService.plannerList(session.getAttribute("id").toString());

@@ -217,10 +217,22 @@
             </div>
           </div>
           <!-- ./col -->
- 
+ 		   <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">   
+              <div class="inner">
+                <h3>COVID-19</h3>     
+                <p>실시간 코로나 현황 및 이슈</p> 
+              </div>
+              <div class="icon">
+              	<i class="ion ion-logo-freebsd-devil"></i> 
+              </div>
+              <a href="http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun=" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
         </div>
         <!-- /.row -->
-        <!-- Main row -->
+        <!-- Main row --> 
         <div class="row">
           <!-- Left col -->
           <section class="col-lg-7 connectedSortable">
@@ -246,12 +258,12 @@
                 <div class="tab-content p-0">
                   <!-- Morris chart - Sales -->
                   <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>                         
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>                         
-                  </div>  
+                       style="position: relative; height: 550px;">
+                     <canvas id="bar-chart" width="800" height="450"></canvas>                        
+                   </div> 
+                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 450;">  
+                    <canvas id="pie-chart" width="800" style="height: 450;"></canvas>                           
+                  </div>      
                 </div>
               </div><!-- /.card-body -->
             </div>
@@ -339,7 +351,7 @@
                       <input type="checkbox" value="" name="todo4" id="todoCheck4">
                       <label for="todoCheck4"></label>
                     </div>
-                    <span class="text">여자가 좋은 KING GOD 게이 임동민 </span>
+                    <span class="text">깃 허브 체크 </span> 
                     <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
@@ -355,13 +367,13 @@
                       <input type="checkbox" value="" name="todo5" id="todoCheck5">
                       <label for="todoCheck5"></label>
                     </div>
-                    <span class="text">서버 체크</span>
+                    <span class="text">이번달 인기여행지 자료 확인</span>
                     <small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
                     </div>
-                  </li>
+                  </li> 
                   <li>
                     <span class="handle">
                       <i class="fas fa-ellipsis-v"></i>
@@ -448,8 +460,8 @@
               <div class="card-header border-0">
                 <h3 class="card-title">
                   <i class="fas fa-th mr-1"></i>
-                  Sales Graph
-                </h3>
+                  	예약 현황 그래프
+                </h3> 
 
                 <div class="card-tools">
                   <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
@@ -607,6 +619,50 @@
       "responsive": true,
     });
   });
+  
+  new Chart(document.getElementById("bar-chart"), {
+	    type: 'bar',
+	    data: {
+	      labels: ["SUN", "MON", "THUE", "WED", "THUR","FRI","SAT"],
+	      datasets: [
+	        {
+	          label: "Population (millions)",
+	          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7e4719","#0022bb"],   
+	          data: [0,10,18,15,16,21,25] 
+	        }    
+	      ]
+	    },
+	    options: {
+	      legend: { display: false },   
+	      title: {
+	        display: true, 
+	        text: '7월 2째주 방문자 그래프'
+	      }
+	    }
+	});
+  
+  new Chart(document.getElementById("pie-chart"), {
+	    type: 'pie',
+	    data: {
+	      labels: ["SUN", "MON", "THUE", "WED", "THUR","FRI","SAT"],
+	      datasets: [
+	        {
+	          label: "Population (millions)",
+	          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7e4719","#e3as10"], 
+	          data: [0,10,18,15,16,21,25] 
+	        }
+	      ]
+	    },
+	    options: {
+	      legend: { display: false },  
+	      title: {
+	        display: true, 
+	        text: '7월 2째주 방문자 그래프'
+	      }
+	    }
+	});
+
+  
 </script>
 </body>
 </html>

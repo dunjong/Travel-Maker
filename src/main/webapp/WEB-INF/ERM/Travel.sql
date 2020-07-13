@@ -42,20 +42,48 @@ DROP SEQUENCE seq_tag_rel;
 
 /* Create Sequences */
 
-CREATE SEQUENCE seq_acc;
-CREATE SEQUENCE seq_air;
-CREATE SEQUENCE seq_auto_plan;
-CREATE SEQUENCE seq_cities;
-CREATE SEQUENCE seq_city;
-CREATE SEQUENCE seq_hotel;
-CREATE SEQUENCE seq_plan;
-CREATE SEQUENCE seq_planner;
-CREATE SEQUENCE seq_res;
-CREATE SEQUENCE seq_review;
-CREATE SEQUENCE seq_spot_auto;
-CREATE SEQUENCE seq_spot_save;
-CREATE SEQUENCE seq_tag;
-CREATE SEQUENCE seq_tag_rel;
+CREATE SEQUENCE seq_acc 
+nocache 
+nocycle;
+CREATE SEQUENCE seq_air
+nocache 
+nocycle;
+CREATE SEQUENCE seq_auto_plan
+nocache 
+nocycle;
+CREATE SEQUENCE seq_cities
+nocache 
+nocycle;
+CREATE SEQUENCE seq_city
+nocache 
+nocycle;
+CREATE SEQUENCE seq_hotel
+nocache 
+nocycle;
+CREATE SEQUENCE seq_plan
+nocache 
+nocycle;
+CREATE SEQUENCE seq_planner
+nocache 
+nocycle;
+CREATE SEQUENCE seq_res
+nocache 
+nocycle;
+CREATE SEQUENCE seq_review
+nocache 
+nocycle;
+CREATE SEQUENCE seq_spot_auto
+nocache 
+nocycle;
+CREATE SEQUENCE seq_spot_save
+nocache 
+nocycle;
+CREATE SEQUENCE seq_tag
+nocache 
+nocycle;
+CREATE SEQUENCE seq_tag_rel
+nocache 
+nocycle;
 
 
 

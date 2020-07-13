@@ -61,32 +61,28 @@
 									data-toggle="dropdown">MEMBER<span class="caret"></span>
 								</a>
 									<ul class="dropdown-menu">
-										<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
 										<c:if test="${empty sessionScope.id}" var="login">
 											<li id="loginbtn1" data-toggle="modal"><a href="#">로그인</a></li>
+											<li id="signupmodalbtn" data-toggle="modal"><a href="#">회원가입</a></li>
 										</c:if>
 										<c:if test="${!login}">
+											<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
 											<li id="logoutbtn1"><a href="#">로그아웃</a></li>
+											<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
+											<li> <!-- 리뷰리스트.코스모를 리뷰서치.코스모로 변경: 여동준 --> 
+											<a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a></li>
+											<li><a href="<c:url value='/TravelMaker/admin1.kosmo'/>"> 관리자</a></li>
 										</c:if>
-										<li id="signupmodalbtn" data-toggle="modal"><a href="#">회원가입</a></li>
-										<li><a
-											href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
-										<li>
-											<!-- 리뷰리스트.코스모를 리뷰서치.코스모로 변경: 여동준 --> <a
-											href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a>
-										</li>
-										<li>
-											<a href="<c:url value='/TravelMaker/admin1.kosmo'/>"> 관리자</a>
-										</li>
-									</ul></li>
-								<li><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown">Customer Service<span class="caret"></span>
-								</a>
+										
+									</ul>
+									</li>
+								<li>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer Service<span class="caret"></span></a>
 									<ul class="dropdown-menu">
-										<li><a
-											href="<c:url value='/TravelMaker/CustomerService.kosmo'/>">공지사항</a></li>
+										<li><a href="<c:url value='/TravelMaker/CustomerService.kosmo'/>">공지사항</a></li>
 										<li><a href="#">QnA</a></li>
-									</ul></li>
+									</ul>
+									</li>
 							</ul>
 						</nav>
 						<!--  <div class="header_phone ml-auto">Call us:010-7928-1552</div>-->
@@ -132,14 +128,6 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="home_page_nav">
-			<ul class="d-flex flex-column align-items-end justify-content-end">
-				<li><a href="#" data-scroll-to="#destinations">추천지<span>01</span></a></li>
-				<li><a href="#" data-scroll-to="#testimonials">리뷰<span>02</span></a></li>
-				<li><a href="#" data-scroll-to="#news">특별 상품<span>03</span></a></li>
-			</ul>
-		</div>
 	</div>
 </div>
 
@@ -161,33 +149,36 @@
 		<ul>
 			<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 			<c:if test="${not empty sessionScope.id}">
-			<li><a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a></li>
+				<li><a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a></li>
 			</c:if>
 			<c:if test="${empty sessionScope.id}">
-			<li><a href="#" id='loginrequired2'>PLANNER</a></li>
+				<li><a href="#" id='loginrequired2'>PLANNER</a></li>
 			</c:if>
-			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span
-					class="caret"></span></a>
+			<li>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">리뷰
-							리스트</a></li>
-					<li><a href="<c:url value='/TravelMaker/ReviewView.kosmo'/>">리뷰
-							보기</a></li>
+					<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">리뷰 리스트</a></li>
+					<li><a href="<c:url value='/TravelMaker/ReviewView.kosmo'/>">리뷰 보기</a></li>
 					<li><a href="#">리뷰 작성</a></li>
-				</ul></li>
+				</ul>
+			</li>
 			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">MEMBER<span
 					class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
+					
 					<c:if test="${empty sessionScope.id}" var="login">
 						<li id="loginbtn2" data-toggle="modal"><a href="#">로그인</a></li>
+						<li><a href="#" id="signupmodalbtn">회원가입</a></li>
 					</c:if>
 					<c:if test="${!login}">
+						<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
 						<li id="logoutbtn2"><a href="#">로그아웃</a></li>
+						<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
+						<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">나의리뷰</a></li>
+						<li><a href="<c:url value='/TravelMaker/admin1.kosmo'/>"> 관리자</a></li>
 					</c:if>
-					<li><a href="#" id="signupmodalbtn">회원가입</a></li>
-					<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
-					<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">나의리뷰</a></li>
+					
+					
 				</ul></li>
 			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer
 					Service<span class="caret"></span>
@@ -240,7 +231,7 @@
 				<div class="text-center mb-3" style="width: 100%; height: 100%">
 					<a href="#" id='loginsubmit' class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
 					<p class="font-small grey-text d-flex justify-content-end">회원이 아니신가요?
-						<a href="#" id="signupmodalbtn" class="blue-text ml-1">
+						<a href="#" id="signupmodalbtn2" class="blue-text ml-1">
 							<i class="fas fa-share animated rotateIn">Click!</i>
 						</a>
 					</p>
@@ -255,7 +246,7 @@
 				<a href="http://developers.kakao.com/logout"></a>
 				<script type='text/javascript'>
 					//<![CDATA[
-					Kakao.init('35242d351aaef4b1810d9585d4e9e0d5'); //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
+					Kakao.init('788481db29afb2534dcb46b9ac0c6770'); //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
 					Kakao.Auth.createLoginButton({
 						container : '#kakao-login-btn', 
 						success : function(authObj) {
@@ -263,6 +254,7 @@
 								url : '/v2/user/me', 
 								success : function(res) {
 									console.log(res)
+									console.log(res.properties.nickname)
 									console.log(res.kakao_account.email);//<-- 카카오 이메일
 									console.log(res.id);//<-- 아이디
 									console.log(res.kakao_account.age_range);//<--나이
@@ -271,30 +263,33 @@
 										url:"<c:url value='/TravelMaker/kakao.do'/>",//요청할 서버의 URL주소
 										type:'get',//데이타 전송방식(디폴트는 get방식) 
 										dataType:'text',//서버로 부터 응답 받을 데이타의 형식 설정
-										data:{"signUpId":$('#signUpId').prop('value')},
+										data:{
+											"user_id":res.kakao_account.email,
+											"user_pwd":res.id,
+											"user_rrn":res.kakao_account.age_range,
+											"user_gender":res.kakao_account.gender,
+											"user_name":res.properties.nickname
+										},
 										success:function(response){
-											if(response=='failure'){
-												$('#idErrormessage').text("아이디가 이미 존재합니다");
-											}
-											else if(response=='success'){
-												$('#idErrormessage').text("중복되는 아이디가 없습니다");
-												$('#idErrormessage').prop('style','color:green;font-size: .8em')
-											}
+											if((!res.kakao_account.has_age_range||!res.kakao_account.has_email||!res.kakao_account.has_gender)&&response=="signup")
+												alert('선택사항 미충족시 기본값으로 대체됩니다\n회원정보에서 수정해주세요')
+											else if(response=="signup") alert("간편회원가입 성공");
+											history.go(0);
 										},
 										error:function(data){//서버로부터 비정상적인 응답을 받았을때 호출되는 콜백함수
-											console.log('에러:',data.responseText);				
+											console.log('쿼리실행중에러:',data.responseText);				
 										}
 									});
 							
 						            },
 						            fail: function(error) {
-						              alert(JSON.stringify(error));
+						              console.log('카카오로그인실패',JSON.stringify(error));
 						            }
 						          });
 						                  
 						        },
 						        fail: function(err) {
-						          alert(JSON.stringify(err));
+						          console.log('카카오로그인실패2',JSON.stringify(err));
 						        }
 						      });
 				</script>
@@ -380,16 +375,16 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label" style="color: black;">나이</label>
 						<div class="col-sm-4">
-							<select class="form-control input-sm" name="user_rrn" value="${param.user_rrn}">
+							<select class="form-control input-sm" name="user_rrn">
 								<option>출생 연도를 선택하세요</option>
-								<option value="1950" >1950~1959</option>
-								<option value="1960">1960~1969</option>
-								<option value="1970">1970~1979</option>
-								<option value="1980">1980~1989</option>
-								<option value="1990">1990~1999</option>
-								<option value="2000">2000~2009</option>
-								<option value="2010">2010~2019</option>
-								<option value="2020">2020~</option>
+								<option <c:if test="${param.user_rrn=='60~70' }">checked</c:if> value="60~70" >1950~1959</option>
+								<option <c:if test="${param.user_rrn=='50~60' }">checked</c:if>value="50~60">1960~1969</option>
+								<option <c:if test="${param.user_rrn=='40~50' }">checked</c:if>value="40~50">1970~1979</option>
+								<option <c:if test="${param.user_rrn=='30~40' }">checked</c:if>value="30~40">1980~1989</option>
+								<option <c:if test="${param.user_rrn=='20~30' }">checked</c:if>value="20~30">1990~1999</option>
+								<option <c:if test="${param.user_rrn=='10~20' }">checked</c:if>value="10~20">2000~2009</option>
+								<option <c:if test="${param.user_rrn=='0~10' }">checked</c:if>value="0~10">2010~2019</option>
+								<option <c:if test="${param.user_rrn=='0' }">checked</c:if>value="0">2020~</option>
 							</select> <span style="color: red; font-size: .8em">${ageError}<form:errors
 									path="memberDTO.user_rrn" /></span>
 						</div>
@@ -400,9 +395,9 @@
 							<!--  가로 배치 -->
 							<div class="radio">
 								<label><input type="radio" value="남자" name="user_gender"
-									<c:if test="${param.user_gender=='남자' }">checked</c:if>>남자</label> <label><input
+									<c:if test="${param.user_gender=='male' }">checked</c:if>>male</label> <label><input
 									type="radio" value="여자" name="gender"
-									<c:if test="${param.user_gender=='여자' }">checked</c:if>>여자</label>
+									<c:if test="${param.user_gender=='female' }">checked</c:if>>female</label>
 							</div>
 							<span style="color: red; font-size: .8em">${genderError}<form:errors
 									path="memberDTO.user_gender" /></span>
@@ -467,6 +462,11 @@ $(function(){
 	//회원가입용
 	$('#signupmodalbtn').click(function(e) {
 		e.preventDefault();
+		$('#sighupmodal').modal("show");
+	});
+	$('#signupmodalbtn2').click(function(e) {
+		e.preventDefault();
+		$('#loginmodal').modal("hide")
 		$('#sighupmodal').modal("show");
 	});
 	$('#signUpIdCheckBtn').click(function(e){
