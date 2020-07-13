@@ -112,32 +112,20 @@ $(function () {
   // Sales chart
   var salesChartCanvas = document.getElementById('revenue-chart-canvas').getContext('2d');
   //$('#revenue-chart').get(0).getContext('2d');
-
+ 
   var salesChartData = {
-    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels  : ['SUN', 'MON', 'THU', 'WED', 'THUR', 'FRI', 'SAT'],
     datasets: [
       {
         label               : 'Digital Goods',
         backgroundColor     : 'rgba(60,141,188,0.9)',
         borderColor         : 'rgba(60,141,188,0.8)',
-        pointRadius          : false,
         pointColor          : '#3b8bba',
         pointStrokeColor    : 'rgba(60,141,188,1)',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
         data                : [28, 48, 40, 19, 86, 27, 90]
-      },
-      {
-        label               : 'Electronics',
-        backgroundColor     : 'rgba(210, 214, 222, 1)',
-        borderColor         : 'rgba(210, 214, 222, 1)',
-        pointRadius         : false,
-        pointColor          : 'rgba(210, 214, 222, 1)',
-        pointStrokeColor    : '#c1c7d1',
-        pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(220,220,220,1)',
-        data                : [65, 59, 80, 81, 56, 55, 40]
-      },
+      }
     ]
   }
 
@@ -186,7 +174,7 @@ $(function () {
   }
   var pieOptions = {
     legend: {
-      display: false
+      display: True
     },
     maintainAspectRatio : false,
     responsive : true,
@@ -204,7 +192,7 @@ $(function () {
   //$('#revenue-chart').get(0).getContext('2d');
 
   var salesGraphChartData = {
-    labels  : ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2', '2012 Q3', '2012 Q4', '2013 Q1', '2013 Q2'],
+    labels  : ['2020/1', '2020/2', '2020/3', '2020/4', '2020/5', '2020/6', '2020/7'],
     datasets: [
       {
         label               : 'Digital Goods',
@@ -217,7 +205,7 @@ $(function () {
         pointHoverRadius    : 7,
         pointColor          : '#efefef',
         pointBackgroundColor: '#efefef',
-        data                : [2666, 2778, 4912, 3767, 6810, 5670, 4820, 15073, 10687, 8432]
+        data                : [2666, 2778, 4912, 3767, 6810, 5670, 4820]
       }
     ]
   }
