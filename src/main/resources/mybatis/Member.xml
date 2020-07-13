@@ -30,10 +30,10 @@
 		SELECT * FROM userinfo WHERE user_id=#{user_id}
 	</select>
 	<update id="updateMemberDTO" parameterType="java.util.Map">
-		UPDATE userinfo SET user_name=#{user_name},user_pwd=#{user_pwd}, user_rrn=#{user_rrn}, user_gender=#{user_gender} where user_id=#{user_id}
+		UPDATE userinfo SET ${updateColumn}=#{value} where user_id=#{user_id}
 	</update>
 	
-	<select id="members" resultType="MemberDTO">
+	<select id="memberlist" resultType="MemberDTO">
 		SELECT * FROM userinfo 
 	</select>
 </mapper>
