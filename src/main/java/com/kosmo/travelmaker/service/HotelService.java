@@ -11,4 +11,6 @@ public interface HotelService {
 
 	List<HotelDTO> selectHotelDTOByCitiesNo(int cities_no);
 
+	boolean updateHotelInfo(Map map);
+
 }

@@ -89,6 +89,9 @@ public class PlannerController {
 			planner_no=Integer.parseInt(map.get("planner_no").toString());
 			Map<String, Integer> maps=new HashMap<String, Integer>();
 			maps.put("planner_no", planner_no);
+			
+			
+			
 			for(int city_no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
 				
 				CityDTO cityDTO= cityService.selectCityDTO(city_no);

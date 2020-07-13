@@ -29,5 +29,10 @@ public class HotelDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectHotelDTOByCitiesNo",cities_no );
 	}
+
+	public boolean updateHotelInfo(Map map) {
+		// TODO Auto-generated method stub
+		return sqlMapper.update("updateHotelInfo", map)==1?true:false;
+	}
 	
 }

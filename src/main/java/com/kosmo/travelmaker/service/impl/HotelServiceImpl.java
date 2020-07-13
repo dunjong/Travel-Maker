@@ -31,5 +31,10 @@ public class HotelServiceImpl implements HotelService {
 		// TODO Auto-generated method stub
 		return hotelDAO.selectHotelDTOByCitiesNo(cities_no);
 	}
+	@Override
+	public boolean updateHotelInfo(Map map) {
+		// TODO Auto-generated method stub
+		return hotelDAO.updateHotelInfo(map);
+	}
 
 }
