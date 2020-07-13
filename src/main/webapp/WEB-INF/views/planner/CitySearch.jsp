@@ -684,22 +684,22 @@
 				data-aos-delay="100">
 
 				<div class="testimonial-item">
-					<img src="<c:url value='/plugins/assets/img/bananaman.jpg'/>"
+					<img src="<c:url value='/plugins/assets/img/dibo.PNG'/>"
 						class="testimonial-img" alt="">
 					<h3>박종현</h3>
-					<h4>하세기!</h4>
+					<h4>시원한 동남아로 Pick!</h4>
 					<p>
-						<i class="bx bxs-quote-alt-left quote-icon-left"></i> ★여친 급구-010-4488-3820★ <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 지친마음을 시원한 바다와 함께 날려보는 것은 어떨까요? <i class="bx bxs-quote-alt-right quote-icon-right"></i>
 					</p>
 				</div>
 
 				<div class="testimonial-item">
-					<img src="<c:url value='/plugins/assets/img/yeonsu.PNG'/>"
+					<img src="<c:url value='/plugins/assets/img/yeonsu2.PNG'/>"
 						class="testimonial-img" alt="">
 					<h3>장연수</h3>
 					<h4>여행을 떠나자!</h4>
 					<p>
-						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 여행을 가기전 travelmaker를 이용해보세요!
+						<i class="bx bxs-quote-alt-left quote-icon-left"></i> 트래블메이커가 세상에 하나뿐인,나만의 여행을 만들어드립니다.😆
 						<i class="bx bxs-quote-alt-right quote-icon-right"></i>
 					</p>
 				</div>
