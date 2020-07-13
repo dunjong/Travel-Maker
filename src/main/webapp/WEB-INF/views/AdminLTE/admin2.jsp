@@ -190,9 +190,11 @@
 										</thead>
 										<tbody>
 											<c:forEach items="${members}" var="dto">
-												<tr>
+												<tr>													
+													<td>${dto.user_name}</td>
 													<td>${dto.user_id}</td>
-													<td>${dto.user_pwd}</td>
+													<td>${dto.user_rrn }</td>
+													<td>${dto.user_gender }</td>
 												</tr>
 											</c:forEach>
 										</tbody>

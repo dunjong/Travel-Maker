@@ -213,8 +213,6 @@
 	</div>
 </div>
 
-
-
 <!--로그인 modal-->
 <div class="modal fade" id="loginmodal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">

@@ -310,6 +310,13 @@
 						</div>
 
 					</div>
+							<iframe
+          id="iframe"
+          style="min-height: 60vh; float: right;"
+          width="370"
+          height="460"
+          src="https://193a82c8a2e8.ngrok.io">                        
+      </iframe>
 				</div>
 
 				<!-- News Sidebar -->
@@ -334,7 +341,9 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>
+
 
 <!-- Footer -->
 

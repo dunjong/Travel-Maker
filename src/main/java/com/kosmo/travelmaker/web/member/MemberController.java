@@ -186,7 +186,11 @@ public class MemberController {
 	public String IdCheck(@RequestParam String signUpId) {
 		return memberService.idCheck(signUpId);
 	}
-	
+//	@RequestMapping("admin2.kosmo")
+//	public String memberList(Map map, Model model) {
+//		MemberDTO dto = memberService.selectMember(map);
+//		
+//	}
 	/*
 	@RequestMapping(value="snsLogin/{userId}", method=RequestMethod.POST)
 	public String snsLogin(@PathVariable String userId, HttpSession session ) throws Exception{

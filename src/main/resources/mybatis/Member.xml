@@ -34,7 +34,7 @@
 	</update>
 	
 	<select id="members" resultType="MemberDTO">
-		SELECT * FROM userinfo 
+		SELECT * FROM userinfo
 	</select>
 </mapper>
 
