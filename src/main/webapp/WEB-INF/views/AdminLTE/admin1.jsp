@@ -217,7 +217,19 @@
             </div>
           </div>
           <!-- ./col -->
- 
+ 		   <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">   
+              <div class="inner">
+                <h3>COVID-19</h3>     
+                <p>실시간 코로나 현황 및 이슈</p> 
+              </div>
+              <div class="icon">
+              	<i class="ion ion-logo-freebsd-devil"></i> 
+              </div>
+              <a href="http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun=" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
         </div>
         <!-- /.row -->
         <!-- Main row -->
@@ -339,7 +351,7 @@
                       <input type="checkbox" value="" name="todo4" id="todoCheck4">
                       <label for="todoCheck4"></label>
                     </div>
-                    <span class="text">여자가 좋은 KING GOD 게이 임동민 </span>
+                    <span class="text">깃 허브 체크 </span> 
                     <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
@@ -448,8 +460,8 @@
               <div class="card-header border-0">
                 <h3 class="card-title">
                   <i class="fas fa-th mr-1"></i>
-                  Sales Graph
-                </h3>
+                  	예약 현황 그래프
+                </h3> 
 
                 <div class="card-tools">
                   <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
