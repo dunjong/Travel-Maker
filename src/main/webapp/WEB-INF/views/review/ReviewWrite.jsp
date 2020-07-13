@@ -28,10 +28,9 @@
 	margin-bottom: 10px;
 	text-align: center;
 }
-
-#reviewWritePlaceTag {
+#reviewWriteCityTag {
 	height: 50px;
-	width: 25%;
+	width: 18%;
 	border-radius: 20px;
 	background: #F49739;
 	color: #FFFFFF;
@@ -39,7 +38,16 @@
 	font-size: 16px;
 	font-weight: 400;
 }
-
+#reviewWritePlaceTag {
+	height: 50px;
+	width: 22%;
+	border-radius: 20px;
+	background: #F49739;
+	color: #FFFFFF;
+	font-family: 'Oswald', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+}
 #reviewWritePlace {
 	width: 75%;
 	border-radius: 20px;
@@ -139,13 +147,28 @@
 									onblur="this.placeholder = '제목을 입력하세요'">
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<select class="form-control input-sm" id="reviewWritePlaceTag">
+									<select class="form-control input-sm" id="reviewWriteCityTag" name="city_no" required="required">
+										<option value="">도시를 선택하세요</option>
+										<option value="1">세부</option>
+										<option value="2">보라카이</option>
+										<option value="3">마닐라</option>
+										<option value="4">하노이</option>
+										<option value="5">나트랑</option>
+										<option value="6">다낭</option>
+										<option value="7">푸켓</option>
+										<option value="8">방콕</option>
+										<option value="9">발리</option>
+										<option value="10">롬복</option>
+										<option value="11">쿠알라룸푸르</option>
+										<option value="12">코타키나발루</option>
+										<option value="13">싱가포르</option>
+										<option value="14">라오스</option>
+									</select> <select class="form-control input-sm" id="reviewWritePlaceTag">
 										<option>리뷰 장소를 선택하세요</option>
-										<option value="city">도시</option>
 										<option value="food">식당</option>
 										<option value="tours">관광명소</option>
 										<option value="hotels">숙소</option>
-										<option value="myPlanner">내 플래너</option>
+										<option value="myPlanner">내 플랜</option>
 									</select> <input type="text" id="reviewWritePlace" class="search_input"
 										placeholder="장소 이름을 입력하세요">
 								</div>
