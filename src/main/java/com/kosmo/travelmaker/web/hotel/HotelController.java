@@ -1,5 +1,6 @@
 package com.kosmo.travelmaker.web.hotel;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -53,9 +54,19 @@ public class HotelController {
 	@ResponseBody
 	public String HotelTest(@RequestParam Map map) {
 		String flag= "실패";
-		if(hotelService.insertHotelByMap(map)) {
-			flag="성공!";
+		int cities_no=Integer.parseInt((String) map.get("cities_no"));
+		List<HotelDTO> hotel_dto_list= hotelService.selectHotelDTOByCitiesNo(cities_no);
+		if(hotel_dto_list.size()==0) {
+			if(hotelService.insertHotelByMap(map)) {
+				flag="성공!";
+			}
 		}
+		else {
+			if(hotelService.updateHotelInfo(map)) {
+				flag="호텔 예약이 변경 되었습니다.";
+			};
+		}
+		
 		String hotel_name=map.get("hotel_name").toString();
 		String hotel_city=map.get("hotel_city").toString();
 		String hotel_in=map.get("hotel_in").toString();
@@ -65,7 +76,6 @@ public class HotelController {
 		String hotel_price=map.get("hotel_price").toString();
 		String hotel_latlng=map.get("hotel_latlng").toString();
 		String hotel_score=map.get("hotel_score").toString();
-		String cities_no=map.get("cities_no").toString();
 		
 		
 		

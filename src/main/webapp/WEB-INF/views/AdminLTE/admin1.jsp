@@ -42,7 +42,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block"> 
-        <a href="admin1.kosmo" class="nav-link">Home</a>
+        <a href=<c:url value="/"/> class="nav-link">Home</a>
       </li> 
     </ul>
 
@@ -455,13 +455,13 @@
             </div>
             <!-- /.card -->
 
-            <!-- solid sales graph -->
+           <!-- solid sales graph -->
             <div class="card bg-gradient-info">
               <div class="card-header border-0">
                 <h3 class="card-title">
                   <i class="fas fa-th mr-1"></i>
                   	예약 현황 그래프
-                </h3> 
+                </h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
@@ -473,7 +473,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <canvas class="chart" id="line-chart" style="min-height: 200px; height: 200px; max-height: 250px; max-width: 100%;"></canvas>
               </div>
               <!-- /.card-body -->
               <div class="card-footer bg-transparent">
@@ -482,21 +482,21 @@
                     <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
                            data-fgColor="#39CCCC">
 
-                    <div class="text-white">Mail-Orders</div>
+                    <div class="text-white">항공권</div>
                   </div>
                   <!-- ./col -->
                   <div class="col-4 text-center">
                     <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
                            data-fgColor="#39CCCC">
 
-                    <div class="text-white">Online</div>
+                    <div class="text-white">호텔</div>
                   </div>
                   <!-- ./col -->
                   <div class="col-4 text-center">
                     <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
                            data-fgColor="#39CCCC">
 
-                    <div class="text-white">In-Store</div>
+                    <div class="text-white">In-Store</div> 
                   </div>
                   <!-- ./col -->
                 </div>
@@ -504,7 +504,7 @@
               </div>
               <!-- /.card-footer -->
             </div>
-            <!-- /.card -->
+            <!-- /.card --> 
 
             <!-- Calendar -->
             <div class="card bg-gradient-success">
@@ -554,10 +554,10 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2020 <a href="http://adminlte.io">Travel_maker</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.5
+      <b>Version</b> 0.0.1
     </div>
   </footer>
 
@@ -628,8 +628,8 @@
 	        {
 	          label: "Population (millions)",
 	          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7e4719","#0022bb"],   
-	          data: [0,10,18,15,16,21,25] 
-	        }    
+	          data: [1,10,18,15,16,21,24]   
+	        }    	
 	      ]
 	    },
 	    options: {
