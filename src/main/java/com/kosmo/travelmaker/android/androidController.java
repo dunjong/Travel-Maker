@@ -120,9 +120,9 @@ public class androidController {
 		System.out.println("도시일수:"+city_plan_date);
 		System.out.println("도시플랜이름:"+planno);
 		Map citymap = new HashMap();
-		map.put("city_name", city_name);
-		map.put("city_plan_date",city_plan_date);
-		map.put("planno", planno);
+		citymap.put("city_name", city_name);
+		citymap.put("city_plan_date",city_plan_date);
+		citymap.put("planno", planno);
 		List<AndroidSpotDTO> spots=androidservice.getSpot(citymap);
 		for(AndroidSpotDTO spot:spots) {
 			System.out.println(spot.getSpot_latlng());
