@@ -47,7 +47,10 @@
 										<input class="form-control" type="text" value="${planner_name}" id="planner_name" name="planner_name" placeholder="이름을 작명해 주세요" >
 										<input hidden="true" type="text" name="planner_no" value="${planner_no}">
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-1">
+									
+									</div>
+									<div class="col-md-3">
 										<button class="btn btn-danger"  style="width:100%" >전체 저장</button>
 									</div>
 								</div>

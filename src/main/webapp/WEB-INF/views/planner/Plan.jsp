@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="<c:url value='/js/jquery.jcarousel.min.js'/>"></script>
-<script src="<c:url value='/js/jcarousel.basic.js'/>"></script>
 <link rel="stylesheet" href="<c:url value='/styles/jcarousel.basic.css'/>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <!-- Font Awesome -->
@@ -21,6 +19,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+ <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <style>
  	  #right-panel {
        
@@ -398,7 +397,9 @@ var plans=5;
 //짜여진 계획 저장하는 JSON 선언
 var dayplans={};
 
-//1] 페이지에 맵 표시
+var sv;
+var panorama;
+var markerPanoID;
 function initMap() {
 	
 	
@@ -529,7 +530,15 @@ function initMap() {
                'styled_map']
       }
   });////map 생성
-    
+   
+  //스트릿뷰
+  sv= new google.maps.StreetViewService();
+  panorama=new google.maps.StreetViewPanorama(document.getElementById('pano'),{
+	  position:{lat: -8.672062, lng: 115.231609},
+	  pov: {heading: 165, pitch: 0 }
+	  
+  });
+  
   
   //맵 타입 변경 가능케하는 버튼생성
   map.mapTypes.set('styled_map', styledMapType);
@@ -616,7 +625,10 @@ function initMap() {
   
   
   map.addListener('click', function(event) {
-	   
+	  	$('#map').css('width','100%');
+		$('#pano').css('width','0%').css('float','left').css('height','800px');
+		
+		
 	   $('#places').html('');
 	   if(markers.length!=0){
 		   //확인용
@@ -1012,7 +1024,6 @@ $(function(){
 	 	//console.log('marker.placeResult',marker.placeResult)
 	 	///
         var marker = this;
-        console.log('marker:',marker)
 	 	
         servicePlace.getDetails({placeId: marker.placeResult.place_id},
             function(place, status) {
@@ -1084,36 +1095,49 @@ $(function(){
  
  //3-4]
    function buildDetailContent(place) {
-	   document.getElementById('md-image').innerHTML = '';
 	   document.getElementById('md-name').innerHTML = '';
 	   document.getElementById('md-review').innerHTML = '';
-	   md_image=document.getElementById('md-image');
 	   md_name=document.getElementById('md-name');
 	   md_review=document.getElementById('md-review');
-	  
-	   for(var i=0;i<10;i++){
-			   if(place.photos!=undefined && place.photos[i]!=undefined){
-				    //console.log('place.photos[i].getUrl()',place.photos[i].getUrl())
-				    li =document.createElement('li');
-				    img = document.createElement('img');
-				    img.alt='사진 없음';
-	           		img.src=place.photos[i].getUrl()
-		            li.appendChild(img);	
-		            md_image.appendChild(li);
-			   }
-		   }; 
-		   span=document.createElement('span')
-		   span.textContent=place.name;
-		   md_name.appendChild(span)
-		   if(place.reviews!=undefined){
-			   for(var i=0;i<place.reviews.length;i++){
-			   span=document.createElement('h4')
-			   span.textContent='리뷰'+(i+1)+' ▶'+place.reviews[i].author_name+' : '+place.reviews[i].text;
-			   md_review.appendChild(span)
-			   }
+	   span=document.createElement('span')
+	   span.textContent=place.name;
+	   md_name.appendChild(span)
+	   if(place.reviews!=undefined){
+		   for(var i=0;i<place.reviews.length;i++){
+		   span=document.createElement('h4')
+		   span.textContent='리뷰'+(i+1)+' ▶'+place.reviews[i].author_name+' : '+place.reviews[i].text;
+		   md_review.appendChild(span)
 		   }
+	   }
+	   
+	   
+	   
+	   
+	   console.log('place:',place)
+	   console.log('geometry location:',place.geometry.location)
+	   
+	   sv.getPanorama(
+	            {
+	              location: place.geometry.location,
+	              radius: 50
+	            },
+	            processSVData
+	          ); 
+	   
    }
  
+   function processSVData(data, status){
+	   console.log('sv data:',data)
+	   if (status === "OK") {
+		
+        markerPanoID = data.location.pano;
+        console.log('markerPanoID:',markerPanoID)
+	  } 
+	  else {
+       console.error("Street View data not found for this location.");
+     }
+   }
+   
  //4] 토탈 거리 계산기
  function computeTotalDistance(result) {
    var total = 0;
@@ -1169,17 +1193,27 @@ $(function(){
  }
  
  ///상세정보 보기 모달창
- function detail(){
+ async function detail(){
 	 
 	  $('#js-modal h4').css({color:'black',margin:'10px',border:'thick double #32a1ce'})
 	  $('#js-modal span').css({color:'black',textAlign:'center',fontWeigt:'bord'})
 	  
+	 panorama=  await new google.maps.StreetViewPanorama(document.getElementById('pano'),{
+	  position:{lat: -8.672062, lng: 115.231609},
+	  pov: {heading: 165, pitch: 0 },
+	  pano:markerPanoID
+  		});
+      panorama.setVisible(true);
 	  
 	  $('#js-modal').modal('show');
 	  $('#close').on('click',function(){
 			$('#js-modal').modal('hide');
+			 
 		});
+	  
 	 
+	  $('#map').css('width','50%').css('float','left')
+	  $('#pano').css('width','50%').css('float','left').css('height','800px');
 	  
  }////detail
  
@@ -1270,7 +1304,8 @@ $(function(){
 				<div class="col-sm-12">
 					<div id="attractionBtn" class="snip1535" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
 					<div id="foodBtn" class="snip1535" style="border-radius: 12px;" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
-					<div  id="map"></div>
+					<div id="pano"></div>
+					<div id="map"></div>
 					<div id="autocomplete_box" class="input-group input-group-lg col-sm-3">
 						<input type="text" id="autocomplete" class="form-control" placeholder="찾는 명소이름 직접 입력" onfocus="autoComplete()" >
 					</div>
@@ -1350,7 +1385,7 @@ $(function(){
 	          <tr class="iw_table_row">
 	            <td class="iw_attribute_name"></td>
 	            <td>
-	            	<div class="btn btn-info waves-effect" data-toggle="modal" onclick="detail()"><i class="fas fa-info-circle"></i> 상세정보 보기</div>
+	            	<div class="btn btn-info waves-effect" data-toggle="modal" onclick="detail()"><i class="fas fa-info-circle"></i> 스트릿뷰 및 리뷰 보기</div>
 	          		<div class="btn btn-success waves-effect" onclick="box()"><i class="fas fa-cart-arrow-down"> 바구니에 담기</i></div>
 	            </td>
 	          </tr>
@@ -1367,24 +1402,7 @@ $(function(){
 	    			<span>&times;</span>
 	    		</button>
     			<h2 style="text-align:center;" id="md-name"></h2>
-   				<div class="wrapper">
-		            <div class="jcarousel-wrapper">
-		                <div class="jcarousel">
-		                    <ul id="md-image">
-		                      
-		                    </ul>
-		                </div>
-		
-		                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-		                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-		                
-		                <p class="jcarousel-pagination">
-		                    
-		                </p>
-		           
-			           
-					</div>
-		        </div>
+   				<div id="pano"></div>
 				<button id="review" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 				  	 구글 댓글 보기 <i class="fas fa-comment-alt"></i>
 				</button>
