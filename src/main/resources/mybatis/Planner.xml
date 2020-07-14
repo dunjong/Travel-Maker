@@ -4,7 +4,7 @@
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Planner">
 	<insert id="insertPlanner" parameterType="java.lang.String">
-		INSERT INTO PLANNER VALUES(seq_planner.nextval,0,#{id})
+		INSERT INTO PLANNER VALUES(seq_planner.nextval,0,'NoName',#{id})
 	</insert>
 	<insert id="insertCities" parameterType="java.util.Map">
 		INSERT INTO cities(cities_no,city_no,planner_no,cities_date) VALUES(seq_cities.nextval,#{city_no},#{planner_no},#{cities_date})
@@ -37,6 +37,9 @@
 	<select id="selectPlanDTOByCitiesNo" parameterType="int" resultType="PlanDTO">
 		SELECT * FROM PLAN WHERE cities_no=#{cities_no}
 	</select>
+	<select id="selectPlannerDTOByNo" parameterType="int" resultType="PlannerDTO">
+		SELECT * FROM PLANNER WHERE PLANNER_NO=#{planner_no}
+	</select>
 	
 	
 	
@@ -55,4 +58,9 @@
 	<delete id="deleteCitiesByPlannerNo" parameterType="int">
 		DELETE FROM cities WHERE planner_no=#{planner_no}
 	</delete>
+	
+	<update id="updatePlannerName" parameterType="java.util.Map">
+		UPDATE PLANNER SET planner_name=#{planner_name} WHERE planner_no=#{planner_no}
+	</update>
+	
 </mapper>

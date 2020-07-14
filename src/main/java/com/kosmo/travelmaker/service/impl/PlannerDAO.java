@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kosmo.travelmaker.service.CitiesDTO;
+import com.kosmo.travelmaker.service.PlanDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
 
 @Repository
@@ -49,7 +50,7 @@ public class PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectPlanNoByCitiesNo",cities_no);
 	}
-	public List<PlannerDTO> selectPlanDTOByCitiesNo(int cities_no) {
+	public List<PlanDTO> selectPlanDTOByCitiesNo(int cities_no) {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectPlanDTOByCitiesNo",cities_no );
 	}
@@ -72,5 +73,14 @@ public class PlannerDAO {
 	public boolean deleteCitiesByPlannerNo(int planner_no) {
 		// TODO Auto-generated method stub
 		return sqlMapper.delete("deleteCitiesByPlannerNo",planner_no )==1?true:false;
+	}
+	public boolean updatePlannerName(Map map) {
+		// TODO Auto-generated method stub
+		System.out.println("map in dao:"+map);
+		return sqlMapper.update("updatePlannerName",map)==1?true:false;
+	}
+	public List<PlannerDTO> selectPlannerDTOByNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectPlannerDTOByNo",planner_no);
 	}
 }

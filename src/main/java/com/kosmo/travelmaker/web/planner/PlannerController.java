@@ -61,6 +61,7 @@ public class PlannerController {
 	@RequestMapping(value = "Planner.kosmo")
 	public String Planner(@RequestParam Map map,Model model,HttpSession session) {
 		int planner_no=0;
+		String planner_name="NoName";
 		String cities_date="";
 		System.out.println("map.get(\"planner_no\"):"+map.get("planner_no"));
 		Map<String,Integer> city_no_name=new HashMap<String, Integer>();
@@ -93,8 +94,8 @@ public class PlannerController {
 			planner_no=Integer.parseInt(map.get("planner_no").toString());
 			Map<String, Integer> maps=new HashMap<String, Integer>();
 			maps.put("planner_no", planner_no);
-			
-			
+			List<PlannerDTO> planner_dto_list=plannerService.selectPlannerDTOByNo(planner_no);
+			planner_name=planner_dto_list.get(0).getPlanner_name();
 			
 			for(int city_no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
 				
@@ -104,6 +105,7 @@ public class PlannerController {
 				if(hotelService.selectHotelDTOByCitiesNo(cities_no).size()!=0) {
 					city_hotel.put(cityDTO.getCity_name(),"1");
 				}
+				
 				city_no_name.put(cityDTO.getCity_name(),cities_no);
 				city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
 				
@@ -112,6 +114,7 @@ public class PlannerController {
 		}
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
+		model.addAttribute("planner_name",planner_name);
 		model.addAttribute("today",today);
 		model.addAttribute("planner_no",planner_no);
 		model.addAttribute("city_no_name",city_no_name);
@@ -124,6 +127,17 @@ public class PlannerController {
 		model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
 		return "planner/Planner";
 	}
+	
+	@RequestMapping("PlannerSave.kosmo")
+	public String PlannerSave(@RequestParam Map map) {
+		System.out.println(map.get("planner_name").toString()+":"+map.get("planner_no").toString());
+		if(plannerService.updatePlannerName(map)) {
+			System.out.println("planner 저장 완료!");
+		}
+		return "forward:/";
+	}
+	
+	
 	
 	@RequestMapping(value ="SaveDates.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody

@@ -27,13 +27,35 @@
 	href="<c:url value='/plugins/cal_dist/css/adminlte.css'/>">
 </head>
 <body class="hold-transition sidebar-mini">
+	
 	<div class="wrapper">
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Main content -->
 			<section class="content">
+				
 				<div class="container-fluid">
-					<div class="row">
+					<div class="row" >
+						
+						<div class="col-md-12" style="text-align: center;margin-top:50px;">
+							<form action="<c:url value="/TravelMaker/PlannerSave.kosmo"/>">
+								<div class="row">
+									<div class="col-md-1">
+									
+									</div>
+									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
+										<input class="form-control" type="text" value="${planner_name}" id="planner_name" name="planner_name" placeholder="이름을 작명해 주세요" >
+										<input hidden="true" type="text" name="planner_no" value="${planner_no}">
+									</div>
+									<div class="col-md-4">
+										<button class="btn btn-danger"  style="width:100%" >전체 저장</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="col-md-12" style="text-align: center;">
+							<br>
+						</div>
 						<div class="col-md-9">
 							<div class="card card-primary">
 								<div class="card-body p-0">
@@ -228,19 +250,11 @@
 										</div>	
 									</div>
 								</div>
-								<div class="col-md-12">
-									<div class="card card-danger">
-										<div class="card-header">
-											<h4 class="card-title">전체 저장</h4>
-										</div>
-										<div class="card-body">	
-											<a class="btn btn-danger"  style="width:100%" href="<c:url value="/"/>">전체 저장</a>
-										</div>	
-									</div>
-								</div>
+								
 							</div>
 						</div>
 						<!-- /.col -->
+						
 					</div>
 					<!-- /.row -->
 				</div>
