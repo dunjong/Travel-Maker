@@ -65,7 +65,7 @@ public class PlannerController {
 		System.out.println("map.get(\"planner_no\"):"+map.get("planner_no"));
 		Map<String,Integer> city_no_name=new HashMap<String, Integer>();
 		Map<String, String> city_name_date=new HashMap<String, String>();
-		Map<String, Integer> city_hotel=new HashMap<String, Integer>();
+		Map<String, String> city_hotel=new HashMap<String, String>();
 		if(map.get("planner_no")==null) {
 			String[] city_no_list=map.get("city_no").toString().split(",");
 			if(plannerService.insertPlanner(session.getAttribute("id").toString())) {
@@ -81,7 +81,7 @@ public class PlannerController {
 						System.out.println(no+" 도시가 저장되었습니다.");
 						int cities_no=plannerService.selectCitiesNo();
 						String city_name=cityService.selectCityDTO(Integer.parseInt(no)).getCity_name();
-						city_hotel.put(city_name,0);
+						city_hotel.put(city_name,"0");
 						city_no_name.put(city_name,cities_no);
 					}///if
 					
@@ -101,8 +101,8 @@ public class PlannerController {
 				CityDTO cityDTO= cityService.selectCityDTO(city_no);
 				maps.put("city_no", city_no);
 				int cities_no=plannerService.selectCitiesNoByMap(maps);
-				if(hotelService.selectHotelDTOByCitiesNo(cities_no)!=null) {
-					city_hotel.put(cityDTO.getCity_name(),1);
+				if(hotelService.selectHotelDTOByCitiesNo(cities_no).size()!=0) {
+					city_hotel.put(cityDTO.getCity_name(),"1");
 				}
 				city_no_name.put(cityDTO.getCity_name(),cities_no);
 				city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));

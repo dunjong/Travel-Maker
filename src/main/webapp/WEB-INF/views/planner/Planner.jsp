@@ -289,6 +289,13 @@
 		
 		var lat,lng;//호텔용
 		$(function() {
+			<c:forEach items="${city_hotel}" var="check" >
+			console.log('${check}')
+			if('${check.value}'=='1')
+				$('#h_${check.key}').prop('class','btn btn-danger')
+			
+			</c:forEach>
+			
 			console.log('today: ${today}');
 			console.log('city_name_date','${city_name_date}');
 			var events=[
@@ -844,7 +851,8 @@
 				"hotel_price":$('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html().split(":")[1],
 				"hotel_latlng":latlng.split(",")[0].split(":")[1].trim()+","+latlng.split(",")[1].split(":")[1].trim(),
 				"hotel_score":$('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html().split(":")[1],
-				"cities_no":$('#h_cities_no').prop('value') 
+				"cities_no":$('#h_cities_no').prop('value') ,
+				"city_name":$('#city_name').html()
 				},
 				dataType:'text',
 				success:function(data){successAjax(data)},
@@ -858,8 +866,8 @@
 			
 		}
 		function successAjax(data){
-			console.log('성공:',data);
-			alert('예약테이블'+data)
+			$('#h_'+data.split(':')[0]).prop('class','btn btn-danger').html(data.split(':')[0]+' 등록 호텔 수정하기');
+			alert(data)
 		}
 		function callPlanDetails(cities_no,city_name){
 			var planDetail=document.getElementById('planDetail_'+city_name)
