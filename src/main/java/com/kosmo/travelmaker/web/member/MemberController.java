@@ -86,6 +86,7 @@ public class MemberController {
 			Map<String, String> maps_cities=new HashMap<String, String>();
 			int cities_no=dto_cities.getCities_no();
 			int city_no=dto_cities.getCity_no();
+			String cities_date=dto_cities.getCities_date();
 			CityDTO dto_city= cityService.selectCityDTO(city_no);
 			maps_cities.put("img", dto_city.getCity_img());
 			maps_cities.put("name", dto_city.getCity_name());
@@ -93,6 +94,12 @@ public class MemberController {
 			maps_cities.put("cities_no",Integer.toString(cities_no));
 			maps_cities.put("planner_no", Integer.toString(planner_no));
 			maps_cities.put("city_no",Integer.toString(city_no));
+			if(cities_date!=null) {
+				maps_cities.put("cities_date", cities_date.split(",")[0]+"~"+cities_date.split(",")[1]);
+			}
+			else {
+				maps_cities.put("cities_date", "정해진 일정이 없습니다");
+			}
 			collections.add(maps_cities);
 		}
 		
@@ -133,12 +140,6 @@ public class MemberController {
 			System.out.println("Cities들 삭제 완료");
 			
 		};
-		if(airService.deleteResByCitiesNo(planner_no)){
-			System.out.println("항공권예약들 삭제 완료");
-			
-		};
-		
-		
 		if(plannerService.deletePlannerByNo(planner_no)) {
 			System.out.println("planner 삭제 완료");
 		}
@@ -151,17 +152,26 @@ public class MemberController {
 	@RequestMapping("MyPlanner.kosmo")
 	public String MyPlanner(@RequestParam Map map,Model model,HttpSession session) {
 		List<PlannerDTO> list_planner=memberService.plannerList(session.getAttribute("id").toString());
-	      List<Map<String, Integer>> list=new Vector<Map<String,Integer>>();
+	      List<Map<String, String>> list=new Vector<Map<String,String>>();
 	      
 	      for(PlannerDTO dto_planner:list_planner) {
-	         Map<String ,Integer> maps=new HashMap<String, Integer>();
-	         maps.put("planner_no", dto_planner.getPlanner_no());
-	         maps.put("planner_acc", dto_planner.getPlanner_acc());
+	         Map<String ,String> maps=new HashMap<String, String>();
+	         maps.put("planner_no", Integer.toString(dto_planner.getPlanner_no()));
+	         maps.put("planner_acc",  Integer.toString(dto_planner.getPlanner_acc()));
+	         maps.put("planner_name", dto_planner.getPlanner_name());
 	         list.add(maps);
 	      }
 	      model.addAttribute("list", list);
 		return "member/MyPlanner.tiles";
 	}
+	
+	@RequestMapping("PayFees.kosmo")
+	@ResponseBody
+	public String PayFees(@RequestParam Map map) {
+		return map.get("planner_no").toString();
+	}
+	
+	
 	
 	@RequestMapping("ValidationCheck.do")
 	public String vali(MemberDTO dto,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
@@ -186,6 +196,9 @@ public class MemberController {
 	public String IdCheck(@RequestParam String signUpId) {
 		return memberService.idCheck(signUpId);
 	}
+	
+	
+	
 //	@RequestMapping("admin2.kosmo")
 //	public String memberList(Map map, Model model) {
 //		MemberDTO dto = memberService.selectMember(map);

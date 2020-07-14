@@ -6,6 +6,9 @@
 	height: 261.37px;
 	width: 360px;
 }
+.planner_name{
+	color:black;
+}
 
 </style>
 <script>
@@ -54,6 +57,26 @@ function detail(num){
 	  
 }////detail
 
+function payFees(num){
+	  $.ajax({
+			url:'<c:url value="PayFees.kosmo"/>',
+			data:{planner_no:num.value},
+			dataType:'text',
+			success:function(data){
+				console.log(data);
+				$('#'+num.value+' #payment').prop('class','btn btn-info')
+				$('#'+num.value+' #pay_label').html('결제 완료')
+			},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+	
+}
+
 function fnMove(data){
 	
 	 var offset = $("#div" + seq).offset();
@@ -74,7 +97,7 @@ function successAjaxDetail(data){
 	 tableString+=city.name;
 	 tableString+="</a></div><div class='destination_subtitle'><p>";
 	 tableString+=city.intro;
-	 tableString+="</p></div><div class='destination_price'>From $699</div></div></div>"
+	 tableString+="</p></div><div class='destination_price'>일정:"+city.cities_date+"</div></div></div>"
 	 
 	})
 	$('#cities').html(tableString);
@@ -141,23 +164,24 @@ function successAjaxDetail(data){
 
 						<!-- Intro Item -->
 						<c:forEach items="${list}" var="planner">
-							<div class="col-lg-4 intro_col" id="${planner.planner_no}">
+							<div class="col-lg-4 intro_col" id="${planner.planner_no}" style="margin-bottom:30px">
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon">
-										<img src="<c:url value='/images/suitcase.svg'/>" alt="">
-									</div>
 									<div class="intro_content">
-										<div class="intro_subtitle">
-											<p>동행자 수:${planner.planner_acc}명</p>
+										<div>
+											<h3 class="planner_name">${planner.planner_name}</h3>
 										</div>
 										<div class="intro_title">
-											<label>planner 상세 보기</label>
+											<label>상세 보기</label>
 											<input name="detail" class="btn btn-info" onclick="detail(this)" value="${planner.planner_no}" />
-										</div>
-										<div class="intro_title">
-											<label>planner 삭제 하기</label>
+											<label>삭제 하기</label>
 											<input name="delete" class="btn btn-danger" onclick="deleteFunc(this)" value="${planner.planner_no}" />
+											<label id="pay_label">호텔 결제</label>
+											<input id="payment" name="payment" class="btn btn-danger" onclick="payFees(this)" value="${planner.planner_no}" />
 										</div>
+										<div class="intro_subtitle">
+											<p <c:if test="${planner.planner_acc gt 0}">style="color:red;font-size:2em;"</c:if> >동행자 수:${planner.planner_acc}명</p>
+										</div>
+										
 									</div>
 								</div>
 							</div>

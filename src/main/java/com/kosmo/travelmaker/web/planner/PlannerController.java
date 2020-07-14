@@ -181,7 +181,7 @@ public class PlannerController {
 		
 		String cities_no=map.get("cities_no").toString();
 		String city_name=map.get("origin").toString();
-		
+		String calendarDate=cityService.selectCitiesDate(Integer.parseInt(cities_no));
 		
 		
 		int gap=5;
@@ -202,13 +202,12 @@ public class PlannerController {
 			//;
 		}
 		else {
-			String calendarDate=cityService.selectCitiesDate(Integer.parseInt(cities_no));
 			
 			System.out.println("calendarDate:"+calendarDate);
 			maps.put("hotel_latlng", city_name);
 			maps.put("hotel_name", city_name);
 			maps.put("hotel_price", "없음");
-			if(calendarDate!="") {
+			if(calendarDate!=null) {
 				Date checkIn=transFormat.parse(calendarDate.split(",")[0]);
 				Date checkOut=transFormat.parse(calendarDate.split(",")[1]);
 				gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
