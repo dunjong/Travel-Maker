@@ -29,13 +29,11 @@
 	<div class="super_container">
 		<!-- top부분 -->
 		<tiles:insertAttribute name="top"/>
-		
 		  <!-- body부분 -->
 		<tiles:insertAttribute name="body"/> 
 		  
 		  <!-- footer부분 -->
 		<tiles:insertAttribute name="footer"/>  
-		
 	</div>
   
   
