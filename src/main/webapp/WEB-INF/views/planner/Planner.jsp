@@ -115,8 +115,10 @@
 																<div class="modal-content">
 																	<div class="modal-header bg-info">
 																		<h2>${name.key}호텔검색</h2>
+																		
 																	</div>
 																	<div class="modal-body">
+																	<h4 id="h_modal_hotelName_${name.key}"></h4>
 														              	<div>
 																			<form action="#">
 																				<input id="autocomplete_${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
@@ -309,9 +311,14 @@
 			<c:forEach items="${city_hotel}" var="check" >
 			console.log('${check}')
 			if('${check.value}'=='1')
-				$('#h_${check.key}').prop('class','btn btn-danger')
-			
+				$('#h_${check.key}').prop('class','btn btn-danger').html( '${check.key} 등록 호텔 수정하기');
+				
 			</c:forEach>
+			
+			<c:forEach items="${city_hotel_name}" var="hotelName">
+				$('#h_modal_hotelName_${hotelName.key}').html('예약된 호텔:${hotelName.value}');
+			</c:forEach>
+			
 			
 			console.log('today: ${today}');
 			console.log('city_name_date','${city_name_date}');
@@ -884,7 +891,8 @@
 		}
 		function successAjax(data){
 			$('#h_'+data.split(':')[0]).prop('class','btn btn-danger').html(data.split(':')[0]+' 등록 호텔 수정하기');
-			alert(data)
+			$('#h_modal_hotelName_'+data.split(':')[0]).html('예약된 호텔:'+data.split(':')[2]);
+			alert(data.split(':')[0]+data.split(':')[1])
 		}
 		function callPlanDetails(cities_no,city_name){
 			var planDetail=document.getElementById('planDetail_'+city_name)
