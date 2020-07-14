@@ -221,7 +221,7 @@
 										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
 												
-														<button class="btn btn-info" type="button" data-toggle="modal" data-target="#d-modal-${name.key}" style="width:100%;margin-bottom:4px">
+														<button id="plan_btn_${name.key}" class="btn btn-info" type="button" data-toggle="modal" data-target="#d-modal-${name.key}" style="width:100%;margin-bottom:4px">
 															${name.key}에 대한 세부 일정 짜기
 														</button>
 														<div class="modal fade" id="d-modal-${name.key}">
@@ -237,9 +237,9 @@
 																				<input hidden="true" name="destination" value="공항,${name.key}" />
 																				<input hidden="true" name="planner_no" value="${planner_no}" />
 																				<input hidden="true" name="cities_no" value="${name.value}"/>
-																                <button class="btn btn btn-success">세부일정 짜기</button>
+																                <button class="btn btn btn-success">일정 짜기</button>
 																            </form>
-																            <button class="btn btn-success" onclick="callPlanDetails(${name.value},'${name.key}')" >세부목록 보기</button>
+																            <button class="btn btn-success" onclick="callPlanDetails(${name.value},'${name.key}')" >목록 보기</button>
 																            <div class="well" id="planDetail_${name.key}">
 																			</div>
 																		</div>
@@ -318,7 +318,10 @@
 			<c:forEach items="${city_hotel_name}" var="hotelName">
 				$('#h_modal_hotelName_${hotelName.key}').html('예약된 호텔:${hotelName.value}');
 			</c:forEach>
-			
+			<c:forEach items="${city_plan_no}" var="plan_check" >
+				if('${plan_check.value ==1}')
+				$('#plan_btn_${plan_check.key}').prop('class','btn btn-danger').html('${plan_check.key}에 대한 세부 일정 수정')
+			</c:forEach>
 			
 			console.log('today: ${today}');
 			console.log('city_name_date','${city_name_date}');
