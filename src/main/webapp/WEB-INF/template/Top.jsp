@@ -38,12 +38,9 @@
         height:56px;
 }
 .modal-header{
-		border-radius:20px;
+		border-top-left-radius: 12px;
+		border-top-right-radius: 12px;
 }
-.modal-body{
-		border-radius:20px;
-}
-
 
 </style>
 <header class="header">
@@ -105,7 +102,7 @@
 									</ul>
 									</li>
 							</ul>
-							<button id="chatbtn" class="" type="button" data-toggle="modal" data-target="#ChatModal" style="text-align: right;"><img src="images/마크레스.jpg" alt=""></button>
+							<button id="chatbtn" class="rounded-circle" type="button" data-toggle="modal" data-target="#ChatModal" style="text-align: right;"><img src="images/104352_482_1650.jpg" class="rounded-circle" style="color: sandybrown" alt=""></button>
 							
 							
 							

@@ -23,7 +23,7 @@ DROP TABLE userinfo CASCADE CONSTRAINTS;
 /* Drop Sequences */
 
 DROP SEQUENCE seq_acc;
-DROP SEQUENCE seq_air;
+--DROP SEQUENCE seq_air;
 DROP SEQUENCE seq_auto_plan;
 DROP SEQUENCE seq_cities;
 DROP SEQUENCE seq_city;
