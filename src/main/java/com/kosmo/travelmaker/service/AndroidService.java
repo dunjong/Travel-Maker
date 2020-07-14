@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface AndroidService {
 
-	List<String> plannameGet(String user_id);
+	List<AndroidPlanDTO> plannameGet(String user_id);
 
 }

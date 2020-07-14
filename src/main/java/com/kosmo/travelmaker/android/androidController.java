@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kosmo.travelmaker.service.AndroidCityDTO;
 import com.kosmo.travelmaker.service.AndroidMemberDTO;
+import com.kosmo.travelmaker.service.AndroidPlanDTO;
+import com.kosmo.travelmaker.service.AndroidSpotDTO;
 import com.kosmo.travelmaker.service.impl.AndroidServiceImpl;
 import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
 
@@ -67,29 +69,21 @@ public class androidController {
 	}
 	
 	@CrossOrigin
-	@GetMapping(value="/planname/json")
+	@GetMapping(value="/planname/json",produces = "text/html; charset=UTF-8")
 	public String plannameGet(@RequestParam String user_id) {
 		System.out.println(user_id);
 		/* Map map = new HashMap(); */
-		JSONArray ja = new JSONArray();
-		List<String> plannames = androidservice.plannameGet(user_id);
+		List<AndroidPlanDTO> list = androidservice.plannameGet(user_id);
 		
-		/* List<Map> plans= new Vector<Map>(); */
-		for(int i=0;i<plannames.size();i++) {
-			ja.add(plannames.get(i));
-			/*
-			 * System.out.println(planname); map.put("planname",planname); plans.add(map);
-			 */
-		}
-		return ja.toJSONString();
+		return net.sf.json.JSONArray.fromObject(list).toString();
 	}
 	
 	@CrossOrigin
 	@GetMapping(value="/plandetail/json",produces = "text/html; charset=UTF-8")
-	public String planGet(@RequestParam String planname) {
-		System.out.println(planname);
+	public String planGet(@RequestParam String planno) {
+		System.out.println(planno);
 		
-		List<AndroidCityDTO> list=androidservice.planCityGet(planname);
+		List<AndroidCityDTO> list=androidservice.planCityGet(planno);
 		for(int i=0;i<list.size();i++) {
 			AndroidCityDTO dto =list.get(i);
 			String[] dates=dto.getCities_date().split(",");
@@ -112,6 +106,31 @@ public class androidController {
 	        catch (ParseException e) {e.printStackTrace();}
 		}
 		return net.sf.json.JSONArray.fromObject(list).toString();
+	}
+	
+	
+	
+	@CrossOrigin
+	@GetMapping(value="/placemarker/json")
+	public String placeMarker(@RequestParam Map map) {
+		String city_name=map.get("city_name").toString();
+		String city_plan_date=map.get("city_plan_date").toString();
+		String planno=map.get("planno").toString();
+		System.out.println("도시이름:"+city_name);
+		System.out.println("도시일수:"+city_plan_date);
+		System.out.println("도시플랜이름:"+planno);
+		Map citymap = new HashMap();
+		map.put("city_name", city_name);
+		map.put("city_plan_date",city_plan_date);
+		map.put("planno", planno);
+		List<AndroidSpotDTO> spots=androidservice.getSpot(citymap);
+		for(AndroidSpotDTO spot:spots) {
+			System.out.println(spot.getSpot_latlng());
+			System.out.println(spot.getSpot_name());
+		}
+		
+		
+		return "zs";
 	}
 	
 	
