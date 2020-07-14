@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kosmo.travelmaker.service.CityService;
 import com.kosmo.travelmaker.service.HotelDTO;
+import com.kosmo.travelmaker.service.impl.CityServiceImpl;
 import com.kosmo.travelmaker.service.impl.HotelServiceImpl;
 import com.kosmo.travelmaker.service.impl.PlannerServiceImpl;
 
@@ -28,6 +30,9 @@ public class HotelController {
 	
 	@Resource(name ="plannerService")
 	private PlannerServiceImpl plannerService;
+	
+	@Resource(name ="cityService")
+	private CityServiceImpl cityService;
 	
 	
 	
@@ -53,17 +58,18 @@ public class HotelController {
 	@RequestMapping(value ="HotelTest.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public String HotelTest(@RequestParam Map map) {
-		String flag= "실패";
+		String city_name= map.get("city_name").toString();
 		int cities_no=Integer.parseInt((String) map.get("cities_no"));
+		
 		List<HotelDTO> hotel_dto_list= hotelService.selectHotelDTOByCitiesNo(cities_no);
 		if(hotel_dto_list.size()==0) {
 			if(hotelService.insertHotelByMap(map)) {
-				flag="성공!";
+				city_name+=":예약 성공!";
 			}
 		}
 		else {
 			if(hotelService.updateHotelInfo(map)) {
-				flag="호텔 예약이 변경 되었습니다.";
+				city_name+=":호텔 예약이 변경 되었습니다.";
 			};
 		}
 		
@@ -92,6 +98,6 @@ public class HotelController {
 		
 		
 		
-		return flag;
+		return city_name;
 	}
 }

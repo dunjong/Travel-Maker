@@ -49,7 +49,7 @@
 	font-weight: 400;
 }
 #reviewWritePlace {
-	width: 75%;
+	width: 60%;
 	border-radius: 20px;
 }
 
