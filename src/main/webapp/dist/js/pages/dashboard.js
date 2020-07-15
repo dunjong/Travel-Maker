@@ -60,11 +60,11 @@ $(function () {
     'BR': 600, //Brazil
     'IN': 800, //India
     'GB': 320, //Great Britain
-    'RU': 3000 //Russia
+    'RU': 3000 //Russia 
   }
   // World map by jvectormap
   $('#world-map').vectorMap({
-    map              : 'usa_en',
+    map              : 'usa_en',   
     backgroundColor  : 'transparent',
     regionStyle      : {
       initial: {
