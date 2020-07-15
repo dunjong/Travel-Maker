@@ -121,7 +121,7 @@
 																	<h4 id="h_modal_hotelName_${name.key}"></h4>
 														              	<div>
 																			<form action="#">
-																				<input id="autocomplete_${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
+																				<input id="autocomplete_${name.key}" value="${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
 																				<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
 																				<input type="date" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
 																				<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
@@ -453,6 +453,7 @@
 									}
 									
 								});
+								
 							}
 							else{
 								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));

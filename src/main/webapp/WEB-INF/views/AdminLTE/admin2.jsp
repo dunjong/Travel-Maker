@@ -150,7 +150,7 @@
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6">
-                     <h1 class="m-0 text-dark">Dashboard</h1>
+                     <h1 class="m-0 text-dark">Member Controll</h1>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-6">
@@ -201,43 +201,42 @@
                                     <td>남자</td>  
                                     <td><input type="checkbox"></td>
 
-                                 </tr>
-                              </tbody>
-                              <tfoot>
-                           </table>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="row" style="text-align: right;">
-                           <div class="col-sm-12 col-md-5">
-                              <div class="dataTables_info" id="example2_info" role="status"
-                                 aria-live="polite">1/10 page</div>
-                           </div>
-                           <div class="col-sm-12 col-md-7" style="text-align: right;">
-                              <div class="dataTables_paginate paging_simple_numbers"
-                                 id="example2_paginate">
-                                 <ul class="pagination">
-                                    <li class="paginate_button page-item previous disabled"
-                                       id="example2_previous"><a href="#"
-                                       aria-controls="example2" data-dt-idx="0" tabindex="0"
-                                       class="page-link">Previous</a></li>
-                                    <li class="paginate_button page-item active"><a
-                                       href="#" aria-controls="example2" data-dt-idx="1"
-                                       tabindex="0" class="page-link">1</a></li>
-                                    <div class="col-sm-12 col-md-7" style="text-align: right;">
-                                       <button id="deletebtn">삭제</button>
-                                    </div> 
-                                 </ul>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- /.card -->
-
+											</tr>
+										</tbody>
+										<tfoot>
+									</table>
+								</div>
+								<!-- /.card-body -->
+								<div class="row" style="text-align: right;">
+									<div class="col-sm-12 col-md-5">
+										<div class="dataTables_info" id="example2_info" role="status"
+											aria-live="polite">1/10 page</div>
+									</div>
+									<div class="col-sm-12 col-md-7" style="text-align: right;">
+										<div class="dataTables_paginate paging_simple_numbers"
+											id="example2_paginate">
+											<ul class="pagination">
+												<li class="paginate_button page-item previous disabled"
+													id="example2_previous"><a href="#"
+													aria-controls="example2" data-dt-idx="0" tabindex="0"
+													class="page-link">Previous</a></li>
+												<li class="paginate_button page-item active"><a
+													href="#" aria-controls="example2" data-dt-idx="1"
+													tabindex="0" class="page-link">1</a></li>
+												<div class="col-sm-12 col-md-7" style="text-align: right;">
+													<button id="deletebtn">블랙</button>
+												</div> 
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- /.card -->
                      </div>
                      <!-- /.col -->
                   </div>
                   <!-- /.row -->
 
-               </div>
+               </div> 
                <!-- /.container-fluid -->
          </section>
          <!-- /.content -->
