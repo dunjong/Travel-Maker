@@ -18,4 +18,7 @@ public interface CityService {
 	List<CountDTO> selectCityCount();
 
 	List<Integer> selectCitiesNoListBycityNo(int city_no);
+
+	int selectCityNoByCitiesNo(int cities_no);
+
 }

@@ -47,5 +47,10 @@ public class SpotsServiceImpl implements SpotsService{
 		// TODO Auto-generated method stub
 		return spotsDAO.selectPlanDateByNo(plan_no);
 	}
+	@Override
+	public List<Integer> selectPlanNoListByDayNCity(Map<String, Integer> maps) {
+		// TODO Auto-generated method stub
+		return spotsDAO.selectPlanNoListByDayNCity(maps);
+	}
 	
 }

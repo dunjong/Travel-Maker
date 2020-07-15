@@ -54,5 +54,11 @@ public class CityServiceImpl implements CityService {
 		// TODO Auto-generated method stub
 		return cityDAO.selectCitiesNoListBycityNo(city_no);
 	}
+	@Override
+	public int selectCityNoByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return cityDAO.selectCityNoByCitiesNo(cities_no);
+	}
+	
 	
 }

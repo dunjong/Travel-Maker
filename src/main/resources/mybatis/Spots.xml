@@ -19,7 +19,9 @@
 	<select id="selectPlanDateByNo" parameterType="int" resultType="java.lang.String">
 		SELECT plan_date FROM plan WHERE plan_no=#{plan_no}
 	</select>
-	
+	<select id="selectPlanNoListByDayNCity" parameterType="java.util.Map" resultType="int">
+		select plan_no from plan where plan_date=#{plan_date} and cities_no=#{cities_no}
+	</select>
 	
 	<delete id="deleteSpotByPlanNo" parameterType="int">
 		DELETE FROM save_spots WHERE plan_no=#{plan_no}

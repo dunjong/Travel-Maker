@@ -55,5 +55,12 @@ public class CityDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectCitiesNoListBycityNo",city_no);
 	}
+
+	public int selectCityNoByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectCityNoByCitiesNo",cities_no);
+	}
+
+	
 	
 }

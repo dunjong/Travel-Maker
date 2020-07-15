@@ -25,6 +25,15 @@
 <!-- Theme style -->
 <link rel="stylesheet"
 	href="<c:url value='/plugins/cal_dist/css/adminlte.css'/>">
+<style>
+#map {
+       height: 500px;
+       width: 100%;
+     }
+
+
+</style>	
+
 </head>
 <body class="hold-transition sidebar-mini">
 	
@@ -154,8 +163,8 @@
 																	</div>
 																	<div class="modal-body">
 														              	<div>
-																			
-																            <button class="btn btn-success" onclick="callPlanDetails(${name.value},'${name.key}')" >목록 보기</button>
+																			<button class="btn btn-success" onclick="CallPlanDetilsByMap('${planner_no}','${name.value}')"> 지도로 보기</button>
+																            <button class="btn btn-success" onclick="callPlanDetails('${name.value}','${name.key}')" >목록 보기</button>
 																            <div class="well" id="planDetail_${name.key}">
 																			</div>
 																		</div>
@@ -171,7 +180,18 @@
 										</div>	
 									</div>
 								</div>
+								<div class="col-md-12">
+									<div class="card card-primary">
+										<div class="card-header">
+											<h4 class="card-title" id="map_title">지도</h4>
+										</div>
+										<div class="card-body" id="map">	
+										</div>
+									</div>
+								</div>
+								<div>
 								
+								</div>
 							</div>
 						</div>
 						<!-- /.col -->
@@ -213,7 +233,6 @@
 	<script
 		src="<c:url value='/plugins/cal_plugins/fullcalendar-bootstrap/main.min.js'/>"></script>
 	<!-- Page specific script -->
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMkei418dalW2Ho3I-ovwq0aMKWhUlwUA&libraries=places"></script>
 	
 	
 	
@@ -366,6 +385,26 @@
 				return (year+'-'+month+'-'+day);
 			}
 		}
+		function CallPlanDetilsByMap(data){
+			$.ajax({
+				url:'<c:url value="CallPlanDetilsByMap.kosmo"/>',
+				data:{
+					'planner_no':'${planner_no}',
+					'cities_no':data.id,
+					'day':data.innerHTML.substring(4)
+				},
+				dataType:'json',
+				success:function(data){ChangeMap(data)},
+				error:function(request,error){
+					console.log('상태코드:',request.status);
+					console.log('서버로부터 받은 HTML데이타:',request.responseText);
+					console.log('에러:',error);
+				}
+				
+			});
+			
+		}///CallPlanDetilsByMap
+		
 		
 		function callPlanDetails(cities_no,city_name){
 			var planDetail=document.getElementById('planDetail_'+city_name)
@@ -384,11 +423,24 @@
 						
 						console.log(index,':',value)
 						
+						var row=document.createElement('div');
+						row.setAttribute('class','row')
+						planDetail.appendChild(row);
 						
 						var div=document.createElement('div');
-						div.textContent=index+'일차: '+value;
-						planDetail.appendChild(div)
-						
+						div=document.createElement('div');
+						div.textContent='day '+index;
+						div.setAttribute('class','btn btn-info col-sm-3')
+						div.setAttribute('style','margin:5px;')
+						div.setAttribute('id',cities_no)
+						div.setAttribute('onclick','CallPlanDetilsByMap(this)')
+						row.appendChild(div);
+						div=document.createElement('div');
+						div.textContent=value;
+						div.setAttribute('class','col-sm-8')
+						div.setAttribute('style','margin-top:5px;font-weight:bolder')
+						row.appendChild(div);
+							
 					});
 					
 				},
@@ -402,10 +454,211 @@
 		}
 		function back(){
 			console.log('back으로 들어옴')
-			window.history.go(-5);
+			window.history.back();
 		}
+		
+		
+		
+		
+	</script>
+	<script>
+		var origin;
+		var map;
+		var directionsService;
+		//총 거리 계산  서비스 선언
+		var directionsRenderer;
+		var dayplans={};
+		function initMap() {
+			var styledMapType = new google.maps.StyledMapType(
+		            [
+		              {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
+		              {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
+		              {elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
+		              {
+		                featureType: 'administrative',
+		                elementType: 'geometry.stroke',
+		                stylers: [{color: '#c9b2a6'}]
+		              },
+		              {
+		                featureType: 'administrative.land_parcel',
+		                elementType: 'geometry.stroke',
+		                stylers: [{color: '#dcd2be'}]
+		              },
+		              {
+		                featureType: 'administrative.land_parcel',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#ae9e90'}]
+		              },
+		              {
+		                featureType: 'landscape.natural',
+		                elementType: 'geometry',
+		                stylers: [{color: '#dfd2ae'}]
+		              },
+		              {
+		                featureType: 'poi',
+		                elementType: 'geometry',
+		                stylers: [{color: '#dfd2ae'}]
+		              },
+		              {
+		                featureType: 'poi',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#93817c'}]
+		              },
+		              {
+		                featureType: 'poi.park',
+		                elementType: 'geometry.fill',
+		                stylers: [{color: '#a5b076'}]
+		              },
+		              {
+		                featureType: 'poi.park',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#447530'}]
+		              },
+		              {
+		                featureType: 'road',
+		                elementType: 'geometry',
+		                stylers: [{color: '#f5f1e6'}]
+		              },
+		              {
+		                featureType: 'road.arterial',
+		                elementType: 'geometry',
+		                stylers: [{color: '#fdfcf8'}]
+		              },
+		              {
+		                featureType: 'road.highway',
+		                elementType: 'geometry',
+		                stylers: [{color: '#f8c967'}]
+		              },
+		              {
+		                featureType: 'road.highway',
+		                elementType: 'geometry.stroke',
+		                stylers: [{color: '#e9bc62'}]
+		              },
+		              {
+		                featureType: 'road.highway.controlled_access',
+		                elementType: 'geometry',
+		                stylers: [{color: '#e98d58'}]
+		              },
+		              {
+		                featureType: 'road.highway.controlled_access',
+		                elementType: 'geometry.stroke',
+		                stylers: [{color: '#db8555'}]
+		              },
+		              {
+		                featureType: 'road.local',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#806b63'}]
+		              },
+		              {
+		                featureType: 'transit.line',
+		                elementType: 'geometry',
+		                stylers: [{color: '#dfd2ae'}]
+		              },
+		              {
+		                featureType: 'transit.line',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#8f7d77'}]
+		              },
+		              {
+		                featureType: 'transit.line',
+		                elementType: 'labels.text.stroke',
+		                stylers: [{color: '#ebe3cd'}]
+		              },
+		              {
+		                featureType: 'transit.station',
+		                elementType: 'geometry',
+		                stylers: [{color: '#dfd2ae'}]
+		              },
+		              {
+		                featureType: 'water',
+		                elementType: 'geometry.fill',
+		                stylers: [{color: '#b9d3c2'}]
+		              },
+		              {
+		                featureType: 'water',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#92998d'}]
+		              }
+		            ],
+		            {name: 'Main Map'});
+		 
+		 
+		//맵 생성
+	  map = new google.maps.Map(document.getElementById('map'), {
+	  		zoom: 4,
+	  		center: {lat: -8.672062, lng: 115.231609},  // 처음 지도 센터 위치: 발리 덴파사르.
+	  		mapTypeControlOptions: {
+	       	mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+	               'styled_map']
+	      }
+	  });////map 생성
+	  map.mapTypes.set('styled_map', styledMapType);
+	  map.setMapTypeId('styled_map');
+	  directionsService = new google.maps.DirectionsService;
+	  directionsRenderer = new google.maps.DirectionsRenderer({
+	   	draggable:false,//드래그 가능 여부
+	    map: map
+	  });	
+		}
+	function ChangeMap(data){
+		console.log('data1:',data)
+		var spots=[]
+		
+		$.each(data,function(index,value){
+			console.log('latlng:',value.latlng);
+			var latlng={location:value.latlng};
+			spots.push(latlng);
+		})
+		console.log('[0]:',data[0].city_name);
+		origin=data[0].origin;
+		$('#map_title').html('지도 in '+data[0].city_name);
+		displayRoute(origin, directionsService,
+			       directionsRenderer,spots);
+		$('#h_modal_'+data[0].city_name).modal('hide')
+		
+	}
+	 function displayRoute(origin, service, display,spots) {
+	     service.route({
+	     origin: origin,//출발지
+	     destination:origin,//도착지
+	     waypoints:spots,/*,{location: 'ubud, 발리'},{location: '공항, 발리'}*///여기에 경유지 추가
+	     travelMode: 'DRIVING',
+	     /*탈것 추가
+	     DRIVING (Default)
+		 BICYCLING
+		 WALKING
+		 ※TRANSIT
+		 { 트렌짓은 이런 옵션들도 가지고 있다
+		  arrivalTime: Date,
+		  departureTime: Date,
+		  modes[]: TransitMode,
+			  BUS 
+			  RAIL 
+			  SUBWAY 
+			  TRAIN
+			  TRAM
+		  
+		  routingPreference: TransitRoutePreference
+	  		  FEWER_TRANSFERS
+	 		  LESS_WALKING
+			}
+		 
+	     */
+	     avoidTolls: false,//톨게이트 피해서?
+	     optimizeWaypoints: true
+	   }, function(response, status) {
+	     if (status === 'OK') {
+	       display.setDirections(response);
+	     } else {
+	       alert('Could not display directions due to: ' + status);
+	     }
+	   });
+	 }////displayRoute
+		
 	
 	</script>
-	
+	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=${GoogleMapApiKey}&libraries=places&callback=initMap">
+    </script>
 </body>
 </html>
