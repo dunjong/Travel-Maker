@@ -14,4 +14,8 @@ public interface CityService {
 	String selectCitiesDate(int cities_no);
 
 	boolean updateCitiesDate(Map map);
+
+	List<CountDTO> selectCityCount();
+
+	List<Integer> selectCitiesNoListBycityNo(int city_no);
 }

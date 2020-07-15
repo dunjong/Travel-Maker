@@ -23,4 +23,5 @@ public interface PlannerService {
 	boolean deleteCitiesByPlannerNo(int planner_no);
 	boolean updatePlannerName(Map map);
 	List<PlannerDTO> selectPlannerDTOByNo(int planner_no);
+	PlannerDTO selectPlannerDTOBycitiesNo(int cities_no);
 }

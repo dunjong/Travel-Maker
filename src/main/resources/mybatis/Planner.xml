@@ -40,7 +40,9 @@
 	<select id="selectPlannerDTOByNo" parameterType="int" resultType="PlannerDTO">
 		SELECT * FROM PLANNER WHERE PLANNER_NO=#{planner_no}
 	</select>
-	
+	<select id="selectPlannerDTOBycitiesNo" parameterType="int" resultType="PlannerDTO">
+		select * from planner where planner_no=(select planner_no from cities where cities_no=#{cities_no})
+	</select>
 	
 	
 	<delete id="deletePlanByNo" parameterType="int">

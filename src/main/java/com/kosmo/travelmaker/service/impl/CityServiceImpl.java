@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
 import com.kosmo.travelmaker.service.CityService;
+import com.kosmo.travelmaker.service.CountDTO;
 
 @Service("cityService")
 public class CityServiceImpl implements CityService {
@@ -42,6 +43,16 @@ public class CityServiceImpl implements CityService {
 	public boolean updateCitiesDate(Map map) {
 		// TODO Auto-generated method stub
 		return cityDAO.updateCitiesDate(map);
+	}
+	@Override
+	public List<CountDTO> selectCityCount() {
+		// TODO Auto-generated method stub
+		return cityDAO.selectCityCount();
+	}
+	@Override
+	public List<Integer> selectCitiesNoListBycityNo(int city_no) {
+		// TODO Auto-generated method stub
+		return cityDAO.selectCitiesNoListBycityNo(city_no);
 	}
 	
 }

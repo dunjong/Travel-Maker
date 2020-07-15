@@ -8,7 +8,12 @@
 	<insert id="makingplanner" parameterType="java.lang.String">
 		INSERT INTO planner VALUES(seq_planner.NEXTVAL,0,#{user_id})
 	</insert>
-	
+	<select id="selectCityCount" resultType="CountDTO">
+		select city_no, count(*) as count from cities group by city_no
+	</select>
+	<select id="selectCitiesNoListBycityNo" parameterType="int" resultType="int">
+		select cities_no from cities where city_no=#{city_no}
+	</select>
 	
 	<select id="selectCitiesDTO" parameterType="int" resultType="CitiesDTO">
 		Select * from cities where planner_no=#{planner_no}

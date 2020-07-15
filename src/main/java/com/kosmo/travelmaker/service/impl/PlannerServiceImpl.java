@@ -132,5 +132,11 @@ public class PlannerServiceImpl implements PlannerService{
 		// TODO Auto-generated method stub
 		return plannerDAO.selectPlannerDTOByNo(planner_no);
 	}
+
+	@Override
+	public PlannerDTO selectPlannerDTOBycitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectPlannerDTOBycitiesNo(cities_no);
+	}
 	
 }

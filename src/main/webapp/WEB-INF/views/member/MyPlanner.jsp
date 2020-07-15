@@ -251,27 +251,7 @@ function successAjaxDetail(data){
 							</div>
 						</div>
 						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_2.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
-								<div class="destination_subtitle"><p>인도는 지금 몇시야?인도네시아로 떠나보세요</p></div>
-								<div class="destination_price">From $444</div>
-							</div>
-						</div>
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_2.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
-								<div class="destination_subtitle"><p>인도는 지금 몇시야?인도네시아로 떠나보세요</p></div>
-								<div class="destination_price">From $444</div>
-							</div>
-						</div>
+						
 
 					</div>
 				</div>

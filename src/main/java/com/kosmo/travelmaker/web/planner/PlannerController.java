@@ -29,6 +29,7 @@ import com.google.gson.JsonObject;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
 import com.kosmo.travelmaker.service.CityService;
+import com.kosmo.travelmaker.service.CountDTO;
 import com.kosmo.travelmaker.service.HotelDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.SpotsDTO;
@@ -124,6 +125,7 @@ public class PlannerController {
 			}
 			
 		}
+		
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
 		model.addAttribute("city_plan_no",city_plan_no);
@@ -449,4 +451,131 @@ public class PlannerController {
 	}
 	
 	
+	@RequestMapping(value="CallCityList.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String CallCityList() {
+		List<Map> collections = new Vector<Map>();
+		System.out.println("CallCityList에 들어옴");
+		List<CountDTO> count_list = cityService.selectCityCount();
+		System.out.println("called count_list:"+count_list);
+		for(CountDTO count_dto:count_list) {
+			int city_count=count_dto.getCount();
+			int city_no=count_dto.getCity_no();
+			Map<String, String> maps_cities=new HashMap<String, String>();
+			CityDTO dto_city= cityService.selectCityDTO(city_no);
+			maps_cities.put("img", dto_city.getCity_img());
+			maps_cities.put("name", dto_city.getCity_name());
+			maps_cities.put("intro", dto_city.getCity_intro());
+			maps_cities.put("city_no",Integer.toString(city_no));
+			maps_cities.put("city_count", Integer.toString(city_count));
+			collections.add(maps_cities);
+		
+			
+		}
+		
+		
+		return JSONArray.toJSONString(collections);
+	}
+	@RequestMapping(value="CallPlannerList.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String CallPlannerList(@RequestParam Map map) {
+		List<Map> collections = new Vector<Map>();
+		String city_no=map.get("city_no").toString();
+		System.out.println("city_no:"+city_no);
+		List<Integer> cities_no_list=cityService.selectCitiesNoListBycityNo(Integer.parseInt(city_no));
+		for(int cities_no:cities_no_list) {
+			Map<String,String> maps=new HashMap<String,String>();
+			PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
+			maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
+			maps.put("name", planner_dto.getPlanner_name());
+			maps.put("id", planner_dto.getUser_id());
+			maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
+			collections.add(maps);
+		}
+		
+		return JSONArray.toJSONString(collections);
+	}
+	
+	@RequestMapping("PlannerView.kosmo")
+	public String PlannerView(@RequestParam Map map, Model model) {
+		int planner_no=0;
+		String planner_name="NoName";
+		String cities_date="";
+		System.out.println("map.get(\"planner_no\"):"+map.get("planner_no"));
+		Map<String,Integer> city_no_name=new HashMap<String, Integer>();
+		Map<String, String> city_name_date=new HashMap<String, String>();
+		Map<String, String> city_hotel=new HashMap<String, String>();
+		Map<String,String> city_hotel_name=new HashMap<String,String>();
+		Map<String, String> city_plan_no=new HashMap<String,String>();
+
+		planner_no=Integer.parseInt(map.get("planner_no").toString());
+		Map<String, Integer> maps=new HashMap<String, Integer>();
+		maps.put("planner_no", planner_no);
+		List<PlannerDTO> planner_dto_list=plannerService.selectPlannerDTOByNo(planner_no);
+		planner_name=planner_dto_list.get(0).getPlanner_name();
+		
+		for(int city_no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
+			
+			CityDTO cityDTO= cityService.selectCityDTO(city_no);
+			maps.put("city_no", city_no);
+			int cities_no=plannerService.selectCitiesNoByMap(maps);
+			List<Integer> plan_nos= plannerService.selectPlanNoByCitiesNo(cities_no);
+			if(plan_nos.size()!=0) {
+				city_plan_no.put(cityDTO.getCity_name(), "1");
+			}
+			
+			List<HotelDTO> hotel_dto=hotelService.selectHotelDTOByCitiesNo(cities_no);
+			if(hotel_dto.size()!=0) {
+				city_hotel.put(cityDTO.getCity_name(),"1");
+				city_hotel_name.put(cityDTO.getCity_name(),hotel_dto.get(0).getHotel_name());
+				
+			}
+			
+			city_no_name.put(cityDTO.getCity_name(),cities_no);
+			city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
+			
+			
+		}
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
+		String today=transFormat.format(new Date());
+		model.addAttribute("city_plan_no",city_plan_no);
+		model.addAttribute("city_hotel_name",city_hotel_name);
+		model.addAttribute("planner_name",planner_name);
+		model.addAttribute("today",today);
+		model.addAttribute("planner_no",planner_no);
+		model.addAttribute("city_no_name",city_no_name);
+		model.addAttribute("city_name_date",city_name_date);
+		model.addAttribute("city_hotel",city_hotel);
+		//String user_id=session.getAttribute("id").toString();
+		//cityService.makingplanner(user_id);
+		model.addAttribute("TripAdviserHotelApiKey",TripAdviserHotelApiKey);
+		model.addAttribute("GoogleMapApiKey",GoogleMapApiKey);
+		model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);
+		
+		return "planner/PlannerView";
+		
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
