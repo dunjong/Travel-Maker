@@ -224,7 +224,7 @@
 													href="#" aria-controls="example2" data-dt-idx="1"
 													tabindex="0" class="page-link">1</a></li>
 												<div class="col-sm-12 col-md-7" style="text-align: right;">
-													<button id="deletebtn">삭제</button>
+													<button id="deletebtn">블랙</button>
 												</div> 
 											</ul>
 										</div>
