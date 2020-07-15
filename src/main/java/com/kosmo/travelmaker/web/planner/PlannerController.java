@@ -67,6 +67,8 @@ public class PlannerController {
 		Map<String,Integer> city_no_name=new HashMap<String, Integer>();
 		Map<String, String> city_name_date=new HashMap<String, String>();
 		Map<String, String> city_hotel=new HashMap<String, String>();
+		Map<String,String> city_hotel_name=new HashMap<String,String>();
+		Map<String, String> city_plan_no=new HashMap<String,String>();
 		if(map.get("planner_no")==null) {
 			String[] city_no_list=map.get("city_no").toString().split(",");
 			if(plannerService.insertPlanner(session.getAttribute("id").toString())) {
@@ -81,6 +83,7 @@ public class PlannerController {
 					if(plannerService.insertCities(maps)) {
 						System.out.println(no+" 도시가 저장되었습니다.");
 						int cities_no=plannerService.selectCitiesNo();
+						
 						String city_name=cityService.selectCityDTO(Integer.parseInt(no)).getCity_name();
 						city_hotel.put(city_name,"0");
 						city_no_name.put(city_name,cities_no);
@@ -102,8 +105,16 @@ public class PlannerController {
 				CityDTO cityDTO= cityService.selectCityDTO(city_no);
 				maps.put("city_no", city_no);
 				int cities_no=plannerService.selectCitiesNoByMap(maps);
-				if(hotelService.selectHotelDTOByCitiesNo(cities_no).size()!=0) {
+				List<Integer> plan_nos= plannerService.selectPlanNoByCitiesNo(cities_no);
+				if(plan_nos.size()!=0) {
+					city_plan_no.put(cityDTO.getCity_name(), "1");
+				}
+				
+				List<HotelDTO> hotel_dto=hotelService.selectHotelDTOByCitiesNo(cities_no);
+				if(hotel_dto.size()!=0) {
 					city_hotel.put(cityDTO.getCity_name(),"1");
+					city_hotel_name.put(cityDTO.getCity_name(),hotel_dto.get(0).getHotel_name());
+					
 				}
 				
 				city_no_name.put(cityDTO.getCity_name(),cities_no);
@@ -111,9 +122,12 @@ public class PlannerController {
 				
 				
 			}
+			
 		}
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
+		model.addAttribute("city_plan_no",city_plan_no);
+		model.addAttribute("city_hotel_name",city_hotel_name);
 		model.addAttribute("planner_name",planner_name);
 		model.addAttribute("today",today);
 		model.addAttribute("planner_no",planner_no);

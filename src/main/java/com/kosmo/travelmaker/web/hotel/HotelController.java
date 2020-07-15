@@ -64,12 +64,13 @@ public class HotelController {
 		List<HotelDTO> hotel_dto_list= hotelService.selectHotelDTOByCitiesNo(cities_no);
 		if(hotel_dto_list.size()==0) {
 			if(hotelService.insertHotelByMap(map)) {
-				city_name+=":예약 성공!";
+				hotel_dto_list= hotelService.selectHotelDTOByCitiesNo(cities_no);
+				city_name+=":예약 성공!:"+hotel_dto_list.get(0).getHotel_name();
 			}
 		}
 		else {
 			if(hotelService.updateHotelInfo(map)) {
-				city_name+=":호텔 예약이 변경 되었습니다.";
+				city_name+=":호텔 예약이 변경 되었습니다.:"+hotel_dto_list.get(0).getHotel_name();
 			};
 		}
 		
