@@ -164,6 +164,7 @@ CREATE TABLE planner
 (
 	planner_no number NOT NULL,
 	planner_acc number DEFAULT 0 NOT NULL,
+	planner_name nvarchar2(200),
 	user_id nvarchar2(200) NOT NULL,
 	PRIMARY KEY (planner_no)
 );
@@ -172,8 +173,8 @@ CREATE TABLE planner
 CREATE TABLE reservation
 (
 	air_res_no number NOT NULL,
-	planner_no number,
 	air_no number NOT NULL,
+	user_id nvarchar2(200),
 	PRIMARY KEY (air_res_no)
 );
 
@@ -305,12 +306,6 @@ ALTER TABLE cities
 ;
 
 
-ALTER TABLE reservation
-	ADD FOREIGN KEY (planner_no)
-	REFERENCES planner (planner_no)
-;
-
-
 ALTER TABLE auto_save
 	ADD FOREIGN KEY (save_spot_no)
 	REFERENCES save_spots (save_spot_no)
@@ -330,6 +325,12 @@ ALTER TABLE accompany
 
 
 ALTER TABLE planner
+	ADD FOREIGN KEY (user_id)
+	REFERENCES userinfo (user_id)
+;
+
+
+ALTER TABLE reservation
 	ADD FOREIGN KEY (user_id)
 	REFERENCES userinfo (user_id)
 ;

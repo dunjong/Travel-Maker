@@ -27,13 +27,38 @@
 	href="<c:url value='/plugins/cal_dist/css/adminlte.css'/>">
 </head>
 <body class="hold-transition sidebar-mini">
+	
 	<div class="wrapper">
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Main content -->
 			<section class="content">
+				
 				<div class="container-fluid">
-					<div class="row">
+					<div class="row" >
+						
+						<div class="col-md-12" style="text-align: center;margin-top:50px;">
+							<form action="<c:url value="/TravelMaker/PlannerSave.kosmo"/>">
+								<div class="row">
+									<div class="col-md-1">
+									
+									</div>
+									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
+										<input class="form-control" type="text" value="${planner_name}" id="planner_name" name="planner_name" placeholder="이름을 작명해 주세요" >
+										<input hidden="true" type="text" name="planner_no" value="${planner_no}">
+									</div>
+									<div class="col-md-1">
+									
+									</div>
+									<div class="col-md-3">
+										<button class="btn btn-danger"  style="width:100%" >전체 저장</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="col-md-12" style="text-align: center;">
+							<br>
+						</div>
 						<div class="col-md-9">
 							<div class="card card-primary">
 								<div class="card-body p-0">
@@ -81,35 +106,37 @@
 										</div>
 										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
-												<button id='h_${name.key}' class="btn btn-info" type="button" data-toggle="modal" data-target="#h_modal_${name.key}" style="width:100%;margin-bottom:4px">
-													${name.key}주변 호텔 찾아보기
-												</button>
-												
-												<div class="modal fade" id="h_modal_${name.key}">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div class="modal-header bg-info">
-																<h2>${name.key}호텔검색</h2>
-															</div>
-															<div class="modal-body">
-												              	<div>
-																	<form action="#">
-																		<input id="autocomplete_${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
-																		<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
-																		<input type="date" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
-																		<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
-																		<input type="date" id="datepicker1_${name.key}" value="" placeholder="check out" required="required">
-																		<input type="number" id="rooms_${name.key}"  placeholder="방 갯수" required="required">
-																	</form>
+														<button id='h_${name.key}' class="btn btn-info" type="button" data-toggle="modal" data-target="#h_modal_${name.key}" style="width:100%;margin-bottom:4px">
+															${name.key}주변 호텔 찾아보기
+														</button>
+														
+														<div class="modal fade" id="h_modal_${name.key}">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header bg-info">
+																		<h2>${name.key}호텔검색</h2>
+																		
+																	</div>
+																	<div class="modal-body">
+																	<h4 id="h_modal_hotelName_${name.key}"></h4>
+														              	<div>
+																			<form action="#">
+																				<input id="autocomplete_${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
+																				<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
+																				<input type="date" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
+																				<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
+																				<input type="date" id="datepicker1_${name.key}" value="" placeholder="check out" required="required">
+																				<input type="number" id="rooms_${name.key}"  placeholder="방 갯수" required="required">
+																			</form>
+																		</div>
+																	</div>
+																	<div class="modal-footer justify-content-between bg-info">
+														            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+														            	<button type="button" class="btn btn-outline-light" onclick="resultHotelModal('${name.key}','${name.value}')">검색</button>
+														            </div>
 																</div>
 															</div>
-															<div class="modal-footer justify-content-between bg-info">
-												            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-												            	<button type="button" class="btn btn-outline-light" onclick="resultHotelModal('${name.key}','${name.value}')">검색</button>
-												            </div>
 														</div>
-													</div>
-												</div>
 											</c:forEach>
 											
 											<div class="modal fade" id="h_modal_result" >
@@ -193,52 +220,46 @@
 										</div>
 										<div class="card-body">	
 											<c:forEach items="${city_no_name}" var="name">
-											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#d-modal-${name.key}" style="width:100%;margin-bottom:4px">
-												${name.key}에 대한 세부 일정 짜기
-											</button>
-											<div class="modal fade" id="d-modal-${name.key}">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header bg-info">
-															<h2>세부 일정 in ${name.key}</h2>
-														</div>
-														<div class="modal-body">
-											              	<div>
-																<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" style='margin-bottom:4px'>
-													                <input hidden="true" name="origin" value="${name.key}" /> 
-																	<input hidden="true" name="destination" value="공항,${name.key}" />
-																	<input hidden="true" name="planner_no" value="${planner_no}" />
-																	<input hidden="true" name="cities_no" value="${name.value}"/>
-													                <button class="btn btn btn-success">세부일정 짜기</button>
-													            </form>
-													            <button class="btn btn-success" onclick="callPlanDetails(${name.value},'${name.key}')" >세부목록 보기</button>
-													            <div class="well" id="planDetail_${name.key}">
+												
+														<button id="plan_btn_${name.key}" class="btn btn-info" type="button" data-toggle="modal" data-target="#d-modal-${name.key}" style="width:100%;margin-bottom:4px">
+															${name.key}에 대한 세부 일정 짜기
+														</button>
+														<div class="modal fade" id="d-modal-${name.key}">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header bg-info">
+																		<h2>세부 일정 in ${name.key}</h2>
+																	</div>
+																	<div class="modal-body">
+														              	<div>
+																			<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" style='margin-bottom:4px'>
+																                <input hidden="true" name="origin" value="${name.key}" /> 
+																				<input hidden="true" name="destination" value="공항,${name.key}" />
+																				<input hidden="true" name="planner_no" value="${planner_no}" />
+																				<input hidden="true" name="cities_no" value="${name.value}"/>
+																                <button class="btn btn btn-success">일정 짜기</button>
+																            </form>
+																            <button class="btn btn-success" onclick="callPlanDetails(${name.value},'${name.key}')" >목록 보기</button>
+																            <div class="well" id="planDetail_${name.key}">
+																			</div>
+																		</div>
+														            </div>
+																	<div class="modal-footer justify-content-between bg-info">
+														            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+														            </div>
 																</div>
 															</div>
-											            </div>
-														<div class="modal-footer justify-content-between bg-info">
-											            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-											            </div>
-													</div>
-												</div>
-											</div>
+														</div>
+														
 											</c:forEach>
 										</div>	
 									</div>
 								</div>
-								<div class="col-md-12">
-									<div class="card card-danger">
-										<div class="card-header">
-											<h4 class="card-title">전체 저장</h4>
-										</div>
-										<div class="card-body">	
-											<a class="btn btn-danger"  style="width:100%" href="<c:url value="/"/>">전체 저장</a>
-										</div>	
-									</div>
-								</div>
+								
 							</div>
 						</div>
 						<!-- /.col -->
+						
 					</div>
 					<!-- /.row -->
 				</div>
@@ -287,6 +308,21 @@
 		
 		var lat,lng;//호텔용
 		$(function() {
+			<c:forEach items="${city_hotel}" var="check" >
+			console.log('${check}')
+			if('${check.value}'=='1')
+				$('#h_${check.key}').prop('class','btn btn-danger').html( '${check.key} 등록 호텔 수정하기');
+				
+			</c:forEach>
+			
+			<c:forEach items="${city_hotel_name}" var="hotelName">
+				$('#h_modal_hotelName_${hotelName.key}').html('예약된 호텔:${hotelName.value}');
+			</c:forEach>
+			<c:forEach items="${city_plan_no}" var="plan_check" >
+				if('${plan_check.value ==1}')
+				$('#plan_btn_${plan_check.key}').prop('class','btn btn-danger').html('${plan_check.key}에 대한 세부 일정 수정')
+			</c:forEach>
+			
 			console.log('today: ${today}');
 			console.log('city_name_date','${city_name_date}');
 			var events=[
@@ -842,7 +878,8 @@
 				"hotel_price":$('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html().split(":")[1],
 				"hotel_latlng":latlng.split(",")[0].split(":")[1].trim()+","+latlng.split(",")[1].split(":")[1].trim(),
 				"hotel_score":$('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html().split(":")[1],
-				"cities_no":$('#h_cities_no').prop('value') 
+				"cities_no":$('#h_cities_no').prop('value') ,
+				"city_name":$('#city_name').html()
 				},
 				dataType:'text',
 				success:function(data){successAjax(data)},
@@ -856,8 +893,9 @@
 			
 		}
 		function successAjax(data){
-			console.log('성공:',data);
-			alert('예약테이블'+data)
+			$('#h_'+data.split(':')[0]).prop('class','btn btn-danger').html(data.split(':')[0]+' 등록 호텔 수정하기');
+			$('#h_modal_hotelName_'+data.split(':')[0]).html('예약된 호텔:'+data.split(':')[2]);
+			alert(data.split(':')[0]+data.split(':')[1])
 		}
 		function callPlanDetails(cities_no,city_name){
 			var planDetail=document.getElementById('planDetail_'+city_name)

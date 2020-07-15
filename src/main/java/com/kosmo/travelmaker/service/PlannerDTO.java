@@ -9,7 +9,16 @@ public class PlannerDTO {
 	private int planner_acc;
 	private int city_no;
 	private String user_id;
+	private String planner_name;
 	
+	
+	
+	public String getPlanner_name() {
+		return planner_name;
+	}
+	public void setPlanner_name(String planner_name) {
+		this.planner_name = planner_name;
+	}
 	public int getPlanner_acc() {
 		return planner_acc;
 	}

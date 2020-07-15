@@ -310,6 +310,7 @@
 						</div>
 
 					</div>
+
 				</div>
 
 				<!-- News Sidebar -->
@@ -334,7 +335,9 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>
+
 
 <!-- Footer -->
 

@@ -2,16 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<style>
-  df-messenger {
-   --df-messenger-bot-message: #ff4444;
-   --df-messenger-button-titlebar-color: #33b5e5;
-   --df-messenger-chat-background-color: #fafafa;
-   --df-messenger-font-color: white;
-   --df-messenger-send-icon: #878fac;
-   --df-messenger-user-message: #0099CC;
-  }
-</style>
+
 <footer class="footer">
 	<div class="parallax_background parallax-window" data-parallax="scroll"
 		data-image-src="<c:url value='/images/footer_1.jpg'/>"
@@ -108,17 +99,8 @@
 		<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 	</div>
 	
-	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-	
-<df-messenger
-  intent="WELCOME"
-  chat-title="TravelMaker"
-  agent-id="84eaf284-0b6e-4076-8073-6d2aeec051eb"
-  language-code="ko"
-  chat-icon="<c:url value='/images/마크레스.jpg'/>"
-  
 
-></df-messenger>
+
 </footer>
 
 
