@@ -38,12 +38,9 @@
         height:56px;
 }
 .modal-header{
-		border-radius:20px;
+		border-top-left-radius: 12px;
+		border-top-right-radius: 12px;
 }
-.modal-body{
-		border-radius:20px;
-}
-
 
 </style>
 <header class="header">

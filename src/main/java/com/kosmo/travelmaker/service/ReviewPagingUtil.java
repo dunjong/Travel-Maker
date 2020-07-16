@@ -60,7 +60,7 @@ public class ReviewPagingUtil {
 					"<a href='"+page+"nowPage=1'>\r\n" + 
 					"<span >&laquo;</span>\r\n" + 
 					"</a>\r\n" + 
-					"<a href='"+page+"nowPage="+(intTemp -blockPage)+"' >\r\n" + 
+					"<a href='"+page+"nowPage="+(intTemp -1)+"' >\r\n" + 
 					"<span >&lsaquo;</span>\r\n" + 
 					"</a>\r\n";   
 			
