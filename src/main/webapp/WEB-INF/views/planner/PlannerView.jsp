@@ -409,6 +409,7 @@
 		function callPlanDetails(cities_no,city_name){
 			var planDetail=document.getElementById('planDetail_'+city_name)
 			planDetail.innerHTML=''
+			
 			$.ajax({
 				url:'<c:url value="SelectPlanDetails.kosmo"/>',
 				data:{
@@ -451,6 +452,7 @@
 				}
 				
 			});
+			
 		}
 		function back(){
 			console.log('back으로 들어옴')
@@ -603,7 +605,7 @@
 	function ChangeMap(data){
 		console.log('data1:',data)
 		var spots=[]
-		
+		$('#d-modal-'+data[0].city_name).modal('hide');
 		$.each(data,function(index,value){
 			console.log('latlng:',value.latlng);
 			var latlng={location:value.latlng};
@@ -614,7 +616,7 @@
 		$('#map_title').html('지도 in '+data[0].city_name);
 		displayRoute(origin, directionsService,
 			       directionsRenderer,spots);
-		$('#h_modal_'+data[0].city_name).modal('hide')
+		
 		
 	}
 	 function displayRoute(origin, service, display,spots) {

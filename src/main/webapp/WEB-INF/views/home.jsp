@@ -248,7 +248,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/beach.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
+									<div style="color:#2e63bf" class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
 									<div class="intro_subtitle">
 										<p>#여행</p>
 									</div>
@@ -264,7 +264,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/wallet.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title">해외 인기여행지</div>
+									<div style="color:#2e63bf" class="intro_title">해외 인기여행지</div>
 									<div class="intro_subtitle">
 										<p>Best Price</p>
 									</div>
@@ -280,7 +280,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/suitcase.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title">놀라운 서비스</div>
+									<div style="color:#2e63bf" class="intro_title">놀라운 서비스</div>
 									<div class="intro_subtitle">
 										<p>Amazing Service</p>
 									</div>
