@@ -243,7 +243,7 @@ public class PlannerController {
 		
 		int city_no=cityService.selectCityNo(city_name);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-		for(int i=1;i<=8;i++) {
+		for(int i=1;i<=gap;i++) {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}
@@ -268,20 +268,28 @@ public class PlannerController {
 		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
 		
 		List<HotelDTO> hotel_dto_list=hotelService.selectHotelDTOByCitiesNo(Integer.parseInt(cities_no));
+		String calendarDate=cityService.selectCitiesDate(Integer.parseInt(cities_no));
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
+		
 		if(hotel_dto_list.size()!=0) {
 			HotelDTO hotel_dto =hotel_dto_list.get(0);
-			SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
 			Date checkIn=transFormat.parse(hotel_dto.getHotel_in());
 			Date checkOut=transFormat.parse(hotel_dto.getHotel_out());
 			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
 			//;
 		}
+		else {
+			Date checkIn=transFormat.parse(calendarDate.split(",")[0]);
+			Date checkOut=transFormat.parse(calendarDate.split(",")[1]);
+			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
+			
+		}
 		
 		List<SpotsDTO> list=spotsService.spotListByCitiesNo(Integer.parseInt(cities_no));
 		
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-		
-		for(int i=1;i<=8;i++) {
+		System.out.println("saved:"+gap);
+		for(int i=1;i<=gap+1;i++) {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}
@@ -311,6 +319,12 @@ public class PlannerController {
 					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 					break;
 				case "7":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				case "8":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				case "9":
 					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 					break;
 				default:
@@ -405,7 +419,8 @@ public class PlannerController {
 			System.out.println("city_no:"+map.get("city_no"));
 			List<SpotsDTO> list=spotsService.spotList(map);
 			Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-			for(int i=1;i<=8;i++) {
+			
+			for(int i=1;i<=5;i++) {
 				List<String> spotIDs=new Vector<String>();
 				dayPlan.put("day"+i, spotIDs);
 			}
@@ -435,6 +450,12 @@ public class PlannerController {
 						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 						break;
 					case "7":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "8":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "9":
 						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 						break;
 					default:

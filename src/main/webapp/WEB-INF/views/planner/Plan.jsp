@@ -756,10 +756,14 @@ $(function(){
 		
 		
 		
+
+		$('#loadingImg').attr('style','display:block')
 		
 		$.each(data[0], function (date,item) {
 			console.log('date:',date,',item:',item);
-			$('#loadingImg').attr('style','display:block')
+			if(item.length==0){
+				$('#loadingImg').attr('style','display:none')
+			}
 			for(var i=0;i<item.length;i++){
 				(function(x) {
 					setTimeout(function() {
