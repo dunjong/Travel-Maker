@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
+import com.kosmo.travelmaker.service.CountDTO;
 
 @Repository
 public class CityDAO {
@@ -44,5 +45,22 @@ public class CityDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.update("updateCitiesDate", map)==1?true:false;
 	}
+
+	public List<CountDTO> selectCityCount() {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectCityCount");
+	}
+
+	public List<Integer> selectCitiesNoListBycityNo(int city_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectCitiesNoListBycityNo",city_no);
+	}
+
+	public int selectCityNoByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectCityNoByCitiesNo",cities_no);
+	}
+
+	
 	
 }

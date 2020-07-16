@@ -22,6 +22,7 @@
 			<typeAlias alias="CityDTO" type="com.kosmo.travelmaker.service.CityDTO"/>
 			<typeAlias alias="CitiesDTO" type="com.kosmo.travelmaker.service.CitiesDTO"/>
 			<typeAlias alias="PlanDTO" type="com.kosmo.travelmaker.service.PlanDTO"/>
+			<typeAlias alias="CountDTO" type="com.kosmo.travelmaker.service.CountDTO"/>
 			
 		</typeAliases>
 		

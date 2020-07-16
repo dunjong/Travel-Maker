@@ -36,5 +36,9 @@ public class SpotsDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectOne("selectPlanDateByNo",plan_no);
 	}
+	public List<Integer> selectPlanNoListByDayNCity(Map<String, Integer> maps) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectPlanNoListByDayNCity", maps);
+	}
 
 }

@@ -19,7 +19,127 @@
 	</div>
 </div> --%>
 <!-- Intro -->
+<script>
 
+function CallPlanners(city_no){
+	 $.ajax({
+			url:'<c:url value="/TravelMaker/CallPlannerList.kosmo"/>',
+			data:{
+				city_no:city_no.id
+			},
+			dataType:'json',
+			success:function(data){successAjaxPlanner(data)},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+	 
+}
+
+function CallCity(){
+	
+	  $.ajax({
+			url:'<c:url value="/TravelMaker/CallCityList.kosmo"/>',
+			dataType:'json',
+			success:function(data){successAjaxCity(data)},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+	 
+	  
+}////CallCity
+function successAjaxPlanner(data){
+	tableString="";
+	$.each(data,function(index,planner){
+		console.log('index:',(index+1),',planner:',planner)
+		tableString+="<div class='news_post d-flex flex-md-row flex-column align-items-start justify-content-start'><div class='news_post_content'><div class='news_post_date d-flex flex-row align-items-end justify-content-start'>"
+		tableString+="<div>0"+(index+1)+"</div><div>"+planner.id+",동행자 수"+planner.acc+"</div>";
+		tableString+="</div><div class='news_post_title'><a href='<c:url value='/TravelMaker/PlannerView.kosmo?planner_no="+planner.no+"'/>'>"+planner.name+",플래너 번호:"+planner.no+"</a></div></div></div>";
+	
+	});
+	tableString+="<a href='#' class='btn btn-info'>상단으로 이동</a>";
+	$('#planners').html(tableString);
+	var offset=$('#news').offset();
+	$('html, body').animate({scrollTop : offset.top}, 400);
+}
+
+
+function successAjaxCity(data){
+	 var tableString="";
+	 var cities=document.getElementById('cities');
+	 
+	$.each(data,function(index,city){
+	 tableString+="<div class='destination item'>";
+	 tableString+="<div class='destination_image'>";
+	 tableString+="<img src='/travelmaker"+city.img+"' alt=''>";
+	 tableString+="</div><div class='destination_content'>";
+	 tableString+="<div class='destination_title' ><a href='#' id='"+city.city_no+"' onclick='CallPlanners(this)'>";
+	 tableString+=city.name;
+	 tableString+="</a></div><div class='destination_subtitle'><p>";
+	 tableString+=city.intro;
+	 tableString+="</p></div></div></div>"
+	 
+	})
+	$('#cities').html(tableString);
+	var size=$('#cities > div').length;
+	console.log('size',size);
+	$('#cities img').css({width:'360px',height:'261.37px'})
+	var j=0;
+	for(var i=1;i<=size;i++){
+		switch(j){
+		case 0:
+			switch(i%3){
+			case 1:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'0px'})
+				break;
+			case 2:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'390px',top:'0px'})
+				break;
+			default:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'780px',top:'0px'});
+				j+=1;
+			}
+			break;
+		case 1:
+			switch(i%3){
+			case 1:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'415px'})
+				break;
+			case 2:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'390px',top:'415px'})
+				break;
+			default:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'780px',top:'415px'});
+				j+=1;
+			}
+			break;
+		default :
+			switch(i%3){
+			case 1:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'830px'})
+				break;
+			case 2:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'390px',top:'830pxpx'})
+				break;
+			default:
+				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'780px',top:'830pxpx'});
+				j+=1;
+			}
+			break;
+		}
+	}
+	 var offset=$('#destinations').offset();
+	 $('html, body').animate({scrollTop : offset.top}, 400);
+}
+
+</script>
 <div class="intro">
 	<div class="intro_background"></div>
 	<div class="container">
@@ -37,7 +157,7 @@
 									<img src="<c:url value='/images/beach.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title">인기 여행지</div>
+									<div class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
 									<div class="intro_subtitle">
 										<p>#여행</p>
 									</div>
@@ -53,7 +173,7 @@
 									<img src="<c:url value='/images/wallet.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title">최고의 가격</div>
+									<div class="intro_title">해외 인기여행지</div>
 									<div class="intro_subtitle">
 										<p>Best Price</p>
 									</div>
@@ -95,7 +215,7 @@
 			</div>
 			<div class="row destinations_row">
 				<div class="col">
-					<div class="destinations_container item_grid">
+					<div class="destinations_container item_grid" id="cities">
 
 						<!-- Destination -->
 						<div class="destination item">
@@ -110,66 +230,7 @@
 							</div>
 						</div>
 
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_2.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
-								<div class="destination_subtitle"><p>인도는 지금 몇시야?인도네시아로 떠나보세요</p></div>
-								<div class="destination_price">From $444</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_3.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">San Francisco</a></div>
-								<div class="destination_subtitle"><p>너 코가 어딨어? 산프란 시스코로 떠나보세요</p></div>
-								<div class="destination_price">From $699</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_4.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Paris</a></div>
-								<div class="destination_subtitle"><p>위이이이잉~~파리로 떠나보세요</p></div>
-								<div class="destination_price">From $8282</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_5.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Phi Phi Island</a></div>
-								<div class="destination_subtitle"><p>어딘지 모르는데 가보세요!</p></div>
-								<div class="destination_price">From $9</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="<c:url value='/images/destination_6.jpg'/>" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Mykonos</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
-							</div>
-						</div>
-
+						
 					</div>
 				</div>
 			</div>
@@ -247,68 +308,23 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-8">
-					<div class="news_container">
+					<div class="news_container" id="planners" >
 						
 						<!-- News Post -->
 						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="<c:url value='/images/news_1.jpg'/>" alt=""></div>
 							<div class="news_post_content">
 								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
 									<div>02</div>
 									<div>june</div>
 								</div>
 								<div class="news_post_title"><a href="#">Best tips to travel light</a></div>
-								<div class="news_post_category">
-									<ul>
-										<li><a href="#">lifestyle & travel</a></li>
-									</ul>
-								</div>
 								<div class="news_post_text">
 									<p>Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo. Vivamus massa.Tempor massa et laoreet.</p>
 								</div>
 							</div>
 						</div>
-
-						<!-- News Post -->
-						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="<c:url value='/images/news_2.jpg'/>" alt=""></div>
-							<div class="news_post_content">
-								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
-									<div>01</div>
-									<div>june</div>
-								</div>
-								<div class="news_post_title"><a href="#">Best tips to travel light</a></div>
-								<div class="news_post_category">
-									<ul>
-										<li><a href="#">lifestyle & travel</a></li>
-									</ul>
-								</div>
-								<div class="news_post_text">
-									<p>Tempor massa et laoreet malesuada. Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo.</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- News Post -->
-						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="<c:url value='/images/news_3.jpg'/>" alt=""></div>
-							<div class="news_post_content">
-								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
-									<div>29</div>
-									<div>may</div>
-								</div>
-								<div class="news_post_title"><a href="#">Best tips to travel light</a></div>
-								<div class="news_post_category">
-									<ul>
-										<li><a href="#">lifestyle & travel</a></li>
-									</ul>
-								</div>
-								<div class="news_post_text">
-									<p>Vivamus massa.Tempor massa et laoreet malesuada. Aliquam nulla nisl, accumsan sit amet mattis.</p>
-								</div>
-							</div>
-						</div>
-
+		
+						<a href='#' class='btn btn-info'>상단으로 이동</a>
 					</div>
 
 				</div>
