@@ -111,7 +111,7 @@ public class androidController {
 	
 	
 	@CrossOrigin
-	@GetMapping(value="/placemarker/json")
+	@GetMapping(value="/placemarker/json",produces = "text/html; charset=UTF-8")
 	public String placeMarker(@RequestParam Map map) {
 		String city_name=map.get("city_name").toString();
 		String city_plan_date=map.get("city_plan_date").toString();
@@ -124,13 +124,25 @@ public class androidController {
 		citymap.put("city_plan_date",city_plan_date);
 		citymap.put("planno", planno);
 		List<AndroidSpotDTO> spots=androidservice.getSpot(citymap);
+		List<Map> list = new Vector<Map>();
 		for(AndroidSpotDTO spot:spots) {
 			System.out.println(spot.getSpot_latlng());
+			String[] latlng=spot.getSpot_latlng().split(",");
+			System.out.println(latlng[0]);
+			String lat = latlng[0];
+			String lng = latlng[1];
+			String title = spot.getSpot_name();
+			Map map2 = new HashMap();
+			map2.put("lat", lat);
+			map2.put("lng", lng);
+			map2.put("title", title);
+			list.add(map2);
+			System.out.println(latlng[1]);
 			System.out.println(spot.getSpot_name());
 		}
 		
 		
-		return "zs";
+		return net.sf.json.JSONArray.fromObject(list).toString();
 	}
 	
 	
