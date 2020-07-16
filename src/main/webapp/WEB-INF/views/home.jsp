@@ -130,10 +130,17 @@ function successAjaxAcc(data){
 function successAjaxPlanner(data){
 	tableString="";
 	$.each(data,function(index,planner){
-		tableString+="<div class='news_post d-flex flex-md-row flex-column align-items-start justify-content-start'><div class='news_post_content'><div class='news_post_date d-flex flex-row align-items-end justify-content-start'>"
-		tableString+="<div>0"+(index+1)+"</div><div>planner from<h3>"+planner.id+"</h3>동행자 수:<h3 id='accNo_"+planner.no+"'>"+planner.acc+"</h3></div>";
-		tableString+="</div><div class='news_post_title'><a href='<c:url value='/TravelMaker/PlannerView.kosmo?planner_no="+planner.no+"&city_no="+planner.city_no+"'/>'>"+planner.name+",플래너 번호:"+planner.no+"</a>";
+		tableString+="<div style='background-color:#f0ffff;border-radius:9px;width:500px' class='news_post d-flex flex-md-row flex-column align-items-start justify-content-start'><div class='news_post_content'><div class='news_post_date d-flex flex-row align-items-end justify-content-start'>"
+		if(planner.gap<=3){
+			tableString+="출발 <div style='color:red'>"+planner.gap+"</div>일 전<h2></h2>";
+		}
+		else{
+			tableString+="출발 <div>"+planner.gap+"</div>일 전";
+		}
 		
+		tableString+="<div>planner from<h3 style='font-weight:bolder'>"+planner.id+"</h3></div>";
+		tableString+="</div><div class='news_post_title'><a style='color:#2e63bf' href='<c:url value='/TravelMaker/PlannerView.kosmo?planner_no="+planner.no+"&city_no="+planner.city_no+"'/>'>"+planner.name+", No."+planner.no+"</a>";
+		tableString+="<div class='row'><div class='col-sm-5' style='font-size:2em;color:black'>인원:</div><div style='font-size:2em;color:black;font-weight:bolder' class='col-sm-6' style='font-weight:bolder;color:blue' id='accNo_"+planner.no+"'>"+planner.acc+"</div></div><br>";
 		if('${planner_nos}'.includes(planner.no)){
 			tableString+="<div class='btn btn-danger' onclick='CancelAcc(this)' id='acc_"+planner.no+"' >동행 취소하기</div>"
 		}
@@ -241,7 +248,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/beach.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
+									<div style="color:#2e63bf" class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
 									<div class="intro_subtitle">
 										<p>#여행</p>
 									</div>
@@ -257,7 +264,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/wallet.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title">해외 인기여행지</div>
+									<div style="color:#2e63bf" class="intro_title">해외 인기여행지</div>
 									<div class="intro_subtitle">
 										<p>Best Price</p>
 									</div>
@@ -273,7 +280,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/suitcase.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title">놀라운 서비스</div>
+									<div style="color:#2e63bf" class="intro_title">놀라운 서비스</div>
 									<div class="intro_subtitle">
 										<p>Amazing Service</p>
 									</div>
