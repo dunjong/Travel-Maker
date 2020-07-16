@@ -516,7 +516,8 @@ public class PlannerController {
 				PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
 				int planner_no=planner_dto.getPlanner_no();
 				String user_id=sessionSccope.getAttribute("id").toString();
-				if(planner_dto.equals(user_id)) {
+				System.out.println();
+				if(planner_dto.getUser_id().equals(user_id)) {
 					flag=false;
 				}
 				List <CitiesDTO> cities_dto_list=cityService.selectCitiesDTO(planner_no);
