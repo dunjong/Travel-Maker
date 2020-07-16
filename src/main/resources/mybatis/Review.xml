@@ -7,12 +7,17 @@
 		SELECT * FROM
 		(SELECT V.*,ROWNUM R FROM
 		(SELECT * FROM review 
+		<if test="searchWord != null">
+		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+		</if>
 		ORDER BY review_no DESC) V)
 		WHERE R BETWEEN #{start} AND #{end}
-		ORDER BY review_no DESC
 	</select>
 	<select id="reviewGetTotalRecord" parameterType="java.util.Map" resultType="int">
 		SELECT COUNT(*) FROM review
+		<if test="searchWord != null">
+		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+		</if>
 	</select>
 	<insert id="reviewInsert" parameterType="java.util.Map">
 		INSERT INTO review(review_no,city_no,review_title,review_content,review_date)
