@@ -18,9 +18,9 @@ public class ReviewDAO implements ReviewService {
 	private SqlSessionTemplate sqlMapper;
 
 	@Override
-	public List<ReviewDTO> selectList() {
+	public List<ReviewDTO> selectList(Map map) {
 		
-		return sqlMapper.selectList("reviewSelectList");
+		return sqlMapper.selectList("reviewSelectList",map);
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface ReviewService {
 	//목록용]
-	List<ReviewDTO> selectList();
+	List<ReviewDTO> selectList(Map map);
 	//전체 레코드 수]
 	int getTotalRecord(Map map);
 	//상세보기용]
