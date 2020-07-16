@@ -94,6 +94,25 @@
 	align-items: center;
 }
 
+.reviewPagingBack {
+	text-align: center;
+}
+
+.reviewPaging {
+	width: 40%;
+	height: 60px;
+	background-color: white;
+	margin-top: 20px;
+	border-radius: 30px;
+	display: inline-block;
+}
+
+.reviewPaging a {
+	color: #3EB489;
+	font-size: 3em;
+	font-weight: bold;
+}
+
 .reviewMapOrImage img {
 	max-height: 100%;
 	max-width: 100%;
@@ -163,15 +182,17 @@
 									<div class="reviewInformation">
 										<div class="bestReviewAndLikes">
 											<br> <img src="<c:url value='/images/reviewLikes.png'/>"
-												alt="좋아요"> <br> <span>${item.review_no}</span> <span>명</span>
+												alt="좋아요"> <br> <span>${item.review_no+1}</span>
+											<span>명</span>
 										</div>
 										<div class="reviewTextInformation">
 											<br />
 											<h4>${item.review_title}</h4>
 											<p>${fn:length(item.review_content)<79? item.review_content: fn:substring(item.review_content,0,79)}
-											${fn:length(item.review_content)<79? "" : "..." }</p>
+												${fn:length(item.review_content)<79? "" : "..." }</p>
 											<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트</h5>
-											<fmt:formatDate value="${item.review_date}" pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate"/>
+											<fmt:formatDate value="${item.review_date}"
+												pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate" />
 											<p>작성일시 : ${postdate}</p>
 										</div>
 										<div class="reviewMapOrImage">
@@ -183,6 +204,14 @@
 								</a>
 							</c:forEach>
 						</c:if>
+						<div class="reviewPagingBack">
+							<span>
+								<div class="reviewPaging">${pagingString}</div>
+							</span>
+						</div>
+						<div class="reviewPagingBack">
+								<div class="reviewPaging"><a href="#">1&nbsp&nbsp2&nbsp&nbsp3&nbsp&nbsp4</a></div>
+						</div>
 						<div class="reviewFooterUtil">
 							<br /> <a href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">
 								<img src="<c:url value='/images/reviewEdit.png'/>" alt="리뷰 작성하기">
