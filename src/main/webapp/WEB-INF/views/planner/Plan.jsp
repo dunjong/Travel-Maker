@@ -761,20 +761,22 @@ $(function(){
 		
 		
 
-		$('#loadingImg').attr('style','display:block')
 		
+		console.log('data[0]:',data[0])
 		$.each(data[0], function (date,item) {
 			console.log('date:',date,',item:',item);
-			if(item.length==0){
-				$('#loadingImg').attr('style','display:none')
+			var flag=false;
+			if(item.length!=0){
+				$('#loadingImg').attr('style','display:block')
 			}
+			
 			for(var i=0;i<item.length;i++){
 				(function(x) {
-					setTimeout(function() {
-						details(item[x],date)
-						placeDetailnSave(item[x],date.substring(3))
-						console.log(x);
-							if(x==2){
+						setTimeout(function() {
+							details(item[x],date)
+							placeDetailnSave(item[x],date.substring(3))
+							console.log(x);
+							if(x==item.length-1){
 								setTimeout(function() {
 									spots=dayplans['day1'].spots
 									$('#loadingImg').attr('style','display:none')
@@ -783,8 +785,7 @@ $(function(){
 								},2000)
 							}
 						}, 2000*x);
-					
-					})(i);
+				})(i);
 				
 			}
 		})////each
@@ -979,12 +980,13 @@ $(function(){
          div.setAttribute('onclick','searchedSpotBtn(this)')
          div.textContent = place.name;
          var img = document.createElement("img");
-         console.log('place:',place);
-         if(place.photos!=undefined){
-         img.setAttribute('src',place.photos[0].getUrl());
-         img.setAttribute('style','width:350px;height:200px')
-         placesList.appendChild(img);
-         }
+         
+         //if(place.photos!=undefined){
+         //img.setAttribute('src',place.photos[0].getUrl());
+         //img.setAttribute('style','width:350px;height:200px')
+         //placesList.appendChild(img);
+         //}
+         
          placesList.appendChild(div);
          div = document.createElement("div");
          div.setAttribute('class','col-sm-12')

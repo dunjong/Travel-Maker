@@ -429,8 +429,8 @@ public class PlannerController {
 			}
 	
 			
-			for(SpotsDTO dto:list) {
-				
+			for(int i=1;i<=gap;i++) {
+				SpotsDTO dto= list.get(i);
 				System.out.println("장소명:"+dto.getSpot_name()+",일차:"+dto.getAuto_plan_date());
 				String day=dto.getAuto_plan_date();
 				switch(day) {
