@@ -537,6 +537,7 @@
 	<!-- JQVMap -->
 	<script src="<c:url value='/plugins2/jqvmap/jquery.vmap.min.js'/>"></script>
 	<script src="<c:url value='/plugins2/jqvmap/maps/jquery.vmap.usa.js'/>"></script>
+	<script src="<c:url value='/plugins2/jqvmap/maps/continents/jquery-jvectormap-asia-merc.js'/>"></script>
 	<!-- jQuery Knob Chart -->
 	<script src="<c:url value='/plugins2/jquery-knob/jquery.knob.min.js'/>"></script>
 	<!-- daterangepicker -->
@@ -671,7 +672,7 @@
 		// World map by jvectormap
 		$('#world-map').vectorMap(
 				{ 
-					map : 'usa_en',   
+					map : 'asia_merc',   
 					backgroundColor : 'transparent', 
 					regionStyle : {
 						initial : {

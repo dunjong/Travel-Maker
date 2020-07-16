@@ -102,7 +102,7 @@
 									</ul>
 									</li>
 							</ul>
-							<button id="chatbtn" class="rounded-circle" type="button" data-toggle="modal" data-target="#ChatModal" style="text-align: right;cursor: pointer; "><img src="images/104352_482_1650.jpg" class="rounded-circle" style="color: sandybrown" alt=""></button>
+							<button id="chatbtn" class="rounded-circle" type="button" data-toggle="modal" data-target="#ChatModal" style="text-align: right;cursor: pointer; "><img src="<c:url value='/images/104352_482_1650.jpg'/>" class="rounded-circle" style="color: sandybrown" alt=""></button>
 							
 							
 							
@@ -169,7 +169,7 @@
 	         style="min-height: 60vh; border:none;"  	         
 	         width="100%"
 	         height="90%"
-	         src="https://171eadfc75fa.ngrok.io">                        
+	         src="https://af560aa6d7dc.ngrok.io">                        
 	     </iframe>
 	      </div>
 	</div>
