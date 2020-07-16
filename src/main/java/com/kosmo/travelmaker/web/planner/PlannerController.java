@@ -456,9 +456,7 @@ public class PlannerController {
 	@ResponseBody
 	public String CallCityList() {
 		List<Map> collections = new Vector<Map>();
-		System.out.println("CallCityList에 들어옴");
 		List<CountDTO> count_list = cityService.selectCityCount();
-		System.out.println("called count_list:"+count_list);
 		for(CountDTO count_dto:count_list) {
 			int city_count=count_dto.getCount();
 			int city_no=count_dto.getCity_no();
@@ -479,19 +477,37 @@ public class PlannerController {
 	}
 	@RequestMapping(value="CallPlannerList.kosmo", produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public String CallPlannerList(@RequestParam Map map) {
+	public String CallPlannerList(@RequestParam Map map) throws ParseException {
 		List<Map> collections = new Vector<Map>();
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
+		Date today=new Date();
+		
 		String city_no=map.get("city_no").toString();
-		System.out.println("city_no:"+city_no);
 		List<Integer> cities_no_list=cityService.selectCitiesNoListBycityNo(Integer.parseInt(city_no));
 		for(int cities_no:cities_no_list) {
-			Map<String,String> maps=new HashMap<String,String>();
-			PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
-			maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
-			maps.put("name", planner_dto.getPlanner_name());
-			maps.put("id", planner_dto.getUser_id());
-			maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
-			collections.add(maps);
+			
+		String cities_date= cityService.selectCitiesDate(cities_no);
+				Map<String,String> maps=new HashMap<String,String>();
+				boolean flag=true;
+				PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
+				int planner_no=planner_dto.getPlanner_no();
+				List <CitiesDTO> cities_dto_list=cityService.selectCitiesDTO(planner_no);
+				for(CitiesDTO cities_dto:cities_dto_list) {
+					if(cities_dto.getCities_date()!=null) {
+						Date cities_start_date=transFormat.parse(cities_dto.getCities_date().split(",")[0]);
+						
+						if(today.compareTo(cities_start_date)>=0) flag=false;
+					}
+				}
+				if(flag) {
+					maps.put("city_no", city_no);
+					maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
+					maps.put("name", planner_dto.getPlanner_name());
+					maps.put("id", planner_dto.getUser_id());
+					maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
+					collections.add(maps);
+				}
+			
 		}
 		
 		return JSONArray.toJSONString(collections);
@@ -502,7 +518,7 @@ public class PlannerController {
 		int planner_no=0;
 		String planner_name="NoName";
 		String cities_date="";
-		System.out.println("map.get(\"planner_no\"):"+map.get("planner_no"));
+		String city_no_from_home=map.get("city_no").toString();
 		Map<String,Integer> city_no_name=new HashMap<String, Integer>();
 		Map<String, String> city_name_date=new HashMap<String, String>();
 		Map<String, String> city_hotel=new HashMap<String, String>();
@@ -539,6 +555,7 @@ public class PlannerController {
 		}
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
+		model.addAttribute("city_no",city_no_from_home);
 		model.addAttribute("city_plan_no",city_plan_no);
 		model.addAttribute("city_hotel_name",city_hotel_name);
 		model.addAttribute("planner_name",planner_name);
@@ -596,6 +613,47 @@ public class PlannerController {
 		
 		return JSONArray.toJSONString(collections);
 	}
+	@RequestMapping(value="PlannerAcc.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String PlannerAcc(@RequestParam Map map,HttpSession session) {
+		String planner_no=map.get("planner_no").toString();
+		System.out.println("planner_no:"+planner_no);
+		String user_id=session.getAttribute("id").toString();
+		Map<String,String> maps=new HashMap<String,String>();
+		maps.put("planner_no", planner_no);
+		maps.put("user_id", user_id);
+		if(plannerService.insertAcc(maps)) {
+			System.out.println(user_id+"의 "+planner_no+" 동행" );
+		}
+		int planner_acc=plannerService.selectAccNoByPlannerNo(Integer.parseInt(planner_no));
+		maps.put("planner_acc", Integer.toString(planner_acc));
+		if(plannerService.updateAccNo(maps)) {
+			System.out.println("동행자 수 변경");
+		}
+		return planner_no;
+	}
+	
+	@RequestMapping(value="PlannerAccCancel.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String PlannerAccCancel(@RequestParam Map map,HttpSession session) {
+		String planner_no=map.get("planner_no").toString();
+		System.out.println("planner_no:"+planner_no);
+		String user_id=session.getAttribute("id").toString();
+		Map<String,String> maps=new HashMap<String,String>();
+		maps.put("planner_no", planner_no);
+		maps.put("user_id", user_id);
+		if(plannerService.DeleteAcc(maps)) {
+			System.out.println(user_id+"의 "+planner_no+" 동행 삭제" );
+		}
+		int planner_acc=plannerService.selectAccNoByPlannerNo(Integer.parseInt(planner_no));
+		maps.put("planner_acc", Integer.toString(planner_acc));
+		if(plannerService.updateAccNo(maps)) {
+			System.out.println("동행자 수 변경");
+		}
+		return planner_no;
+	}
+	
+	
 }
 
 
