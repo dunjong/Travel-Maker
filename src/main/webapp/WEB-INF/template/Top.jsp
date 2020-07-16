@@ -169,7 +169,6 @@
 	         style="min-height: 50vh; border:none;"  	         
 	         width="100%"
 	         height="90%"
-	         
 	         src="https://af560aa6d7dc.ngrok.io">                        
 	     </iframe>
 	      </div>
