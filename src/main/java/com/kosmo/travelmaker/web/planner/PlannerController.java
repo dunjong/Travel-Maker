@@ -501,7 +501,7 @@ public class PlannerController {
 	}
 	@RequestMapping(value="CallPlannerList.kosmo", produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public String CallPlannerList(@RequestParam Map map) throws ParseException {
+	public String CallPlannerList(@RequestParam Map map,HttpSession sessionSccope) throws ParseException {
 		List<Map> collections = new Vector<Map>();
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		Date today=new Date();
@@ -515,7 +515,12 @@ public class PlannerController {
 				boolean flag=true;
 				PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
 				int planner_no=planner_dto.getPlanner_no();
+				String user_id=sessionSccope.getAttribute("id").toString();
+				if(planner_dto.equals(user_id)) {
+					flag=false;
+				}
 				List <CitiesDTO> cities_dto_list=cityService.selectCitiesDTO(planner_no);
+				
 				for(CitiesDTO cities_dto:cities_dto_list) {
 					if(cities_dto.getCities_date()!=null) {
 						Date cities_start_date=transFormat.parse(cities_dto.getCities_date().split(",")[0]);
