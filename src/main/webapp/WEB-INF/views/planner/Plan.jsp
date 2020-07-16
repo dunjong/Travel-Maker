@@ -714,7 +714,11 @@ $(function(){
 		
 		$.ajax({
 			url:'<c:url value="SpotList.kosmo"/>',
-			data:$('#city-no').serialize(),
+			data:{
+				'city_no':'${city_no}',
+				'cities_no':'${cities_no}',
+				'gap':'${gap}'
+			},
 			dataType:'json',
 			success:function(data){successAjax(data)},
 			error:function(request,error){
@@ -1345,7 +1349,7 @@ $(function(){
 			
 			<input type="text" id="cities-no"  value="${cities_no}" name="cities_no" hidden="true" >
 			<input type="text" id="city-no"  value="${city_no}" name="city_no" hidden="true" >
-			
+			<input type="text" id="gap"  value="${gap}" name="gap" hidden="true" >
 			<div class="row">
 				<div class="col-sm-12">
 					<div id="attractionBtn" class="snip1535" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>

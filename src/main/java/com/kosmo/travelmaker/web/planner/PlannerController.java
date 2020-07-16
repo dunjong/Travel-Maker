@@ -289,7 +289,7 @@ public class PlannerController {
 		
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
 		System.out.println("saved:"+gap);
-		for(int i=1;i<=gap+1;i++) {
+		for(int i=1;i<=gap;i++) {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}
@@ -417,10 +417,13 @@ public class PlannerController {
 	@ResponseBody
 	public String SpotList(@RequestParam Map map) {
 			System.out.println("city_no:"+map.get("city_no"));
+			System.out.println("cities_no:"+map.get("cities_no"));
+			System.out.println("gap:"+map.get("gap"));
+			int gap=Integer.parseInt(map.get("gap").toString());
 			List<SpotsDTO> list=spotsService.spotList(map);
 			Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
 			
-			for(int i=1;i<=5;i++) {
+			for(int i=1;i<=gap;i++) {
 				List<String> spotIDs=new Vector<String>();
 				dayPlan.put("day"+i, spotIDs);
 			}
