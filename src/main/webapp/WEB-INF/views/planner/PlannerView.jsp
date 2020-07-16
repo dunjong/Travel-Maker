@@ -55,6 +55,7 @@
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
 										<div class="form-control"  id="planner_name">${planner_name}</div>
 										<input hidden="true" type="text" name="planner_no" value="${planner_no}">
+										<input hidden="true" type="text" name="city_no" value="${city_no}">
 									</div>
 									<div class="col-md-1">
 									
@@ -163,7 +164,6 @@
 																	</div>
 																	<div class="modal-body">
 														              	<div>
-																			<button class="btn btn-success" onclick="CallPlanDetilsByMap('${planner_no}','${name.value}')"> 지도로 보기</button>
 																            <button class="btn btn-success" onclick="callPlanDetails('${name.value}','${name.key}')" >목록 보기</button>
 																            <div class="well" id="planDetail_${name.key}">
 																			</div>

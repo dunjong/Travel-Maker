@@ -24,4 +24,9 @@ public interface PlannerService {
 	boolean updatePlannerName(Map map);
 	List<PlannerDTO> selectPlannerDTOByNo(int planner_no);
 	PlannerDTO selectPlannerDTOBycitiesNo(int cities_no);
+	boolean updateAccNo(Map<String, String> maps);
+	boolean insertAcc(Map<String, String> maps);
+	int selectAccNoByPlannerNo(int planner_no);
+	List<Integer> selectPlannerNoListById(String user_id);
+	boolean DeleteAcc(Map<String, String> maps);
 }

@@ -87,4 +87,24 @@ public class PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectOne("selectPlannerDTOBycitiesNo",cities_no);
 	}
+	public boolean updateAccNo(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return sqlMapper.update("updateAccNo",maps)==1?true:false;
+	}
+	public boolean insertAcc(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return sqlMapper.insert("insertAcc", maps)==1?true:false;
+	}
+	public int selectAccNoByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectAccNoByPlannerNo",planner_no);
+	}
+	public List<Integer> selectPlannerNoListById(String user_id) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectPlannerNoListById", user_id);
+	}
+	public boolean DeleteAcc(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("DeleteAcc", maps)==1?true:false;
+	}
 }
