@@ -25,13 +25,13 @@ public class HomeController {
 	private PlannerServiceImpl plannerService;
 	
 	@RequestMapping(value = "/")
-	public String home(@RequestParam Map map,Model model,HttpSession session) {
+	public String home(@RequestParam Map map,Model model,HttpSession sessionSccope) {
 		if(map.get("city_no")!=null)
 			model.addAttribute("city_no",map.get("city_no"));
 		
 		String user_id="";
-		if(session.getAttribute("id")!=null) {
-			user_id=session.getAttribute("id").toString();
+		if(sessionSccope.getAttribute("id")!=null) {
+			user_id=sessionSccope.getAttribute("id").toString();
 			List<Integer> planner_no_list= plannerService.selectPlannerNoListById(user_id);
 			String planner_nos="";
 			for(int planner_no:planner_no_list) {
