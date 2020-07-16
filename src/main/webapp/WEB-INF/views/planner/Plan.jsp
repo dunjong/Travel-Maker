@@ -87,6 +87,10 @@
         padding: 5px;
       }
       #loadingImg{
+      	position: absolute;
+      	top:30%;
+      	left:40%;
+      	display:none;
       }
       
       #autocomplete_box{
@@ -755,6 +759,7 @@ $(function(){
 		
 		$.each(data[0], function (date,item) {
 			console.log('date:',date,',item:',item);
+			$('#loadingImg').attr('style','display:block')
 			for(var i=0;i<item.length;i++){
 				(function(x) {
 					setTimeout(function() {
@@ -764,6 +769,7 @@ $(function(){
 							if(x==2){
 								setTimeout(function() {
 									spots=dayplans['day1'].spots
+									$('#loadingImg').attr('style','display:none')
 									displayRoute(origin,destination , directionsService,
 										      directionsRenderer,spots);
 								},2000)
@@ -1372,9 +1378,7 @@ $(function(){
 					<div id="watchNowPlan">
 						<div class="planview" style="background-color:#ff9999" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜  상세 보기</i></div>
 					</div>
-					<div id="loadingImg" >
-						
-					</div>
+					<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 				</div>
 				 
 				<div class="col-sm-12" id="distance">
