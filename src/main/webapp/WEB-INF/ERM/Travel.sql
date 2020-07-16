@@ -42,48 +42,20 @@ DROP SEQUENCE seq_tag_rel;
 
 /* Create Sequences */
 
-CREATE SEQUENCE seq_acc 
-nocache 
-nocycle;
-CREATE SEQUENCE seq_air
-nocache 
-nocycle;
-CREATE SEQUENCE seq_auto_plan
-nocache 
-nocycle;
-CREATE SEQUENCE seq_cities
-nocache 
-nocycle;
-CREATE SEQUENCE seq_city
-nocache 
-nocycle;
-CREATE SEQUENCE seq_hotel
-nocache 
-nocycle;
-CREATE SEQUENCE seq_plan
-nocache 
-nocycle;
-CREATE SEQUENCE seq_planner
-nocache 
-nocycle;
-CREATE SEQUENCE seq_res
-nocache 
-nocycle;
-CREATE SEQUENCE seq_review
-nocache 
-nocycle;
-CREATE SEQUENCE seq_spot_auto
-nocache 
-nocycle;
-CREATE SEQUENCE seq_spot_save
-nocache 
-nocycle;
-CREATE SEQUENCE seq_tag
-nocache 
-nocycle;
-CREATE SEQUENCE seq_tag_rel
-nocache 
-nocycle;
+CREATE SEQUENCE seq_acc;
+CREATE SEQUENCE seq_air;
+CREATE SEQUENCE seq_auto_plan;
+CREATE SEQUENCE seq_cities;
+CREATE SEQUENCE seq_city;
+CREATE SEQUENCE seq_hotel;
+CREATE SEQUENCE seq_plan;
+CREATE SEQUENCE seq_planner;
+CREATE SEQUENCE seq_res;
+CREATE SEQUENCE seq_review;
+CREATE SEQUENCE seq_spot_auto;
+CREATE SEQUENCE seq_spot_save;
+CREATE SEQUENCE seq_tag;
+CREATE SEQUENCE seq_tag_rel;
 
 
 
@@ -192,6 +164,7 @@ CREATE TABLE planner
 (
 	planner_no number NOT NULL,
 	planner_acc number DEFAULT 0 NOT NULL,
+	planner_name nvarchar2(200),
 	user_id nvarchar2(200) NOT NULL,
 	PRIMARY KEY (planner_no)
 );
@@ -200,8 +173,8 @@ CREATE TABLE planner
 CREATE TABLE reservation
 (
 	air_res_no number NOT NULL,
-	planner_no number,
 	air_no number NOT NULL,
+	user_id nvarchar2(200),
 	PRIMARY KEY (air_res_no)
 );
 
@@ -333,12 +306,6 @@ ALTER TABLE cities
 ;
 
 
-ALTER TABLE reservation
-	ADD FOREIGN KEY (planner_no)
-	REFERENCES planner (planner_no)
-;
-
-
 ALTER TABLE auto_save
 	ADD FOREIGN KEY (save_spot_no)
 	REFERENCES save_spots (save_spot_no)
@@ -358,6 +325,12 @@ ALTER TABLE accompany
 
 
 ALTER TABLE planner
+	ADD FOREIGN KEY (user_id)
+	REFERENCES userinfo (user_id)
+;
+
+
+ALTER TABLE reservation
 	ADD FOREIGN KEY (user_id)
 	REFERENCES userinfo (user_id)
 ;

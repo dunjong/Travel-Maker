@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.kosmo.travelmaker.service.CitiesDTO;
+import com.kosmo.travelmaker.service.PlanDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.PlannerService;
 
@@ -84,7 +85,7 @@ public class PlannerServiceImpl implements PlannerService{
 	}
 
 	@Override
-	public List<PlannerDTO> selectPlanDTOByCitiesNo(int cities_no) {
+	public List<PlanDTO> selectPlanDTOByCitiesNo(int cities_no) {
 		// TODO Auto-generated method stub
 		return plannerDAO.selectPlanDTOByCitiesNo(cities_no);
 	}
@@ -118,6 +119,54 @@ public class PlannerServiceImpl implements PlannerService{
 	public boolean deleteCitiesByPlannerNo(int planner_no) {
 		// TODO Auto-generated method stub
 		return plannerDAO.deleteCitiesByPlannerNo(planner_no);
+	}
+
+	@Override
+	public boolean updatePlannerName(Map map) {
+		// TODO Auto-generated method stub
+		return plannerDAO.updatePlannerName(map);
+	}
+
+	@Override
+	public List<PlannerDTO> selectPlannerDTOByNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectPlannerDTOByNo(planner_no);
+	}
+
+	@Override
+	public PlannerDTO selectPlannerDTOBycitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectPlannerDTOBycitiesNo(cities_no);
+	}
+
+	@Override
+	public boolean updateAccNo(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return plannerDAO.updateAccNo(maps);
+	}
+
+	@Override
+	public boolean insertAcc(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return plannerDAO.insertAcc(maps);
+	}
+
+	@Override
+	public int selectAccNoByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectAccNoByPlannerNo(planner_no);
+	}
+
+	@Override
+	public List<Integer> selectPlannerNoListById(String user_id) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectPlannerNoListById(user_id);
+	}
+
+	@Override
+	public boolean DeleteAcc(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return plannerDAO.DeleteAcc(maps);
 	}
 	
 }

@@ -28,7 +28,6 @@
 	<update id="updateMemberDTO" parameterType="java.util.Map">
 		UPDATE userinfo SET ${updateColumn}=#{value} where user_id=#{user_id}
 	</update>
-	
 	<select id="memberlist" resultType="MemberDTO">
 		SELECT * FROM userinfo 
 	</select>

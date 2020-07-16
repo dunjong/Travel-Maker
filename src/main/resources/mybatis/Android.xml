@@ -3,11 +3,15 @@
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Android">
-	<select id="plannameGet" parameterType="java.lang.String" resultType="java.lang.String">
-		SELECT PLANNER_NO FROM planner WHERE user_id=#{user_id}
+	<select id="plannameGet" parameterType="java.lang.String" resultType="AndroidPlanDTO">
+		SELECT PLANNER_NO,PLANNER_NAME FROM planner WHERE user_id=#{user_id}
 	</select>
 	
 	<select id="planCityGet" parameterType="java.lang.String" resultType="AndroidCityDTO">
 		select CITY_NAME,CITIES_DATE FROM CITIES C JOIN CITY CI ON C.CITY_NO=CI.CITY_NO WHERE planner_no=#{planname} 
+	</select>
+	
+	<select id="getSpot" parameterType="java.util.Map" resultType="AndroidSpotDTO">
+		SELECT SPOT_NAME,SPOT_LATLNG FROM save_spots WHERE plan_no=(SELECT plan_no FROM plan WHERE cities_no=(SELECT cities_no FROM cities WHERE planner_no=#{planno} AND city_no=(SELECT city_no FROM city WHERE city_name=#{city_name})) AND plan_date=#{city_plan_date})
 	</select>
 </mapper>

@@ -4,7 +4,7 @@
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Planner">
 	<insert id="insertPlanner" parameterType="java.lang.String">
-		INSERT INTO PLANNER VALUES(seq_planner.nextval,0,#{id})
+		INSERT INTO PLANNER VALUES(seq_planner.nextval,0,'NoName',#{id})
 	</insert>
 	<insert id="insertCities" parameterType="java.util.Map">
 		INSERT INTO cities(cities_no,city_no,planner_no,cities_date) VALUES(seq_cities.nextval,#{city_no},#{planner_no},#{cities_date})
@@ -12,6 +12,10 @@
 	<insert id="insertPlan"  parameterType="java.util.Map">
 		Insert into plan VALUES(seq_plan.nextval,#{plan_date},#{cities_no})
 	</insert>
+	<insert id="insertAcc" parameterType="java.util.Map">
+		INSERT INTO ACCOMPANY VALUES(seq_acc.nextval,#{planner_no},#{user_id})
+	</insert>
+	
 	
 	<select id="selectPlannerList" parameterType="int" resultType="int">
 		SELECT city_no from cities WHERE planner_no=#{planner_no}
@@ -37,7 +41,18 @@
 	<select id="selectPlanDTOByCitiesNo" parameterType="int" resultType="PlanDTO">
 		SELECT * FROM PLAN WHERE cities_no=#{cities_no}
 	</select>
-	
+	<select id="selectPlannerDTOByNo" parameterType="int" resultType="PlannerDTO">
+		SELECT * FROM PLANNER WHERE PLANNER_NO=#{planner_no}
+	</select>
+	<select id="selectPlannerDTOBycitiesNo" parameterType="int" resultType="PlannerDTO">
+		select * from planner where planner_no=(select planner_no from cities where cities_no=#{cities_no})
+	</select>
+	<select id="selectAccNoByPlannerNo" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM ACCOMPANY WHERE planner_no=#{planner_no}
+	</select>
+	<select id="selectPlannerNoListById" parameterType="java.lang.String" resultType="int">
+		SELECT planner_no from accompany where user_id=#{user_id}
+	</select>
 	
 	
 	<delete id="deletePlanByNo" parameterType="int">
@@ -55,4 +70,16 @@
 	<delete id="deleteCitiesByPlannerNo" parameterType="int">
 		DELETE FROM cities WHERE planner_no=#{planner_no}
 	</delete>
+	<delete id="DeleteAcc" parameterType="java.util.Map">
+		DELETE FROM ACCOMPANY WHERE planner_no=#{planner_no} and user_id=#{user_id}
+	</delete>
+	
+	
+	<update id="updatePlannerName" parameterType="java.util.Map">
+		UPDATE PLANNER SET planner_name=#{planner_name} WHERE planner_no=#{planner_no}
+	</update>
+	<update id="updateAccNo" parameterType="java.util.Map">
+		UPDATE PLANNER SET planner_acc=#{planner_acc} WHERE planner_no=#{planner_no}
+	</update>
+	
 </mapper>

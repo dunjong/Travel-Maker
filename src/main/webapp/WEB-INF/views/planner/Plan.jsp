@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="<c:url value='/js/jquery.jcarousel.min.js'/>"></script>
-<script src="<c:url value='/js/jcarousel.basic.js'/>"></script>
 <link rel="stylesheet" href="<c:url value='/styles/jcarousel.basic.css'/>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <!-- Font Awesome -->
@@ -21,19 +19,43 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+ <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <style>
+	  #info_window .row .col-sm-3{
+		font-size:1.5em;
+		font-weight:bolder;
+		text-align:right;
+		
+	  }
+	  #left-panel{
+	  	position: absolute;
+        top: 10%;
+        left:1%;
+        z-index: 5;
+        
+	  }
+	  #info_window .row .col-sm-9{
+	  	font-size:1.5em;
+	  }
+	  #iw-url{
+	  	margin-top:10px;
+	  }
+	  #iw-rating{
+	  	color:red;
+	  }
+	  
  	  #right-panel {
        
-        background-color: #fff;
-        padding: 5px;
         border: 1px solid #999;
         text-align: left;
         font-family: 'Roboto','sans-serif';
         line-height: 30px;
+        overflow-y:scroll;
+         overflow-x:hidden;
+	  	width:350px;
+	  	background-color:white;
+	  	height:650px;
        
-      }
-      #places{
-       margin-left: 60px;
       }
       #bottomPlanBox-panel{
       	position: absolute;
@@ -60,9 +82,11 @@
         position: absolute;
         top: 90%;
         left: 35%;
-        width:487px;
+        width:25%;
         z-index: 5;
         padding: 5px;
+      }
+      #loadingImg{
       }
       
       #autocomplete_box{
@@ -91,7 +115,6 @@
       #map {
         height: 800px;
         width: 100%;
-        border:thick double #32a1ce;
       }
       table {
         font-size: 12px;
@@ -100,19 +123,10 @@
         height: 100%;
         overflow: auto;
       }
-      .iw_table_row {
-         height: 18px;
-         color:#B28AF0;
-         font-size:15px;
-         font-weight:border
-      }
-      .iw_attribute_name {
-        font-weight: bold;
-        text-align: right;
-        color:black;
-      }
-      .iw_table_icon {
-        text-align: right;
+      
+      
+      #iw-icon i{
+        margin:10px;
       }
       #sp-origin,#sp-destination{
       	 height: 30px;
@@ -147,21 +161,18 @@
       #distance{
       	text-align: center;
       }
-     
-      #md-image img{
-	      width:580px;
-	      height:380px;
-	      border:1rem solid;
-      }
       #md-review{
       	overflow:scroll;
       	height:360px;
+      	
       }
       #review{
       	margin-left:300px;
+      
       }
+      
      
-      .myButton {
+.myButton {
 	box-shadow:inset 0px 1px 0px 0px #efdcfb;
 	background:linear-gradient(to bottom, #dfbdfa 5%, #bc80ea 100%);
 	background-color:#dfbdfa;
@@ -397,7 +408,9 @@ var plans=5;
 //짜여진 계획 저장하는 JSON 선언
 var dayplans={};
 
-//1] 페이지에 맵 표시
+var sv;
+var panorama;
+var markerPanoID;
 function initMap() {
 	
 	
@@ -528,7 +541,15 @@ function initMap() {
                'styled_map']
       }
   });////map 생성
-    
+   
+  //스트릿뷰
+  sv= new google.maps.StreetViewService();
+  panorama=new google.maps.StreetViewPanorama(document.getElementById('pano'),{
+	  position:{lat: -8.672062, lng: 115.231609},
+	  pov: {heading: 165, pitch: 0 }
+	  
+  });
+  
   
   //맵 타입 변경 가능케하는 버튼생성
   map.mapTypes.set('styled_map', styledMapType);
@@ -615,7 +636,10 @@ function initMap() {
   
   
   map.addListener('click', function(event) {
-	   
+	  	$('#map').css('width','100%');
+		$('#pano').css('width','0%').css('float','left').css('height','800px');
+		
+		
 	   $('#places').html('');
 	   if(markers.length!=0){
 		   //확인용
@@ -738,9 +762,11 @@ $(function(){
 						placeDetailnSave(item[x],date.substring(3))
 						console.log(x);
 							if(x==2){
-								spots=dayplans['day1'].spots
-								displayRoute(origin,destination , directionsService,
-									      directionsRenderer,spots);
+								setTimeout(function() {
+									spots=dayplans['day1'].spots
+									displayRoute(origin,destination , directionsService,
+										      directionsRenderer,spots);
+								},2000)
 							}
 						}, 2000*x);
 					
@@ -935,11 +961,23 @@ $(function(){
          markers.push(marker)
          var div = document.createElement("div");
          div.setAttribute('id',place.place_id)
-         div.setAttribute('class','btn btn-info col-sm-5')
+         div.setAttribute('class','btn btn-info col-sm-12')
          div.setAttribute('onclick','searchedSpotBtn(this)')
          div.textContent = place.name;
+         var img = document.createElement("img");
+         console.log('place:',place);
+         if(place.photos!=undefined){
+         img.setAttribute('src',place.photos[0].getUrl());
+         img.setAttribute('style','width:350px;height:200px')
+         placesList.appendChild(img);
+         }
          placesList.appendChild(div);
+         div = document.createElement("div");
+         div.setAttribute('class','col-sm-12')
+         var br=document.createElement("br");
+         div.appendChild(br)
          
+         placesList.appendChild(div);
         //마커 확인
    	 	//console.log('마커',marker.position.toString());
          //console.log('place.geometry.location',place.geometry.location);
@@ -951,7 +989,7 @@ $(function(){
  
  
  function searchedSpotBtn(data){
-	 
+	 $('#sp-modal').modal('hide');
 	 console.log('searchedSpotBtn:',data.innerHTML,'아이디: ',data.getAttribute('id'))
 	 
 	 var logo;
@@ -1009,7 +1047,6 @@ $(function(){
 	 	//console.log('marker.placeResult',marker.placeResult)
 	 	///
         var marker = this;
-        console.log('marker:',marker)
 	 	
         servicePlace.getDetails({placeId: marker.placeResult.place_id},
             function(place, status) {
@@ -1081,36 +1118,51 @@ $(function(){
  
  //3-4]
    function buildDetailContent(place) {
-	   document.getElementById('md-image').innerHTML = '';
 	   document.getElementById('md-name').innerHTML = '';
 	   document.getElementById('md-review').innerHTML = '';
-	   md_image=document.getElementById('md-image');
 	   md_name=document.getElementById('md-name');
 	   md_review=document.getElementById('md-review');
-	  
-	   for(var i=0;i<10;i++){
-			   if(place.photos!=undefined && place.photos[i]!=undefined){
-				    //console.log('place.photos[i].getUrl()',place.photos[i].getUrl())
-				    li =document.createElement('li');
-				    img = document.createElement('img');
-				    img.alt='사진 없음';
-	           		img.src=place.photos[i].getUrl()
-		            li.appendChild(img);	
-		            md_image.appendChild(li);
-			   }
-		   }; 
-		   span=document.createElement('span')
-		   span.textContent=place.name;
-		   md_name.appendChild(span)
-		   if(place.reviews!=undefined){
-			   for(var i=0;i<place.reviews.length;i++){
-			   span=document.createElement('h4')
-			   span.textContent='리뷰'+(i+1)+' ▶'+place.reviews[i].author_name+' : '+place.reviews[i].text;
-			   md_review.appendChild(span)
-			   }
+	   span=document.createElement('span')
+	   span.textContent=place.name;
+	   md_name.appendChild(span)
+	   if(place.reviews!=undefined){
+		   for(var i=0;i<place.reviews.length;i++){
+		   span=document.createElement('h4')
+		   span.textContent=' ▶'+place.reviews[i].author_name;
+		   
+		   md_review.appendChild(span)
+		   span=document.createElement('h5')
+		   span.setAttribute('style','background-color:#ff9999;border-radius:6px')
+		   span.textContent=place.reviews[i].text
+		   md_review.appendChild(span)
 		   }
+	   }
+	   
+	   
+	   
+	   
+	   sv.getPanorama(
+	            {
+	              location: place.geometry.location,
+	              radius: 50
+	            },
+	            processSVData
+	          ); 
+	   
    }
  
+   function processSVData(data, status){
+	   console.log('sv data:',data)
+	   if (status === "OK") {
+		
+        markerPanoID = data.location.pano;
+        console.log('markerPanoID:',markerPanoID)
+	  } 
+	  else {
+       console.error("Street View data not found for this location.");
+     }
+   }
+   
  //4] 토탈 거리 계산기
  function computeTotalDistance(result) {
    var total = 0;
@@ -1128,9 +1180,9 @@ $(function(){
 	 var sp_waypoints=document.getElementById('sp-waypoints');
 	 
 	 sp_destination.textContent='도착지:'+hotelname
+	 sp_destination.setAttribute('style','background-color:#ffff66;border-radius:9px')
 	 sp_origin.textContent='출발지:'+hotelname
-	 
-	
+	 sp_origin.setAttribute('style','background-color:#ffff66;border-radius:9px')
 	 
 	 
 	//확인용
@@ -1145,19 +1197,30 @@ $(function(){
 		 for(var i=0;i<spotArr.length;i++){
 			 
 			console.log('들어옴',spotArr[i].spot.name)
-			var h4=document.createElement('h4')
-			h4.textContent='★'+(i+1)+'번째 경유지:'
-			sp_waypoints.appendChild(h4)
+			var div=document.createElement('div');
+			div.setAttribute('style','background-color:#f0ffff;border-radius:9px')
+			
+			var h4=document.createElement('h3')
+			h4.textContent=(i+1)+'. 경유지 ▶'
+			h4.setAttribute('style','font-weight:bolder;')
+			div.appendChild(h4)
 			h4=document.createElement('h4')
-			h4.textContent='이름:'+spotArr[i].spot.name
-			sp_waypoints.appendChild(h4)
-			h4=document.createElement('h4')
-	 	 	h4.textContent='주소'+spotArr[i].spot.formatted_address
-	 	 	sp_waypoints.appendChild(h4)
+			h4.setAttribute('style','color:#e85977;border-radius:9px')
+			h4.textContent=spotArr[i].spot.name
+			h4.setAttribute('id',spotArr[i].spot.place_id)
+			h4.setAttribute('onclick','searchedSpotBtn(this)')
+			div.appendChild(h4)
+			h4=document.createElement('h5')
+	 	 	h4.textContent=spotArr[i].spot.formatted_address
+	 	 	div.appendChild(h4)
+	 	 	sp_waypoints.appendChild(div)
 		 }
 	 }
 	 else{
-		 sp_waypoints.textContent='경유지: 없음'
+		 var h3=document.createElement('h3')
+		 h3.setAttribute('style','color:#e85977;border-radius:9px')
+		 h3.textContent='기능을 이용하여 자기만의 플랜을 만들어보세요!'
+		 sp_waypoints.appendChild(h3)
 	 }
 	  $('#sp-modal').modal('show');
 	  $('#close2').on('click',function(){
@@ -1166,17 +1229,27 @@ $(function(){
  }
  
  ///상세정보 보기 모달창
- function detail(){
+ async function detail(){
 	 
-	  $('#js-modal h4').css({color:'black',margin:'10px',border:'thick double #32a1ce'})
+	  $('#js-modal h4').css({color:'black',margin:'10px'})
 	  $('#js-modal span').css({color:'black',textAlign:'center',fontWeigt:'bord'})
 	  
+	 panorama=  await new google.maps.StreetViewPanorama(document.getElementById('pano'),{
+	  position:{lat: -8.672062, lng: 115.231609},
+	  pov: {heading: 165, pitch: 0 },
+	  pano:markerPanoID
+  		});
+      panorama.setVisible(true);
 	  
 	  $('#js-modal').modal('show');
 	  $('#close').on('click',function(){
 			$('#js-modal').modal('hide');
+			 
 		});
+	  
 	 
+	  $('#map').css('width','50%').css('float','left')
+	  $('#pano').css('width','50%').css('float','left').css('height','800px');
 	  
  }////detail
  
@@ -1217,6 +1290,7 @@ $(function(){
  
  function back() {
 	 var jsonData = JSON.stringify(spotsForSave);
+	 console.log('LAST spotsForSave:',spotsForSave);
 	 
 	 $.ajax({
 			url:'<c:url value="PlanSave.kosmo"/>',
@@ -1266,9 +1340,16 @@ $(function(){
 				<div class="col-sm-12">
 					<div id="attractionBtn" class="snip1535" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
 					<div id="foodBtn" class="snip1535" style="border-radius: 12px;" onclick="food();"><i class="fas fa-utensils fa-2x">음식점</i></div>
-					<div  id="map"></div>
+					<div id="pano"></div>
+					<div id="map"></div>
 					<div id="autocomplete_box" class="input-group input-group-lg col-sm-3">
 						<input type="text" id="autocomplete" class="form-control" placeholder="찾는 명소이름 직접 입력" onfocus="autoComplete()" >
+					</div>
+					<div id="left-panel">
+						<button class="btn btn-normal" data-toggle="collapse" data-target="#right-panel" aria-expanded="false">주변 검색 목록</button>
+						<div class="collapse" id="right-panel">
+							<div class="row" id="places"></div>
+						</div>
 					</div>
 					<div id="bottomPlanBox-panel">
 						<div id="dayPlanRow">
@@ -1276,8 +1357,8 @@ $(function(){
 									<div class="planview" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
 									
 							</c:forEach>
-							<div class="btn btn-danger waves-effect"  onclick="clearBox();"><i class="far fa-trash-alt"> 현재 삭제</i></div>
-							<div class="btn btn-danger btn-rounded waves-effect"  onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
+							<div class="btn btn-danger waves-effect" style="border-radius: 9px;" onclick="clearBox();"><i class="far fa-trash-alt"> 현재 삭제</i></div>
+							<div class="btn btn-danger btn-rounded waves-effect" style="border-radius: 9px;" onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
 							<button class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">하나투어 패키지 불러오기</button>
 						</div>
 						
@@ -1291,15 +1372,16 @@ $(function(){
 					<div id="watchNowPlan">
 						<div class="planview" style="background-color:#ff9999" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜  상세 보기</i></div>
 					</div>
+					<div id="loadingImg" >
+						
+					</div>
 				</div>
 				 
 				<div class="col-sm-12" id="distance">
 					<h2>현재 플랜에대한 상세 정보</h2>
 					<h4>전체 이동 거리: <span id="total"></span></h4>
 				</div>
-				<div class="col-sm-12"  id="right-panel">
-					<div class="row" id="places"></div>
-				</div>	
+				
 			</div>	
 					
 		</div>
@@ -1308,76 +1390,67 @@ $(function(){
 	
 		<div style="display: none">
 	      <div id="info-content">
-	        <table>
-	          <tr id="iw-url-row" class="iw_table_row">
-	            <td id="iw-icon" class="iw_table_icon"></td>
-	            <td id="iw-url"></td>
-	          </tr>
-	          <tr id="iw-address-row" class="iw_table_row">
-	            <td class="iw_attribute_name">주소:</td>
-	            <td id="iw-address"></td>
-	          </tr>
-	          <tr id="iw-phone-row" class="iw_table_row">
-	            <td class="iw_attribute_name">전화번호:</td>
-	            <td id="iw-phone"></td>
-	          </tr>
-	          <tr id="iw-rating-row" class="iw_table_row">
-	            <td class="iw_attribute_name">구글평점:</td>
-	            <td id="iw-rating"></td>
-	          </tr>
-	          <tr id="iw-website-row" class="iw_table_row">
-	            <td class="iw_attribute_name">웹사이트:</td>
-	            <td id="iw-website"></td>
-	          </tr>
-	          <tr id="iw-lanlng-row" class="iw_table_row">
-	            <td class="iw_attribute_name">위도경도:</td>
-	            <td id="iw-lanlng"></td>
-	          </tr>
-	          <tr class="iw_table_row">
-	            <td class="iw_attribute_name">위치 아이디:</td>
-	            <td id="iw-id"></td>
-	          </tr>
-	          <tr class="iw_table_row">
-	          	<td><br></td>
-	          </tr>
-	          <tr class="iw_table_row">
-	            <td class="iw_attribute_name"></td>
-	            <td>
-	            	<div class="btn btn-info waves-effect" data-toggle="modal" onclick="detail()"><i class="fas fa-info-circle"></i> 상세정보 보기</div>
-	          		<div class="btn btn-success waves-effect" onclick="box()"><i class="fas fa-cart-arrow-down"> 바구니에 담기</i></div>
-	            </td>
-	          </tr>
-	        </table>
+	        <div id="info_window" class="row">
+	          <div class="col-sm-12" id="iw-url-row">
+	          	<div class="row">
+	          		<div id="iw-icon" class="col-sm-3"></div>
+	          		<div id="iw-url" class="col-sm-9"></div>
+	          	</div>
+	          	<div class="row" id="iw-address-row" >
+	          		<div class="col-sm-3">주소:</div>
+	          		<div id="iw-address" class="col-sm-9"></div>
+	          	</div>
+	          	<div class="row" id="iw-phone-row">
+	          		<div class="col-sm-3">전화번호:</div>
+	          		<div id="iw-phone" class="col-sm-9"></div>
+	          	</div>
+	          	<div class="row" id="iw-rating-row">
+	          		<div class="col-sm-3">구글평점:</div>
+	          		<div id="iw-rating" class="col-sm-9"></div>
+	          	</div>
+	          	<div class="row"  id="iw-website-row">
+	          		<div class="col-sm-3">웹사이트:</div>
+	          		<div id="iw-website" class="col-sm-9"></div>
+	          	</div>
+	          	<div class="row" id="iw-lanlng-row">
+	          		<div class="col-sm-3">위도경도:</div>
+	          		<div id="iw-lanlng" class="col-sm-9"></div>
+	          	</div>
+	          	<div class="row">
+	          		<div class="col-sm-3">위치 아이디:</div>
+	          		<div id="iw-id" class="col-sm-9"></div>
+	          	</div>
+	          	<div class="row">
+	          		<div class="col-sm-12"><br></div>
+	          	</div>
+	          	<div class="row">
+	          	<div class="col-sm-2">
 	          	
+	          	</div>
+	          	<div class="col-sm-5">
+	            	<div class="btn btn-info waves-effect" data-toggle="modal" onclick="detail()"><i class="fas fa-info-circle"></i> 스트릿뷰 및 리뷰 보기</div>
+	          	</div>
+	          	<div class="col-sm-5">
+	          		<div class="btn btn-success waves-effect" onclick="box()"><i class="fas fa-cart-arrow-down"> 바구니에 담기</i></div>
+	          	</div>
+	           </div>
+	        </div>
+	       </div>   	
 	      </div>
     	</div>
     	
 	<div class="modal fade" id="js-modal" data-backdrop="static">
-	  <div class="modal-dialog modal-lg">
+	  <div class="modal-dialog modal-lg modal-notify modal-info">
 	    <div class="modal-content">
-	    	<div class="modal-body">
+	    	<div class="modal-header">
+	    		<h2 style="text-align:center;" id="md-name"></h2>
 	    		<button class="close" id="close">
 	    			<span>&times;</span>
 	    		</button>
-    			<h2 style="text-align:center;" id="md-name"></h2>
-   				<div class="wrapper">
-		            <div class="jcarousel-wrapper">
-		                <div class="jcarousel">
-		                    <ul id="md-image">
-		                      
-		                    </ul>
-		                </div>
-		
-		                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-		                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-		                
-		                <p class="jcarousel-pagination">
-		                    
-		                </p>
-		           
-			           
-					</div>
-		        </div>
+	    	</div>
+	    	<div class="modal-body">
+	    		
+    			
 				<button id="review" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 				  	 구글 댓글 보기 <i class="fas fa-comment-alt"></i>
 				</button>
