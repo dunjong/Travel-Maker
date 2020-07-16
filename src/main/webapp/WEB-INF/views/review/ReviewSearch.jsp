@@ -61,7 +61,7 @@
 	width: 15%;
 	height: 100%;
 	float: left;
-	color: #3EB489;
+	color: #2a7a5d;
 	font-size: 1.5em;
 	font-weight: bold;
 	text-align: center;
@@ -99,8 +99,8 @@
 }
 
 .reviewPaging {
-	width: 40%;
-	height: 60px;
+	width: 50%;
+	height: 70px;
 	background-color: white;
 	margin-top: 20px;
 	border-radius: 30px;
@@ -109,7 +109,11 @@
 
 .reviewPaging a {
 	color: #3EB489;
-	font-size: 3em;
+	font-size: 2.5em;
+	font-weight: bold;
+}.reviewPaging span {
+	color: #2a7a5d;
+	font-size: 1.6em;
 	font-weight: bold;
 }
 
@@ -205,12 +209,7 @@
 							</c:forEach>
 						</c:if>
 						<div class="reviewPagingBack">
-							<span>
 								<div class="reviewPaging">${pagingString}</div>
-							</span>
-						</div>
-						<div class="reviewPagingBack">
-								<div class="reviewPaging"><a href="#">1&nbsp&nbsp2&nbsp&nbsp3&nbsp&nbsp4</a></div>
 						</div>
 						<div class="reviewFooterUtil">
 							<br /> <a href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">

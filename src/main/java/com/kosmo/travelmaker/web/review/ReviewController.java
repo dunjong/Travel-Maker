@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kosmo.travelmaker.service.PagingUtil;
+import com.kosmo.travelmaker.service.ReviewPagingUtil;
 import com.kosmo.travelmaker.service.ReviewDTO;
 import com.kosmo.travelmaker.service.ReviewService;
 
@@ -39,7 +39,7 @@ public class ReviewController {
 	}
 
 	private int pageSize = 4;
-	private int blockPage = 3;
+	private int blockPage = 5;
 
 	@RequestMapping("ReviewSearch.kosmo")
 	public String ReviewSearch(@RequestParam Map map, @RequestParam(required = false, defaultValue = "1") int nowPage,
@@ -55,7 +55,7 @@ public class ReviewController {
 		map.put("start", start);
 		map.put("end", end);
 		List<ReviewDTO> list = reviewService.selectList(map);
-		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
+		String pagingString = ReviewPagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
 				req.getContextPath() + "/TravelMaker/ReviewSearch.kosmo?");
 		model.addAttribute("list", list);
 		model.addAttribute("pagingString", pagingString);
