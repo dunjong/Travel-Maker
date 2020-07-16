@@ -620,6 +620,7 @@
 					$('#ui-id-1').prop('style').maxWidth='400px';
 					$('#ui-id-1').prop('style').listStyle='none';
 					$('#ui-id-1').prop('style').paddingLeft='10px';
+					
 					$.ajax({
 						async : false,
 						crossDomain : true,
