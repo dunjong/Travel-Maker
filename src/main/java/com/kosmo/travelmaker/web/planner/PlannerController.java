@@ -481,7 +481,7 @@ public class PlannerController {
 		List<Map> collections = new Vector<Map>();
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		Date today=new Date();
-		
+		int gap=0;
 		String city_no=map.get("city_no").toString();
 		List<Integer> cities_no_list=cityService.selectCitiesNoListBycityNo(Integer.parseInt(city_no));
 		for(int cities_no:cities_no_list) {
@@ -496,10 +496,17 @@ public class PlannerController {
 					if(cities_dto.getCities_date()!=null) {
 						Date cities_start_date=transFormat.parse(cities_dto.getCities_date().split(",")[0]);
 						
-						if(today.compareTo(cities_start_date)>=0) flag=false;
+						if(today.compareTo(cities_start_date)>=0) {
+							flag=false;
+							
+							}
+						else {
+							gap=(int)((cities_start_date.getTime()-today.getTime())/(1000*60*60*24)+1);
+						}
 					}
 				}
 				if(flag) {
+					maps.put("gap", Integer.toString(gap));
 					maps.put("city_no", city_no);
 					maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
 					maps.put("name", planner_dto.getPlanner_name());
@@ -623,7 +630,6 @@ public class PlannerController {
 		maps.put("planner_no", planner_no);
 		maps.put("user_id", user_id);
 		if(plannerService.insertAcc(maps)) {
-			System.out.println(user_id+"의 "+planner_no+" 동행" );
 		}
 		int planner_acc=plannerService.selectAccNoByPlannerNo(Integer.parseInt(planner_no));
 		maps.put("planner_acc", Integer.toString(planner_acc));
