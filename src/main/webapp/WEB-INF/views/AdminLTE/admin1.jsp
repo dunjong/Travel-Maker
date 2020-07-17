@@ -42,14 +42,9 @@
 <!-- Google Font: Source Sans Pro -->
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
-<link rel="stylesheet" href="jquery-jvectormap-2.0.1.css"
-	type="text/css" media="screen" />
-<script src="jquery.js"></script>
-<script src="jquery-jvectormap-2.0.1.min.js"></script>
-<script src="jquery-jvectormap-world-mill.js"></script>
+	rel="stylesheet"> 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed"> 
 	<div class="wrapper">
 		<!-- Navbar -->
 		<nav
@@ -562,22 +557,8 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="<c:url value='/dist/js/demo.js'/>"></script>
 	<script>
-		$(function() {
-			$("#example1").DataTable({
-				"responsive" : true,
-				"autoWidth" : false,
-			});
-			$('#example2').DataTable({
-				"paging" : true,
-				"lengthChange" : false,
-				"searching" : false,
-				"ordering" : true,
-				"info" : true,
-				"autoWidth" : false,
-				"responsive" : true,
-			});
-		});
-		//방묹
+
+		//방문자
 		new Chart(document.getElementById("bar-chart"), {
 			type : 'bar',
 			data : {
