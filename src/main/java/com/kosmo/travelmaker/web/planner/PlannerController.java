@@ -655,6 +655,7 @@ public class PlannerController {
 				else {
 				map_spot.put("origin", hotel_dto.get(0).getHotel_latlng());
 				}
+				map_spot.put("day",Integer.toString(plan_date));
 				map_spot.put("city_name", city_name);
 				map_spot.put("latlng", spot_dto.getLatlng());
 				map_spot.put("name", spot_dto.getSpot_name());

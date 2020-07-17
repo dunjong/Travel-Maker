@@ -787,7 +787,7 @@ $(function(){
 						setTimeout(function() {
 							details(item[x],date)
 							placeDetailnSave(item[x],date.substring(3))
-							console.log(x);
+							console.log('x:',x);
 							if(x==item.length-1){
 								setTimeout(function() {
 									spots=dayplans['day1'].spots
@@ -796,7 +796,7 @@ $(function(){
 										      directionsRenderer,spots);
 								},2000)
 							}
-						}, 2000*x);
+						}, 2500*x);
 				})(i);
 				
 			}
@@ -846,6 +846,7 @@ $(function(){
 	              }
 	            	   hotelInfo['day'+date]={'hotel':origin}
 	            	   if(spotInfo['day'+date]==undefined){
+	            		   console.log('새로 만들어지는 place:',place.name)
 		            	   var savedSpot=[]
 		            	   var latlng=place.geometry.location.lat()+','+place.geometry.location.lng();
 		            	   console.log('place in Detail save: ',place.name);
@@ -855,6 +856,7 @@ $(function(){
 		            	   spotInfo['day'+date]=savedSpot
 	            	   }
 	            	   else{
+	            		   console.log('저장되는 place:',place.name)
 	            		   var latlng=place.geometry.location.lat()+','+place.geometry.location.lng();
 	            		   spotsForSave['day'+date]+=(place.place_id)+':'+latlng+':'+place.name+'&';
 	            		   spotInfo['day'+date].push({'spot':place})

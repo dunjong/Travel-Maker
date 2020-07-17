@@ -28,7 +28,7 @@
 </head>
 <style>
 #map {
-       height: 500px;
+       height: 493px;
        width: 100%;
      }
 
@@ -1225,10 +1225,10 @@
 		})
 		console.log('[0]:',data[0].city_name);
 		origin=data[0].origin;
-		$('#map_title').html('지도 in '+data[0].city_name);
-		displayRoute(origin, directionsService,
-			       directionsRenderer,spots);
-		
+		$('#map_title').html('지도 in '+data[0].city_name+'의 '+'<span style="color:red;font-size:1.5em;">'+data[0].day+'</span>일차');
+		displayRoute(origin, directionsService,directionsRenderer,spots);
+		 var offset=$('#map_title').offset();
+		 $('html, body').animate({scrollTop : offset.top}, 400);
 		
 	}
 	 function displayRoute(origin, service, display,spots) {
