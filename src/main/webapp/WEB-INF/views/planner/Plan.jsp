@@ -130,7 +130,7 @@
       
       
       #iw-icon i{
-        margin:10px;
+       
       }
       #sp-origin,#sp-destination{
       	 height: 30px;
@@ -1189,17 +1189,15 @@ $(function(){
 	   console.log('sv data:',data)
 	   if (status === "OK") {
 		streetFlag=true;
-		$('#streetViewBtn').html('<i class="fas fa-info-circle"></i> 스트릿뷰 및 리뷰 보기')
         markerPanoID = data.location.pano;
         console.log('markerPanoID:',markerPanoID)
 	  } 
 	  else {
        console.error("Street View data not found for this location.");
-       $('#streetViewBtn').html('<i class="fas fa-info-circle"></i> 댓글 보기')
        
        streetFlag=false;
-       alert('이 지역에 대한 스트릿뷰틑 찾지 못했습니다.')
        
+       alert('이 지역에 대한 스트릿뷰틑 찾지 못했습니다.')
      }
    }
    
@@ -1269,17 +1267,25 @@ $(function(){
  }
  
  ///상세정보 보기 모달창
- async function detail(){
-	 
-	  $('#js-modal h4').css({color:'black',margin:'10px'})
-	  $('#js-modal span').css({color:'black',textAlign:'center',fontWeigt:'bord'})
-	 
-	 panorama=  await new google.maps.StreetViewPanorama(document.getElementById('pano'),{
+async function streetView(){
+	  panorama=  await new google.maps.StreetViewPanorama(document.getElementById('pano'),{
 	  position:{lat: -8.672062, lng: 115.231609},
 	  pov: {heading: 165, pitch: 0 },
 	  pano:markerPanoID
   		});
       panorama.setVisible(true);
+      if(streetFlag){
+		  $('#map').css('width','50%').css('float','left')
+		  $('#pano').css('width','50%').css('float','left').css('height','800px');
+	  }
+ }
+ 
+ function detail(){
+	 
+	  $('#js-modal h4').css({color:'black',margin:'10px'})
+	  $('#js-modal span').css({color:'black',textAlign:'center',fontWeigt:'bord'})
+	 
+	
 	  
 	  $('#js-modal').modal('show');
 	  $('#close').on('click',function(){
@@ -1287,10 +1293,7 @@ $(function(){
 			 
 		});
 	  
-	  if(streetFlag){
-		  $('#map').css('width','50%').css('float','left')
-		  $('#pano').css('width','50%').css('float','left').css('height','800px');
-	  }
+	 
  }////detail
  
  
@@ -1336,7 +1339,7 @@ $(function(){
 			url:'<c:url value="PlanSave.kosmo"/>',
 			data:spotsForSave,
 			success:function(){
-				window.location.href="<c:url value='Planner.kosmo?planner_no=${planner_no}'/>"
+				location.replace("<c:url value='Planner.kosmo?planner_no=${planner_no}'/>");
 			},
 			error:function(request,error){
 				console.log('상태코드:',request.status);
@@ -1462,11 +1465,14 @@ $(function(){
 	          		<div class="col-sm-12"><br></div>
 	          	</div>
 	          	<div class="row">
-	          	<div class="col-sm-6">
-	            	<div id="streetViewBtn" class="btn btn-info waves-effect" data-toggle="modal" onclick="detail()"><i class="fas fa-info-circle"></i> 스트릿뷰 및 리뷰 보기</div>
+	          	<div class="col-sm-4">
+	          		<div id="reviewBtn" class="btn btn-info waves-effect" data-toggle="modal" onclick="detail()"><i class="fas fa-book"></i> 리뷰</div>
 	          	</div>
-	          	<div class="col-sm-6">
-	          		<div class="btn btn-success waves-effect" onclick="box()"><i class="fas fa-cart-arrow-down"> 바구니에 담기</i></div>
+	          	<div class="col-sm-4">
+	            	<div id="streetViewBtn" class="btn btn-info waves-effect" onclick="streetView()"><i class="fas fa-info-circle"></i> 스트릿 view</div>
+	          	</div>
+	          	<div class="col-sm-4">
+	          		<div class="btn btn-success waves-effect" onclick="box()"><i class="fas fa-cart-arrow-down"> 바구니!</i></div>
 	          	</div>
 	           </div>
 	        </div>

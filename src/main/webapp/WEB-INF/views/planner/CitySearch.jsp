@@ -554,14 +554,16 @@
 							</div>
 						</div>
 						<!--<input type="file" id="FILE_TAG" name="FILE_TAG">-->
+						<div style="margin-top:20px;width:280px;">
 						<a class="ui-shadow ui-btn ui-corner-all" 
 						href="javascript:uploadFile();"><button type="button" class="btn btn-info btn-lg float-right">전송</button></a>
+						</div>
 					</form>
 				</div> 
 				
 				
 				<div class="col-lg-6 pt-4 pt-lg-0 tagview">
-					<h3 style="color: olive;">사진 관련 태그들</h3>
+					<h3 style="color:#CE7DE0;">사진 관련 태그들</h3>
 					<div class="row tagmatch">
 						<div class="col-lg-6">
 							<ul>

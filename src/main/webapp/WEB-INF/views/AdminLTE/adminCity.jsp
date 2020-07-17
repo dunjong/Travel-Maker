@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Travel-Maker Admin Page</title> 
+<title>Travel-Maker Admin Page</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Font Awesome -->
@@ -23,6 +23,7 @@
 <!-- iCheck -->
 <link rel="stylesheet"
    href="<c:url value='/plugins2/icheck-bootstrap/icheck-bootstrap.min.css'/>">
+<!-- JQVMap -->
 <!-- Theme style -->
 <link rel="stylesheet"
    href="<c:url value='/dist/css/adminlte.min.css'/>">
@@ -33,12 +34,139 @@
 <link rel="stylesheet"
    href="<c:url value='/plugins2/daterangepicker/daterangepicker.css'/>">
 <!-- summernote -->
-<link rel="stylesheet"
-   href="<c:url value='/plugins2/summernote/summernote-bs4.css'/>">
 <!-- Google Font: Source Sans Pro -->
 <link
    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
    rel="stylesheet">
+<style type="text/css">
+     /* Always set the map height explicitly to define the size of the div
+      * element that contains the map. */
+     #map {
+       margin:70px;
+       height: 800px;
+       width:900px;
+     }
+
+     /* Optional: Makes the sample page fill the window. */
+     html,
+     body {
+       height: 100%;
+       margin: 0;
+       padding: 0;
+     }
+
+     .controls {
+       background-color: #fff;
+       border-radius: 2px;
+       border: 1px solid transparent;
+       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+       box-sizing: border-box;
+       font-family: Roboto;
+       font-size: 15px;
+       font-weight: 300;
+       height: 29px;
+       margin-left: 17px;
+       margin-top: 10px;
+       outline: none;
+       padding: 0 11px 0 13px;
+       text-overflow: ellipsis;
+       width: 400px;
+     }
+
+     .controls:focus {
+       border-color: #4d90fe;
+     }
+
+     .title {
+       font-weight: bold;
+     }
+
+     #infowindow-content {
+       display: none;
+     }
+
+     #map #infowindow-content {
+       display: inline;
+     }
+</style>
+<script>
+	function save_auto_spot(){
+		console.log('도시이름:',$('#city_name').val());
+		console.log('명소이름:',$('#spot_name').val());
+		console.log('위치아이디:',$('#spot_id').val());
+		console.log('위치위도경도:',$('#spot_latlng').val());
+		console.log('일차:',$('#auto_plan_date').val());
+	}
+
+    (function(exports) {
+      "use strict";
+
+      // This sample uses the Place Autocomplete widget to allow the user to search
+      // for and select a place. The sample then displays an info window containing
+      // the place ID and other information about the place that the user has
+      // selected.
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById("map"), {
+          center: {
+            lat: -33.8688,
+            lng: 151.2195
+          },
+          zoom: 13
+        });
+        var input = document.getElementById("pac-input");
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo("bounds", map); // Specify just the place data fields that you need.
+
+        autocomplete.setFields(["place_id", "geometry", "name"]);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        var infowindow = new google.maps.InfoWindow();
+        var infowindowContent = document.getElementById("infowindow-content");
+        infowindow.setContent(infowindowContent);
+        var marker = new google.maps.Marker({
+          map: map
+        });
+        marker.addListener("click", function() {
+          infowindow.open(map, marker);
+        });
+        autocomplete.addListener("place_changed", function() {
+          infowindow.close();
+          var place = autocomplete.getPlace();
+
+          if (!place.geometry) {
+            return;
+          }
+
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+          } // Set the position of the marker using the place ID and location.
+
+          marker.setPlace({
+            placeId: place.place_id,
+            location: place.geometry.location
+          });
+          marker.setVisible(true);
+          infowindowContent.children["place-name"].textContent = place.name;
+          infowindowContent.children["place-id"].textContent = place.place_id;
+          infowindowContent.children["place-address"].textContent =place.formatted_address;
+          infowindowContent.children["place-latlng"].textContent ="1234";
+          console.log('place:',place);
+          $('#spot_name').prop('value',place.name)
+          $('#spot_id').prop('value',place.place_id)
+          $('#spot_latlng').prop('value',place.geometry.location.lat()+','+place.geometry.location.lng())
+          
+          infowindow.open(map, marker);
+        });
+      }
+
+      exports.initMap = initMap;
+    })((this.window = this.window || {}));
+</script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
    <div class="wrapper">
@@ -66,7 +194,7 @@
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
          <!-- Brand Logo -->
-         <a href="admin1.kosmo" class="brand-link"> <img
+         <a href="index3.html" class="brand-link"> <img
             src="<c:url value='/dist/img/AdminLTELogo.png'/>"
             alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8"> <span
@@ -147,7 +275,7 @@
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6">
-                     <h1 class="m-0 text-dark">Member Controll</h1>
+                     <h1 class="m-0 text-dark">여행사 패키지 저장</h1>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-6">
@@ -162,79 +290,70 @@
             </div>
             <!-- /.container-fluid -->
          </div>
-         <!-- /.content-header --> 
+         <!-- /.content-header -->
 
          <!-- Main content -->
          <section class="content">
-            <div class="container-fluid">
-               <div class="row">
-                  <div class="col-12">
-                     <div class="card">
-                        <div class="card-header">
-                           <h3 class="card-title">회원 정보</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                           <table id="example2" class="table table-bordered table-hover">
-                              <thead>
-                                 <tr>
-                                    <th>NO</th>
-                                    <th>이름</th>
-                                    <th>아이디</th>
-                                    <th>비밀번호</th>
-                                    <th>출생년도</th>
-                                    <th>성별</th>
-                                    <th>기능</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-
-                                 <tr>
-                                    <td>1</td> 
-                                    <td>박종현</td>
-                                    <td>park</td>
-                                    <td>1234</td>
-                                    <td>1997</td>
-                                    <td>남자</td>  
-                                    <td><input type="checkbox"></td>
-
-											</tr>
-										</tbody>
-										<tfoot>
-									</table>
-								</div>
-								<!-- /.card-body -->
-								<div class="row" style="text-align: right;">
-									<div class="col-sm-12 col-md-5">
-										<div class="dataTables_info" id="example2_info" role="status"
-											aria-live="polite">1/10 page</div>
-									</div>
-									<div class="col-sm-12 col-md-7" style="text-align: right;">
-										<div class="dataTables_paginate paging_simple_numbers"
-											id="example2_paginate">
-											<ul class="pagination">
-												<li class="paginate_button page-item previous disabled"
-													id="example2_previous"><a href="#"
-													aria-controls="example2" data-dt-idx="0" tabindex="0"
-													class="page-link">Previous</a></li>
-												<li class="paginate_button page-item active"><a
-													href="#" aria-controls="example2" data-dt-idx="1"
-													tabindex="0" class="page-link">1</a></li>
-												<div class="col-sm-12 col-md-7" style="text-align: right;">
-													<button id="deletebtn">블랙</button>
-												</div> 
-											</ul>
-										</div>
-									</div>
-								</div>
-								<!-- /.card -->
-                     </div>
-                     <!-- /.col -->
-                  </div>
-                  <!-- /.row -->
-
-               </div> 
-               <!-- /.container-fluid -->
+	            	 <div class="row">
+	            		<div class="col-sm-6">
+		            		 <div class="row">
+		            		 	
+			            		<div class="col-sm-6">
+				            		도시 이름
+				            	</div>
+				            	<div class="col-sm-6">
+				            		<input id="city_name" type="text" name="city_name">
+				            	</div>
+				            	<div class="col-sm-6">
+				            		명소 이름
+				            	</div>
+				            	<div class="col-sm-6">
+				            		<input id="spot_name" type="text" name="spot_name">
+				            	</div>
+				            	<div class="col-sm-6">
+				            		위치 아이디
+				            	</div>
+				            	<div class="col-sm-6">
+			            			<input id="spot_id" type="text"  name="spot_id">
+			            		</div>
+			            		<div class="col-sm-6">
+				            		위치 위도 경도
+				            	</div>
+			            		<div class="col-sm-6">
+			            			<input id="spot_latlng" type="text"  name="spot_latlng">
+			            		</div>
+			            		<div class="col-sm-6">
+				            		일차
+				            	</div>
+				            	<div class="col-sm-6">
+				            		<input id="auto_plan_date" value="1" max="5" min="1" type="number" name="auto_plan_date">
+				            	</div>
+			            	</div>
+		            	</div>
+		            	
+		            	<div class="col-sm-6">
+		            		<br>
+		            		<button class="btn btn-info" onclick="save_auto_spot()">auto_plan행 추가</button>
+		            	</div>
+	            	</div>
+            	<div style="display: none">
+			      <input
+			        id="pac-input"
+			        class="controls"
+			        type="text"
+			        placeholder="Enter a location"
+			      />
+			    </div>
+			    <div id="map"></div>
+			    <div id="infowindow-content">
+			      <span id="place-name" class="title"></span><br />
+			      <strong>Place ID:</strong> <span id="place-id"></span><br />
+			      <span id="place-address"></span>
+			      <span id="place-latlng" class="title"></span><br />
+			    </div>
+            
+            
+            
          </section>
          <!-- /.content -->
       </div>
@@ -257,7 +376,10 @@
    <!-- /.control-sidebar -->
    </div>
    <!-- ./wrapper -->
-
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=${GoogleMapApiKey}&libraries=places&callback=initMap">
+    </script>
    <!-- jQuery -->
    <script src="<c:url value='/plugins2/jquery/jquery.min.js'/>"></script>
    <!-- jQuery UI 1.11.4 -->
@@ -266,21 +388,17 @@
    <script>
       $.widget.bridge('uibutton', $.ui.button)
    </script>
-   <!-- Bootstrap 4 -->  
+   <!-- Bootstrap 4 -->
    <script
       src="<c:url value='/plugins2/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-   <!-- ChartJS --> 
-   <script src="<c:url value='/plugins2/chart.js/Chart.min.js'/>"></script> 
+   <!-- jQuery Knob Chart -->
+   <script src="<c:url value='/plugins2/jquery-knob/jquery.knob.min.js'/>"></script>
    <!-- daterangepicker -->
    <script src="<c:url value='/plugins2/moment/moment.min.js'/>"></script>
-   <script
-      src="<c:url value='/plugins2/daterangepicker/daterangepicker.js'/>"></script>
    <!-- Tempusdominus Bootstrap 4 -->
    <script
       src="<c:url value='/plugins2/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'/>"></script>
    <!-- Summernote -->
-   <script
-      src="<c:url value='/plugins2/summernote/summernote-bs4.min.js'/>"></script>
    <!-- overlayScrollbars -->
    <script
       src="<c:url value='/plugins2/overlayScrollbars/js/jquery.overlayScrollbars.min.js'/>"></script>
@@ -290,8 +408,6 @@
    <script src="<c:url value='/dist/js/pages/dashboard.js'/>"></script>
    <!-- AdminLTE for demo purposes -->
    <script src="<c:url value='/dist/js/demo.js'/>"></script>
-   <script>
    
-   </script>
 </body>
 </html>

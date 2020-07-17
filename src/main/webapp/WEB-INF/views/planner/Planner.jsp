@@ -315,6 +315,7 @@
 	<script
 		src="<c:url value='/plugins/cal_plugins/fullcalendar-bootstrap/main.min.js'/>"></script>
 	<!-- Page specific script -->
+	
 	<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=${GoogleMapApiKey}&libraries=places&callback=initMap">
     </script>
@@ -668,9 +669,9 @@
 				minLength : 1,
 		        autoFocus : false,
 				focus : function(evt, ui) {
-					for(let child of evt.delegateTarget.children){
-			   			child.children[0].style="";
-			   		}
+					$.each(evt.delegateTarget.children,(index,value)=>{
+						value.children[0].style=""
+					})
 			   		evt.toElement.style.backgroundColor='cyan';
 			   		evt.toElement.style.color='white';
 				},
@@ -722,22 +723,23 @@
 		                $('#departure').focus();
 				}, */
 				focus : function(evt, ui) {
-					for(let child of evt.delegateTarget.children){
-			   			child.children[0].style="";
-			   		}
+					$.each(evt.delegateTarget.children,(index,value)=>{
+						value.children[0].style=""
+					})
 			   		evt.toElement.style.backgroundColor='cyan';
 			   		evt.toElement.style.color='white';
 				},
 			  /*close : function(evt) {}  */
 	   		 
 			})
-			
+			var input;
+			var autocomplete;
 			<c:forEach items="${city_no_name}" var="name" varStatus='h_i'>
 			console.log('${name}')
-			var input_key = document.getElementById('autocomplete_${name.key}');
-			var autocomplete_key = new google.maps.places.Autocomplete(input_key);
-			google.maps.event.addListener(autocomplete_key, 'place_changed', function () {
-				var place = autocomplete_${name.key}.getPlace();
+			input = document.getElementById('autocomplete_${name.key}');
+			autocomplete = new google.maps.places.Autocomplete(input);
+			google.maps.event.addListener(autocomplete, 'place_changed', function () {
+				var place = autocomplete.getPlace();
 				console.log('lat', place.geometry.location.lat())
 		        console.log('lng', place.geometry.location.lng())
 		        lat = place.geometry.location.lat()
