@@ -240,7 +240,7 @@
 																	</div>
 																	<div class="modal-body">
 														              	<div>
-																			<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" style='margin-bottom:4px'>
+																			<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" method="post" style='margin-bottom:4px'>
 																                <input hidden="true" name="origin" value="${name.key}" /> 
 																				<input hidden="true" name="destination" value="공항,${name.key}" />
 																				<input hidden="true" name="planner_no" value="${planner_no}" />
@@ -327,6 +327,27 @@
 		
 		var lat,lng;//호텔용
 		$(function() {
+			
+
+			$('#planner_name').change(function(){
+				$.ajax({
+					url:'<c:url value="SavePlannerName.kosmo"/>',
+					data:{
+						'planner_no':'${planner_no}',
+						'planner_name':$('#planner_name').val()
+					},
+					success:function(){console.log('아이디가 ',$('#planner_name').val()+'로 변경됨')},
+					error:function(request,error){
+						console.log('상태코드:',request.status);
+						console.log('서버로부터 받은 HTML데이타:',request.responseText);
+						console.log('에러:',error);
+					}
+					
+				});
+			});
+			
+			
+			
 			<c:forEach items="${city_hotel}" var="check" >
 			console.log('${check}')
 			if('${check.value}'=='1')
