@@ -182,7 +182,7 @@
 							<!-- small box -->
 							<div class="small-box bg-info">
 								<div class="inner">
-									<h3>0 명</h3>
+									<h3>50 명</h3>
 
 									<p>예약자 수</p>
 								</div>
@@ -198,7 +198,7 @@
 							<!-- small box -->
 							<div class="small-box bg-success">
 								<div class="inner">
-									<h3>10명</h3>
+									<h3>105명</h3>
 
 									<p>금주 방문자 수</p>
 								</div>
@@ -214,7 +214,7 @@
 							<!-- small box -->
 							<div class="small-box bg-warning">
 								<div class="inner">
-									<h3>6명</h3>
+									<h3>1명</h3>
 
 									<p>새로운 회원</p>
 								</div>
@@ -392,8 +392,9 @@
 							<!-- Map card -->
 							<div class="card bg-gradient-primary">
 								<div class="card-header border-0">
-									<h3 class="card-title">
-										<i class="fas fa-map-marker-alt mr-1"></i> Visitors
+									<h3 class="card-title" style="font-style: normal;">
+										<i class="fas fa-map-marker-alt mr-1"></i> COVID-19 World
+										Chart
 									</h3>
 									<!-- card tools -->
 									<div class="card-tools">
@@ -410,7 +411,7 @@
 									<!-- /.card-tools -->
 								</div>
 								<div class="card-body">
-									<div id="world-map" style="height: 250px; width: 100%;"></div>
+									<div id="world-map" style="height: 300px; width: 100%;"></div>
 								</div>
 								<!-- /.card-body-->
 								<div class="card-footer bg-transparent">
@@ -471,7 +472,7 @@
 										<!-- ./col -->
 										<div class="col-4 text-center">
 											<input type="text" class="knob" data-readonly="true"
-												value="15" data-width="60" data-height="60"
+												value="13" data-width="60" data-height="60"
 												data-fgColor="#39CCCC">
 
 											<div class="text-white">괌</div>
@@ -479,7 +480,7 @@
 										<!-- ./col -->
 										<div class="col-4 text-center">
 											<input type="text" class="knob" data-readonly="true"
-												value="7" data-width="60" data-height="60"
+												value="10" data-width="60" data-height="60"
 												data-fgColor="#39CCCC">
 
 											<div class="text-white">오사카</div>
@@ -491,7 +492,6 @@
 								<!-- /.card-footer -->
 							</div>
 							<!-- /.card -->
-
 
 						</section>
 						<!-- right col -->
@@ -537,7 +537,12 @@
 	<!-- JQVMap -->
 	<script src="<c:url value='/plugins2/jqvmap/jquery.vmap.min.js'/>"></script>
 	<script src="<c:url value='/plugins2/jqvmap/maps/jquery.vmap.usa.js'/>"></script>
+<<<<<<< HEAD
+	<script
+		src="<c:url value='/plugins2/jqvmap/maps/jquery.vmap.world.js'/>"></script>
+=======
 	<script src="<c:url value='/plugins2/jqvmap/maps/continents/jquery-jvectormap-asia-merc.js'/>"></script>
+>>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 	<!-- jQuery Knob Chart -->
 	<script src="<c:url value='/plugins2/jquery-knob/jquery.knob.min.js'/>"></script>
 	<!-- daterangepicker -->
@@ -626,18 +631,20 @@
 			data : {
 				labels : [ '방콕', '괌', '세부', '다낭', '오사카' ],
 				datasets : [ {
+					label : 'Digital Goods',
+					fill : false,
 					borderWidth : 2,
 					lineTension : 0,
 					spanGaps : true,
-					borderColor : '#ffffff',
+					borderColor : '#efefef',
 					pointRadius : 3,
 					pointHoverRadius : 7,
-					pointColor : '#ffffff',
-					pointBackgroundColor : '#ffffff',
-					label : "Population",
-					data : [ 5, 15, 3, 16, 7 ], 
+					pointColor : '#efefef',
+					pointBackgroundColor : '#efefef',
+					data : [ 8, 13, 3, 16, 10 ],
 				} ]
 			},
+
 			options : {
 				legend : {
 					display : false
@@ -645,8 +652,8 @@
 				title : {
 					display : true,
 					text : 'July Reservation Graph'
-				
-				} 
+
+				}
 			}
 		});
 
@@ -667,19 +674,26 @@
 			'BR' : 600, //Brazil
 			'IN' : 800, //India
 			'GB' : 320, //Great Britain
-			'RU' : 3000 //Russia 
+			'RU' : 3000
+		//Russia  
 		}
 		// World map by jvectormap
 		$('#world-map').vectorMap(
+<<<<<<< HEAD
+				{
+					map : 'world_en',
+					backgroundColor : 'transparent',
+=======
 				{ 
 					map : 'asia_merc',   
 					backgroundColor : 'transparent', 
+>>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 					regionStyle : {
 						initial : {
 							fill : 'rgba(255, 255, 255, 0.7)',
 							'fill-opacity' : 1,
 							stroke : 'rgba(0,0,0,.2)',
-							'stroke-width' : 1,   
+							'stroke-width' : 1,
 							'stroke-opacity' : 1
 						}
 					},
