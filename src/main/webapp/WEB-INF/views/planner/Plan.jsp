@@ -373,6 +373,8 @@ scrollbar-color: #4285F4 #F5F5F5;
 <script>
 //변수 선언
 //맵과 윈도우인포와 서비스 선언
+
+
 var map,infoWindow,servicePlace;
 //마커 선언
 var markers=[];
@@ -415,6 +417,10 @@ var dayplans={};
 var sv;
 var panorama;
 var markerPanoID;
+
+var streetFlag=false;
+var walkDrive='DRIVING'
+
 function initMap() {
 	
 	
@@ -545,6 +551,12 @@ function initMap() {
                'styled_map']
       }
   });////map 생성
+  
+  
+  //멥으로 뷰 이동
+  var offset=$('#intro_container').offset();
+	 $('html, body').animate({scrollTop : offset.top}, 400);
+  
    
   //스트릿뷰
   sv= new google.maps.StreetViewService();
@@ -775,7 +787,7 @@ $(function(){
 						setTimeout(function() {
 							details(item[x],date)
 							placeDetailnSave(item[x],date.substring(3))
-							console.log(x);
+							console.log('x:',x);
 							if(x==item.length-1){
 								setTimeout(function() {
 									spots=dayplans['day1'].spots
@@ -784,7 +796,7 @@ $(function(){
 										      directionsRenderer,spots);
 								},2000)
 							}
-						}, 2000*x);
+						}, 2500*x);
 				})(i);
 				
 			}
@@ -834,6 +846,7 @@ $(function(){
 	              }
 	            	   hotelInfo['day'+date]={'hotel':origin}
 	            	   if(spotInfo['day'+date]==undefined){
+	            		   console.log('새로 만들어지는 place:',place.name)
 		            	   var savedSpot=[]
 		            	   var latlng=place.geometry.location.lat()+','+place.geometry.location.lng();
 		            	   console.log('place in Detail save: ',place.name);
@@ -843,6 +856,7 @@ $(function(){
 		            	   spotInfo['day'+date]=savedSpot
 	            	   }
 	            	   else{
+	            		   console.log('저장되는 place:',place.name)
 	            		   var latlng=place.geometry.location.lat()+','+place.geometry.location.lng();
 	            		   spotsForSave['day'+date]+=(place.place_id)+':'+latlng+':'+place.name+'&';
 	            		   spotInfo['day'+date].push({'spot':place})
@@ -900,12 +914,12 @@ $(function(){
   
  
  //2] 맵 위에 루트 표시
- function displayRoute(origin, destination, service, display,spots) {
+ function displayRoute(start, end, service, display,locatoins) {
      service.route({
-     origin: origin,//출발지
-     destination:destination,//도착지
-     waypoints:spots,/*,{location: 'ubud, 발리'},{location: '공항, 발리'}*///여기에 경유지 추가
-     travelMode: 'DRIVING',
+     origin: start,//출발지
+     destination:end,//도착지
+     waypoints:locatoins,/*,{location: 'ubud, 발리'},{location: '공항, 발리'}*///여기에 경유지 추가
+     travelMode: walkDrive,
      /*탈것 추가
      DRIVING (Default)
 	 BICYCLING
@@ -933,7 +947,11 @@ $(function(){
      if (status === 'OK') {
        display.setDirections(response);
      } else {
-       alert('Could not display directions due to: ' + status);
+       alert('자동차 결로를 찾지 못했습니다:' + status);
+       if(confirm('도보 경로로 변경하여 찾아보시겠습니까?')){
+    	   walkDrive='WALKING';
+       	   displayRoute(origin,origin,directionsService,directionsRenderer,spots)
+       }
      }
    });
  }////displayRoute
@@ -1170,12 +1188,18 @@ $(function(){
    function processSVData(data, status){
 	   console.log('sv data:',data)
 	   if (status === "OK") {
-		
+		streetFlag=true;
+		$('#streetViewBtn').html('<i class="fas fa-info-circle"></i> 스트릿뷰 및 리뷰 보기')
         markerPanoID = data.location.pano;
         console.log('markerPanoID:',markerPanoID)
 	  } 
 	  else {
        console.error("Street View data not found for this location.");
+       $('#streetViewBtn').html('<i class="fas fa-info-circle"></i> 댓글 보기')
+       
+       streetFlag=false;
+       alert('이 지역에 대한 스트릿뷰틑 찾지 못했습니다.')
+       
      }
    }
    
@@ -1249,7 +1273,7 @@ $(function(){
 	 
 	  $('#js-modal h4').css({color:'black',margin:'10px'})
 	  $('#js-modal span').css({color:'black',textAlign:'center',fontWeigt:'bord'})
-	  
+	 
 	 panorama=  await new google.maps.StreetViewPanorama(document.getElementById('pano'),{
 	  position:{lat: -8.672062, lng: 115.231609},
 	  pov: {heading: 165, pitch: 0 },
@@ -1263,10 +1287,10 @@ $(function(){
 			 
 		});
 	  
-	 
-	  $('#map').css('width','50%').css('float','left')
-	  $('#pano').css('width','50%').css('float','left').css('height','800px');
-	  
+	  if(streetFlag){
+		  $('#map').css('width','50%').css('float','left')
+		  $('#pano').css('width','50%').css('float','left').css('height','800px');
+	  }
  }////detail
  
  
@@ -1347,7 +1371,7 @@ $(function(){
 		
 	<div class="intro" id="intro">
 		
-		<div class="intro_container" style="width:100%">
+		<div class="intro_container" id="intro_container" style="width:100%">
 			
 			<input type="text" id="cities-no"  value="${cities_no}" name="cities_no" hidden="true" >
 			<input type="text" id="city-no"  value="${city_no}" name="city_no" hidden="true" >
@@ -1438,13 +1462,10 @@ $(function(){
 	          		<div class="col-sm-12"><br></div>
 	          	</div>
 	          	<div class="row">
-	          	<div class="col-sm-2">
-	          	
+	          	<div class="col-sm-6">
+	            	<div id="streetViewBtn" class="btn btn-info waves-effect" data-toggle="modal" onclick="detail()"><i class="fas fa-info-circle"></i> 스트릿뷰 및 리뷰 보기</div>
 	          	</div>
-	          	<div class="col-sm-5">
-	            	<div class="btn btn-info waves-effect" data-toggle="modal" onclick="detail()"><i class="fas fa-info-circle"></i> 스트릿뷰 및 리뷰 보기</div>
-	          	</div>
-	          	<div class="col-sm-5">
+	          	<div class="col-sm-6">
 	          		<div class="btn btn-success waves-effect" onclick="box()"><i class="fas fa-cart-arrow-down"> 바구니에 담기</i></div>
 	          	</div>
 	           </div>
