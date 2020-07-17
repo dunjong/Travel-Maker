@@ -74,13 +74,12 @@
 
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
-			<!-- Brand Logo -->
-			<a href="index3.html" class="brand-link"> <img
-				src="<c:url value='/dist/img/AdminLTELogo.png'/>"
-				alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-				style="opacity: .8"> <span
-				class="brand-text font-weight-light">Travel-Maker</span>
-			</a>
+			<!-- Brand Logo -->  
+			<a href="admin1.kosmo" class="brand-link"> 
+			<img src="<c:url value='/dist/img/AdminLTELogo.png'/>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+				style="opacity: .8"> 
+				<span class="brand-text font-weight-light">Travel-Maker</span>
+			</a> 
 
 			<!-- Sidebar -->
 			<div class="sidebar">
@@ -537,12 +536,10 @@
 	<!-- JQVMap -->
 	<script src="<c:url value='/plugins2/jqvmap/jquery.vmap.min.js'/>"></script>
 	<script src="<c:url value='/plugins2/jqvmap/maps/jquery.vmap.usa.js'/>"></script>
-<<<<<<< HEAD
 	<script
 		src="<c:url value='/plugins2/jqvmap/maps/jquery.vmap.world.js'/>"></script>
-=======
+
 	<script src="<c:url value='/plugins2/jqvmap/maps/continents/jquery-jvectormap-asia-merc.js'/>"></script>
->>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 	<!-- jQuery Knob Chart -->
 	<script src="<c:url value='/plugins2/jquery-knob/jquery.knob.min.js'/>"></script>
 	<!-- daterangepicker -->
@@ -631,7 +628,7 @@
 			data : {
 				labels : [ '방콕', '괌', '세부', '다낭', '오사카' ],
 				datasets : [ {
-					label : 'Digital Goods',
+					label : '예약자 수',
 					fill : false,
 					borderWidth : 2,
 					lineTension : 0,
@@ -674,20 +671,13 @@
 			'BR' : 600, //Brazil
 			'IN' : 800, //India
 			'GB' : 320, //Great Britain
-			'RU' : 3000
-		//Russia  
+			'RU' : 3000 
 		}
 		// World map by jvectormap
 		$('#world-map').vectorMap(
-<<<<<<< HEAD
-				{
-					map : 'world_en',
-					backgroundColor : 'transparent',
-=======
 				{ 
 					map : 'asia_merc',   
 					backgroundColor : 'transparent', 
->>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 					regionStyle : {
 						initial : {
 							fill : 'rgba(255, 255, 255, 0.7)',
@@ -709,7 +699,7 @@
 									+ ' new visitors')
 					}
 				})
-
+ 
 		// Sparkline charts
 		var sparkline1 = new Sparkline($("#sparkline-1")[0], {
 			width : 80,
@@ -731,8 +721,7 @@
 		});
 
 		sparkline1.draw([ 1000, 1200, 920, 927, 931, 1027, 819, 930, 1021 ]);
-		sparkline2
-				.draw([ 515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921 ]);
+		sparkline2.draw([ 515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921 ]);
 		sparkline3.draw([ 15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21 ]);
 	</script>
 </body>
