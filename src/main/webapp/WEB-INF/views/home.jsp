@@ -2,22 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Search -->
-<%-- <div class="home_search">
+ <div class="home_search">
 	<div class="container">
 		<div class="row">
 			<div class="col">
 				<div class="home_search_container">
 					<div>
 						<div class="home_search_title"><a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a></div>
-					
-						<div class="home_search_title" ><a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a></div>
-	
 					</div>			
 				</div>
 			</div>
 		</div>
 	</div>
-</div> --%>
+</div> 
 <!-- Intro -->
 <script>
 

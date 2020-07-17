@@ -156,7 +156,7 @@
 	<div class="modal-chatbot">
 								
 		<div class="modal fade right" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-side modal-bottom-right" role="document">
+	<div class="modal-dialog modal-full-height modal-right" role="document">
 		<div class="modal-dialog modal-notify modal-info">
 	<div class="modal-content">
 	     <div class="modal-header">        
@@ -169,7 +169,7 @@
 	         style="min-height: 60vh; border:none;"  	         
 	         width="100%"
 	         height="90%"
-	         src="https://af560aa6d7dc.ngrok.io">                        
+	         src="https://1b40aae0475a.ngrok.io">                        
 	     </iframe>
 	      </div>
 	</div>
