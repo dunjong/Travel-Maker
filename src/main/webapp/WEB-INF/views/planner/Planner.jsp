@@ -315,6 +315,7 @@
 	<script
 		src="<c:url value='/plugins/cal_plugins/fullcalendar-bootstrap/main.min.js'/>"></script>
 	<!-- Page specific script -->
+	
 	<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=${GoogleMapApiKey}&libraries=places&callback=initMap">
     </script>
@@ -722,9 +723,9 @@
 		                $('#departure').focus();
 				}, */
 				focus : function(evt, ui) {
-					for(let child of evt.delegateTarget.children){
-			   			child.children[0].style="";
-			   		}
+					$.each(evt.delegateTarget.children,(index,value)=>{
+						value.children[0].style=""
+					})
 			   		evt.toElement.style.backgroundColor='cyan';
 			   		evt.toElement.style.color='white';
 				},
