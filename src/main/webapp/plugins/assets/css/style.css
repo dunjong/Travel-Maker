@@ -14,12 +14,14 @@
   border:4px dashed #B6BDD0;
   width: 400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
 }
 
 .file-upload-content {
   display: none;
   text-align: center;
+  width:100%;
+  height:100%;
 }
 
 .file-upload-input {
@@ -41,8 +43,9 @@
 
 .image-dropping,
 .image-upload-wrap:hover {
-  background-color: #1FB264;
+  background-color: #556AFA;
   border: 4px dashed #ffffff;
+  font-color:#ffffff;
 }
 
 .image-title-wrap {
@@ -62,12 +65,12 @@
 }
 
 .file-upload-image {
-  max-height: 400px;
-  max-width: 400px;
-  width:300px;
-  height:300px;
-  margin: auto;
-  padding: 20px;
+/*   max-height: 400px;
+  max-width: 400px; */
+  width:100%;
+  height:100%;
+  /* margin: auto; */
+  margin-right: 20px;
 }
 
 
@@ -341,6 +344,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .citysearch-div{
 	text-align:center;
+	height:50px;
 }
 .citysearch {
 	
@@ -365,10 +369,16 @@ h1, h2, h3, h4, h5, h6 {
 	font-size:20px;
 	opacity: 0.7;
 	border-radius: 5px;
+	display:block; 
+	width:200px; 
+	height:50px;
+	line-height:50px;
+
 }
 
 .searchcitytag:hover {
-	color:red;
+	background-color:#556BFA;
+	text-decoration:none;
 }
 
 .basketcity {
@@ -799,7 +809,7 @@ section {
 #searchImages{
     width: 100%;
   height: 100vh;
-  background: url("../img/photo-1530053969600-caed2596d242.jpg") top right no-repeat;
+  background: url("../img/G2jtdmY.jpg") top right no-repeat;
   background-size: cover; 
   position: relative;
   

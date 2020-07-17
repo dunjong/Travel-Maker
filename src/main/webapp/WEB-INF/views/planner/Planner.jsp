@@ -737,7 +737,7 @@
 			var input_key = document.getElementById('autocomplete_${name.key}');
 			var autocomplete_key = new google.maps.places.Autocomplete(input_key);
 			google.maps.event.addListener(autocomplete_key, 'place_changed', function () {
-				var place = autocomplete_${name.key}.getPlace();
+				var place = autocomplete_key.getPlace();
 				console.log('lat', place.geometry.location.lat())
 		        console.log('lng', place.geometry.location.lng())
 		        lat = place.geometry.location.lat()
