@@ -3,72 +3,81 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<style>
+ #loadingImg{
+      	position: absolute;
+      	top:30%;
+      	left:40%;
+      	display:none;
+      }
+</style>
 <script>
-
-var settings = {
-		url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
-		type : "GET",
-		dataType: "json",
-		data : {"departure" : $('#departure').prop('value'),
-				"arrival":$('#arrival').prop('value'),
-				"adult":$('#adult').prop('value'),
-				"children":$('#children').prop('value'),
-				"departureDate":$('#departureDate').prop('value'),
-				"returnDate":$('#returnDate').prop('value')
-		},
-		error : function(e){
-			console.log(e);
-		}
-	}//settings
-
-$.ajax(settings).done(function(res) {
-	$(function(){   		
-		 var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
-			for(var i=0;i<res.length-1;i++){
-				if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
-				else if(res[i].segmentsList0[2]==1) var code = res[i].segmentsList0[3].code2;
-				else if(res[i].segmentsList0[2]==2) var code = res[i].segmentsList0[3].code3;
-				else if(res[i].segmentsList0[2]==3) var code = res[i].segmentsList0[3].code4;
-				else if(true) var code = "";
-				if(res[i].segmentsList1[2]==0) var code2 = res[i].segmentsList1[3].code1;
-				else if(res[i].segmentsList1[2]==1) var code2 = res[i].segmentsList1[3].code2;
-				else if(res[i].segmentsList1[2]==2) var code2 = res[i].segmentsList1[3].code3;
-				else if(res[i].segmentsList1[2]==3) var code2 = res[i].segmentsList1[3].code4;
-				else if(true) var code2 = "";
-				list+="<div class='container'>";
-				list+="<div class='alert alert-success'>";
-				list+="<div class='row'>";
-				list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
-				list+="<div id='AirList' class='row' style='text-align:center'>";
-				list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
-				list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
-
-				list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
-				list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
-				list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
-				list+="<div class='col-md-2' style='color:black; height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
-				list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList1[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList1[3].code0+"</div>";
-				list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].DestToOriginTime.substring(2,res[i].DestToOriginTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>"+res[i].segmentsList1[2]+"회 경유</Strong></div></div>";       
-				list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList1[1].substr(11,5)+"</Strong><br>"+code2+"</div>";
-				list+="</div>";
-				list+="</div>";
-				list+="<div class='col-sm-4' style='color:black; height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-				list+="<div class='col-md-12' style='color:black; height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦"+res[i].basePrice.split('.')[0]+"원</Strong><br><small>총 가격 "+res[i].totalPrice.split('.')[0]+"원</small></div><br>";
-				list+="<button id='a_select_"+i+"' type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
-				list+="</div>";
-				list+="</div>";
-				list+="</div>";
-				list+="</div>";
-			}
-
+	$(function(){
+		function resultAirModal(){
+			$('#AirList').html(""); 
+			console.log('ajax시작')
+			var settings = {
+				url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
+				type : "GET",
+				dataType: "json",
+				data : {"departure" : $('#departure').prop('value'),
+						"arrival":$('#arrival').prop('value'),
+						"adult":$('#adult').prop('value'),
+						"children":$('#children').prop('value'),
+						"departureDate":$('#departureDate').prop('value'),
+						"returnDate":$('#returnDate').prop('value')
+				},
+				
+				error : function(e){
+					console.log(e);
+				}
+			}//settings
+		 	$.ajax(settings).done(function(res) {
+				var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
+				for(var i=0;i<res.length-1;i++){
+					if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
+					else if(res[i].segmentsList0[2]==1) var code = res[i].segmentsList0[3].code2;
+					else if(res[i].segmentsList0[2]==2) var code = res[i].segmentsList0[3].code3;
+					else if(res[i].segmentsList0[2]==3) var code = res[i].segmentsList0[3].code4;
+					else if(true) var code = "";
+					if(res[i].segmentsList1[2]==0) var code2 = res[i].segmentsList1[3].code1;
+					else if(res[i].segmentsList1[2]==1) var code2 = res[i].segmentsList1[3].code2;
+					else if(res[i].segmentsList1[2]==2) var code2 = res[i].segmentsList1[3].code3;
+					else if(res[i].segmentsList1[2]==3) var code2 = res[i].segmentsList1[3].code4;
+					else if(true) var code2 = "";
+					list+="<div class='container'>";
+					list+="<div class='alert alert-success'>";
+					list+="<div class='row'>";
+					list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+					list+="<div id='AirList' class='row' style='text-align:center'>";
+					list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+					list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
+	
+					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
+					list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
+					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
+					list+="<div class='col-md-2' style='color:black; height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
+					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList1[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList1[3].code0+"</div>";
+					list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].DestToOriginTime.substring(2,res[i].DestToOriginTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>"+res[i].segmentsList1[2]+"회 경유</Strong></div></div>";       
+					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList1[1].substr(11,5)+"</Strong><br>"+code2+"</div>";
+					list+="</div>";
+					list+="</div>";
+					list+="<div class='col-sm-4' style='color:black; height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+					list+="<div class='col-md-12' style='color:black; height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦"+res[i].basePrice.split('.')[0]+"원</Strong><br><small>총 가격 "+res[i].totalPrice.split('.')[0]+"원</small></div><br>";
+					list+="<button id='a_select_"+i+"' type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
+					list+="</div>";
+					list+="</div>";
+					list+="</div>";
+					list+="</div>";
+				}
+				$('#AirList').html(list); 
 			});//ajax.done()
-
-		$('#list').html(list); 
-		$( "#departureDate" ).datepicker({
-			showAnim: "slideDown",
-			dateFormat: "yy-mm-dd",
-			minDate: new Date(),
-			onSelect:function(dateText){
+	}
+	$( "#departureDate" ).datepicker({
+		showAnim: "slideDown",
+		dateFormat: "yy-mm-dd",
+		minDate: new Date(),
+		onSelect:function(dateText){
 			$('#display').html(dateText);
 		}
 	});
@@ -181,30 +190,17 @@ $.ajax(settings).done(function(res) {
       //$('.ui-datepicker-trigger').prop('style', 'width:40px;height:40px;');
       //$('.ui-datepicker-trigger > img').prop('style', 'width:40px;height:40px;vertical-align:middle;margin-top:-4px;margin-left:-10px');
       //이미지 온리 사용시      
-               
-          });
+      $('#home_search_form').submit(function(e){
+    	  resultAirModal();
+    	  return false;
+      });  
+	});
        
       
    
             
 
 </script>
-<%--    <!-- Search -->
-        <c:forEach  items="${list}" var="li">
-        <c:forEach items="${li}" var="lis">
-             <h2>${lis.DTime}</h2>
-               <h2>${lis.Dcode}</h2>
-              <h2>${lis.ATime}</h2>
-              <h2>${lis.Acode}</h2>
-              <h2>${lis.base}</h2>
-           <h2>${lis.total}</h2> 
-           
-              <h2>++++++++++++++</h2>
-      </c:forEach>
-      <h2>==============</h2> 
-      
-   </c:forEach>   --%>
-
 <div class="home_search">
 	<div class="container">
 		<div class="row">
@@ -219,8 +215,7 @@ $.ajax(settings).done(function(res) {
 						<a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a>
 					</div>
 					<div class="home_search_content">
-						<form action=<c:url value="/TravelMaker/AirSearch.kosmo"/>
-							class="home_search_form" id="home_search_form">
+						<form action="#" class="home_search_form" id="home_search_form">
 							<div
 								class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 								<input type="text" name="departure" id="departure"
@@ -239,9 +234,8 @@ $.ajax(settings).done(function(res) {
 									required="required" value="1"> <input type="text"
 									name="children" id="children"
 									class="search_input search_input_5" placeholder="어린이">
-
-
 								<button class="home_search_button" style="">항공권 검색</button>
+								<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 							</div>
 						</form>
 
@@ -257,35 +251,5 @@ $.ajax(settings).done(function(res) {
 		<div class="btn-group-vertical" id=arrlist></div>
 	</div>
 </div>
-<div id='list'></div>
-
-<%--  <div class="container">
-      <div class="alert alert-success">
-         <div class="row">
-               <div class="col-sm-8" style="height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;">
-                  <div class="row" style="text-align:center">
-                     <div class="col-md-2" style="height: 90px; width: 40px"><img src="<c:url value='/images/travelmaker1.png'/>" style="height:60px;width:130px"></div>
-                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:right"><Strong>오전8:30</Strong><br>ICN</div>
-                     <div class="col-md-4" style="height: 90px; width: 40px"><small>4시간30분</small><br><img src="<c:url value='/images/줄비행기.PNG'/>" alt=""><br>직항</div>
-                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:left"><Strong>오후12:00</Strong><br>CEB</div>
-                     
-                     <div class="col-md-2" style="height: 90px; width: 40px"><img src="<c:url value='/images/travelmaker2.png'/>" style="height:60px;width:130px"alt=""></div>
-                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:right"><Strong>오후11:40</Strong><br>CEB</div>
-                     <div class="col-md-4" style="height: 90px; width: 40px"><small>5시간10분</small><br><img src="<c:url value='/images/줄비행기.PNG'/>" alt=""><br>직항</div>
-                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:left"><Strong>오전8:30</Strong><br>ICN</div>
-                     
-                  </div>
-               </div>
-               <div class="col-sm-4" style="height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;">
-                  <div class="col-md-12" style="height: 90px; padding:20px; font-size:1.7em;text-align:center;"><Strong>￦435,740</Strong><br><small>총 가격￦892,704</small></div><br>
-                  <a href="#"><button type="button" class="btn btn-success btn-lg" style="cursor:pointer;"><Strong>선택 →</Strong></button></a>
-                  
-               <!-- <div class="col-md-12" style="height: 90px; width: 40px; text-align:center; font-size: 0.2em;">
-                -->
-               </div>
-          </div>
-      </div>
-   </div> 
- --%>
-
+<div id='AirList'></div>
 <!-- Footer -->
