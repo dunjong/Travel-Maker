@@ -669,9 +669,9 @@
 				minLength : 1,
 		        autoFocus : false,
 				focus : function(evt, ui) {
-					for(let child of evt.delegateTarget.children){
-			   			child.children[0].style="";
-			   		}
+					$.each(evt.delegateTarget.children,(index,value)=>{
+						value.children[0].style=""
+					})
 			   		evt.toElement.style.backgroundColor='cyan';
 			   		evt.toElement.style.color='white';
 				},
