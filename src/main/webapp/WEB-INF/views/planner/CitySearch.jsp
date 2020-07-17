@@ -413,6 +413,39 @@
 		console.log($('input[name=city_name]').val());
 	};
 	
+	function readURL(input) {
+		  if (input.files && input.files[0]) {
+
+		    var reader = new FileReader();
+
+		    reader.onload = function(e) {
+		      $('.image-upload-wrap').hide();
+
+		      $('.file-upload-image').attr('src', e.target.result);
+		      $('.file-upload-content').show();
+
+		      /* $('.image-title').html(input.files[0].name); */
+		    };
+
+		    reader.readAsDataURL(input.files[0]);
+
+		  } else {
+		    removeUpload();
+		  }
+		}
+
+		function removeUpload() {
+		  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+		  $('.file-upload-content').hide();
+		  $('.image-upload-wrap').show();
+		}
+		$('.image-upload-wrap').bind('dragover', function () {
+				$('.image-upload-wrap').addClass('image-dropping');
+			});
+			$('.image-upload-wrap').bind('dragleave', function () {
+				$('.image-upload-wrap').removeClass('image-dropping');
+		});
+
 	
 </script>
 
@@ -477,7 +510,7 @@
 
 	<!-- ======= searchImages Section ======= -->
 	<section id="searchImages" class="searchImages">
-		<div class="container" data-aos="fade-right">
+		<div class="container" id="imagediv" data-aos="fade-right">
 
 			<div class="section-title">
 				<h2>Search Images</h2>
@@ -486,7 +519,7 @@
 
 			<div class="row">
 				<div class="col-lg-6" style="border-right: 1px solid green;">
-					<div class="col-xs-12 example">
+					<%-- <div class="col-xs-12 example">
 						<img draggable="true" id="drag1"
 							src="<c:url value='/plugins/assets/img/bananajoong.jpg'/>"
 							ondragstart="drag(event)" class="img-find" alt=""> <img
@@ -496,13 +529,31 @@
 							draggable="true" id="drag3"
 							src="<c:url value='/plugins/assets/img/profile-img123.jpg'/>"
 							ondragstart="drag(event)" class="img-find" alt="">
-					</div>
+					</div> --%>
 					<!-- <div id="div1" class="col-xs-12 picture" ondrop="drop(event)"
 						ondragover="allowDrop(event)"
 						style="width: 200px; height: 200px; position: relative; top: 10%; left: 15%; border: 1px green solid;"></div> -->
 					<form id="FILE_FORM" method="post" enctype="multipart/form-data" style="width:495px; padding-top: 30px"
 						action="">
-						<input type="file" id="FILE_TAG" name="FILE_TAG"> 
+						<div class="file-upload">
+							<div class="image-upload-wrap">
+								<input class="file-upload-input" type='file' id="FILE_TAG" name="FILE_TAG"
+									onchange="readURL(this);" accept="image/*" />
+								<div class="drag-text">
+									<h3>사진을 이곳에 넣어주세요</h3>
+								</div>
+							</div>
+							<div class="file-upload-content">
+								<img class="file-upload-image" onclick="removeUpload()" src="#" alt="your image"/>
+								<!-- <div class="image-title-wrap">
+									<button type="button" onclick="removeUpload()"
+										class="remove-image">
+										취소 <span class="image-title">Uploaded Image</span>
+									</button>
+								</div> -->
+							</div>
+						</div>
+						<!--<input type="file" id="FILE_TAG" name="FILE_TAG">-->
 						<a class="ui-shadow ui-btn ui-corner-all" 
 						href="javascript:uploadFile();"><button type="button" class="btn btn-info btn-lg float-right">전송</button></a>
 					</form>
@@ -559,7 +610,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row search">
+			<div class="row search" style="padding-bottom:200px;">
 				<div class="col-lg-3 col-md-6">
 					<div class="count-box">
 						<i class="icofont-simple-smile"></i> <span

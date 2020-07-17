@@ -22,6 +22,8 @@
 <script>
 
 function CallPlanners(city_no){
+	console.log('type:',typeof city_no);
+	if(city_no.id!=null){
 	 $.ajax({
 			url:'<c:url value="/TravelMaker/CallPlannerList.kosmo"/>',
 			data:{
@@ -36,7 +38,23 @@ function CallPlanners(city_no){
 			}
 			
 		});
-	 
+	}
+	else{
+	$.ajax({
+		url:'<c:url value="/TravelMaker/CallPlannerList.kosmo"/>',
+		data:{
+			city_no:city_no
+		},
+		dataType:'json',
+		success:function(data){successAjaxPlanner(data)},
+		error:function(request,error){
+			console.log('상태코드:',request.status);
+			console.log('서버로부터 받은 HTML데이타:',request.responseText);
+			console.log('에러:',error);
+		}
+		
+	});
+	}
 }
 
 function CallCity(){
@@ -55,13 +73,81 @@ function CallCity(){
 	 
 	  
 }////CallCity
+function CancelAcc(planner_no){
+	if(confirm('정말로 동행을 취소하시겠습니까?')){
+		$.ajax({
+			url:'<c:url value="/TravelMaker/PlannerAccCancel.kosmo"/>',
+			data:{
+				'planner_no':planner_no.id.substring(4)
+			},
+			dataType:'text',
+			success:function(data){successAjaxAccCancel(data)},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+		
+	}
+}
+
+function AddAcc(planner_no){
+	if(confirm('정말로 동행을 원하시나요?')){
+		$.ajax({
+			url:'<c:url value="/TravelMaker/PlannerAcc.kosmo"/>',
+			data:{
+				'planner_no':planner_no.id.substring(4)
+			},
+			dataType:'text',
+			success:function(data){successAjaxAcc(data)},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+	}
+}
+
+function successAjaxAccCancel(data){
+	var accNo=parseInt($('#accNo_'+data).html())-1;
+	$('#accNo_'+data).html(accNo);
+	$('#acc_'+data).prop('class','btn btn-info').attr('onclick','AddAcc(this)').html('동행 하기');
+}
+
+function successAjaxAcc(data){
+	console.log('acc data:',data)
+	console.log($('#accNo_'+data).html());
+	var accNo=parseInt($('#accNo_'+data).html())+1;
+	$('#accNo_'+data).html(accNo);
+	$('#acc_'+data).prop('class','btn btn-danger').attr('onclick','CancelAcc(this)').html('동행 취소하기');
+	
+}
+
 function successAjaxPlanner(data){
 	tableString="";
 	$.each(data,function(index,planner){
-		console.log('index:',(index+1),',planner:',planner)
-		tableString+="<div class='news_post d-flex flex-md-row flex-column align-items-start justify-content-start'><div class='news_post_content'><div class='news_post_date d-flex flex-row align-items-end justify-content-start'>"
-		tableString+="<div>0"+(index+1)+"</div><div>"+planner.id+",동행자 수"+planner.acc+"</div>";
-		tableString+="</div><div class='news_post_title'><a href='<c:url value='/TravelMaker/PlannerView.kosmo?planner_no="+planner.no+"'/>'>"+planner.name+",플래너 번호:"+planner.no+"</a></div></div></div>";
+		tableString+="<div style='background-color:#f0ffff;border-radius:9px;width:500px' class='news_post d-flex flex-md-row flex-column align-items-start justify-content-start'><div class='news_post_content'><div class='news_post_date d-flex flex-row align-items-end justify-content-start'>"
+		if(planner.gap<=3){
+			tableString+="출발 <div style='color:red'>"+planner.gap+"</div>일 전<h2></h2>";
+		}
+		else{
+			tableString+="출발 <div>"+planner.gap+"</div>일 전";
+		}
+		
+		tableString+="<div>planner from<h3 style='font-weight:bolder'>"+planner.id+"</h3></div>";
+		tableString+="</div><div class='news_post_title'><a style='color:#2e63bf' href='<c:url value='/TravelMaker/PlannerView.kosmo?planner_no="+planner.no+"&city_no="+planner.city_no+"'/>'>"+planner.name+", No."+planner.no+"</a>";
+		tableString+="<div class='row'><div class='col-sm-5' style='font-size:2em;color:black'>인원:</div><div style='font-size:2em;color:black;font-weight:bolder' class='col-sm-6' style='font-weight:bolder;color:blue' id='accNo_"+planner.no+"'>"+planner.acc+"</div></div><br>";
+		if('${planner_nos}'.includes(planner.no)){
+			tableString+="<div class='btn btn-danger' onclick='CancelAcc(this)' id='acc_"+planner.no+"' >동행 취소하기</div>"
+		}
+		else{
+			tableString+="<div class='btn btn-info' onclick='AddAcc(this)' id='acc_"+planner.no+"' >동행하기!</div>"
+		}
+		tableString+="</div></div></div>";
 	
 	});
 	tableString+="<a href='#' class='btn btn-info'>상단으로 이동</a>";
@@ -138,7 +224,12 @@ function successAjaxCity(data){
 	 var offset=$('#destinations').offset();
 	 $('html, body').animate({scrollTop : offset.top}, 400);
 }
+console.log('city_no:${city_no}');
 
+if('${city_no}'!=''){
+	CallCity();
+	CallPlanners('${city_no}');
+}
 </script>
 <div class="intro">
 	<div class="intro_background"></div>
@@ -157,7 +248,7 @@ function successAjaxCity(data){
 									<img src="<c:url value='/images/beach.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
+									<div style="color:#2e63bf" class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
 									<div class="intro_subtitle">
 										<p>#여행</p>
 									</div>
@@ -173,7 +264,7 @@ function successAjaxCity(data){
 									<img src="<c:url value='/images/wallet.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title">해외 인기여행지</div>
+									<div style="color:#2e63bf" class="intro_title">해외 인기여행지</div>
 									<div class="intro_subtitle">
 										<p>Best Price</p>
 									</div>
@@ -189,7 +280,7 @@ function successAjaxCity(data){
 									<img src="<c:url value='/images/suitcase.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div class="intro_title">놀라운 서비스</div>
+									<div style="color:#2e63bf" class="intro_title">놀라운 서비스</div>
 									<div class="intro_subtitle">
 										<p>Amazing Service</p>
 									</div>

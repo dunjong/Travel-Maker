@@ -61,7 +61,7 @@
 	width: 15%;
 	height: 100%;
 	float: left;
-	color: #3EB489;
+	color: #2a7a5d;
 	font-size: 1.5em;
 	font-weight: bold;
 	text-align: center;
@@ -94,6 +94,31 @@
 	align-items: center;
 }
 
+.reviewPagingBack {
+	text-align: center;
+}
+
+.reviewPaging {
+	width: 50%;
+	height: 70px;
+	background-color: white;
+	margin-top: 20px;
+	border-radius: 30px;
+	display: inline-block;
+}
+
+.reviewPaging a {
+	color: #3EB489;
+	font-size: 2.5em;
+	font-weight: bold;
+}
+
+.reviewPaging span {
+	color: #2a7a5d;
+	font-size: 1.6em;
+	font-weight: bold;
+}
+
 .reviewMapOrImage img {
 	max-height: 100%;
 	max-width: 100%;
@@ -124,19 +149,18 @@
 				<div class="home_search_container">
 					<div class="home_search_title">리뷰 검색</div>
 					<div class="home_search_content">
-						<form action="#" class="home_search_form" id="home_search_form">
+						<form action="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"
+							class="home_search_form" id="home_search_form">
 							<div
 								class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-								<select class="form-control input-sm" id="reviewSearchTag">
+								<select class="form-control input-sm" id="reviewSearchTag"
+									name="searchColumn" required="required">
 									<option>검색 범위를 선택하세요</option>
-									<option value="city">도시</option>
-									<option value="food">식당</option>
-									<option value="tours">관광명소</option>
-									<option value="hotels">숙소</option>
-									<option value="all">전체 검색</option>
+									<option value="review_title">제목</option>
+									<option value="review_content">내용</option>
 								</select> <input type="text" id="reviewSearch" class="search_input"
-									placeholder="검색어를 입력하세요" required="required">
-								<button id="reviewSearchButton">리뷰 검색</button>
+									placeholder="검색어를 입력하세요" required="required" name="searchWord">
+								<button type="submit" id="reviewSearchButton">리뷰 검색</button>
 							</div>
 						</form>
 						<c:if test="${empty list}" var="isEmpty">
@@ -163,15 +187,17 @@
 									<div class="reviewInformation">
 										<div class="bestReviewAndLikes">
 											<br> <img src="<c:url value='/images/reviewLikes.png'/>"
-												alt="좋아요"> <br> <span>${item.review_no}</span> <span>명</span>
+												alt="좋아요"> <br> <span>${item.review_no+1}</span>
+											<span>명</span>
 										</div>
 										<div class="reviewTextInformation">
 											<br />
 											<h4>${item.review_title}</h4>
 											<p>${fn:length(item.review_content)<79? item.review_content: fn:substring(item.review_content,0,79)}
-											${fn:length(item.review_content)<79? "" : "..." }</p>
+												${fn:length(item.review_content)<79? "" : "..." }</p>
 											<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트</h5>
-											<fmt:formatDate value="${item.review_date}" pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate"/>
+											<fmt:formatDate value="${item.review_date}"
+												pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate" />
 											<p>작성일시 : ${postdate}</p>
 										</div>
 										<div class="reviewMapOrImage">
@@ -183,6 +209,9 @@
 								</a>
 							</c:forEach>
 						</c:if>
+						<div class="reviewPagingBack">
+							<div class="reviewPaging">${pagingString}</div>
+						</div>
 						<div class="reviewFooterUtil">
 							<br /> <a href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">
 								<img src="<c:url value='/images/reviewEdit.png'/>" alt="리뷰 작성하기">

@@ -17,8 +17,8 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewDAO dao;
 
 	@Override
-	public List<ReviewDTO> selectList() {		
-		return dao.selectList();
+	public List<ReviewDTO> selectList(Map map) {		
+		return dao.selectList(map);
 	}
 
 	@Override

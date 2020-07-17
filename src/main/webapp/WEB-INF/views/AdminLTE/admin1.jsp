@@ -537,8 +537,12 @@
 	<!-- JQVMap -->
 	<script src="<c:url value='/plugins2/jqvmap/jquery.vmap.min.js'/>"></script>
 	<script src="<c:url value='/plugins2/jqvmap/maps/jquery.vmap.usa.js'/>"></script>
+<<<<<<< HEAD
 	<script
 		src="<c:url value='/plugins2/jqvmap/maps/jquery.vmap.world.js'/>"></script>
+=======
+	<script src="<c:url value='/plugins2/jqvmap/maps/continents/jquery-jvectormap-asia-merc.js'/>"></script>
+>>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 	<!-- jQuery Knob Chart -->
 	<script src="<c:url value='/plugins2/jquery-knob/jquery.knob.min.js'/>"></script>
 	<!-- daterangepicker -->
@@ -675,9 +679,15 @@
 		}
 		// World map by jvectormap
 		$('#world-map').vectorMap(
+<<<<<<< HEAD
 				{
 					map : 'world_en',
 					backgroundColor : 'transparent',
+=======
+				{ 
+					map : 'asia_merc',   
+					backgroundColor : 'transparent', 
+>>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 					regionStyle : {
 						initial : {
 							fill : 'rgba(255, 255, 255, 0.7)',

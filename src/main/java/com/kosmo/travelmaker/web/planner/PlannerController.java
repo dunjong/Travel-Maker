@@ -243,7 +243,7 @@ public class PlannerController {
 		
 		int city_no=cityService.selectCityNo(city_name);
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-		for(int i=1;i<=8;i++) {
+		for(int i=1;i<=gap;i++) {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}
@@ -268,20 +268,28 @@ public class PlannerController {
 		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
 		
 		List<HotelDTO> hotel_dto_list=hotelService.selectHotelDTOByCitiesNo(Integer.parseInt(cities_no));
+		String calendarDate=cityService.selectCitiesDate(Integer.parseInt(cities_no));
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
+		
 		if(hotel_dto_list.size()!=0) {
 			HotelDTO hotel_dto =hotel_dto_list.get(0);
-			SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
 			Date checkIn=transFormat.parse(hotel_dto.getHotel_in());
 			Date checkOut=transFormat.parse(hotel_dto.getHotel_out());
 			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
 			//;
 		}
+		else {
+			Date checkIn=transFormat.parse(calendarDate.split(",")[0]);
+			Date checkOut=transFormat.parse(calendarDate.split(",")[1]);
+			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
+			
+		}
 		
 		List<SpotsDTO> list=spotsService.spotListByCitiesNo(Integer.parseInt(cities_no));
 		
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-		
-		for(int i=1;i<=8;i++) {
+		System.out.println("saved:"+gap);
+		for(int i=1;i<=gap;i++) {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}
@@ -311,6 +319,12 @@ public class PlannerController {
 					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 					break;
 				case "7":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				case "8":
+					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					break;
+				case "9":
 					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 					break;
 				default:
@@ -403,16 +417,20 @@ public class PlannerController {
 	@ResponseBody
 	public String SpotList(@RequestParam Map map) {
 			System.out.println("city_no:"+map.get("city_no"));
+			System.out.println("cities_no:"+map.get("cities_no"));
+			System.out.println("gap:"+map.get("gap"));
+			int gap=Integer.parseInt(map.get("gap").toString());
 			List<SpotsDTO> list=spotsService.spotList(map);
 			Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
-			for(int i=1;i<=8;i++) {
+			
+			for(int i=1;i<=gap;i++) {
 				List<String> spotIDs=new Vector<String>();
 				dayPlan.put("day"+i, spotIDs);
 			}
 	
 			
-			for(SpotsDTO dto:list) {
-				
+			for(int i=1;i<=gap;i++) {
+				SpotsDTO dto= list.get(i);
 				System.out.println("장소명:"+dto.getSpot_name()+",일차:"+dto.getAuto_plan_date());
 				String day=dto.getAuto_plan_date();
 				switch(day) {
@@ -437,6 +455,12 @@ public class PlannerController {
 					case "7":
 						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 						break;
+					case "8":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "9":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
 					default:
 						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
 				}
@@ -456,9 +480,7 @@ public class PlannerController {
 	@ResponseBody
 	public String CallCityList() {
 		List<Map> collections = new Vector<Map>();
-		System.out.println("CallCityList에 들어옴");
 		List<CountDTO> count_list = cityService.selectCityCount();
-		System.out.println("called count_list:"+count_list);
 		for(CountDTO count_dto:count_list) {
 			int city_count=count_dto.getCount();
 			int city_no=count_dto.getCity_no();
@@ -479,19 +501,50 @@ public class PlannerController {
 	}
 	@RequestMapping(value="CallPlannerList.kosmo", produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public String CallPlannerList(@RequestParam Map map) {
+	public String CallPlannerList(@RequestParam Map map,HttpSession sessionSccope) throws ParseException {
 		List<Map> collections = new Vector<Map>();
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
+		Date today=new Date();
+		int gap=0;
 		String city_no=map.get("city_no").toString();
-		System.out.println("city_no:"+city_no);
 		List<Integer> cities_no_list=cityService.selectCitiesNoListBycityNo(Integer.parseInt(city_no));
 		for(int cities_no:cities_no_list) {
-			Map<String,String> maps=new HashMap<String,String>();
-			PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
-			maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
-			maps.put("name", planner_dto.getPlanner_name());
-			maps.put("id", planner_dto.getUser_id());
-			maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
-			collections.add(maps);
+			
+		String cities_date= cityService.selectCitiesDate(cities_no);
+				Map<String,String> maps=new HashMap<String,String>();
+				boolean flag=true;
+				PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
+				int planner_no=planner_dto.getPlanner_no();
+				String user_id=sessionSccope.getAttribute("id").toString();
+				System.out.println();
+				if(planner_dto.getUser_id().equals(user_id)) {
+					flag=false;
+				}
+				List <CitiesDTO> cities_dto_list=cityService.selectCitiesDTO(planner_no);
+				
+				for(CitiesDTO cities_dto:cities_dto_list) {
+					if(cities_dto.getCities_date()!=null) {
+						Date cities_start_date=transFormat.parse(cities_dto.getCities_date().split(",")[0]);
+						
+						if(today.compareTo(cities_start_date)>=0) {
+							flag=false;
+							
+							}
+						else {
+							gap=(int)((cities_start_date.getTime()-today.getTime())/(1000*60*60*24)+1);
+						}
+					}
+				}
+				if(flag) {
+					maps.put("gap", Integer.toString(gap));
+					maps.put("city_no", city_no);
+					maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
+					maps.put("name", planner_dto.getPlanner_name());
+					maps.put("id", planner_dto.getUser_id());
+					maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
+					collections.add(maps);
+				}
+			
 		}
 		
 		return JSONArray.toJSONString(collections);
@@ -502,7 +555,7 @@ public class PlannerController {
 		int planner_no=0;
 		String planner_name="NoName";
 		String cities_date="";
-		System.out.println("map.get(\"planner_no\"):"+map.get("planner_no"));
+		String city_no_from_home=map.get("city_no").toString();
 		Map<String,Integer> city_no_name=new HashMap<String, Integer>();
 		Map<String, String> city_name_date=new HashMap<String, String>();
 		Map<String, String> city_hotel=new HashMap<String, String>();
@@ -539,6 +592,7 @@ public class PlannerController {
 		}
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
+		model.addAttribute("city_no",city_no_from_home);
 		model.addAttribute("city_plan_no",city_plan_no);
 		model.addAttribute("city_hotel_name",city_hotel_name);
 		model.addAttribute("planner_name",planner_name);
@@ -596,6 +650,46 @@ public class PlannerController {
 		
 		return JSONArray.toJSONString(collections);
 	}
+	@RequestMapping(value="PlannerAcc.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String PlannerAcc(@RequestParam Map map,HttpSession session) {
+		String planner_no=map.get("planner_no").toString();
+		System.out.println("planner_no:"+planner_no);
+		String user_id=session.getAttribute("id").toString();
+		Map<String,String> maps=new HashMap<String,String>();
+		maps.put("planner_no", planner_no);
+		maps.put("user_id", user_id);
+		if(plannerService.insertAcc(maps)) {
+		}
+		int planner_acc=plannerService.selectAccNoByPlannerNo(Integer.parseInt(planner_no));
+		maps.put("planner_acc", Integer.toString(planner_acc));
+		if(plannerService.updateAccNo(maps)) {
+			System.out.println("동행자 수 변경");
+		}
+		return planner_no;
+	}
+	
+	@RequestMapping(value="PlannerAccCancel.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String PlannerAccCancel(@RequestParam Map map,HttpSession session) {
+		String planner_no=map.get("planner_no").toString();
+		System.out.println("planner_no:"+planner_no);
+		String user_id=session.getAttribute("id").toString();
+		Map<String,String> maps=new HashMap<String,String>();
+		maps.put("planner_no", planner_no);
+		maps.put("user_id", user_id);
+		if(plannerService.DeleteAcc(maps)) {
+			System.out.println(user_id+"의 "+planner_no+" 동행 삭제" );
+		}
+		int planner_acc=plannerService.selectAccNoByPlannerNo(Integer.parseInt(planner_no));
+		maps.put("planner_acc", Integer.toString(planner_acc));
+		if(plannerService.updateAccNo(maps)) {
+			System.out.println("동행자 수 변경");
+		}
+		return planner_no;
+	}
+	
+	
 }
 
 

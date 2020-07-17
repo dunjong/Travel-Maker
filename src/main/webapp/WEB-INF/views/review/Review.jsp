@@ -96,7 +96,7 @@
 							<p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp작성일시 : ${postdate}</p>
 							<div class="reviewFooterUtil">
 								<br> <img src="<c:url value='/images/reviewLikes.png'/>"
-									alt="좋아요"> <br> <span>${record.review_no}</span> <span>명</span>
+									alt="좋아요"> <br> <span>${record.review_no+1}</span> <span>명</span>
 							</div>
 						</div>
 						<div class="reviewFooterUtil">

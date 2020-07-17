@@ -87,6 +87,10 @@
         padding: 5px;
       }
       #loadingImg{
+      	position: absolute;
+      	top:30%;
+      	left:40%;
+      	display:none;
       }
       
       #autocomplete_box{
@@ -710,7 +714,11 @@ $(function(){
 		
 		$.ajax({
 			url:'<c:url value="SpotList.kosmo"/>',
-			data:$('#city-no').serialize(),
+			data:{
+				'city_no':'${city_no}',
+				'cities_no':'${cities_no}',
+				'gap':'${gap}'
+			},
 			dataType:'json',
 			success:function(data){successAjax(data)},
 			error:function(request,error){
@@ -752,25 +760,32 @@ $(function(){
 		
 		
 		
+
 		
+		console.log('data[0]:',data[0])
 		$.each(data[0], function (date,item) {
 			console.log('date:',date,',item:',item);
+			var flag=false;
+			if(item.length!=0){
+				$('#loadingImg').attr('style','display:block')
+			}
+			
 			for(var i=0;i<item.length;i++){
 				(function(x) {
-					setTimeout(function() {
-						details(item[x],date)
-						placeDetailnSave(item[x],date.substring(3))
-						console.log(x);
-							if(x==2){
+						setTimeout(function() {
+							details(item[x],date)
+							placeDetailnSave(item[x],date.substring(3))
+							console.log(x);
+							if(x==item.length-1){
 								setTimeout(function() {
 									spots=dayplans['day1'].spots
+									$('#loadingImg').attr('style','display:none')
 									displayRoute(origin,destination , directionsService,
 										      directionsRenderer,spots);
 								},2000)
 							}
 						}, 2000*x);
-					
-					})(i);
+				})(i);
 				
 			}
 		})////each
@@ -965,12 +980,13 @@ $(function(){
          div.setAttribute('onclick','searchedSpotBtn(this)')
          div.textContent = place.name;
          var img = document.createElement("img");
-         console.log('place:',place);
-         if(place.photos!=undefined){
-         img.setAttribute('src',place.photos[0].getUrl());
-         img.setAttribute('style','width:350px;height:200px')
-         placesList.appendChild(img);
-         }
+         
+         //if(place.photos!=undefined){
+         //img.setAttribute('src',place.photos[0].getUrl());
+         //img.setAttribute('style','width:350px;height:200px')
+         //placesList.appendChild(img);
+         //}
+         
          placesList.appendChild(div);
          div = document.createElement("div");
          div.setAttribute('class','col-sm-12')
@@ -1335,7 +1351,7 @@ $(function(){
 			
 			<input type="text" id="cities-no"  value="${cities_no}" name="cities_no" hidden="true" >
 			<input type="text" id="city-no"  value="${city_no}" name="city_no" hidden="true" >
-			
+			<input type="text" id="gap"  value="${gap}" name="gap" hidden="true" >
 			<div class="row">
 				<div class="col-sm-12">
 					<div id="attractionBtn" class="snip1535" style="border-radius: 12px;" onclick="tour();"><i class="fas fa-torii-gate fa-2x">명소</i></div>
@@ -1372,9 +1388,7 @@ $(function(){
 					<div id="watchNowPlan">
 						<div class="planview" style="background-color:#ff9999" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜  상세 보기</i></div>
 					</div>
-					<div id="loadingImg" >
-						
-					</div>
+					<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 				</div>
 				 
 				<div class="col-sm-12" id="distance">
