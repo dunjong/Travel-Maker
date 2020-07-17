@@ -4,6 +4,24 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
+
+var settings = {
+		url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
+		type : "GET",
+		dataType: "json",
+		data : {"departure" : $('#departure').prop('value'),
+				"arrival":$('#arrival').prop('value'),
+				"adult":$('#adult').prop('value'),
+				"children":$('#children').prop('value'),
+				"departureDate":$('#departureDate').prop('value'),
+				"returnDate":$('#returnDate').prop('value')
+		},
+		error : function(e){
+			console.log(e);
+		}
+	}//settings
+
+$.ajax(settings).done(function(res) {
 	$(function(){   		
 		 var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
 			for(var i=0;i<res.length-1;i++){
@@ -41,8 +59,10 @@
 				list+="</div>";
 				list+="</div>";
 				list+="</div>";
+			}
 
-		);//ajax.done()
+			});//ajax.done()
+
 		$('#list').html(list); 
 		$( "#departureDate" ).datepicker({
 			showAnim: "slideDown",

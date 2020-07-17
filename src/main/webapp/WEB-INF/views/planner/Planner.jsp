@@ -28,7 +28,7 @@
 </head>
 <style>
 #map {
-       height: 500px;
+       height: 493px;
        width: 100%;
      }
 
@@ -240,7 +240,7 @@
 																	</div>
 																	<div class="modal-body">
 														              	<div>
-																			<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" style='margin-bottom:4px'>
+																			<form action="<c:url value="/TravelMaker/Plan.kosmo"/>" method="post" style='margin-bottom:4px'>
 																                <input hidden="true" name="origin" value="${name.key}" /> 
 																				<input hidden="true" name="destination" value="공항,${name.key}" />
 																				<input hidden="true" name="planner_no" value="${planner_no}" />
@@ -327,6 +327,27 @@
 		
 		var lat,lng;//호텔용
 		$(function() {
+			
+
+			$('#planner_name').change(function(){
+				$.ajax({
+					url:'<c:url value="SavePlannerName.kosmo"/>',
+					data:{
+						'planner_no':'${planner_no}',
+						'planner_name':$('#planner_name').val()
+					},
+					success:function(){console.log('아이디가 ',$('#planner_name').val()+'로 변경됨')},
+					error:function(request,error){
+						console.log('상태코드:',request.status);
+						console.log('서버로부터 받은 HTML데이타:',request.responseText);
+						console.log('에러:',error);
+					}
+					
+				});
+			});
+			
+			
+			
 			<c:forEach items="${city_hotel}" var="check" >
 			console.log('${check}')
 			if('${check.value}'=='1')
@@ -620,6 +641,7 @@
 					$('#ui-id-1').prop('style').maxWidth='400px';
 					$('#ui-id-1').prop('style').listStyle='none';
 					$('#ui-id-1').prop('style').paddingLeft='10px';
+					
 					$.ajax({
 						async : false,
 						crossDomain : true,
@@ -711,10 +733,10 @@
 			})
 			
 			<c:forEach items="${city_no_name}" var="name" varStatus='h_i'>
-			console.log(${name})
-			var input_${name.key} = document.getElementById('autocomplete_${name.key}');
-			var autocomplete_${name.key} = new google.maps.places.Autocomplete(input_${name.key});
-			google.maps.event.addListener(autocomplete_${name.key}, 'place_changed', function () {
+			console.log('${name}')
+			var input_key = document.getElementById('autocomplete_${name.key}');
+			var autocomplete_key = new google.maps.places.Autocomplete(input_key);
+			google.maps.event.addListener(autocomplete_key, 'place_changed', function () {
 				var place = autocomplete_${name.key}.getPlace();
 				console.log('lat', place.geometry.location.lat())
 		        console.log('lng', place.geometry.location.lng())
@@ -723,7 +745,7 @@
 			})
 			$('#h_${name.key}').click(()=>{
 				console.log($('div.pac-container'))
-				$('div.pac-container')[${h_i.index}].style.zIndex=2000;
+				$('div.pac-container')['${h_i.index}'].style.zIndex=2000;
 			})
 			</c:forEach>
 			
@@ -1203,10 +1225,10 @@
 		})
 		console.log('[0]:',data[0].city_name);
 		origin=data[0].origin;
-		$('#map_title').html('지도 in '+data[0].city_name);
-		displayRoute(origin, directionsService,
-			       directionsRenderer,spots);
-		
+		$('#map_title').html('지도 in '+data[0].city_name+'의 '+'<span style="color:red;font-size:1.5em;">'+data[0].day+'</span>일차');
+		displayRoute(origin, directionsService,directionsRenderer,spots);
+		 var offset=$('#map_title').offset();
+		 $('html, body').animate({scrollTop : offset.top}, 400);
 		
 	}
 	 function displayRoute(origin, service, display,spots) {

@@ -278,18 +278,19 @@ public class PlannerController {
 			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
 			//;
 		}
-		else {
+		else if(calendarDate!=null) {
 			Date checkIn=transFormat.parse(calendarDate.split(",")[0]);
 			Date checkOut=transFormat.parse(calendarDate.split(",")[1]);
 			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
 			
 		}
 		
+		
 		List<SpotsDTO> list=spotsService.spotListByCitiesNo(Integer.parseInt(cities_no));
 		
 		Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
 		System.out.println("saved:"+gap);
-		for(int i=1;i<=gap+1;i++) {
+		for(int i=1;i<=gap;i++) {
 			List<String> spotIDs=new Vector<String>();
 			dayPlan.put("day"+i, spotIDs);
 		}
@@ -299,36 +300,38 @@ public class PlannerController {
 			
 			System.out.println("장소명:"+dto.getSpot_name()+",일차:"+dto.getPlan_date()+",id:"+dto.getSpot_id());
 			String day=dto.getPlan_date();
-			switch(day) {
-				case "1":
-					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-					break;
-				case "2":
-					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-					break;
-				case "3":
-					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-					break;
-				case "4":
-					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-					break;
-				case "5":
-					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-					break;
-				case "6":
-					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-					break;
-				case "7":
-					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-					break;
-				case "8":
-					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-					break;
-				case "9":
-					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-					break;
-				default:
-					dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+			if(Integer.parseInt(day)<=gap) {
+				switch(day) {
+					case "1":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "2":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "3":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "4":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "5":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "6":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "7":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "8":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					case "9":
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+						break;
+					default:
+						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+				}
 			}
 		}
 		List<Map> collections = new Vector<Map>();
@@ -417,49 +420,53 @@ public class PlannerController {
 	@ResponseBody
 	public String SpotList(@RequestParam Map map) {
 			System.out.println("city_no:"+map.get("city_no"));
+			System.out.println("cities_no:"+map.get("cities_no"));
+			System.out.println("gap:"+map.get("gap"));
+			int gap=Integer.parseInt(map.get("gap").toString());
 			List<SpotsDTO> list=spotsService.spotList(map);
 			Map<String,List<String>> dayPlan =new HashMap<String,List<String>>();
 			
-			for(int i=1;i<=5;i++) {
+			for(int i=1;i<=gap;i++) {
 				List<String> spotIDs=new Vector<String>();
 				dayPlan.put("day"+i, spotIDs);
 			}
 	
 			
 			for(SpotsDTO dto:list) {
-				
 				System.out.println("장소명:"+dto.getSpot_name()+",일차:"+dto.getAuto_plan_date());
 				String day=dto.getAuto_plan_date();
-				switch(day) {
-					case "1":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-						break;
-					case "2":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-						break;
-					case "3":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-						break;
-					case "4":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-						break;
-					case "5":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-						break;
-					case "6":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-						break;
-					case "7":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-						break;
-					case "8":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-						break;
-					case "9":
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
-						break;
-					default:
-						dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+				if(Integer.parseInt(day)<=gap) {
+					switch(day) {
+						case "1":
+							dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+							break;
+						case "2":
+							dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+							break;
+						case "3":
+							dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+							break;
+						case "4":
+							dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+							break;
+						case "5":
+							dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+							break;
+						case "6":
+							dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+							break;
+						case "7":
+							dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+							break;
+						case "8":
+							dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+							break;
+						case "9":
+							dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+							break;
+						default:
+							dayPlan.get("day"+day).add(dto.getSpot_id().toString().trim());
+					}
 				}
 			}
 			List<Map> collections = new Vector<Map>();
@@ -498,47 +505,65 @@ public class PlannerController {
 	}
 	@RequestMapping(value="CallPlannerList.kosmo", produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public String CallPlannerList(@RequestParam Map map) throws ParseException {
+	public String CallPlannerList(@RequestParam Map map,HttpSession sessionSccope) throws ParseException {
+		
+		
 		List<Map> collections = new Vector<Map>();
-		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
-		Date today=new Date();
-		int gap=0;
-		String city_no=map.get("city_no").toString();
-		List<Integer> cities_no_list=cityService.selectCitiesNoListBycityNo(Integer.parseInt(city_no));
-		for(int cities_no:cities_no_list) {
-			
-		String cities_date= cityService.selectCitiesDate(cities_no);
-				Map<String,String> maps=new HashMap<String,String>();
-				boolean flag=true;
-				PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
-				int planner_no=planner_dto.getPlanner_no();
-				List <CitiesDTO> cities_dto_list=cityService.selectCitiesDTO(planner_no);
-				for(CitiesDTO cities_dto:cities_dto_list) {
-					if(cities_dto.getCities_date()!=null) {
-						Date cities_start_date=transFormat.parse(cities_dto.getCities_date().split(",")[0]);
-						
-						if(today.compareTo(cities_start_date)>=0) {
-							flag=false;
+		if(sessionSccope.getAttribute("id")!=null) {
+			String user_id=sessionSccope.getAttribute("id").toString();
+			SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
+			Date today=new Date();
+			int gap=0;
+			String city_no=map.get("city_no").toString();
+			List<Integer> cities_no_list=cityService.selectCitiesNoListBycityNo(Integer.parseInt(city_no));
+			for(int cities_no:cities_no_list) {
+				
+			String cities_date= cityService.selectCitiesDate(cities_no);
+					Map<String,String> maps=new HashMap<String,String>();
+					boolean flag=true;
+					PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
+					int planner_no=planner_dto.getPlanner_no();
+					
+					System.out.println();
+					if(planner_dto.getUser_id().equals(user_id)) {
+						flag=false;
+					}
+					List <CitiesDTO> cities_dto_list=cityService.selectCitiesDTO(planner_no);
+					
+					for(CitiesDTO cities_dto:cities_dto_list) {
+						if(cities_dto.getCities_date()!=null) {
+							Date cities_start_date=transFormat.parse(cities_dto.getCities_date().split(",")[0]);
 							
+							if(today.compareTo(cities_start_date)>=0) {
+								flag=false;
+								
+								}
+							else {
+								gap=(int)((cities_start_date.getTime()-today.getTime())/(1000*60*60*24)+1);
 							}
-						else {
-							gap=(int)((cities_start_date.getTime()-today.getTime())/(1000*60*60*24)+1);
 						}
 					}
-				}
-				if(flag) {
-					maps.put("gap", Integer.toString(gap));
-					maps.put("city_no", city_no);
-					maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
-					maps.put("name", planner_dto.getPlanner_name());
-					maps.put("id", planner_dto.getUser_id());
-					maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
-					collections.add(maps);
-				}
+					if(flag) {
+						maps.put("gap", Integer.toString(gap));
+						maps.put("city_no", city_no);
+						maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
+						maps.put("name", planner_dto.getPlanner_name());
+						maps.put("id", planner_dto.getUser_id());
+						maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
+						collections.add(maps);
+					}
+				
+			}
+		}
+		else{
+			Map<String,String> maps=new HashMap<String,String>();
+			maps.put("login", "동행서비스는 로그인 후 이용하세요");
+			collections.add(maps);
+			
 			
 		}
-		
 		return JSONArray.toJSONString(collections);
+		
 	}
 	
 	@RequestMapping("PlannerView.kosmo")
@@ -630,6 +655,7 @@ public class PlannerController {
 				else {
 				map_spot.put("origin", hotel_dto.get(0).getHotel_latlng());
 				}
+				map_spot.put("day",Integer.toString(plan_date));
 				map_spot.put("city_name", city_name);
 				map_spot.put("latlng", spot_dto.getLatlng());
 				map_spot.put("name", spot_dto.getSpot_name());
@@ -678,6 +704,12 @@ public class PlannerController {
 			System.out.println("동행자 수 변경");
 		}
 		return planner_no;
+	}
+	
+	@RequestMapping(value="SavePlannerName.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public void SavePlannerName(@RequestParam Map map){
+		plannerService.updatePlannerName(map);
 	}
 	
 	

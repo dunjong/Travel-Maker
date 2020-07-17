@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Search -->
- <div class="home_search">
+
+<div class="home_search">
+
 	<div class="container">
 		<div class="row">
 			<div class="col">
@@ -14,7 +16,8 @@
 			</div>
 		</div>
 	</div>
-</div> 
+</div>
+
 <!-- Intro -->
 <script>
 
@@ -125,32 +128,44 @@ function successAjaxAcc(data){
 }
 
 function successAjaxPlanner(data){
-	tableString="";
-	$.each(data,function(index,planner){
-		tableString+="<div style='background-color:#f0ffff;border-radius:9px;width:500px' class='news_post d-flex flex-md-row flex-column align-items-start justify-content-start'><div class='news_post_content'><div class='news_post_date d-flex flex-row align-items-end justify-content-start'>"
-		if(planner.gap<=3){
-			tableString+="출발 <div style='color:red'>"+planner.gap+"</div>일 전<h2></h2>";
+	console.log('data:',data)
+	if(data.length==0){
+		alert('해당 도시에 대한 플래너가 없습니다.')
+	}
+	else{
+		if(data[0].login==undefined){
+			tableString="";
+			$.each(data,function(index,planner){
+				
+					tableString+="<div style='background-color:#f0ffff;border-radius:9px;width:500px' class='news_post d-flex flex-md-row flex-column align-items-start justify-content-start'><div class='news_post_content'><div class='news_post_date d-flex flex-row align-items-end justify-content-start'>"
+					if(planner.gap<=3){
+						tableString+="출발 <div style='color:red'>"+planner.gap+"</div>일 전<h2></h2>";
+					}
+					else{
+						tableString+="출발 <div>"+planner.gap+"</div>일 전";
+					}
+					
+					tableString+="<div>planner from<h3 style='font-weight:bolder'>"+planner.id+"</h3></div>";
+					tableString+="</div><div class='news_post_title'><a style='color:#2e63bf' href='<c:url value='/TravelMaker/PlannerView.kosmo?planner_no="+planner.no+"&city_no="+planner.city_no+"'/>'>"+planner.name+", No."+planner.no+"</a>";
+					tableString+="<div class='row'><div class='col-sm-5' style='font-size:2em;color:black'>인원:</div><div style='font-size:2em;color:black;font-weight:bolder' class='col-sm-6' style='font-weight:bolder;color:blue' id='accNo_"+planner.no+"'>"+planner.acc+"</div></div><br>";
+					if('${planner_nos}'.includes(planner.no)){
+						tableString+="<div class='btn btn-danger' onclick='CancelAcc(this)' id='acc_"+planner.no+"' >동행 취소하기</div>"
+					}
+					else{
+						tableString+="<div class='btn btn-info' onclick='AddAcc(this)' id='acc_"+planner.no+"' >동행하기!</div>"
+					}
+					tableString+="</div></div></div>";
+				
+					});
+				tableString+="<a href='#' class='btn btn-info'>상단으로 이동</a>";
+				$('#planners').html(tableString);
+				var offset=$('#news').offset();
+				$('html, body').animate({scrollTop : offset.top}, 400);
 		}
 		else{
-			tableString+="출발 <div>"+planner.gap+"</div>일 전";
+			alert(data[0].login);
 		}
-		
-		tableString+="<div>planner from<h3 style='font-weight:bolder'>"+planner.id+"</h3></div>";
-		tableString+="</div><div class='news_post_title'><a style='color:#2e63bf' href='<c:url value='/TravelMaker/PlannerView.kosmo?planner_no="+planner.no+"&city_no="+planner.city_no+"'/>'>"+planner.name+", No."+planner.no+"</a>";
-		tableString+="<div class='row'><div class='col-sm-5' style='font-size:2em;color:black'>인원:</div><div style='font-size:2em;color:black;font-weight:bolder' class='col-sm-6' style='font-weight:bolder;color:blue' id='accNo_"+planner.no+"'>"+planner.acc+"</div></div><br>";
-		if('${planner_nos}'.includes(planner.no)){
-			tableString+="<div class='btn btn-danger' onclick='CancelAcc(this)' id='acc_"+planner.no+"' >동행 취소하기</div>"
-		}
-		else{
-			tableString+="<div class='btn btn-info' onclick='AddAcc(this)' id='acc_"+planner.no+"' >동행하기!</div>"
-		}
-		tableString+="</div></div></div>";
-	
-	});
-	tableString+="<a href='#' class='btn btn-info'>상단으로 이동</a>";
-	$('#planners').html(tableString);
-	var offset=$('#news').offset();
-	$('html, body').animate({scrollTop : offset.top}, 400);
+	}
 }
 
 

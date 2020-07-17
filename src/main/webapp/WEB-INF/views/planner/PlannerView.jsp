@@ -27,7 +27,7 @@
 	href="<c:url value='/plugins/cal_dist/css/adminlte.css'/>">
 <style>
 #map {
-       height: 500px;
+       height: 590px;
        width: 100%;
      }
 
@@ -611,13 +611,14 @@
 			var latlng={location:value.latlng};
 			spots.push(latlng);
 		})
-		console.log('[0]:',data[0].city_name);
+		console.log('[0]:',data);
 		origin=data[0].origin;
-		$('#map_title').html('지도 in '+data[0].city_name);
+		$('#map_title').html('지도 in '+data[0].city_name+'의 '+'<span style="color:red;font-size:1.5em;">'+data[0].day+'</span>일차');
 		displayRoute(origin, directionsService,
 			       directionsRenderer,spots);
 		
-		
+		 var offset=$('#map_title').offset();
+		 $('html, body').animate({scrollTop : offset.top}, 400);
 	}
 	 function displayRoute(origin, service, display,spots) {
 	     service.route({
@@ -652,7 +653,7 @@
 	     if (status === 'OK') {
 	       display.setDirections(response);
 	     } else {
-	       alert('Could not display directions due to: ' + status);
+	       alert('스팟간의 경로를 찾을 수 없습니다: ' + status);
 	     }
 	   });
 	 }////displayRoute
