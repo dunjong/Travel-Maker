@@ -13,26 +13,28 @@
 </style>
 <script>
 	$(function(){
-		function resultAirModal(){
+		
+		function resultAirModal(){			
 			$('#AirList').html(""); 
 			console.log('ajax시작')
 			var settings = {
 				url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
 				type : "GET",
 				dataType: "json",
+
 				data : {"departure" : $('#departure').prop('value'),
 						"arrival":$('#arrival').prop('value'),
 						"adult":$('#adult').prop('value'),
 						"children":$('#children').prop('value'),
 						"departureDate":$('#departureDate').prop('value'),
 						"returnDate":$('#returnDate').prop('value')
-				},
-				
+				},				
 				error : function(e){
 					console.log(e);
 				}
 			}//settings
-		 	$.ajax(settings).done(function(res) {
+			$('#loadingImg').attr('style','display:block')
+		 	$.ajax(settings).done(function(res) {		 		
 				var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
 				for(var i=0;i<res.length-1;i++){
 					if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
@@ -51,8 +53,7 @@
 					list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
 					list+="<div id='AirList' class='row' style='text-align:center'>";
 					list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
-					list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
-	
+					list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";	
 					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
 					list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
 					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
@@ -71,7 +72,9 @@
 					list+="</div>";
 				}
 				$('#AirList').html(list); 
+				$('#loadingImg').attr('style','display:none')
 			});//ajax.done()
+			
 	}
 	$( "#departureDate" ).datepicker({
 		showAnim: "slideDown",
