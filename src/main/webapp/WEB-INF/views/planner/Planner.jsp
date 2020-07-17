@@ -731,11 +731,14 @@
 			  /*close : function(evt) {}  */
 	   		 
 			})
-			var autocomplete_key
+			var input;
+			var autocomplete;
 			<c:forEach items="${city_no_name}" var="name" varStatus='h_i'>
-			autocomplete_key = new google.maps.places.Autocomplete(document.getElementById('autocomplete_${name.key}'));
-			google.maps.event.addListener(autocomplete_key, 'place_changed', function () {
-				var place = autocomplete_key.getPlace();
+			console.log('${name}')
+			input = document.getElementById('autocomplete_${name.key}');
+			autocomplete = new google.maps.places.Autocomplete(input);
+			google.maps.event.addListener(autocomplete, 'place_changed', function () {
+				var place = autocomplete.getPlace();
 				console.log('lat', place.geometry.location.lat())
 		        console.log('lng', place.geometry.location.lng())
 		        lat = place.geometry.location.lat()
