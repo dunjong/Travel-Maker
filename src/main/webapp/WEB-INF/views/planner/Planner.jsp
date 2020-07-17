@@ -733,10 +733,10 @@
 			})
 			
 			<c:forEach items="${city_no_name}" var="name" varStatus='h_i'>
-			console.log(${name})
-			var input_${name.key} = document.getElementById('autocomplete_${name.key}');
-			var autocomplete_${name.key} = new google.maps.places.Autocomplete(input_${name.key});
-			google.maps.event.addListener(autocomplete_${name.key}, 'place_changed', function () {
+			console.log('${name}')
+			var input_key = document.getElementById('autocomplete_${name.key}');
+			var autocomplete_key = new google.maps.places.Autocomplete(input_key);
+			google.maps.event.addListener(autocomplete_key, 'place_changed', function () {
 				var place = autocomplete_${name.key}.getPlace();
 				console.log('lat', place.geometry.location.lat())
 		        console.log('lng', place.geometry.location.lng())
@@ -745,7 +745,7 @@
 			})
 			$('#h_${name.key}').click(()=>{
 				console.log($('div.pac-container'))
-				$('div.pac-container')[${h_i.index}].style.zIndex=2000;
+				$('div.pac-container')['${h_i.index}'].style.zIndex=2000;
 			})
 			</c:forEach>
 			
