@@ -120,6 +120,7 @@ public class PlannerController {
 				}
 				
 				city_no_name.put(cityDTO.getCity_name(),cities_no);
+				System.out.println("city_no_name:"+cityDTO.getCity_name()+":"+cities_no);
 				city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
 				
 				
