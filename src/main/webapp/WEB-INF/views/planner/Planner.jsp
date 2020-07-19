@@ -131,9 +131,9 @@
 																			<form action="#">
 																				<input id="autocomplete_${name.key}" value="${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
 																				<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
-																				<input type="date" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
+																				<input type="text" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
 																				<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
-																				<input type="date" id="datepicker1_${name.key}" value="" placeholder="check out" required="required">
+																				<input type="text" id="datepicker1_${name.key}" value="" placeholder="check out" required="required">
 																				<input type="number" id="rooms_${name.key}"  placeholder="방 갯수" required="required">
 																			</form>
 																		</div>
@@ -188,7 +188,7 @@
 																	<input type="text" name="arrival" id="arrival" placeholder="도착지" required="required" data-placement="bottom">
 																	<br>
 																	<label>출발</label>
-																	<input type="date" value="2020-07-12" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
+																	<input type="date" value="2020-07-20" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
 																	<label>도착</label>
 																	<input type="date" value='' name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
 																	<input type="number" name="adult" id="adult" placeholder="성인" required="required"> 
