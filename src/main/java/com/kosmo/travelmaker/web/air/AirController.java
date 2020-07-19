@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.annotation.Resource;
+
+import org.apache.ibatis.annotations.Select;
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,10 @@ import com.amadeus.Amadeus;
 import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
+import com.kosmo.travelmaker.service.AirDTO;
+import com.kosmo.travelmaker.service.HotelDTO;
+import com.kosmo.travelmaker.service.impl.AirServiceImpl;
+import com.kosmo.travelmaker.service.impl.HotelServiceImpl;
 
 @Controller
 @RequestMapping("/TravelMaker/")
@@ -27,6 +34,9 @@ public class AirController {
 	private String AmadeusFlightApiKey;
 	@Value("${AmadeusFlightSecretApiKey}")
 	private String AmadeusFlightSecretApiKey;
+	//
+	@Resource(name="airService")
+	private AirServiceImpl airService;
 	// 아마데우스 API 사용을 위한 자바 구문
 	@ResponseBody
 	@RequestMapping(value="AirSearch.kosmo", produces = "text/html; charset=UTF-8")
@@ -101,7 +111,19 @@ public class AirController {
 		}
         return ja.toJSONString();
 	}
-	
+	@RequestMapping(value ="AirTest.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String AirTest(@RequestParam Map map) {
+		String user_id = (String)map.get("user_id");
+		String departure = (String)map.get("departure");
+		String arrival = (String)map.get("arrival");
+		String ddate = (String)map.get("ddate");
+		String rdate = (String)map.get("rdate");
+		String passenger = (String)map.get("air_passenger");
+		String result = "failure";
+		return result;
+	}
+
 	@RequestMapping("AirList.kosmo")
 	public String AirList(Model model) {
 		model.addAttribute("AutoCompleteApiKey",AutoCompleteApiKey);

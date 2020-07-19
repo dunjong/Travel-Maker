@@ -133,7 +133,7 @@
 										<p>공지사항 관리</p>
 								</a></li>
 							</ul></li>
-						<li class="nav-item"><a href="pages/gallery.html"
+						<li class="nav-item"><a href="adminCity.kosmo"
 							class="nav-link"> <i class="nav-icon far fa-image"></i>
 								<p>도시관리</p>
 						</a></li>
