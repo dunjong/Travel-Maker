@@ -1,6 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+
+<!-- Material Design Bootstrap -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css"
+	rel="stylesheet">
+<!-- JQuery -->
+
+<!-- Bootstrap tooltips -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+
+<!-- MDB core JavaScript -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 <style>
 
 #chatbtn img{
@@ -32,32 +54,34 @@
 				<li><a href="#testimonials"><i class="bx bx-server"></i> <span>Tip</span></a></li>
 				<li><button id="chatbtn" class="rounded-circle" type="button" data-toggle="modal" data-target="#ChatModal" style="text-align: right;cursor: pointer; "><img src="<c:url value='/images/104352_482_1650.jpg'/>" class="rounded-circle" style="color: sandybrown" alt=""></button>
 		<div class="modal-chatbot">
-										
-				<div class="modal fade right" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-full-height modal-right" role="document">
-				<div class="modal-dialog modal-notify modal-info">
-			<div class="modal-content">
-			     <div class="modal-header">        
-			       <h4 class="modal-title" id="myModalLabel" style="color:white;"><i class="fa fa-fighter-jet"></i>TravelMaker</h4>
-			       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			     </div>
-			     <div class="modal-body">
-				<iframe
-			         id="iframe"	         
-			         style="min-height: 60vh; border:none;"  	         
-			         width="100%"
-			         height="90%"
-			         src="https://51959ad43556.ngrok.io">                        
-			     </iframe>
-			      </div>
-			</div>
-			    <!-- /.modal-content -->
-			  </div>
-			  <!-- /.modal-dialog -->
-			</div>
-			<!-- /.modal -->
-			</div>
-		</div></li>
+                              
+            <div class="modal fade bd-example-modal-lg" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-notify modal-info">
+         <div class="modal-content">
+              <div class="modal-header">        
+                <h4 class="modal-title" id="myModalLabel" style="color:white;"><i class="fa fa-fighter-jet"></i>TravelMaker</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">
+      
+            <iframe
+                  id="iframe"            
+                  style="min-height: 60vh; border:none;"              
+                  width="100%"
+                  height="90%"
+                  src="https://683c9d3b73b8.ngrok.io">                        
+              </iframe>
+              </div>
+               </div>
+         </div>
+             <!-- /.modal-content -->
+           </div>
+           <!-- /.modal-dialog -->
+         </div>
+         <!-- /.modal -->
+   
+      </div></li>
 			</ul>
 		</nav>
 		<!-- .nav-menu -->

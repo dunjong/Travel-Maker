@@ -154,32 +154,34 @@
 	
 	
 	<div class="modal-chatbot">
-								
-		<div class="modal fade right" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-full-height modal-right" role="document">
-		<div class="modal-dialog modal-notify modal-info">
-	<div class="modal-content">
-	     <div class="modal-header">        
-	       <h4 class="modal-title" id="myModalLabel" style="color:white;"><i class="fa fa-fighter-jet"></i>TravelMaker</h4>
-	       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	     </div>
-	     <div class="modal-body">
-		<iframe
-	         id="iframe"	         
-	         style="min-height: 60vh; border:none;"  	         
-	         width="100%"
-	         height="90%"
-	         src="https://51959ad43556.ngrok.io">                        
-	     </iframe>
-	      </div>
-	</div>
-	    <!-- /.modal-content -->
-	  </div>
-	  <!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
-	</div>
-</div>
+                              
+            <div class="modal fade bd-example-modal-lg" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-notify modal-info">
+         <div class="modal-content">
+              <div class="modal-header">        
+                <h4 class="modal-title" id="myModalLabel" style="color:white;"><i class="fa fa-fighter-jet"></i>TravelMaker</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">
+      
+            <iframe
+                  id="iframe"            
+                  style="min-height: 60vh; border:none;"              
+                  width="100%"
+                  height="90%"
+                  src="https://683c9d3b73b8.ngrok.io">                        
+              </iframe>
+              </div>
+               </div>
+         </div>
+             <!-- /.modal-content -->
+           </div>
+           <!-- /.modal-dialog -->
+         </div>
+         <!-- /.modal -->
+   
+      </div>
 	
 </div>
 

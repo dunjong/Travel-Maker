@@ -796,7 +796,7 @@ $(function(){
 										      directionsRenderer,spots);
 								},2000)
 							}
-						}, 2500*x);
+						}, 3000*x);
 				})(i);
 				
 			}
