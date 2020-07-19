@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
 
+#chatbtn img{
+ 		width:56px;
+        height:56px;
+}
+.modal-header{
+		border-top-left-radius: 12px;
+		border-top-right-radius: 12px;
+}
+</style>
 
 <!-- ======= Mobile nav toggle button ======= -->
 	<button type="button" class="mobile-nav-toggle d-xl-none">
@@ -20,8 +30,38 @@
 				<li><a href="#resume"><i class="bx bx-book-content"></i>
 						<span>city</span></a></li>
 				<li><a href="#testimonials"><i class="bx bx-server"></i> <span>Tip</span></a></li>
+				<li><button id="chatbtn" class="rounded-circle" type="button" data-toggle="modal" data-target="#ChatModal" style="text-align: right;cursor: pointer; "><img src="<c:url value='/images/104352_482_1650.jpg'/>" class="rounded-circle" style="color: sandybrown" alt=""></button>
+		<div class="modal-chatbot">
+										
+				<div class="modal fade right" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-full-height modal-right" role="document">
+				<div class="modal-dialog modal-notify modal-info">
+			<div class="modal-content">
+			     <div class="modal-header">        
+			       <h4 class="modal-title" id="myModalLabel" style="color:white;"><i class="fa fa-fighter-jet"></i>TravelMaker</h4>
+			       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			     </div>
+			     <div class="modal-body">
+				<iframe
+			         id="iframe"	         
+			         style="min-height: 60vh; border:none;"  	         
+			         width="100%"
+			         height="90%"
+			         src="https://b97459a9211a.ngrok.io">                        
+			     </iframe>
+			      </div>
+			</div>
+			    <!-- /.modal-content -->
+			  </div>
+			  <!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			</div>
+		</div></li>
 			</ul>
 		</nav>
 		<!-- .nav-menu -->
-
+		
+		
+		
 	</header>

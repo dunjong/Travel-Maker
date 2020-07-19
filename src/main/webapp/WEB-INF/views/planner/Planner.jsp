@@ -130,6 +130,10 @@
 														              	<div>
 																			<form action="#">
 																				<input id="autocomplete_${name.key}" value="${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
+																				<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
+																				<input type="text" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
+																				<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
+																				<input type="text" id="datepicker1_${name.key}" value="" placeholder="check out" required="required">
 																				<input type="number" id="rooms_${name.key}"  placeholder="방 갯수" required="required">
 																				<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
 																				<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
@@ -1087,7 +1091,6 @@
 				url:'<c:url value="/TravelMaker/AirTest.kosmo"/>',
 				data:
 				{
-					"air_no"
 				},
 				dataType:'text',
 				success:function(data){as_successAjax(data)},
