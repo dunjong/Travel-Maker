@@ -3,67 +3,84 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<style>
+ #loadingImg{
+      	position: absolute;
+      	top:30%;
+      	left:40%;
+      	display:none;
+      }
+</style>
 <script>
-	$(function(){   
-
-		console.log('${list[0]}')
-		console.log('${list[1]}')
-		console.log('${list[2]}')
-		console.log('${list[3]}')
-		console.log('${list[4]}')
-		console.log('${list[5]}')
-		console.log('${list[6]}')
-		console.log('${list[7]}')
-		console.log('${list[8]}')
-		console.log('${list[9]}')
-		console.log('${list[10]}')
+	$(function(){
 		
+		function resultAirModal(){			
+			$('#AirList').html(""); 
+			console.log('ajax시작')
+			var settings = {
+				url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
+				type : "GET",
+				dataType: "json",
 
-		/* 
-		console.log('${list[0].get("total")}')
-		console.log('${list[0].get("base")}')
-		console.log('${list[0].get("Dtime")}')
-		console.log('${list[0].get("Dcode")}')
-		console.log('${list[0].get("Atime")}')
-		console.log('${list[0].get("Acode")}')
-		console.log('${list[0].get("Tovia")}')
-		console.log('${list[0].get("Devia")}')
-		console.log('${list[0].get("Arvia")}')    
-		 */
-		
-		var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
-			for(var i=0;i<5;i++){
-			list+="<div class='container'>";
-			list+="<div class='alert alert-success'>";
-			list+="<div class='row'>";
-			list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
-			list+="<div id='AirList' class='row' style='text-align:center'>";
-			list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
-			list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
-
-			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
-			list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[0].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>1회 경유${list[k][i].Dvia}</Strong></div></div>";
-			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
-			list+="<div class='col-md-2' style='height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
-			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:right'><Strong>${list[0].get('Atime').substring(11,19)}</Strong><br>${list[0].get('Acode')}</div>";
-			list+="<div class='col-md-4' style='height: 90px; width: 40px'><small>${list[1].get('Tovia')}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>1회 경유${list[i][i].Dvia}</Strong></div></div>";       
-			list+="<div class='col-md-3' style='height: 90px; width: 40px; text-align:left'><Strong>${list[0].get('Dtime').substring(11,19)}</Strong><br>${list[0].get('Dcode')}</div>";
-			list+="</div>";
-			list+="</div>";
-			list+="<div class='col-sm-4' style='height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-			list+="<div class='col-md-12' style='height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦<fmt:formatNumber value='${list[0].get("basePrice")}' pattern="#,###"/>원</Strong><br><small>총 가격<fmt:formatNumber value='${list[0].get("totalPrice")}' pattern="#,###"/>원</small></div><br>";
-			list+="<a href=<c:url value='/TravelMaker/AirView.kosmo'/>><button type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button></a>";
-			list+="</div>";
-			list+="</div>";
-			list+="</div>";
-			list+="</div>";
-		}
-		$('#list').html(list); 
-		$( "#departureDate" ).datepicker({
-			showAnim: "slideDown",
-			dateFormat: "yy-mm-dd",
-			minDate: new Date(),
-			onSelect:function(dateText){
+				data : {"departure" : $('#departure').prop('value'),
+						"arrival":$('#arrival').prop('value'),
+						"adult":$('#adult').prop('value'),
+						"children":$('#children').prop('value'),
+						"departureDate":$('#departureDate').prop('value'),
+						"returnDate":$('#returnDate').prop('value')
+				},				
+				error : function(e){
+					console.log(e);
+				}
+			}//settings
+			$('#loadingImg').attr('style','display:block')
+		 	$.ajax(settings).done(function(res) {		 		
+				var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
+				for(var i=0;i<res.length-1;i++){
+					if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
+					else if(res[i].segmentsList0[2]==1) var code = res[i].segmentsList0[3].code2;
+					else if(res[i].segmentsList0[2]==2) var code = res[i].segmentsList0[3].code3;
+					else if(res[i].segmentsList0[2]==3) var code = res[i].segmentsList0[3].code4;
+					else if(true) var code = "";
+					if(res[i].segmentsList1[2]==0) var code2 = res[i].segmentsList1[3].code1;
+					else if(res[i].segmentsList1[2]==1) var code2 = res[i].segmentsList1[3].code2;
+					else if(res[i].segmentsList1[2]==2) var code2 = res[i].segmentsList1[3].code3;
+					else if(res[i].segmentsList1[2]==3) var code2 = res[i].segmentsList1[3].code4;
+					else if(true) var code2 = "";
+					list+="<div class='container'>";
+					list+="<div class='alert alert-success'>";
+					list+="<div class='row'>";
+					list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+					list+="<div id='AirList' class='row' style='text-align:center'>";
+					list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+					list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";	
+					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
+					list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
+					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
+					list+="<div class='col-md-2' style='color:black; height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
+					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList1[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList1[3].code0+"</div>";
+					list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].DestToOriginTime.substring(2,res[i].DestToOriginTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>"+res[i].segmentsList1[2]+"회 경유</Strong></div></div>";       
+					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList1[1].substr(11,5)+"</Strong><br>"+code2+"</div>";
+					list+="</div>";
+					list+="</div>";
+					list+="<div class='col-sm-4' style='color:black; height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+					list+="<div class='col-md-12' style='color:black; height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦"+res[i].basePrice.split('.')[0]+"원</Strong><br><small>총 가격 "+res[i].totalPrice.split('.')[0]+"원</small></div><br>";
+					list+="<button id='a_select_"+i+"' type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
+					list+="</div>";
+					list+="</div>";
+					list+="</div>";
+					list+="</div>";
+				}
+				$('#AirList').html(list); 
+				$('#loadingImg').attr('style','display:none')
+			});//ajax.done()
+			
+	}
+	$( "#departureDate" ).datepicker({
+		showAnim: "slideDown",
+		dateFormat: "yy-mm-dd",
+		minDate: new Date(),
+		onSelect:function(dateText){
 			$('#display').html(dateText);
 		}
 	});
@@ -75,134 +92,118 @@
 		$('#display').html(dateText);
 	}
 });
-		$('#departure').on('keyup',function(){
-			var deplist=document.getElementById('deplist')
-			//deplist.remove();
-			deplist.innerHTML=''
-			var depstr=[]
-			var depname=[]
-			var value=$(this).val();
-			var settings = {
-				"async" : false,
-				"crossDomain" : true,
-				"url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
-				"method" : "GET",
-				"headers" : {
+    $('#arrival').autocomplete({
+		source : function(request, response) {
+			console.log($('#ui-id-1').prop('style'))
+			$('#ui-id-1').prop('style').zIndex=1051;
+			$('#ui-id-1').prop('style').backgroundColor='white';
+			$('#ui-id-1').prop('style').maxWidth='400px';
+			$('#ui-id-1').prop('style').listStyle='none';
+			$('#ui-id-1').prop('style').paddingLeft='10px';
+			$.ajax({
+				async : false,
+				crossDomain : true,
+	            url : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/",
+	            method : "GET",
+	            headers : {
 					"x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
 					"x-rapidapi-key" : "${AutoCompleteApiKey}"
+				},
+	            data : {"query" : request.term},
+	            success : function(data){
+	            	response($.map(data.Places, function(item){
+						return {
+							label: item.PlaceName+'('+item.PlaceId.split('-')[0]+')',
+	                        value: item.PlaceId.split('-')[0]
+						}
+					}));
+				},
+				error : function(){ //실패
+						alert("통신에 실패했습니다.");
 				}
-			}
-			$.ajax(settings).done(function(response) {
-				console.log(response)
-				console.log(value)
-                var PlaceId
-                var PlaceName
-                for(var i=0;i<response.Places.length;i++){
-                    PlaceId=response.Places[i].PlaceId
-                    PlaceName=response.Places[i].PlaceName
-                    depstr.push(PlaceId)
-                	depname.push(PlaceName)
-                   }
-                for(var i=1;i<depstr.length;i++){
-                    	var div=document.createElement('div')
-                		div.className='btn btn-warning'
-                        div.setAttribute('name',depstr[i].substring(0,3))
-                		div.textContent=depname[i]+':'+depstr[i].substring(0,3)
-                        deplist.appendChild(div)
-                        }
-                $('.btn-warning').on('click',function(){
-                    console.log('this:',this.innerHTML.split(':')[1])
-                	$('#departure').prop('value',this.innerHTML.split(':')[1])
-                })
-                console.log('depstr',depstr)
-                $('#departure').attr('data-content',depstr.toString());
-			});/////
-            $('#deplist').on('click',function(){
-            	deplist.innerHTML='';
-            })
-        })
+			});
+		},
+		minLength : 1,
+        autoFocus : false,
+		focus : function(evt, ui) {
+			for(let child of evt.delegateTarget.children){
+	   			child.children[0].style="";
+	   		}
+	   		evt.toElement.style.backgroundColor='sandybrown';
+	   		evt.toElement.style.color='white';
+		},
+	  /*close : function(evt) {}  */
+		 
+	})
           
-          $('#arrival').on('keyup',function(){
-            var arrlist=document.getElementById('arrlist')
-            //arrlist.clear()
-            arrlist.innerHTML=''
-            var arrstr=[]
-            var arrname=[]
-            var value=$(this).val();
-            var settings = {
-                   "async" : false,
-                   "crossDomain" : true,
-                   "url" : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/?query="+value,
-                   "method" : "GET",
-                   "headers" : {
-                      "x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-                      "x-rapidapi-key" : "${AutoCompleteApiKey}"
-                   }
-             }
-            
-                $.ajax(settings).done(function(response) {
-                  
-                   var PlaceId
-                   var PlaceName
-                   
-                   for(var i=0;i<response.Places.length;i++){
-                      
-                     
-                        PlaceId=response.Places[i].PlaceId
-                      PlaceName=response.Places[i].PlaceName
-          
-                        arrstr.push(PlaceId)
-                        arrname.push(PlaceName)
-                      }
-                   
-                    for(var i=1;i<arrstr.length;i++){
-                        var div=document.createElement('div')
-                        div.className='btn btn-danger'
-                        div.textContent=arrname[i]+':'+arrstr[i].substring(0,3)
-                        div.setAttribute('name',arrstr[i].substring(0,3))
-                        arrlist.appendChild(div)
-                    }
-                    
-                    $('.btn-danger').on('click',function(){
-                       $('#arrival').prop('value',this.innerHTML.split(':')[1])
-                    })   
-                   console.log('arrstr',arrstr)
-                   $('#arrival').attr('data-content',arrstr.toString());
-                });/////
-                $('#arrlist').on('click',function(){
-                	arrlist.innerHTML='';
-                })
+          $('#departure').autocomplete({
+				source : function(request, response) {
+					console.log($('#ui-id-2').prop('style'))
+					$('#ui-id-2').prop('style').zIndex=1051;
+					$('#ui-id-2').prop('style').backgroundColor='white';
+					$('#ui-id-2').prop('style').maxWidth='400px';
+					$('#ui-id-2').prop('style').listStyle='none';
+					$('#ui-id-2').prop('style').paddingLeft='10px';
+					$.ajax({
+						async : false,
+						crossDomain : true,
+			            url : "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/KR/KRW/ko-KR/",
+			            method : "GET",
+			            headers : {
+							"x-rapidapi-host" : "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+							"x-rapidapi-key" : "${AutoCompleteApiKey}"
+						},
+			            data : {"query" : request.term},
+			            success : function(data){
+			            	response($.map(data.Places, function(item){
+								return {
+									label: item.PlaceName+'('+item.PlaceId.split('-')[0]+')',
+			                        value: item.PlaceId.split('-')[0]
+								}
+							}));
+						},
+						error : function(){ //실패
+								alert("통신에 실패했습니다.");
+						}
+					});
+				},
+				minLength : 1,
+		        autoFocus : false,
+		        //엔터키로 넣는 코드 사용하려면 수정필요
+				/* select : function(evt, ui) {
+					evt.preventDefault();
+					console.log("전체 data: " + JSON.stringify(ui));
+						console.log(ui.item.label);
+						$('#departure').val(ui.item.label);
+		                var e = $.Event( "keypress", { which: 13 } );
+		                $('#departure').trigger(e);
+		                $('#departure').val("");
+		                $('#departure').focus();
+				}, */
+				focus : function(evt, ui) {
+					for(let child of evt.delegateTarget.children){
+			   			child.children[0].style="";
+			   		}
+			   		evt.toElement.style.backgroundColor='sandybrown';
+			   		evt.toElement.style.color='white';
+				},
+			  /*close : function(evt) {}  */
           })
-    
-      
       //버튼 이미지 사용시: 버튼의 크기 조정
       //$('.ui-datepicker-trigger').prop('style', 'width:40px;height:40px;');
       //$('.ui-datepicker-trigger > img').prop('style', 'width:40px;height:40px;vertical-align:middle;margin-top:-4px;margin-left:-10px');
       //이미지 온리 사용시      
-               
-          });
+      $('#home_search_form').submit(function(e){
+    	  resultAirModal();
+    	  return false;
+      });  
+	});
        
       
    
             
 
 </script>
-<%--    <!-- Search -->
-        <c:forEach  items="${list}" var="li">
-        <c:forEach items="${li}" var="lis">
-             <h2>${lis.DTime}</h2>
-               <h2>${lis.Dcode}</h2>
-              <h2>${lis.ATime}</h2>
-              <h2>${lis.Acode}</h2>
-              <h2>${lis.base}</h2>
-           <h2>${lis.total}</h2> 
-           
-              <h2>++++++++++++++</h2>
-      </c:forEach>
-      <h2>==============</h2> 
-      
-   </c:forEach>   --%>
-
 <div class="home_search">
 	<div class="container">
 		<div class="row">
@@ -217,8 +218,7 @@
 						<a href='<c:url value="/TravelMaker/HotelList.kosmo"/>'>호텔 검색</a>
 					</div>
 					<div class="home_search_content">
-						<form action=<c:url value="/TravelMaker/AirSearch.kosmo"/>
-							class="home_search_form" id="home_search_form">
+						<form action="#" class="home_search_form" id="home_search_form">
 							<div
 								class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 								<input type="text" name="departure" id="departure"
@@ -237,9 +237,8 @@
 									required="required" value="1"> <input type="text"
 									name="children" id="children"
 									class="search_input search_input_5" placeholder="어린이">
-
-
 								<button class="home_search_button" style="">항공권 검색</button>
+								<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 							</div>
 						</form>
 
@@ -255,35 +254,5 @@
 		<div class="btn-group-vertical" id=arrlist></div>
 	</div>
 </div>
-<div id='list'></div>
-
-<%--  <div class="container">
-      <div class="alert alert-success">
-         <div class="row">
-               <div class="col-sm-8" style="height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;">
-                  <div class="row" style="text-align:center">
-                     <div class="col-md-2" style="height: 90px; width: 40px"><img src="<c:url value='/images/travelmaker1.png'/>" style="height:60px;width:130px"></div>
-                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:right"><Strong>오전8:30</Strong><br>ICN</div>
-                     <div class="col-md-4" style="height: 90px; width: 40px"><small>4시간30분</small><br><img src="<c:url value='/images/줄비행기.PNG'/>" alt=""><br>직항</div>
-                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:left"><Strong>오후12:00</Strong><br>CEB</div>
-                     
-                     <div class="col-md-2" style="height: 90px; width: 40px"><img src="<c:url value='/images/travelmaker2.png'/>" style="height:60px;width:130px"alt=""></div>
-                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:right"><Strong>오후11:40</Strong><br>CEB</div>
-                     <div class="col-md-4" style="height: 90px; width: 40px"><small>5시간10분</small><br><img src="<c:url value='/images/줄비행기.PNG'/>" alt=""><br>직항</div>
-                     <div class="col-md-3" style="height: 90px; width: 40px; text-align:left"><Strong>오전8:30</Strong><br>ICN</div>
-                     
-                  </div>
-               </div>
-               <div class="col-sm-4" style="height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;">
-                  <div class="col-md-12" style="height: 90px; padding:20px; font-size:1.7em;text-align:center;"><Strong>￦435,740</Strong><br><small>총 가격￦892,704</small></div><br>
-                  <a href="#"><button type="button" class="btn btn-success btn-lg" style="cursor:pointer;"><Strong>선택 →</Strong></button></a>
-                  
-               <!-- <div class="col-md-12" style="height: 90px; width: 40px; text-align:center; font-size: 0.2em;">
-                -->
-               </div>
-          </div>
-      </div>
-   </div> 
- --%>
-
+<div id='AirList'></div>
 <!-- Footer -->
