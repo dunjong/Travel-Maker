@@ -188,7 +188,7 @@
 																	<input type="text" name="arrival" id="arrival" placeholder="도착지" required="required" data-placement="bottom">
 																	<br>
 																	<label>출발</label>
-																	<input type="date" value="2020-07-20" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
+																	<input type="date" value="2020-07-21" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
 																	<label>도착</label>
 																	<input type="date" value='' name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
 																	<input type="number" name="adult" id="adult" placeholder="성인" required="required"> 
