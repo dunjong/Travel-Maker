@@ -36,6 +36,7 @@
       	top:30%;
       	left:40%;
       	display:none;
+      	z-index: 5;
       }
 
 </style>	
@@ -73,10 +74,11 @@
 							<br>
 						</div>
 						<div class="col-md-9">
+							<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 							<div class="card card-primary">
 								<div class="card-body p-0">
 									<!-- THE CALENDAR -->
-									<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
+									
 									<div id="calendar">
 									<!-- 이 안에 생긴다 -->
 									</div>
@@ -791,6 +793,7 @@
 			}
 		}
 		function resultHotelModal(name,cities_no){
+			$('#loadingImg').attr('style','display:block')
 			$('#h_modal_'+name).modal('hide');
 			$('#h_places').html('')
 			$('#city_name').html(name);
@@ -905,11 +908,13 @@
 					})
 
 				});//ajax.done()
+			$('#loadingImg').attr('style','display:none')
 			$('#h_modal_result').modal('show');
 		}////////////////resultHotelModal()
 		
 		function getHotelDetails(data){
 			console.log('getHotelDetails.data',data.getAttribute('name'));
+			$('#loadingImg').attr('style','display:block')
 			
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html());
@@ -947,6 +952,7 @@
 		}
 		function successAjax(data){
 			$('#h_'+data.split(':')[0]).prop('class','btn btn-danger').html(data.split(':')[0]+' 등록 호텔 수정하기');
+			$('#loadingImg').attr('style','display:none')
 			$('#h_modal_hotelName_'+data.split(':')[0]).html('예약된 호텔:'+data.split(':')[2]);
 			alert(data.split(':')[0]+data.split(':')[1])
 		}
