@@ -31,7 +31,12 @@
        height: 493px;
        width: 100%;
      }
-
+#loadingImg{
+      	position: absolute;
+      	top:30%;
+      	left:40%;
+      	display:none;
+      }
 
 </style>	
 <body class="hold-transition sidebar-mini">
@@ -71,6 +76,7 @@
 							<div class="card card-primary">
 								<div class="card-body p-0">
 									<!-- THE CALENDAR -->
+									<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 									<div id="calendar">
 									<!-- 이 안에 생긴다 -->
 									</div>

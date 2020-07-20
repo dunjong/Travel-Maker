@@ -168,5 +168,11 @@ public class PlannerServiceImpl implements PlannerService{
 		// TODO Auto-generated method stub
 		return plannerDAO.DeleteAcc(maps);
 	}
+
+	@Override
+	public boolean deleteAccByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.deleteAccByPlannerNo(planner_no);
+	}
 	
 }

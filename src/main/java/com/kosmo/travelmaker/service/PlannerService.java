@@ -29,4 +29,5 @@ public interface PlannerService {
 	int selectAccNoByPlannerNo(int planner_no);
 	List<Integer> selectPlannerNoListById(String user_id);
 	boolean DeleteAcc(Map<String, String> maps);
+	boolean deleteAccByPlannerNo(int planner_no);
 }
