@@ -787,7 +787,7 @@ $(function(){
 						setTimeout(function() {
 							details(item[x],date)
 							placeDetailnSave(item[x],date.substring(3))
-							console.log('x:',x);
+							console.log('x*item.length:',x*item.length);
 							if(x==item.length-1){
 								setTimeout(function() {
 									spots=dayplans['day1'].spots
@@ -866,6 +866,8 @@ $(function(){
   }////placeDetail
   
   function box(){
+	  $('#map').css('width','100%');
+	  $('#pano').css('width','0%').css('float','left').css('height','800px');
 	  var boxOrigin='';
 	  var sp_waypoints=document.getElementById('sp-waypoints');
 	  sp_waypoints.innerHTML=''
