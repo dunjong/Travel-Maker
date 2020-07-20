@@ -73,7 +73,9 @@
 	<delete id="DeleteAcc" parameterType="java.util.Map">
 		DELETE FROM ACCOMPANY WHERE planner_no=#{planner_no} and user_id=#{user_id}
 	</delete>
-	
+	<delete id="deleteAccByPlannerNo" parameterType="int">
+		Delete from accompany where planner_no=#{planner_no}
+	</delete>
 	
 	<update id="updatePlannerName" parameterType="java.util.Map">
 		UPDATE PLANNER SET planner_name=#{planner_name} WHERE planner_no=#{planner_no}

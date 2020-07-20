@@ -140,6 +140,10 @@ public class MemberController {
 			System.out.println("Cities들 삭제 완료");
 			
 		};
+		if(plannerService.deleteAccByPlannerNo(planner_no)) {
+			
+		}
+		
 		if(plannerService.deletePlannerByNo(planner_no)) {
 			System.out.println("planner 삭제 완료");
 		}
