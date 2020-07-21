@@ -11,6 +11,8 @@
 }
 
 </style>
+<script type="text/javascript"
+   src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 
 function deleteFunc(num){
@@ -58,6 +60,10 @@ function detail(num){
 }////detail
 
 function payFees(num){
+	  
+	
+	
+	
 	  $.ajax({
 			url:'<c:url value="PayFees.kosmo"/>',
 			data:{planner_no:num.value},
@@ -65,7 +71,8 @@ function payFees(num){
 			success:function(data){
 				console.log(data);
 				$('#'+num.value+' #payment').prop('class','btn btn-info')
-				$('#'+num.value+' #pay_label').html('결제 완료')
+				$('#'+num.value+' #payment').attr('onclick','refund(this)')
+				$('#'+num.value+' #pay_label').html('호텔 환불')
 			},
 			error:function(request,error){
 				console.log('상태코드:',request.status);
@@ -74,7 +81,38 @@ function payFees(num){
 			}
 			
 		});
+
+      var IMP = window.IMP; 
+      IMP.init('imp52792989');
+      IMP.request_pay({
+         pg : 'inicis', 
+         pay_method : 'card',
+         merchant_uid : 'merchant_' + new Date().getTime(),
+         name : '김포-부산행:제주도닷컴구매',
+         amount : 100,
+         //가격
+         buyer_email : 'wkddustnzz@Naver.com',
+         buyer_name : '트러블메이커',
+         buyer_tel : '010-9908-7545',
+         buyer_addr : '가산디지털단지역',
+         buyer_postcode : '123-456',
+         m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+      }, function(rsp) {
+         console.log(rsp);
+         if (rsp.success) {
+            var msg = rsp.paid_amount+ '원 결제가 완료되었습니다.';
+         } else {
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+         }
+         alert(msg);
+      });
 	
+}
+function refund(num){
+	$('#'+num.value+' #payment').prop('class','btn btn-danger')
+	$('#'+num.value+' #payment').attr('onclick','payFees(this)')
+	$('#'+num.value+' #pay_label').html('호텔 결제')
 }
 
 function fnMove(data){

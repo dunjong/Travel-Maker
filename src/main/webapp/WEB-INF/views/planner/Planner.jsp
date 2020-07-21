@@ -31,7 +31,12 @@
        height: 493px;
        width: 100%;
      }
-
+#loadingImg{
+      	position: absolute;
+      	top:30%;
+      	left:40%;
+      	display:none;
+      }
 
 </style>	
 <body class="hold-transition sidebar-mini">
@@ -73,6 +78,7 @@
 							<div class="card card-primary">
 								<div class="card-body p-0">
 									<!-- THE CALENDAR -->
+									<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 									<div id="calendar">
 									<!-- 이 안에 생긴다 -->
 									</div>
@@ -196,6 +202,10 @@
 																	<input type="text" name="departure" id="departure" placeholder="출발지" required="required" data-placement="bottom"> 
 																	<input type="text" name="arrival" id="arrival" placeholder="도착지" required="required" data-placement="bottom">
 																	<br>
+																	<label>출국</label>
+																	<input type="date" value="2020-07-21" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
+																	<label>입국</label>
+																	<input type="date" value='' name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
 																	<input type="number" name="adult" id="adult" placeholder="성인" required="required"> 
 																	<input type="number" name="children" id="children" placeholder="미성년(선택사항)">
 																	<br>
