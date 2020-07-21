@@ -54,34 +54,34 @@
 				<li><a href="#testimonials"><i class="bx bx-server"></i> <span>Tip</span></a></li>
 				<li><button id="chatbtn" class="rounded-circle" type="button" data-toggle="modal" data-target="#ChatModal" style="text-align: right;cursor: pointer; "><img src="<c:url value='/images/104352_482_1650.jpg'/>" class="rounded-circle" style="color: sandybrown" alt=""></button>
 		<div class="modal-chatbot">
-										
-				<div class="modal fade bd-example-modal-lg" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-dialog modal-notify modal-info">
-			<div class="modal-content">
-			     <div class="modal-header">        
-			       <h4 class="modal-title" id="myModalLabel" style="color:white;"><i class="fa fa-fighter-jet"></i>TravelMaker</h4>
-			       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			     </div>
-			     <div class="modal-body">
-		
-				<iframe
-			         id="iframe"	         
-			         style="min-height: 60vh; border:none;"  	         
-			         width="100%"
-			         height="90%"
-			         src="https://b0e0cd642b64.ngrok.io">                        
-			     </iframe>
-			     </div>
-			      </div>
-			</div>
-			    <!-- /.modal-content -->
-			  </div>
-			  <!-- /.modal-dialog -->
-			</div>
-			<!-- /.modal -->
-	
-		</div></li>
+                              
+            <div class="modal fade bd-example-modal-lg" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-notify modal-info">
+         <div class="modal-content">
+              <div class="modal-header">        
+                <h4 class="modal-title" id="myModalLabel" style="color:white;"><i class="fa fa-fighter-jet"></i>TravelMaker</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">
+      
+            <iframe
+                  id="iframe"            
+                  style="min-height: 60vh; border:none;"              
+                  width="100%"
+                  height="90%"
+                  src="https://23ac132e7d3e.ngrok.io">                        
+              </iframe>
+              </div>
+               </div>
+         </div>
+             <!-- /.modal-content -->
+           </div>
+           <!-- /.modal-dialog -->
+         </div>
+         <!-- /.modal -->
+   
+      </div></li>
 			</ul>
 		</nav>
 		<!-- .nav-menu -->

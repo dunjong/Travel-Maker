@@ -127,6 +127,9 @@
 			}
 }
 	 function uploadFile(){
+		 $('#loadingImg').attr('style','display:block;')
+		 $('#searchImages').attr('style','opacity:0.5')
+		 
         var form = $('#FILE_FORM')[0];
         console.log(form);
         var formData = new FormData(form);
@@ -140,6 +143,7 @@
                     type: 'POST',
                     success: function(result){
                     	//console.log(result);
+                    	
                     	var k=0;
                     	$.each(result,function(tag,tagper){
                     		console.log("태그 이름:",tag)
@@ -157,7 +161,8 @@
                     		k++;
                     	});
                     	
-                        
+                    	$('#loadingImg').attr('style','display:none')  
+                    	$('#searchImages').attr('style','opacity:1')
                     },
 			        error:function(request,error){
 						console.log('상태코드:',request.status);
@@ -451,7 +456,15 @@
 
 <!-- ======= Hero Section ======= -->
 
+<style>
+#loadingImg{
+      	position: absolute;
+      	top:30%;
+      	left:40%;
+      	display:none;
+      }
 
+</style>
 
 <section id="hero" class="d-flex flex-column justify-content-center"
 	style="position: relative">
@@ -511,7 +524,7 @@
 	<!-- ======= searchImages Section ======= -->
 	<section id="searchImages" class="searchImages">
 		<div class="container" id="imagediv" data-aos="fade-right">
-
+			<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 			<div class="section-title">
 				<h2>Search Images</h2>
 				<p style="font-size: 1.8rem">가보고싶은 곳의 사진을 넣어 자신의 여행계획을 세워보는 것은 어떨까요?</p>
@@ -795,8 +808,7 @@
 		</div>
 	</section>
 	<!-- End Testimonials Section -->
-
-
+	
 
 </main>
 <!-- End #main -->

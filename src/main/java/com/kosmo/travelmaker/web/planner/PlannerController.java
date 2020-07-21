@@ -384,12 +384,18 @@ public class PlannerController {
 					ids=map.get(date).substring(0,map.get(date).length()-1);
 					System.out.println(date+"일차 아이디들: "+ids);
 					for(String id:ids.substring(0,ids.length()).split("&")) {
-						dto.setSpot_id(id.split(":")[0]);
-						dto.setLatlng(id.split(":")[1]);
-						dto.setSpot_name(id.split(":")[2]);
-						if(spotsService.insertSaveSpot(dto)) {
-							System.out.println(date+"일차 plan이"+id+"가 저장되었습니다");
-						}///if
+						if(id.split(":").length==3) {
+							dto.setSpot_id(id.split(":")[0]);
+							dto.setLatlng(id.split(":")[1]);
+							dto.setSpot_name(id.split(":")[2]);
+							if(spotsService.insertSaveSpot(dto)) {
+								System.out.println(date+"일차 plan이"+id+"가 저장되었습니다");
+							}///if
+						}
+						else {
+							System.out.println("스팟 저장 안됨");
+						}
+						
 					}///for
 					
 				}///if

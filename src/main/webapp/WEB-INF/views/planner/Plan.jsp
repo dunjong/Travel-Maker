@@ -787,7 +787,7 @@ $(function(){
 						setTimeout(function() {
 							details(item[x],date)
 							placeDetailnSave(item[x],date.substring(3))
-							console.log('x:',x);
+							console.log('x*item.length:',x*item.length);
 							if(x==item.length-1){
 								setTimeout(function() {
 									spots=dayplans['day1'].spots
@@ -796,7 +796,7 @@ $(function(){
 										      directionsRenderer,spots);
 								},2000)
 							}
-						}, 2500*x);
+						}, 3000*x);
 				})(i);
 				
 			}
@@ -866,6 +866,8 @@ $(function(){
   }////placeDetail
   
   function box(){
+	  $('#map').css('width','100%');
+	  $('#pano').css('width','0%').css('float','left').css('height','800px');
 	  var boxOrigin='';
 	  var sp_waypoints=document.getElementById('sp-waypoints');
 	  sp_waypoints.innerHTML=''
@@ -900,6 +902,7 @@ $(function(){
 		   	    markers=[];
 		   	   }
 		  var savedSpot=[]
+		  spotsForSave['day'+day]='';
 		  spots=dayplans['day'+day].spots=[];
 		  spotInfo['day'+day]=savedSpot
 		  displayRoute(origin, destination, directionsService,
@@ -1255,6 +1258,7 @@ $(function(){
 		 }
 	 }
 	 else{
+		 sp_waypoints.textContent=''
 		 var h3=document.createElement('h3')
 		 h3.setAttribute('style','color:#e85977;border-radius:9px')
 		 h3.textContent='기능을 이용하여 자기만의 플랜을 만들어보세요!'
@@ -1327,6 +1331,7 @@ async function streetView(){
 	 if(confirm('모든 플랜들을 정말 삭제하시겠습니까?')){
 		spotInfo={}
 		dayplans={};
+		spotsForSave={city_name:'${origin}',planner_no:'${planner_no}',cities_no:'${cities_no}'};
 		alert('모든 플랜들이 삭제되었습니다')
 	 }
 }

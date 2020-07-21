@@ -107,4 +107,8 @@ public class PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.delete("DeleteAcc", maps)==1?true:false;
 	}
+	public boolean deleteAccByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteAccByPlannerNo", planner_no)==1?true:false;
+	}
 }
