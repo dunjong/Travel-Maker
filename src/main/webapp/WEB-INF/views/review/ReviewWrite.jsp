@@ -140,8 +140,8 @@
 					<div class="home_search_content">
 						<div class="reviewWrite">
 							<form action="<c:url value='/TravelMaker/ReviewWriteOK.kosmo'/>"
-								class="home_search_form" id="home_search_form" method="post">
-								<input type="text" id="reviewWriteTittle" class="search_input"
+								class="home_search_form" id="home_search_form" enctype="multipart/form-data" method="post">
+								<input type="text" id="reviewWriteTitle" class="search_input"
 									name="review_title" placeholder="제목을 입력하세요" required="required"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '제목을 입력하세요'">
@@ -179,9 +179,9 @@
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 									<input type="file" id="reviewWriteImageUpButtonInput"
 										onchange="fileCheck(this)"
-										accept="image/gif,image/jpeg,image/png">
+										accept="image/*">
 									<button id="reviewWriteImageUpButton" type="button">
-										사진을 올리시려면 클릭하세요</button>
+										첨부파일</button>
 									<input type="password" id="reviewWritePwd" class="search_input"
 										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요">
 									<button type="submit" id="reviewWriteSubmmit">리뷰 작성 완료</button>
