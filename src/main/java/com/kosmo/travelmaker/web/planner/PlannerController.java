@@ -323,7 +323,7 @@ public class PlannerController {
 		for(String date:map.keySet()) {
 			String ids="";
 			Map<String, Object> maps2=new HashMap<String, Object>();
-			if(date.contains("day")) {
+			if(date.contains("day")&&map.get(date).length()>0) {
 				maps2.put("plan_date", date.substring(3));
 				maps2.put("cities_no", cities_no);
 				if(plannerService.insertPlan(maps2)) {
