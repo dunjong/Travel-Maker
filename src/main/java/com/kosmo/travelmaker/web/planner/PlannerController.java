@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.kosmo.travelmaker.service.AirDTO;
+import com.kosmo.travelmaker.service.AirService;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
 import com.kosmo.travelmaker.service.CityService;
@@ -33,6 +35,7 @@ import com.kosmo.travelmaker.service.CountDTO;
 import com.kosmo.travelmaker.service.HotelDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.SpotsDTO;
+import com.kosmo.travelmaker.service.impl.AirServiceImpl;
 import com.kosmo.travelmaker.service.impl.CityServiceImpl;
 import com.kosmo.travelmaker.service.impl.HotelServiceImpl;
 import com.kosmo.travelmaker.service.impl.PlannerServiceImpl;
@@ -57,6 +60,34 @@ public class PlannerController {
 	
 	@Resource(name="hotelService")
 	private HotelServiceImpl hotelService;
+	@Resource(name="airService")
+	private AirServiceImpl airService;
+	
+	
+	@RequestMapping(value="PlannerNoCreate.kosmo")
+	@ResponseBody
+	public String PlannerNoCreate(@RequestParam Map map,HttpSession session) {
+		String planner_name="NoName";
+		String cities_date="";
+		String[] city_no_list=map.get("city_no").toString().split(",");
+		int planner_no=0;
+		if(plannerService.insertPlanner(session.getAttribute("id").toString())) {
+			System.out.println("플래너가 저장되었습니다.");
+			planner_no=plannerService.selectPlannerNo();
+			for(String no:city_no_list) {
+				Map<String, String> maps=new HashMap<String, String>();
+				maps.put("planner_no", Integer.toString(planner_no));
+				maps.put("city_no", no);
+				maps.put("cities_date", cities_date);
+				if(plannerService.insertCities(maps)) {
+					System.out.println(no+" 도시가 저장되었습니다.");
+					int cities_no=plannerService.selectCitiesNo();
+					String city_name=cityService.selectCityDTO(Integer.parseInt(no)).getCity_name();
+				}///if
+			}///for
+		};///if
+		return Integer.toString(planner_no);
+	}
 	
 	@RequestMapping(value = "Planner.kosmo")
 	public String Planner(@RequestParam Map map,Model model,HttpSession session) {
@@ -69,28 +100,7 @@ public class PlannerController {
 		Map<String, String> city_hotel=new HashMap<String, String>();
 		Map<String,String> city_hotel_name=new HashMap<String,String>();
 		Map<String, String> city_plan_no=new HashMap<String,String>();
-		if(map.get("planner_no")==null) {
-			String[] city_no_list=map.get("city_no").toString().split(",");
-			if(plannerService.insertPlanner(session.getAttribute("id").toString())) {
-				System.out.println("플래너가 저장되었습니다.");
-				planner_no=plannerService.selectPlannerNo();
-				System.out.println("planner_no:"+planner_no);
-				for(String no:city_no_list) {
-					Map<String, String> maps=new HashMap<String, String>();
-					maps.put("planner_no", Integer.toString(planner_no));
-					maps.put("city_no", no);
-					maps.put("cities_date", cities_date);
-					if(plannerService.insertCities(maps)) {
-						System.out.println(no+" 도시가 저장되었습니다.");
-						int cities_no=plannerService.selectCitiesNo();
-						String city_name=cityService.selectCityDTO(Integer.parseInt(no)).getCity_name();
-						city_hotel.put(city_name,"0");
-						city_no_name.put(city_name,cities_no);
-					}///if
-				}///for
-			};///if
-		}///if
-		else {
+		
 			planner_no=Integer.parseInt(map.get("planner_no").toString());
 			Map<String, Integer> maps=new HashMap<String, Integer>();
 			maps.put("planner_no", planner_no);
@@ -114,7 +124,6 @@ public class PlannerController {
 				city_no_name.put(cityDTO.getCity_name(),cities_no);
 				city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
 			}
-		}
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
 		model.addAttribute("city_plan_no",city_plan_no);
@@ -191,7 +200,6 @@ public class PlannerController {
 			maps.put("hotel_latlng",hotel_dto.getHotel_latlng());
 			maps.put("hotel_date",Integer.toString(gap));
 			maps.put("hotel_price",hotel_dto.getHotel_price());;
-			//;
 		}
 		else {
 			System.out.println("calendarDate:"+calendarDate);
@@ -614,6 +622,32 @@ public class PlannerController {
 		plannerService.updatePlannerName(map);
 	}
 	
+	@RequestMapping(value="PayFees.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String PayFees(@RequestParam Map map,HttpSession session){
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		String user_id=session.getAttribute("id").toString();
+		List<Map> collections = new Vector<Map>();
+		
+		List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
+		for(AirDTO air_dto:air_dto_list) {
+			Map<String, String> a_map=new HashMap<String,String>();
+			a_map.put("air_ddate", air_dto.getAir_ddate());
+			//collections.add(e)
+		}
+		List<CitiesDTO> cities_dto_list= cityService.selectCitiesDTO(planner_no);
+		for(CitiesDTO cities_dto:cities_dto_list) {
+			List<HotelDTO> hotel_dto_list= hotelService.selectHotelDTOByCitiesNo(cities_dto.getCities_no());
+			for(HotelDTO hotel_dto:hotel_dto_list) {
+				
+			}
+			
+		}
+		//hotelService.selectHotelDTOByCitiesNo(cities_no);
+		
+		
+		return JSONArray.toJSONString(collections);
+	}
 	
 }
 

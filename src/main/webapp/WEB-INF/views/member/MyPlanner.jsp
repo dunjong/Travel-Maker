@@ -61,7 +61,7 @@ function payFees(num){
 	  $.ajax({
 			url:'<c:url value="PayFees.kosmo"/>',
 			data:{planner_no:num.value},
-			dataType:'text',
+			dataType:'json',
 			success:function(data){
 				console.log(data);
 				$('#'+num.value+' #payment').prop('class','btn btn-info')

@@ -15,4 +15,8 @@ public interface AirService {
 	
 	boolean insertAirDtoToRes(AirDTO dto);
 
+	int CompareTimePlace(String ddate, String departure, String arrival);
+
+	List<AirDTO> selectAirDTOByplannerNo(int planner_no);
+
 }

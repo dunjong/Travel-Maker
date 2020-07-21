@@ -1,6 +1,8 @@
 package com.kosmo.travelmaker.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -35,5 +37,19 @@ public class AirDAO {
 	}
 	public AirDTO selectAirByResNo(int Res_no) {
 		return sqlMapper.selectOne("selectAirByResNo",Res_no);
+	}
+
+	public int CompareTimePlace(String ddate, String departure, String arrival) {
+		Map map = new HashMap();
+		map.put("ddate", ddate);
+		map.put("departure", departure);
+		map.put("arrival", arrival);
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("CompareTimePlace",map);
+	}
+
+	public List<AirDTO> selectAirDTOByplannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectAirDTOByplannerNo", planner_no);
 	}
 }

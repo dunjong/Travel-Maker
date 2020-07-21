@@ -2,12 +2,10 @@
 /* Drop Tables */
 
 DROP TABLE accompany CASCADE CONSTRAINTS;
-DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE air CASCADE CONSTRAINTS;
 DROP TABLE review CASCADE CONSTRAINTS;
 DROP TABLE auto_spots CASCADE CONSTRAINTS;
 DROP TABLE auto_plan CASCADE CONSTRAINTS;
-DROP TABLE auto_save CASCADE CONSTRAINTS;
 DROP TABLE hotel CASCADE CONSTRAINTS;
 DROP TABLE save_spots CASCADE CONSTRAINTS;
 DROP TABLE plan CASCADE CONSTRAINTS;
@@ -15,6 +13,7 @@ DROP TABLE cities CASCADE CONSTRAINTS;
 DROP TABLE tag_rel CASCADE CONSTRAINTS;
 DROP TABLE city CASCADE CONSTRAINTS;
 DROP TABLE planner CASCADE CONSTRAINTS;
+DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE tag CASCADE CONSTRAINTS;
 DROP TABLE userinfo CASCADE CONSTRAINTS;
 
@@ -23,7 +22,7 @@ DROP TABLE userinfo CASCADE CONSTRAINTS;
 /* Drop Sequences */
 
 DROP SEQUENCE seq_acc;
---DROP SEQUENCE seq_air;
+DROP SEQUENCE seq_air;
 DROP SEQUENCE seq_auto_plan;
 DROP SEQUENCE seq_cities;
 DROP SEQUENCE seq_city;
@@ -66,6 +65,7 @@ CREATE TABLE accompany
 	acc_no number NOT NULL,
 	planner_no number NOT NULL,
 	user_id nvarchar2(200) NOT NULL,
+	allow number,
 	PRIMARY KEY (acc_no)
 );
 
@@ -74,7 +74,7 @@ CREATE TABLE air
 (
 	air_no number NOT NULL,
 	air_ddate nvarchar2(200) NOT NULL,
-	air_rdate nvarchar2(200) NOT NULL,
+	air_rdate nvarchar2(200),
 	air_price nvarchar2(200) NOT NULL,
 	air_passenger number DEFAULT 1 NOT NULL,
 	air_class nvarchar2(200) DEFAULT 'economy' NOT NULL,
@@ -90,15 +90,6 @@ CREATE TABLE auto_plan
 	auto_plan_date nvarchar2(200),
 	city_no number NOT NULL,
 	PRIMARY KEY (auto_plan_no)
-);
-
-
-CREATE TABLE auto_save
-(
-	save_spot_no number NOT NULL,
-	auto_save_spot_no number NOT NULL,
-	auto_save_count number DEFAULT 1,
-	PRIMARY KEY (auto_save_spot_no)
 );
 
 
@@ -172,10 +163,10 @@ CREATE TABLE planner
 
 CREATE TABLE reservation
 (
-	air_res_no number NOT NULL,
-	air_no number NOT NULL,
+	res_no number NOT NULL,
 	user_id nvarchar2(200),
-	PRIMARY KEY (air_res_no)
+	h_a_no nvarchar2(100) NOT NULL,
+	PRIMARY KEY (res_no)
 );
 
 
@@ -227,18 +218,13 @@ CREATE TABLE userinfo
 	user_pwd nvarchar2(50) NOT NULL,
 	user_rrn nvarchar2(40) NOT NULL,
 	user_gender nvarchar2(10) NOT NULL,
+	id_no nvarchar2(100),
 	PRIMARY KEY (user_id)
 );
 
 
 
 /* Create Foreign Keys */
-
-ALTER TABLE reservation
-	ADD FOREIGN KEY (air_no)
-	REFERENCES air (air_no)
-;
-
 
 ALTER TABLE auto_spots
 	ADD FOREIGN KEY (auto_plan_no)
@@ -303,12 +289,6 @@ ALTER TABLE accompany
 ALTER TABLE cities
 	ADD FOREIGN KEY (planner_no)
 	REFERENCES planner (planner_no)
-;
-
-
-ALTER TABLE auto_save
-	ADD FOREIGN KEY (save_spot_no)
-	REFERENCES save_spots (save_spot_no)
 ;
 
 

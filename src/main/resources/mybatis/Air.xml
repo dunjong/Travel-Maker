@@ -18,4 +18,10 @@
 	<select id="selectAirByResNo">
 		
 	</select>
+	<select id="CompareTimePlace" parameterType="java.util.Map">
+		
+	</select>
+	<select id="selectAirDTOByplannerNo" parameterType="int" resultType="AirDTO">
+		Select * from air where planner_no=#{planner_no}
+	</select>
 </mapper>

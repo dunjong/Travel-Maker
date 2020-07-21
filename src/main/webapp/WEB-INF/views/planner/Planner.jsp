@@ -35,7 +35,9 @@
 
 </style>	
 <body class="hold-transition sidebar-mini">
-	
+	<form action="#">
+		<input value="${planner_no}" name="planner_no" type="text" hidden="true">
+	</form>
 	<div class="wrapper">
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -332,10 +334,172 @@
 	<script>
 		
 		
-		
-		
+		var origin;
+		var map;
+		var directionsService;
+		//총 거리 계산  서비스 선언
+		var directionsRenderer;
+		var dayplans={};
 		var lat,lng;//호텔용
-		$(function() {
+			
+			
+			function initMap() {
+				var styledMapType = new google.maps.StyledMapType(
+			            [
+			              {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
+			              {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
+			              {elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
+			              {
+			                featureType: 'administrative',
+			                elementType: 'geometry.stroke',
+			                stylers: [{color: '#c9b2a6'}]
+			              },
+			              {
+			                featureType: 'administrative.land_parcel',
+			                elementType: 'geometry.stroke',
+			                stylers: [{color: '#dcd2be'}]
+			              },
+			              {
+			                featureType: 'administrative.land_parcel',
+			                elementType: 'labels.text.fill',
+			                stylers: [{color: '#ae9e90'}]
+			              },
+			              {
+			                featureType: 'landscape.natural',
+			                elementType: 'geometry',
+			                stylers: [{color: '#dfd2ae'}]
+			              },
+			              {
+			                featureType: 'poi',
+			                elementType: 'geometry',
+			                stylers: [{color: '#dfd2ae'}]
+			              },
+			              {
+			                featureType: 'poi',
+			                elementType: 'labels.text.fill',
+			                stylers: [{color: '#93817c'}]
+			              },
+			              {
+			                featureType: 'poi.park',
+			                elementType: 'geometry.fill',
+			                stylers: [{color: '#a5b076'}]
+			              },
+			              {
+			                featureType: 'poi.park',
+			                elementType: 'labels.text.fill',
+			                stylers: [{color: '#447530'}]
+			              },
+			              {
+			                featureType: 'road',
+			                elementType: 'geometry',
+			                stylers: [{color: '#f5f1e6'}]
+			              },
+			              {
+			                featureType: 'road.arterial',
+			                elementType: 'geometry',
+			                stylers: [{color: '#fdfcf8'}]
+			              },
+			              {
+			                featureType: 'road.highway',
+			                elementType: 'geometry',
+			                stylers: [{color: '#f8c967'}]
+			              },
+			              {
+			                featureType: 'road.highway',
+			                elementType: 'geometry.stroke',
+			                stylers: [{color: '#e9bc62'}]
+			              },
+			              {
+			                featureType: 'road.highway.controlled_access',
+			                elementType: 'geometry',
+			                stylers: [{color: '#e98d58'}]
+			              },
+			              {
+			                featureType: 'road.highway.controlled_access',
+			                elementType: 'geometry.stroke',
+			                stylers: [{color: '#db8555'}]
+			              },
+			              {
+			                featureType: 'road.local',
+			                elementType: 'labels.text.fill',
+			                stylers: [{color: '#806b63'}]
+			              },
+			              {
+			                featureType: 'transit.line',
+			                elementType: 'geometry',
+			                stylers: [{color: '#dfd2ae'}]
+			              },
+			              {
+			                featureType: 'transit.line',
+			                elementType: 'labels.text.fill',
+			                stylers: [{color: '#8f7d77'}]
+			              },
+			              {
+			                featureType: 'transit.line',
+			                elementType: 'labels.text.stroke',
+			                stylers: [{color: '#ebe3cd'}]
+			              },
+			              {
+			                featureType: 'transit.station',
+			                elementType: 'geometry',
+			                stylers: [{color: '#dfd2ae'}]
+			              },
+			              {
+			                featureType: 'water',
+			                elementType: 'geometry.fill',
+			                stylers: [{color: '#b9d3c2'}]
+			              },
+			              {
+			                featureType: 'water',
+			                elementType: 'labels.text.fill',
+			                stylers: [{color: '#92998d'}]
+			              }
+			            ],
+			            {name: 'Main Map'});
+			 
+			 
+			//맵 생성
+		  map = new google.maps.Map(document.getElementById('map'), {
+		  		zoom: 4,
+		  		center: {lat: -8.672062, lng: 115.231609},  // 처음 지도 센터 위치: 발리 덴파사르.
+		  		mapTypeControlOptions: {
+		       	mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+		               'styled_map']
+		      }
+		  });////map 생성
+		  map.mapTypes.set('styled_map', styledMapType);
+		  map.setMapTypeId('styled_map');
+		  directionsService = new google.maps.DirectionsService;
+		  directionsRenderer = new google.maps.DirectionsRenderer({
+		   	draggable:false,//드래그 가능 여부
+		    map: map
+		  });
+		  
+
+			<c:forEach items="${city_no_name}" var="name" varStatus='h_i'>
+			console.log('name: ${name}')
+			var input_${name.key} = document.getElementById('autocomplete_${name.key}');
+			var autocomplete_${name.key} = new google.maps.places.Autocomplete(input_${name.key});
+			
+			google.maps.event.addListener(autocomplete_${name.key}, 'place_changed', function () {
+				
+				var place = autocomplete_${name.key}.getPlace();
+				console.log('place:',place);
+				console.log('lat', place.geometry.location.lat())
+		        console.log('lng', place.geometry.location.lng())
+		        lat = place.geometry.location.lat()
+		        lng = place.geometry.location.lng()
+			})
+			$('#h_${name.key}').click(function(){
+				console.log($('div.pac-container'))
+				$('div.pac-container')['${h_i.index}'].style.zIndex=2000;
+			})
+			</c:forEach>
+			
+		  
+		  
+		  
+			}
 			
 
 			$('#planner_name').change(function(){
@@ -407,14 +571,13 @@
 				ele.each(function() {
 					// create an Event Object (https://fullcalendar.io/docs/event-object)
 					// it doesn't need to have a start or end
-					var eventObject = {
-						title : $.trim($(this).text()),
-						overlab : false
 					// use the element's text as the event title
-					}
 
 					// store the Event Object in the DOM element so we can get to it later
-					$(this).data('eventObject', eventObject)
+					$(this).data('eventObject', {
+						title : $.trim($(this).text()),
+						overlab : false
+					})
 
 					// make the event draggable using jQuery UI
 					$(this).draggable({
@@ -742,29 +905,8 @@
 			})
 			
 			
-			<c:forEach items="${city_no_name}" var="name" varStatus='h_i'>
-			console.log('name: ${name}')
-			var input_${name.key} = document.getElementById('autocomplete_${name.key}');
-			var autocomplete_${name.key} = new google.maps.places.Autocomplete(input_${name.key});
-			
-			google.maps.event.addListener(autocomplete_${name.key}, 'place_changed', function () {
-				
-				var place = autocomplete_${name.key}.getPlace();
-				console.log('place:',place);
-				console.log('lat', place.geometry.location.lat())
-		        console.log('lng', place.geometry.location.lng())
-		        lat = place.geometry.location.lat()
-		        lng = place.geometry.location.lng()
-			})
-			$('#h_${name.key}').click(function(){
-				console.log($('div.pac-container'))
-				$('div.pac-container')['${h_i.index}'].style.zIndex=2000;
-			})
-			</c:forEach>
 			
 			
-			
-		})
 		function dateFiting(date,se){
 			var date=date.split('T')[0]
 			if(se=='s'){
@@ -1035,8 +1177,7 @@
 						"arrival":$('#arrival').prop('value'),
 						"adult":$('#adult').prop('value'),
 						"children":$('#children').prop('value'),
-						"departureDate":$('#departureDate').prop('value'),
-						"returnDate":$('#returnDate').prop('value')
+						"departureDate":$('#departureDate').prop('value')
 				},
 				error : function(e){
 					console.log(e);
@@ -1044,6 +1185,8 @@
 			}//settings
 			$.ajax(settings).done(function(res) {
 				console.log(res)
+				console.log($('#adult').prop('value')*1+$('#children').prop('value')*1);
+				
 				var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
 				for(var i=0;i<res.length-1;i++){
 					if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
@@ -1064,33 +1207,37 @@
 					list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
 					list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
  
-					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
-					list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
-					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
-					list+="<div class='col-md-2' style='color:black; height: 90px; width: 40px'><img src='<c:url value="/images/travelmaker2.png"/>' style='height:60px;width:130px'></div>";
-					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'><Strong>"+res[i].segmentsList1[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList1[3].code0+"</div>";
-					list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].DestToOriginTime.substring(2,res[i].DestToOriginTime.length).replace('H','시').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:green'><Strong>"+res[i].segmentsList1[2]+"회 경유</Strong></div></div>";       
-					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'><Strong>"+res[i].segmentsList1[1].substr(11,5)+"</Strong><br>"+code2+"</div>";
+					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'>"+res[i].segmentsList0[0].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
+					list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시간').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
+					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'>"+res[i].segmentsList0[1].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
+					
 					list+="</div>";
 					list+="</div>";
-					list+="<div class='col-sm-4' style='color:black; height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-					list+="<div class='col-md-12' style='color:black; height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦"+(res[i].basePrice.split('.')[0]).toLocaleString()+"원</Strong><br><small>총 가격 "+(res[i].totalPrice.split('.')[0]).toLocaleString()+"원</small></div><br>";
-					list+="<button id='a_select_"+i+"' onclick='airReservation(this)' type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
+					list+="<div id='priceBtn_"+i+"' class='col-sm-4' style='color:black; height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+					list+="<div class='col-md-12' style='color:black; height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦"+(res[i].basePrice.split('.')[0]*1).toLocaleString()+"원</Strong><div><small>총 가격 "+(res[i].totalPrice.split('.')[0]*1).toLocaleString()+"원</small></div></div><br>";
+					list+="<button onclick='airReservation(this)' data-number="+i+" type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
 					list+="</div>";
 					list+="</div>";
 					list+="</div>";
 					list+="</div>";
 				}
 				$('#a_places').html(list); 
-				console.log($('#a_select_'+0));
 				$('#a_modal_result').modal('show');
 			});//ajax.done()
 		}
 		function airReservation(btn){
+			
 			$.ajax({
 				url:'<c:url value="/TravelMaker/AirTest.kosmo"/>',
 				data:
 				{
+					"departure" : $('#departure').prop('value'),
+					"arrival":$('#arrival').prop('value'),
+					"passenger":($('#adult').prop('value')*1)+($('#children').prop('value')*1),
+					"ddate":$('#departureDate').prop('value'),
+					"rdate":$('#returnDate').prop('value'),
+					"price":$('#priceBtn_'+btn.dataset.number+' > div > div > small').html().substring(5,$('#priceBtn_'+btn.dataset.number+' > div > div > small').html().length-1),//.substr()
+					"planner_no":'${planner_no}'
 				},
 				dataType:'text',
 				success:function(data){as_successAjax(data)},
@@ -1099,152 +1246,13 @@
 					console.log('서버로부터 받은 HTML데이타:',request.responseText);
 					console.log('에러:',error);
 				}
-				
 			})
 		}
 		function as_successAjax(data) {
 			console.log(data);
 		}
-	</script>
-	<script>
-		var origin;
-		var map;
-		var directionsService;
-		//총 거리 계산  서비스 선언
-		var directionsRenderer;
-		var dayplans={};
-		function initMap() {
-			var styledMapType = new google.maps.StyledMapType(
-		            [
-		              {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
-		              {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
-		              {elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
-		              {
-		                featureType: 'administrative',
-		                elementType: 'geometry.stroke',
-		                stylers: [{color: '#c9b2a6'}]
-		              },
-		              {
-		                featureType: 'administrative.land_parcel',
-		                elementType: 'geometry.stroke',
-		                stylers: [{color: '#dcd2be'}]
-		              },
-		              {
-		                featureType: 'administrative.land_parcel',
-		                elementType: 'labels.text.fill',
-		                stylers: [{color: '#ae9e90'}]
-		              },
-		              {
-		                featureType: 'landscape.natural',
-		                elementType: 'geometry',
-		                stylers: [{color: '#dfd2ae'}]
-		              },
-		              {
-		                featureType: 'poi',
-		                elementType: 'geometry',
-		                stylers: [{color: '#dfd2ae'}]
-		              },
-		              {
-		                featureType: 'poi',
-		                elementType: 'labels.text.fill',
-		                stylers: [{color: '#93817c'}]
-		              },
-		              {
-		                featureType: 'poi.park',
-		                elementType: 'geometry.fill',
-		                stylers: [{color: '#a5b076'}]
-		              },
-		              {
-		                featureType: 'poi.park',
-		                elementType: 'labels.text.fill',
-		                stylers: [{color: '#447530'}]
-		              },
-		              {
-		                featureType: 'road',
-		                elementType: 'geometry',
-		                stylers: [{color: '#f5f1e6'}]
-		              },
-		              {
-		                featureType: 'road.arterial',
-		                elementType: 'geometry',
-		                stylers: [{color: '#fdfcf8'}]
-		              },
-		              {
-		                featureType: 'road.highway',
-		                elementType: 'geometry',
-		                stylers: [{color: '#f8c967'}]
-		              },
-		              {
-		                featureType: 'road.highway',
-		                elementType: 'geometry.stroke',
-		                stylers: [{color: '#e9bc62'}]
-		              },
-		              {
-		                featureType: 'road.highway.controlled_access',
-		                elementType: 'geometry',
-		                stylers: [{color: '#e98d58'}]
-		              },
-		              {
-		                featureType: 'road.highway.controlled_access',
-		                elementType: 'geometry.stroke',
-		                stylers: [{color: '#db8555'}]
-		              },
-		              {
-		                featureType: 'road.local',
-		                elementType: 'labels.text.fill',
-		                stylers: [{color: '#806b63'}]
-		              },
-		              {
-		                featureType: 'transit.line',
-		                elementType: 'geometry',
-		                stylers: [{color: '#dfd2ae'}]
-		              },
-		              {
-		                featureType: 'transit.line',
-		                elementType: 'labels.text.fill',
-		                stylers: [{color: '#8f7d77'}]
-		              },
-		              {
-		                featureType: 'transit.line',
-		                elementType: 'labels.text.stroke',
-		                stylers: [{color: '#ebe3cd'}]
-		              },
-		              {
-		                featureType: 'transit.station',
-		                elementType: 'geometry',
-		                stylers: [{color: '#dfd2ae'}]
-		              },
-		              {
-		                featureType: 'water',
-		                elementType: 'geometry.fill',
-		                stylers: [{color: '#b9d3c2'}]
-		              },
-		              {
-		                featureType: 'water',
-		                elementType: 'labels.text.fill',
-		                stylers: [{color: '#92998d'}]
-		              }
-		            ],
-		            {name: 'Main Map'});
-		 
-		 
-		//맵 생성
-	  map = new google.maps.Map(document.getElementById('map'), {
-	  		zoom: 4,
-	  		center: {lat: -8.672062, lng: 115.231609},  // 처음 지도 센터 위치: 발리 덴파사르.
-	  		mapTypeControlOptions: {
-	       	mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
-	               'styled_map']
-	      }
-	  });////map 생성
-	  map.mapTypes.set('styled_map', styledMapType);
-	  map.setMapTypeId('styled_map');
-	  directionsService = new google.maps.DirectionsService;
-	  directionsRenderer = new google.maps.DirectionsRenderer({
-	   	draggable:false,//드래그 가능 여부
-	    map: map
-	  });	
-		}
+		
+		
 	function ChangeMap(data){
 		console.log('data1:',data)
 		var spots=[]
@@ -1300,7 +1308,6 @@
 	   });
 	 }////displayRoute
 		
-	
 	</script>
 </body>
 </html>

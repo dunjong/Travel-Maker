@@ -36,7 +36,17 @@ public class AirServiceImpl implements AirService {
 	}
 	@Override
 	public AirDTO selectAirByResNo(int Res_no) {
-		// TODO Auto-generated method stub
+		// resno로 air가져오는코드
 		return airDAO.selectAirByResNo(Res_no);
+	}
+	@Override
+	public int CompareTimePlace(String ddate, String departure, String arrival) {
+		// TODO Auto-generated method stub
+		return airDAO.CompareTimePlace(ddate,departure,arrival);
+	}
+	@Override
+	public List<AirDTO> selectAirDTOByplannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return airDAO.selectAirDTOByplannerNo(planner_no);
 	}
 }

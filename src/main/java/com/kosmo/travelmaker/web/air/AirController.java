@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Select;
 import org.json.simple.JSONArray;
@@ -47,7 +48,6 @@ public class AirController {
 				Params.with("originLocationCode", map.get("departure"))
 				.and("destinationLocationCode", map.get("arrival"))
 				.and("departureDate", map.get("departureDate"))
-				.and("returnDate", map.get("returnDate"))
 				.and("adults", Integer.parseInt((String)map.get("adult")))
 				.and("currencyCode", "KRW")
 				.and("max", 30)
@@ -66,39 +66,34 @@ public class AirController {
         	//중복체크
         	if(flightOffersSearches[f].getItineraries()[0].getDuration().equals(jungbok)) continue; 
         	else jungbok = flightOffersSearches[f].getItineraries()[0].getDuration();
-	  		for (int k=0;k<flightOffersSearches[f].getItineraries().length;k++) {
-	  			
-  				//출발시간
-  				String startTime = flightOffersSearches[f].getItineraries()[k].getSegments()[0].getDeparture().getAt();
-  				//도착시간
-  				String endTime = flightOffersSearches[f].getItineraries()[k].getSegments()[flightOffersSearches[f].getItineraries()[k].getSegments().length-1].getArrival().getAt();
-	  			//경유 횟수는 segments갯수로 계산함
-	  			int gyeongUCount = flightOffersSearches[f].getItineraries()[k].getSegments().length - 1;
-	  			cityIataCodeMap = new HashMap();
-	  			//출발-경유-도착까지의 도시이름, 도착-경유-출발까지의 도시이름을 맵에 전부저장 : key값은 0부터시작하는 i값
-	  			for (int i=0;i < flightOffersSearches[f].getItineraries()[k].getSegments().length;i++) {
-	  				//출발지,경유지들 iataCode 한번씩 저장
-	  				cityIataCodeMap.put("code"+i,flightOffersSearches[f].getItineraries()[k].getSegments()[i].getDeparture().getIataCode());
-	  				if(i==flightOffersSearches[f].getItineraries()[k].getSegments().length - 1)
-	  					//마지막segment의 출발지를 입력할때 도착지까지입력
-	  					//즉 첫번째 방에 출발지, 마지막 방에 도착지 중간방에 경유지들을 저장
-	  					cityIataCodeMap.put("code"+(i+1),flightOffersSearches[f].getItineraries()[k].getSegments()[i].getArrival().getIataCode());
-	  			}
-	  			//출발에서 도착까지 필요한 정보들
-	  			segmentsList = new Vector();
-	  			segmentsList.add(startTime);
-	  			segmentsList.add(endTime);
-	  			segmentsList.add(gyeongUCount);
-	  			segmentsList.add(cityIataCodeMap);
-		  		itineraryMap.put("segmentsList"+k,segmentsList);
-	  		}
+			//출발시간
+			String startTime = flightOffersSearches[f].getItineraries()[0].getSegments()[0].getDeparture().getAt();
+			//도착시간
+			String endTime = flightOffersSearches[f].getItineraries()[0].getSegments()[flightOffersSearches[f].getItineraries()[0].getSegments().length-1].getArrival().getAt();
+  			//경유 횟수는 segments갯수로 계산함
+  			int gyeongUCount = flightOffersSearches[f].getItineraries()[0].getSegments().length - 1;
+  			cityIataCodeMap = new HashMap();
+  			//출발-경유-도착까지의 도시이름, 도착-경유-출발까지의 도시이름을 맵에 전부저장 : key값은 0부터시작하는 i값
+  			for (int i=0;i < flightOffersSearches[f].getItineraries()[0].getSegments().length;i++) {
+  				//출발지,경유지들 iataCode 한번씩 저장
+  				cityIataCodeMap.put("code"+i,flightOffersSearches[f].getItineraries()[0].getSegments()[i].getDeparture().getIataCode());
+  				if(i==flightOffersSearches[f].getItineraries()[0].getSegments().length - 1)
+  					//마지막segment의 출발지를 입력할때 도착지까지입력
+  					//즉 첫번째 방에 출발지, 마지막 방에 도착지 중간방에 경유지들을 저장
+  					cityIataCodeMap.put("code"+(i+1),flightOffersSearches[f].getItineraries()[0].getSegments()[i].getArrival().getIataCode());
+  			}
+  			//출발에서 도착까지 필요한 정보들
+  			segmentsList = new Vector();
+  			segmentsList.add(startTime);
+  			segmentsList.add(endTime);
+  			segmentsList.add(gyeongUCount);
+  			segmentsList.add(cityIataCodeMap);
+	  		itineraryMap.put("segmentsList0",segmentsList);
+	  		
 	  		//왕복티켓하나에서 필요한 정보들
 	  		//출발에서 도착까지 걸리는 시간
   			String originToDestTime = flightOffersSearches[f].getItineraries()[0].getDuration();
-  			//도착에서 출발까지 걸리는 시간
-			String DestToOriginTime = flightOffersSearches[f].getItineraries()[1].getDuration();
 			itineraryMap.put("originToDestTime",originToDestTime);
-	  		itineraryMap.put("DestToOriginTime",DestToOriginTime);
 	  		itineraryMap.put("totalPrice",Double.toString(flightOffersSearches[f].getPrice().getTotal()));
 	  		itineraryMap.put("basePrice",Double.toString(flightOffersSearches[f].getPrice().getBase()));
 	        dataList.add(itineraryMap);
@@ -113,14 +108,30 @@ public class AirController {
 	}
 	@RequestMapping(value ="AirTest.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public String AirTest(@RequestParam Map map) {
-		String user_id = (String)map.get("user_id");
+	public String AirTest(@RequestParam Map map,HttpSession session) {
+		String user_id = (String)session.getAttribute("id");
 		String departure = (String)map.get("departure");
 		String arrival = (String)map.get("arrival");
 		String ddate = (String)map.get("ddate");
 		String rdate = (String)map.get("rdate");
-		String passenger = (String)map.get("air_passenger");
+		String planner_no=(String)map.get("planner_no");
+		int passenger = Integer.parseInt((String)map.get("passenger"));
+		String price = (String)map.get("price");
+		System.out.println("user_id:"+user_id+",departure:"+departure+",arrival:"+arrival+",ddate:"+ddate+",rdate:"+rdate+",passenger:"+passenger+",price:"+price+",planner_no:"+planner_no);
 		String result = "failure";
+		AirDTO dto = new AirDTO();
+		dto.setAir_arr(arrival);
+		dto.setAir_class("언젠간 넣겠지");
+		dto.setAir_ddate(ddate);
+		dto.setAir_dep(departure);		
+		dto.setAir_passenger(passenger);
+		dto.setAir_price(price);
+		if(airService.insertAirDtoToRes(dto)) {
+			result = "success";
+		};
+		// 플래너에 항공권연결시 같은 플래너인지 확인하는 코드용 자리
+//		if(airService.CompareTimePlace(ddate,departure,arrival)>0) {}
+//		else {}
 		return result;
 	}
 
