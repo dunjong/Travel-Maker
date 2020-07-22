@@ -10,7 +10,6 @@ public class AirDTO {
 	private String air_time;
 	private String air_via;
 	private String air_price;
-	private String air_class;
 	private String air_dep;
 	private String air_arr;
 	private int air_passenger;
@@ -64,12 +63,6 @@ public class AirDTO {
 	}
 	public void setAir_price(String air_price) {
 		this.air_price = air_price;
-	}
-	public String getAir_class() {
-		return air_class;
-	}
-	public void setAir_class(String air_class) {
-		this.air_class = air_class;
 	}
 	public String getAir_dep() {
 		return air_dep;

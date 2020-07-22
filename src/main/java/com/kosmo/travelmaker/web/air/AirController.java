@@ -125,15 +125,12 @@ public class AirController {
 		String adate = (String)map.get("adate");
 		String time = (String)map.get("time");
 		String via = (String)map.get("via");
-		String Seatclass = (String)map.get("class");
 		String result = "failure";
 		AirDTO dto = new AirDTO();
 		dto.setAir_adate(adate);
 		dto.setAir_time(time);
 		dto.setAir_via(via);
-		dto.setAir_class(Seatclass);
 		dto.setAir_arr(arrival);
-		dto.setAir_class("언젠간 넣겠지");
 		dto.setAir_ddate(ddate);
 		dto.setAir_dep(departure);		
 		dto.setAir_passenger(passenger);

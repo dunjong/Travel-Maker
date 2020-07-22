@@ -1176,6 +1176,7 @@
 				}
 			});
 		}
+		var air_res_list;
 		function resultAirModal(){
 			$('#a_modal').modal('hide');
 			$('#a_places').html(""); 
@@ -1199,6 +1200,7 @@
 			}//settings
 			$.ajax(settings).done(function(res) {
 				console.log(res);
+				air_res_list = res;
 				var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
 				for(var i=0;i<res.length-1;i++){
 					if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
@@ -1245,12 +1247,12 @@
 					"departure" : $('#departure').prop('value'),
 					"arrival":$('#arrival').prop('value'),
 					"passenger":($('#adult').prop('value')*1)+($('#children').prop('value')*1),
-					"ddate":$('#departureDate').prop('value'),
-					"rdate":$('#returnDate').prop('value'),
 					"price":$('#tp_'+btn.dataset.number).html().substring(5,$('#tp_'+btn.dataset.number).html().length-1),
 					"planner_no":'${planner_no}',
-					
-					
+					"via":"",
+					"time":"",
+					"ddate":"",
+					"adate":""
 				},
 				dataType:'text',
 				success:function(data){as_successAjax(data)},
