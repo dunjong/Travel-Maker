@@ -18,5 +18,8 @@ public interface MemberService {
 	MemberDTO selectMember(String id);
 	//어드민2 멤버리스트용
 	List<MemberDTO> selectMemberList();
+	int checkAccByNo(int acc_no);
+	void updateAccYes(int acc_no);
+	void updateAccNo(int acc_no);
 }
 

@@ -59,6 +59,88 @@ function detail(num){
 	  
 }////detail
 
+
+function acc_allow(num){
+	
+	 $.ajax({
+			url:'<c:url value="MyPlannerAccUpdate.kosmo"/>',
+			data:{planner_no:num.value},
+			dataType:'json',
+			success:function(data){successAjaxAccUpdate(data)},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+}
+function successAjaxAccUpdate(data){
+	console.log(data)
+	 $('#dt_title').html('동행자 정보')
+	var tableString="";
+	$.each(data,function(index,city){
+		 tableString+="<div class='destination item'>";
+		 tableString+="<div class='destination_content'>";
+		 if(city.allow==0){
+			 tableString+="<div class='btn btn-danger' id='"+city.acc_no+"' onclick='allow_acc(this)'>동행 수락하기</div>";
+		 }
+		 else{
+			 tableString+="<div class='btn btn-info' id='"+city.acc_no+"' onclick='deny_acc(this)'>동행 취소하기</div>";
+		 }
+		 tableString+="<div class='destination_title'>"+city.user_id+"</div><div class='destination_subtitle'><p>";
+		 tableString+=city.user_name;
+		 tableString+="</p></div><div class='destination_price'>성별:"+city.user_gender+"</div></div></div>"
+		 
+		})
+	$('#cities').html(tableString);
+	fitting()
+ 	var offset=$('#destinations').offset();
+	$('html, body').animate({scrollTop : offset.top}, 400);
+}
+function allow_acc(data){
+	var acc_no=data.id;
+	console.log('allow_acc_data:',acc_no);
+	 $.ajax({
+			url:'<c:url value="UpdateAcc.kosmo"/>',
+			data:{'acc_no':acc_no},
+			dataType:'json',
+			success:function(data){alert(data);
+			$('#'+acc_no).attr('class','btn btn-danger').html('동행 취소하기')
+			},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+	
+}
+function deny_acc(data){
+	var acc_no=data.id;
+	console.log('deny_acc_data:',acc_no);
+	 $.ajax({
+			url:'<c:url value="UpdateAcc.kosmo"/>',
+			data:{'acc_no':acc_no},
+			dataType:'text',
+			success:function(data){alert(data);
+			if(data=='수락'){
+			$('#'+acc_no).attr('class','btn btn-info').html('동행 취소하기')
+			}
+			else{
+			$('#'+acc_no).attr('class','btn btn-danger').html('동행 수락하기')
+			}
+			},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+}
+
 function payFees(num){
 	  
 	
@@ -119,6 +201,7 @@ function successAjaxPayFee(data){
 }
 
 function Import(data){
+	 console.log('Import data:',data);
 	 var IMP = window.IMP; 
      IMP.init('imp52792989');
      IMP.request_pay({
@@ -254,9 +337,9 @@ function successAjaxDetail(data){
 											<input name="delete" class="btn btn-danger" onclick="deleteFunc(this)" value="${planner.planner_no}" />
 											<label id="pay_label">결제 하기</label>
 											<input id="payment" name="payment" class="btn btn-danger" onclick="payFees(this)" value="${planner.planner_no}" />
-										</div>
-										<div class="intro_subtitle">
-											<p <c:if test="${planner.planner_acc gt 0}">style="color:red;font-size:2em;"</c:if> >동행자 수:${planner.planner_acc}명</p>
+											<label>동행 수락</label>
+											<input id="acc_allow" name="acc_allow" class="btn btn-danger" onclick="acc_allow(this)" value="${planner.planner_no}" >
+											<p style="color:red;font-size:2em;" >동행 대기자:${planner.planner_acc}명</p>
 										</div>
 										
 									</div>
