@@ -65,6 +65,9 @@
 	<select id="selectAccNosByPlannerNo" parameterType="int" resultType="AccDTO">
 		SELECT * FROM ACCOMPANY WHERE planner_no=#{planner_no}
 	</select>
+	<select id="selectOnePlannerNoByCitiesNo" parameterType="int" resultType="int">
+		SELECT planner_no from cities where cities_no=#{cities_no}
+	</select>
 	
 	
 	<delete id="deletePlanByNo" parameterType="int">

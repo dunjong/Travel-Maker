@@ -334,7 +334,7 @@ if('${city_no}'!=''){
 								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
 							</div>
 							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Bali</a></div>
+								<div class="destination_title"><a href="#">Bali</a></div>
 								<div class="destination_subtitle"><p>꿈의 섬 발리로 바로 떠나보세요</p></div>
 								<div class="destination_price">From $699</div>
 							</div>

@@ -187,16 +187,18 @@ public class MemberController {
 	    		Map<String, String> map_a=new HashMap<String,String>();
 	    		System.out.println("항공측:"+res_dto.getH_a_no());
 	    		AirDTO air_dto=airService.selectAirDTO(Integer.parseInt(res_dto.getH_a_no().substring(2)));
-	    		map_a.put("air_no",Integer.toString(air_dto.getAir_no()));
-	    		map_a.put("air_price", air_dto.getAir_price());
-	    		map_a.put("air_arr", air_dto.getAir_arr());
-	    		map_a.put("air_dep", air_dto.getAir_dep());
-	    		map_a.put("air_ddate", air_dto.getAir_ddate());
-	    		System.out.println("OK?:"+res_dto.getRes_ok());
-	    		if(res_dto.getRes_ok()==1) {
-	    			map_a.put("paid","yes");
+	    		if(air_dto.getPlanner_no()==planner_no) {
+		    		map_a.put("air_no",Integer.toString(air_dto.getAir_no()));
+		    		map_a.put("air_price", air_dto.getAir_price());
+		    		map_a.put("air_arr", air_dto.getAir_arr());
+		    		map_a.put("air_dep", air_dto.getAir_dep());
+		    		map_a.put("air_ddate", air_dto.getAir_ddate());
+		    		System.out.println("OK?:"+res_dto.getRes_ok());
+		    		if(res_dto.getRes_ok()==1) {
+		    			map_a.put("paid","yes");
+		    		}
+		    		collections.add(map_a);
 	    		}
-	    		collections.add(map_a);
 	    	}///air res
 	    	else if(res_dto.getH_a_no().contains("h_")){
 	    		 Map<String, String> map_h=new HashMap<String,String>();
@@ -205,17 +207,20 @@ public class MemberController {
 	    		int hotel_no=Integer.parseInt(res_dto.getH_a_no().substring(2));
 	    		System.out.println("호텔측:"+hotel_no);
 	    		HotelDTO hotel_dto=hotelService.selectHotelDTO(hotel_no);
-	    		System.out.println("hotel_no:"+hotel_dto.getHotel_no());
-	    		map_h.put("hotel_no", Integer.toString(hotel_dto.getHotel_no()));
-	    		map_h.put("hotel_price", hotel_dto.getHotel_price());
-	    		map_h.put("hotel_name", hotel_dto.getHotel_name());
-	    		map_h.put("hotel_in", hotel_dto.getHotel_in());
-	    		map_h.put("hotel_out", hotel_dto.getHotel_out());
-	    		System.out.println("OK?:"+res_dto.getRes_ok());
-	    		if(res_dto.getRes_ok()==1) {
-	    			map_h.put("paid","yes");
-	    		}
-	    		collections.add(map_h);
+	    		if(planner_no==plannerService.selectOnePlannerNoByCitiesNo(hotel_dto.getCities_no())) {
+		    		System.out.println("hotel_no:"+hotel_dto.getHotel_no());
+		    		map_h.put("hotel_no", Integer.toString(hotel_dto.getHotel_no()));
+		    		map_h.put("hotel_price", hotel_dto.getHotel_price());
+		    		map_h.put("hotel_name", hotel_dto.getHotel_name());
+		    		map_h.put("hotel_in", hotel_dto.getHotel_in());
+		    		map_h.put("hotel_out", hotel_dto.getHotel_out());
+		    		System.out.println("OK?:"+res_dto.getRes_ok());
+		    		if(res_dto.getRes_ok()==1) {
+		    			map_h.put("paid","yes");
+		    		}
+		    		collections.add(map_h);
+	    		
+	    		};
 	    	}
 	    }
 	    
