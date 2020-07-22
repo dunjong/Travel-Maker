@@ -16,5 +16,7 @@ public interface MemberService {
 	public ArrayList<MemberDTO> members();
 	public ArrayList<MemberDTO> userInfo(String id);
 	MemberDTO selectMember(String id);
+	//어드민2 멤버리스트용
+	List<MemberDTO> selectMemberList();
 }
 

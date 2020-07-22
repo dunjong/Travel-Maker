@@ -76,4 +76,9 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	//어드민2 멤버리스트용
+	@Override
+	public List<MemberDTO> selectMemberList() {
+		return memberDAO.selectMemberList();
+	}
 }
