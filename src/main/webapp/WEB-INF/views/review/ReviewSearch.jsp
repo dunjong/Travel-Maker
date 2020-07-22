@@ -29,12 +29,13 @@
 
 #reviewSearch {
 	width: 60%;
+	height: 50px;
 	border-radius: 20px;
 }
 
 #reviewSearchButton {
 	text-align: center;
-	width: 161px;
+	width: 100%;
 	height: 52px;
 	background: #F49739;
 	color: #FFFFFF;
@@ -46,7 +47,6 @@
 	border: none;
 	outline: none;
 	cursor: pointer;
-	width: 15%;
 }
 
 .reviewInformation {
@@ -139,6 +139,10 @@
 .reviewFooterUtil span {
 	color: #3EB489;
 }
+.home_search_content{
+	background-color:#5c6bc0;
+	border-radius:20px;
+}
 </style>
 </head>
 <!-- Search -->
@@ -150,14 +154,14 @@
 					
 					<div class="home_search_title">리뷰 검색</div>
 		
-					<div class="home_search_content">
+					<div id='bgc'class="home_search_content">
 						<form action="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"
 							class="home_search_form" id="home_search_form">
 					
 							<div
 								class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 					
-								<select class="col-lg-3 col-sm-12" id="reviewSearchTag"
+								<select class="col-lg-3" style="width:100%" id="reviewSearchTag"
 									name="searchColumn" required="required">
 									
 									<option>검색 범위를 선택하세요</option>
@@ -165,9 +169,9 @@
 									<option value="review_content">내용</option>
 								</select>
 						
-								<input type="text" id="reviewSearch" class="search_input"
+								<input type="text" id="reviewSearch" class="search_input col-lg-6" style="width:100%"
 									placeholder="검색어를 입력하세요" required="required" name="searchWord">
-								<button type="submit" id="reviewSearchButton">리뷰 검색</button>
+								<button class="col-lg-3" type="submit" id="reviewSearchButton">리뷰 검색</button>
 							</div>
 				
 						</form>
@@ -207,6 +211,7 @@
 											<fmt:formatDate value="${item.review_date}"
 												pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate" />
 											<p>작성일시 : ${postdate}</p>
+											<p>작성자 : ${item.user_id}</p>
 										</div>
 										<div class="reviewMapOrImage">
 											<img

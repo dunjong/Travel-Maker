@@ -69,7 +69,6 @@ public class ReviewController {
 		req.getContextPath() + "/TravelMaker/ReviewSearch.kosmo?");
 		model.addAttribute("list", list);
 		model.addAttribute("pagingString", pagingString);
-		model.addAttribute("user_id",session.getAttribute("id").toString());
 		return "review/ReviewSearch.tiles";
 	}
 
