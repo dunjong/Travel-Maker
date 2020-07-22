@@ -77,7 +77,7 @@
 					수정</h4>
 			</div>
 			<div class="modal-body">
-				<form action="<c:url value='/TravelMaker/MyInfoEdit.kosmo'/>">
+				<form action="<c:url value='/TravelMaker/MyInfoEdit.kosmo'/> method='POST'">
 					<div class="form-group">
 						<label class="col-sm-2 control-label" style="color: black;">아이디</label>
 					</div>
@@ -91,9 +91,7 @@
 						<label class="col-sm-2 control-label" style="color: black;">이름</label>
 						<div>
 							<input type="text" class="form-control input-lg" name="user_name"
-								value="${name}" placeholder="수정할 이름을 입력하세요"> <input
-								type="text" name="updateColumn" hidden="true" value="user_name">
-							<input type="text" name="user_id" hidden="true" value="${id}">
+								value="${name}" placeholder="수정할 이름을 입력하세요">
 							<span style="color: red; font-size: .8em">${nameError}<form:errors
 									path="memberDTO.name" /></span>
 						</div>
@@ -105,9 +103,7 @@
 						<label class="col-sm-4 control-label" style="color: black;">비밀번호</label>
 						<div>
 							<input type="password" class="form-control input-lg"
-								name="user_pwd" value="" placeholder="수정할 비밀번호를 입력하세요">
-							<input type="text" name="updateColumn" hidden="true"
-								value="user_pwd"> <span
+								name="user_pwd" value="" placeholder="수정할 비밀번호를 입력하세요"><span
 								style="color: red; font-size: .8em">${passwordError}<form:errors
 									path="memberDTO.password" /></span>
 						</div>
@@ -118,8 +114,7 @@
 						<div>
 							<input type="password" class="form-control input-lg"
 								name="user_pwd" value="" placeholder="수정할 비밀번호를 다시 입력하세요">
-							<input type="text" name="updateColumn" hidden="true"
-								value="user_pwd"> <span
+							<span
 								style="color: red; font-size: .8em">${password_checkError}<form:errors
 									path="memberDTO.password_check" /></span>
 						</div>
@@ -147,14 +142,10 @@
 						<div class="col-sm-4">
 							<!--  가로 배치 -->
 							<div class="radio">
-								<label><input type="radio" value="남자" name="user_gender"
-									value="${gender}" <c:if test="${gender=='남자' }">checked</c:if>>남자</label>
-								<input type="text" name="updateColumn" hidden="true"
-									value="user_gender"> <label><input
-									type="radio" value="여자" name="user_gender" value="${gender}"
-									<c:if test="${gender=='여자' }">checked</c:if>>여자</label> <input
-									type="text" name="updateColumn" hidden="true"
-									value="user_gender">
+								<label>남자</label>
+								<input type="radio" value="남자" name="user_gender" value="${user_gender}" <c:if test="${user_gender=='남자' }">checked</c:if>>
+								<label>여자</label>
+								<input type="radio" value="여자" name="user_gender" value="${user_gender}" <c:if test="${user_gender=='여자' }">checked</c:if>> 
 							</div>
 							<span style="color: red; font-size: .8em">${genderError}<form:errors
 									path="memberDTO.gender" /></span>
