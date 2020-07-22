@@ -49,7 +49,7 @@ public class ReviewController {
 	}
 
 	private int pageSize = 4;
-	private int blockPage = 5;
+	private int blockPage = 3;
 
 	@RequestMapping("ReviewSearch.kosmo")
 	public String ReviewSearch(@RequestParam Map map, @RequestParam(required = false, defaultValue = "1") int nowPage,

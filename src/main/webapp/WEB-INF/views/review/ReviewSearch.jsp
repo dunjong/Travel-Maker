@@ -147,21 +147,29 @@
 		<div class="row">
 			<div class="col">
 				<div class="home_search_container">
+					
 					<div class="home_search_title">리뷰 검색</div>
+		
 					<div class="home_search_content">
 						<form action="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"
 							class="home_search_form" id="home_search_form">
+					
 							<div
 								class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-								<select class="form-control input-sm" id="reviewSearchTag"
+					
+								<select class="col-lg-3 col-sm-12" id="reviewSearchTag"
 									name="searchColumn" required="required">
+									
 									<option>검색 범위를 선택하세요</option>
 									<option value="review_title">제목</option>
 									<option value="review_content">내용</option>
-								</select> <input type="text" id="reviewSearch" class="search_input"
+								</select>
+						
+								<input type="text" id="reviewSearch" class="search_input"
 									placeholder="검색어를 입력하세요" required="required" name="searchWord">
 								<button type="submit" id="reviewSearchButton">리뷰 검색</button>
 							</div>
+				
 						</form>
 						<c:if test="${empty list}" var="isEmpty">
 							<div class="reviewInformation">
