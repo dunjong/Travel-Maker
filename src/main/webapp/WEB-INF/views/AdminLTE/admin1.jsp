@@ -427,7 +427,7 @@
 								</div>
 								<div class="card-body">
 									<canvas class="chart" id="line-chart"
-										style="min-height: 200px; height: 200px; max-height: 250px; max-width: 100%;"></canvas>
+										style="min-height: 200px; height: 200px; max-height: 250px; max-width: 100%; font-color: white"></canvas>
 								</div>
 								<!-- /.card-body -->
 								<div class="card-footer bg-transparent">
@@ -540,9 +540,9 @@
 			data : {
 				labels : [ "SUN", "MON", "THUE", "WED", "THUR", "FRI", "SAT" ],
 				datasets : [ {
-					label : "Population",
-					backgroundColor : [ "#3e95cd", "#8e5ea2", "#3cba9f",
-							"#e8c3b9", "#c45850", "#7e4719", "#0022bb" ],
+					label : "방문자:",
+					backgroundColor : [ "#0fc6fe", "#0faafe", "#0f7bfe",
+							"#0f67fe", "#0f4ffe", "#0f33fe", "#170ffe" ],
 					data : [ 1, 10, 18, 15, 16, 21, 24 ]
 				} ]
 			},
@@ -563,8 +563,8 @@
 				labels : [ "SUN", "MON", "THUE", "WED", "THUR", "FRI", "SAT" ],
 				datasets : [ {
 					label : "Population",
-					backgroundColor : [ "#3e95cd", "#8e5ea2", "#3cba9f",
-							"#e8c3b9", "#c45850", "#7e4719", "#e3as10" ],
+					backgroundColor : [ "#0fc6fe", "#0faafe", "#0f7bfe",
+						"#0f67fe", "#0f4ffe", "#0f33fe", "#170ffe" ],
 					data : [ 0, 10, 18, 15, 16, 21, 25 ]
 				} ]
 			},
@@ -586,15 +586,14 @@
 				labels : [ '방콕', '괌', '세부', '다낭', '오사카' ],
 				datasets : [ {
 					label : '예약자 수',
-					fill : false,
 					borderWidth : 2,
 					lineTension : 0,
 					spanGaps : true,
-					borderColor : '#efefef',
-					pointRadius : 3,
+					borderColor : '#0f3ffe',
+					pointRadius : 5,
 					pointHoverRadius : 7,
-					pointColor : '#efefef',
-					pointBackgroundColor : '#efefef',
+					pointColor : 'white',
+					pointBackgroundColor : 'white',
 					data : [ 8, 13, 3, 16, 10 ],
 				} ]
 			},
@@ -605,7 +604,7 @@
 				},
 				title : {
 					display : true,
-					text : 'July Reservation Graph'
+					text : 'July Most Reservation Graph'
 
 				}
 			}
@@ -617,11 +616,11 @@
 		$('.knob').knob()
 
 		// jvectormap data
-		var visitorsData = {			
+		var visitorsData = {
 			'BD' : 100,
 			'MN' : 200,
 			'BN' : 300,
-			'KR' : 400 
+			'KR' : 400
 		}
 		// World map by jvectormap
 		$('#world-map').vectorMap(
@@ -649,8 +648,6 @@
 									+ ' new visitors')
 					}
 				})
-
-		
 	</script>
 </body>
 </html>

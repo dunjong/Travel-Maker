@@ -117,7 +117,7 @@
 						<li class="nav-item has-treeview"><a href="#"
 							class="nav-link"> <i class="nav-icon fas fa-chart-pie"></i>
 								<p>
-									리뷰 및 공지사항 관리 <i class="right fas fa-angle-left"></i>
+									리뷰 및 도시 관리 <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
@@ -125,14 +125,14 @@
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>리뷰관리</p>
 								</a></li>
-								<li class="nav-item"><a href="pages/gallery.html"
+								<li class="nav-item"><a href="adminCity.kosmo"
 									class="nav-link"> <i class="nav-icon far fa-image"></i>
 										<p>도시관리</p>
 								</a></li>
 							</ul></li>
 				</nav>
 				<!-- /.sidebar-menu -->
-			</div>
+			</div> 
 			<!-- /.sidebar -->
 		</aside>
 
@@ -192,7 +192,7 @@
 												<td>1234</td>
 												<td>1997</td>
 												<td>남자</td>
-												<td><input type="checkbox"></td>	
+												<td><input type="checkbox"></td>
 											</tr>
 										</tbody>
 										<tfoot>
