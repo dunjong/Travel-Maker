@@ -83,10 +83,10 @@ function successAjaxAccUpdate(data){
 		 tableString+="<div class='destination item'>";
 		 tableString+="<div class='destination_content'>";
 		 if(city.allow==0){
-			 tableString+="<div class='btn btn-danger' id='"+city.acc_no+"' onclick='allow_acc(this)'>동행 수락하기</div>";
+			 tableString+="<div class='btn btn-danger' id='Y"+city.acc_no+"' onclick='allow_acc(this)'>동행 수락하기</div>";
 		 }
 		 else{
-			 tableString+="<div class='btn btn-info' id='"+city.acc_no+"' onclick='deny_acc(this)'>동행 취소하기</div>";
+			 tableString+="<div class='btn btn-info' id='N"+city.acc_no+"' onclick='deny_acc(this)'>동행 취소하기</div>";
 		 }
 		 tableString+="<div class='destination_title'>"+city.user_id+"</div><div class='destination_subtitle'><p>";
 		 tableString+=city.user_name;
@@ -103,10 +103,11 @@ function allow_acc(data){
 	console.log('allow_acc_data:',acc_no);
 	 $.ajax({
 			url:'<c:url value="UpdateAcc.kosmo"/>',
-			data:{'acc_no':acc_no},
-			dataType:'json',
+			data:{'acc_no':acc_no.substring(1)},
+			dataType:'text',
 			success:function(data){alert(data);
-			$('#'+acc_no).attr('class','btn btn-danger').html('동행 취소하기')
+			$('#'+acc_no).attr('class','btn btn-info').attr('onclick','deny_acc(this)').html('동행 취소하기');
+			
 			},
 			error:function(request,error){
 				console.log('상태코드:',request.status);
@@ -119,18 +120,13 @@ function allow_acc(data){
 }
 function deny_acc(data){
 	var acc_no=data.id;
-	console.log('deny_acc_data:',acc_no);
+	console.log('deny_acc_data:',acc_no.substring(1));
 	 $.ajax({
 			url:'<c:url value="UpdateAcc.kosmo"/>',
-			data:{'acc_no':acc_no},
+			data:{'acc_no':acc_no.substring(1)},
 			dataType:'text',
 			success:function(data){alert(data);
-			if(data=='수락'){
-			$('#'+acc_no).attr('class','btn btn-info').html('동행 취소하기')
-			}
-			else{
-			$('#'+acc_no).attr('class','btn btn-danger').html('동행 수락하기')
-			}
+			$('#'+acc_no).attr('class','btn btn-danger').attr('onclick','allow_acc(this)').html('동행 수락하기');
 			},
 			error:function(request,error){
 				console.log('상태코드:',request.status);
