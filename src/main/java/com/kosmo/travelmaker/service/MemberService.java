@@ -22,5 +22,6 @@ public interface MemberService {
 	void updateAccYes(int acc_no);
 	void updateAccNo(int acc_no);
 	void updateUserInfoIdNo(Map<String, String> maps);
+	int selectAllowedByPlannerNo(int planner_no);
 }
 

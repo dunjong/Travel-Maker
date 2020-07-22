@@ -77,4 +77,9 @@ public class MemberDAO {
 		// TODO Auto-generated method stub
 		sqlMapper.update("updateUserInfoIdNo", maps);
 	}
+
+	public int selectAllowedByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectAllowedByPlannerNo",planner_no);
+	}
 }

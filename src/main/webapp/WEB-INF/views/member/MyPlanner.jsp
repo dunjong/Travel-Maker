@@ -107,6 +107,7 @@ function allow_acc(data){
 			dataType:'text',
 			success:function(data){alert(data);
 			$('#'+acc_no).attr('class','btn btn-info').attr('onclick','deny_acc(this)').html('동행 취소하기');
+			$('#planner_allow').html(parseInt($('#planner_allow').html())+1);
 			
 			},
 			error:function(request,error){
@@ -127,6 +128,9 @@ function deny_acc(data){
 			dataType:'text',
 			success:function(data){alert(data);
 			$('#'+acc_no).attr('class','btn btn-danger').attr('onclick','allow_acc(this)').html('동행 수락하기');
+			if(parseInt($('#planner_allow').html())!=0){
+				$('#planner_allow').html(parseInt($('#planner_allow').html())-1);
+			}
 			},
 			error:function(request,error){
 				console.log('상태코드:',request.status);
@@ -335,7 +339,8 @@ function successAjaxDetail(data){
 											<input id="payment" name="payment" class="btn btn-danger" onclick="payFees(this)" value="${planner.planner_no}" />
 											<label>동행 수락</label>
 											<input id="acc_allow" name="acc_allow" class="btn btn-danger" onclick="acc_allow(this)" value="${planner.planner_no}" >
-											<p style="color:red;font-size:2em;" >동행 대기자:${planner.planner_acc}명</p>
+											<p style="color:#2e63bf;font-size:2em;" >전체 동행자:<span id="planner_acc">${planner.planner_acc}</span>명</p>
+											<p style="color:red;font-size:2em;" >수락 동행자:<span id="planner_allow">${planner.planner_allow}</span>명</p>
 										</div>
 										
 									</div>

@@ -164,7 +164,8 @@ public class MemberController {
 	         maps.put("planner_no", Integer.toString(planner_no));
 	         maps.put("planner_acc",  Integer.toString(dto_planner.getPlanner_acc()));
 	         maps.put("planner_name", dto_planner.getPlanner_name());
-	         
+	         int allowedCount=memberService.selectAllowedByPlannerNo(planner_no);
+	         maps.put("planner_allow",Integer.toString(allowedCount));
 	         list.add(maps);
 	      }
 	      model.addAttribute("list", list);

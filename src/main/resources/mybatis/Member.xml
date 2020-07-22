@@ -47,5 +47,8 @@
 	<update id="updateUserInfoIdNo" parameterType="java.util.Map">
 		UPDATE USERINFO SET ID_NO=#{id_no} WHERE user_id=#{user_id}
 	</update>
+	<select id="selectAllowedByPlannerNo" parameterType="int" resultType="int">
+		select count(*) from accompany where planner_no=#{planner_no} and allow=1
+	</select>
 </mapper>
 
