@@ -14,4 +14,16 @@
 	<select id="getSpot" parameterType="java.util.Map" resultType="AndroidSpotDTO">
 		SELECT SPOT_NAME,SPOT_LATLNG FROM save_spots WHERE plan_no=(SELECT plan_no FROM plan WHERE cities_no=(SELECT cities_no FROM cities WHERE planner_no=#{planno} AND city_no=(SELECT city_no FROM city WHERE city_name=#{city_name})) AND plan_date=#{city_plan_date})
 	</select>
+	
+	<select id="selectCountry" resultType="AndroidCountryDTO">
+		SELECT Festival_country from Festival_ctr
+	</select>
+	
+	<select id="selectFestivalName" parameterType="java.lang.String" resultType="AndroidFestivalNameDTO">
+		SELECT festival_name FROM festival_name WHERE festival_country=#{festival_country}
+	</select>
+	
+	<select id="selectFestival" parameterType="java.lang.String" resultType="AndroidFestivalDTO">
+		select festival_local,festival_season,festival_spot,festival_content FROM festival f JOIN festival_name fn ON f.festival_no = fn.festival_no WHERE f.festival_no=(select festival_no from festival_name where festival_name=#{festival_name})
+	</select>
 </mapper>
