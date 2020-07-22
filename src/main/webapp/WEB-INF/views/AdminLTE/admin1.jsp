@@ -129,21 +129,14 @@
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>리뷰관리</p>
 								</a></li>
-								<li class="nav-item"><a href="pages/gallery.html"
-									class="nav-link"> <i class="nav-icon far fa-image"></i>
-										<p>도시관리</p>
-								</a></li>
-							</ul></li>
-<<<<<<< HEAD
-
-						</a>
-						</li>
-=======
+								
+							
+						</li> 
 						<li class="nav-item"><a href="adminCity.kosmo"
 							class="nav-link"> <i class="nav-icon far fa-image"></i>
 								<p>도시관리</p>
 						</a></li>
->>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
+						</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
