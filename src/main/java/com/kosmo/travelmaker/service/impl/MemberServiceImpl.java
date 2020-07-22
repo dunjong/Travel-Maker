@@ -81,4 +81,20 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberDTO> selectMemberList() {
 		return memberDAO.selectMemberList();
 	}
+	@Override
+	public int checkAccByNo(int acc_no) {
+		// TODO Auto-generated method stub
+		return memberDAO.checkAccByNo(acc_no);
+	}
+	@Override
+	public void updateAccYes(int acc_no) {
+		// TODO Auto-generated method stub
+		memberDAO.updateAccYes(acc_no);
+	}
+
+	@Override
+	public void updateAccNo(int acc_no) {
+		// TODO Auto-generated method stub
+		memberDAO.updateAccNo(acc_no);
+	}
 }
