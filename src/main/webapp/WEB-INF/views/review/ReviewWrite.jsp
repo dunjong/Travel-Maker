@@ -177,11 +177,9 @@
 									required="required"></textarea>
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<input type="file" id="reviewWriteImageUpButtonInput"
-										onchange="fileCheck(this)"
-										accept="image/*">
+									<input name='reviewfile'type="file" id="reviewWriteImageUpButtonInput" onchange="fileCheck(this)" accept="image/gif,image/jpeg,image/png">
 									<button id="reviewWriteImageUpButton" type="button">
-										첨부파일</button>
+										사진을 올리시려면 클릭하세요</button>
 									<input type="password" id="reviewWritePwd" class="search_input"
 										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요">
 									<button type="submit" id="reviewWriteSubmmit">리뷰 작성 완료</button>
@@ -191,7 +189,7 @@
 						<div class="reviewFooterUtil">
 							<br> <a
 								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
-								src="<c:url value='/images/reviewBack.png'/>" alt="목록으로 아가기">
+								src="<c:url value='/images/reviewBack.png'/>" alt="목록으로 돌아가기">
 							</a><br> <span>목록으로 돌아가기</span>
 						</div>
 					</div>
@@ -223,4 +221,4 @@
 			return false;
 		}
 	}
-</script>
+</script> 

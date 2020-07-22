@@ -1,5 +1,8 @@
 package com.kosmo.travelmaker.web.review;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kosmo.travelmaker.service.ReviewPagingUtil;
 import com.kosmo.travelmaker.service.ReviewDTO;
@@ -67,10 +74,23 @@ public class ReviewController {
 	public String ReviewWrite() {
 		return "review/ReviewWrite.tiles";
 	}
-
-	@RequestMapping("ReviewWriteOK.kosmo")
-	public String ReviewWriteOK(@RequestParam Map map, Model model) {
+	@RequestMapping(value="ReviewWriteOK.kosmo",method=RequestMethod.POST)
+	public String ReviewWriteOK(@RequestParam Map map, @RequestParam("reviewfile") MultipartFile file,HttpServletRequest req) throws IOException {
 		reviewService.insert(map);
+		String path=req.getSession().getServletContext().getRealPath("/resources/ReviewUpload");
+		System.out.println(path);
+		File f = new File(path+File.separator+file.getOriginalFilename());
+		String fileName = path+File.separator+file.getOriginalFilename();
+		System.out.println(f);
+		System.out.println(fileName);
+		file.transferTo(f);
+		try {
+		
+		}
+		catch(IllegalStateException e) {
+			e.printStackTrace();
+		}
+
 		return "forward:/TravelMaker/ReviewSearch.kosmo";
 	}
 
@@ -83,9 +103,10 @@ public class ReviewController {
 		// 수정 폼으로 이동]
 		return "review/ReviewEdit.tiles";
 	}
-
-	@RequestMapping("ReviewEditOK.kosmo")
-	public String ReviewEditOK(@RequestParam Map map) {
+	
+	
+	@RequestMapping(value="/TravelMaker/ReviewEditOK.kosmo")
+	public String ReviewEditOK(@RequestParam Map map){
 		reviewService.update(map);
 		return "forward:/TravelMaker/Review.kosmo";
 	}

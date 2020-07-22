@@ -81,14 +81,13 @@
 							<div class="reviewText">
 								<br>
 								<h4 class="reviewTextTittle">${record.review_title}</h4>
-								<a href="https://www.google.com/maps/search/몽키+포레스트"
-									target="_blank">
-									<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트</h5>
-								</a>
+								
+									<h5 class="reviewPlaceInfomation"></h5>
+							
 								<p>${record.review_content}</p>
 							</div>
 							<div class="reviewMapOrImage">
-								<img src="<c:url value='/images/reviewImage${tmpImgNo}.PNG'/>"
+								<img src="<c:url value='/resources/ReviewUpload/${image} '/>"
 									alt="리뷰지도/사진">
 							</div>
 							<fmt:formatDate value="${record.review_date}"
