@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kosmo.travelmaker.service.AndroidCityDTO;
+import com.kosmo.travelmaker.service.AndroidCountryDTO;
+import com.kosmo.travelmaker.service.AndroidFestivalDTO;
+import com.kosmo.travelmaker.service.AndroidFestivalNameDTO;
 import com.kosmo.travelmaker.service.AndroidMemberDTO;
 import com.kosmo.travelmaker.service.AndroidPlanDTO;
 import com.kosmo.travelmaker.service.AndroidSpotDTO;
@@ -77,6 +80,39 @@ public class androidController {
 		
 		return net.sf.json.JSONArray.fromObject(list).toString();
 	}
+	
+	
+	@CrossOrigin
+	@GetMapping(value="/country/json",produces = "text/html; charset=UTF-8")
+	public String festivalCountry() {
+		
+		List<AndroidCountryDTO> countries=androidservice.selectCountry();
+		
+		return net.sf.json.JSONArray.fromObject(countries).toString();
+	}
+	
+	
+	@CrossOrigin
+	@GetMapping(value="/festivalname/json",produces = "text/html; charset=UTF-8")
+	public String festivalName(@RequestParam String festival_country) {
+		
+		List<AndroidFestivalNameDTO> names=androidservice.selectFestivalName(festival_country);
+		
+		return net.sf.json.JSONArray.fromObject(names).toString();
+	}
+	
+	
+	
+	@CrossOrigin
+	@GetMapping(value="/festival/json",produces = "text/html; charset=UTF-8")
+	public String festival(@RequestParam String festival_name) {
+		
+		AndroidFestivalDTO festival=androidservice.selectFestival(festival_name);
+		
+		return net.sf.json.JSONObject.fromObject(festival).toString();
+	}
+	
+	
 	
 	@CrossOrigin
 	@GetMapping(value="/plandetail/json",produces = "text/html; charset=UTF-8")

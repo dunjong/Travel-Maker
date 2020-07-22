@@ -54,25 +54,7 @@ public class MemberController {
 	private AirServiceImpl airService;
 	
 
-	@RequestMapping("MyInfo.kosmo")
-	public String MyInfo(@RequestParam Map map, HttpSession session,Model model) {
-		MemberDTO dto = memberService.selectMemberDTO(session.getAttribute("id").toString());
-		model.addAttribute("id",dto.getUser_id());
-		model.addAttribute("pwd",dto.getUser_pwd());
-		model.addAttribute("name",dto.getUser_name());
-		model.addAttribute("gender",dto.getUser_gender());
-		model.addAttribute("rrn",dto.getUser_rrn());
-		return "member/MyInfo.tiles";
-	}
-	@RequestMapping("MyInfoEdit.kosmo")
-	public String MyInfoEdit(@RequestParam Map map, HttpSession session) {
-
-		if(memberService.updateMemberDTO(map)) {
-			System.out.println("수정이 완료 되었습니다");
-		}
-		
-		return "forward:/TravelMaker/MyInfo.kosmo";
-	}
+	
 	@RequestMapping("BookMark.kosmo")
 	public String BookMark() {
 		return "member/BookMark.tiles";
@@ -182,7 +164,8 @@ public class MemberController {
 	         maps.put("planner_no", Integer.toString(planner_no));
 	         maps.put("planner_acc",  Integer.toString(dto_planner.getPlanner_acc()));
 	         maps.put("planner_name", dto_planner.getPlanner_name());
-	         
+	         int allowedCount=memberService.selectAllowedByPlannerNo(planner_no);
+	         maps.put("planner_allow",Integer.toString(allowedCount));
 	         list.add(maps);
 	      }
 	      model.addAttribute("list", list);
@@ -259,7 +242,33 @@ public class MemberController {
 	public String IdCheck(@RequestParam String signUpId) {
 		return memberService.idCheck(signUpId);
 	}
-	
+	@RequestMapping("MyInfo.kosmo")
+	public String MyInfo(@RequestParam Map map, HttpSession session,Model model) {
+		MemberDTO dto = memberService.selectMemberDTO(session.getAttribute("id").toString());
+		model.addAttribute("user_id",dto.getUser_id());
+		model.addAttribute("user_name",dto.getUser_name());
+		model.addAttribute("user_gender",dto.getUser_gender());
+		model.addAttribute("user_rrn",dto.getUser_rrn());
+		return "member/MyInfo.tiles";
+	}
+	@RequestMapping(value="ValidationCheck.do2")
+	public String valiE(MemberDTO dto,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
+		//내가 만든 validate클래스의 validate()호출 데이터로 cmd넣고 에러정보용으로 errors넣어준다.
+		validator.validate(dto, errors);
+		if(errors.hasErrors()) {
+			model.addAttribute("error2","validation");
+			return "forward:/TravelMaker/MyInfo.kosmo";
+		}
+		model.addAttribute("dto",dto);
+		return "forward:/TravelMaker/MyInfoEdit.kosmo";
+	}///vali
+	@RequestMapping("MyInfoEdit.kosmo")
+	public String MyInfoEdit(MemberDTO dto) {
+		if(memberService.updateMemberDTO(dto)) {
+			System.out.println("수정이 완료 되었습니다");
+		}
+		return "forward:/TravelMaker/MyInfo.kosmo";
+	}
 	@RequestMapping(value="MyPlannerAccUpdate.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public String MyPlannerAccUpdate(@RequestParam Map map) {

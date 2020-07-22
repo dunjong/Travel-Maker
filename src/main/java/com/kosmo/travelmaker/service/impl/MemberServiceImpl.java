@@ -54,8 +54,8 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.selectMemberDTO(id);
 	}
 	@Override
-	public boolean updateMemberDTO(Map map) {
-		return memberDAO.updateMemberDTO(map);
+	public boolean updateMemberDTO(MemberDTO dto) {
+		return memberDAO.updateMemberDTO(dto);
 		
 	}
 
@@ -96,5 +96,15 @@ public class MemberServiceImpl implements MemberService{
 	public void updateAccNo(int acc_no) {
 		// TODO Auto-generated method stub
 		memberDAO.updateAccNo(acc_no);
+	}
+	@Override
+	public void updateUserInfoIdNo(Map<String, String> maps) {
+		memberDAO.updateUserInfoIdNo(maps);
+		
+	}
+	@Override
+	public int selectAllowedByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return memberDAO.selectAllowedByPlannerNo(planner_no);
 	}
 }

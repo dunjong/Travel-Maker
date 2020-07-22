@@ -12,7 +12,7 @@ public interface MemberService {
 	String idCheck(String id);
 	List<PlannerDTO> plannerList(String id);
 	MemberDTO selectMemberDTO(String id);
-	boolean updateMemberDTO(Map map);
+	boolean updateMemberDTO(MemberDTO dto);
 	public ArrayList<MemberDTO> members();
 	public ArrayList<MemberDTO> userInfo(String id);
 	MemberDTO selectMember(String id);
@@ -21,5 +21,7 @@ public interface MemberService {
 	int checkAccByNo(int acc_no);
 	void updateAccYes(int acc_no);
 	void updateAccNo(int acc_no);
+	void updateUserInfoIdNo(Map<String, String> maps);
+	int selectAllowedByPlannerNo(int planner_no);
 }
 

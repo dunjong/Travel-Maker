@@ -48,9 +48,9 @@ public class MemberDAO {
 		return sqlMapper.selectOne("selectMemberDTO",id);
 	}
 
-	public boolean updateMemberDTO(Map map) {
+	public boolean updateMemberDTO(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlMapper.update("updateMemberDTO", map)==1?true:false;
+		return sqlMapper.update("updateMemberDTO", dto)==1?true:false;
 	}
 	public MemberDTO selectMember(String id) {
 		return sqlMapper.selectOne("selectMember",id);
@@ -71,5 +71,15 @@ public class MemberDAO {
 	public void updateAccNo(int acc_no) {
 		System.out.println("acc_no:"+acc_no);
 		sqlMapper.update("updateAccAllowNo", acc_no);
+	}
+
+	public void updateUserInfoIdNo(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		sqlMapper.update("updateUserInfoIdNo", maps);
+	}
+
+	public int selectAllowedByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectAllowedByPlannerNo",planner_no);
 	}
 }

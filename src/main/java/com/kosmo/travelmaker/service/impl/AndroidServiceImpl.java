@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.kosmo.travelmaker.service.AndroidCityDTO;
+import com.kosmo.travelmaker.service.AndroidCountryDTO;
+import com.kosmo.travelmaker.service.AndroidFestivalDTO;
+import com.kosmo.travelmaker.service.AndroidFestivalNameDTO;
 import com.kosmo.travelmaker.service.AndroidPlanDTO;
 import com.kosmo.travelmaker.service.AndroidService;
 import com.kosmo.travelmaker.service.AndroidSpotDTO;
@@ -30,5 +33,17 @@ public class AndroidServiceImpl implements AndroidService{
 
 	public List<AndroidSpotDTO> getSpot(Map citymap) {
 		return dao.getSpot(citymap);
+	}
+
+	public List<AndroidCountryDTO> selectCountry() {
+		return dao.selectCountry();
+	}
+
+	public List<AndroidFestivalNameDTO> selectFestivalName(String festival_country) {
+		return dao.selectFestivalName(festival_country);
+	}
+
+	public AndroidFestivalDTO selectFestival(String festival_name) {
+		return dao.selectFestival(festival_name);
 	}
 }
