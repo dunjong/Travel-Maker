@@ -30,4 +30,10 @@ public interface PlannerService {
 	List<Integer> selectPlannerNoListById(String user_id);
 	boolean DeleteAcc(Map<String, String> maps);
 	boolean deleteAccByPlannerNo(int planner_no);
+	List<ResDTO> selectResDTOListByPlannerNo(String user_id);
+	void insertRes(Map map);
+	boolean deleteResByPlannerNo(int planner_no);
+	boolean deleteResByHotelNo(String h_a_no);
+	boolean deleteResByAirNo(String h_a_no);
+	List<AccDTO> selectAccNosByPlannerNo(int planner_no);
 }

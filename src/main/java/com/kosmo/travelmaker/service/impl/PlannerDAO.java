@@ -8,9 +8,11 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kosmo.travelmaker.service.AccDTO;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.PlanDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
+import com.kosmo.travelmaker.service.ResDTO;
 
 @Repository
 public class PlannerDAO {
@@ -110,5 +112,34 @@ public class PlannerDAO {
 	public boolean deleteAccByPlannerNo(int planner_no) {
 		// TODO Auto-generated method stub
 		return sqlMapper.delete("deleteAccByPlannerNo", planner_no)==1?true:false;
+	}
+	public List<ResDTO> selectResDTOListByPlannerNo(String user_id) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectResDTOListByPlannerNo", user_id);
+	}
+	public void insertRes(Map map) {
+		System.out.println("insertRes:"+map);
+		sqlMapper.insert("insertRes", map);
+		
+	}
+	public void updateRes(String h_a_no) {
+		sqlMapper.update("updateRes", h_a_no);
+		
+	}
+	public boolean deleteResByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteResByPlannerNo", planner_no)==1?true:false;
+	}
+	public boolean deleteResByHotelNo(String h_a_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteResByHotelNo", h_a_no)==1?true:false;
+	}
+	public boolean deleteResByAirNo(String h_a_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteResByAirNo", h_a_no)==1?true:false;
+	}
+	public List<AccDTO> selectAccNosByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectAccNosByPlannerNo", planner_no);
 	}
 }

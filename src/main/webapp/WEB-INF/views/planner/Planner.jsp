@@ -137,19 +137,22 @@
 																	<h4 id="h_modal_hotelName_${name.key}"></h4>
 														              	<div>
 																			<form action="#">
-																				<input id="autocomplete_${name.key}" value="${name.key}" class="search_input search_input_1" placeholder="장소" required="required">
-																				<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
-																				<input type="text" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
-																				<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
-																				<input type="text" id="datepicker1_${name.key}" value="" placeholder="check out" required="required">
-																				<input type="number" id="rooms_${name.key}"  placeholder="방 갯수" required="required">
-																				<input type="number" id="adult_${name.key}"  placeholder="성인" required="required">
-																				<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)">
-																				<br/>
-																				<label>check-in</label>
-																				<input type="date" id="datepicker_${name.key}" value="" placeholder="check in" required="required"> 
-																				<label>check-out</label>
-																				<input type="date" id="datepicker1_${name.key}" value="" placeholder="check out" required="required">
+																				<div>
+																					<input id="autocomplete_${name.key}" value="${name.key}" class="search_input search_input_1" placeholder="장소" required="required" style="width:40%">
+																					<input type="number" id="rooms_${name.key}"  placeholder="방 갯수" required="required" style="width:40%">
+																				</div>
+																				<div>
+																					<input type="number" id="adult_${name.key}"  placeholder="성인" required="required" style="width:40%">
+																					<input type="number" id="children_${name.key}" placeholder="미성년(선택사항)" style="width:40%">
+																				</div>
+																				<div>
+																					<input type="text" placeholder="check-in" disabled="disabled" style="width:40%"/>
+																					<input type="text" placeholder="check-out" disabled="disabled" style="width:40%"/>
+																				</div>
+																				<div>
+																					<input type="date" id="datepicker_${name.key}" value="" placeholder="check in" required="required" style="width:40%">
+																					<input type="date" id="datepicker1_${name.key}" value="" placeholder="check out" required="required" style="width:40%">
+																				</div>
 																			</form>
 																		</div>
 																	</div>
@@ -199,20 +202,18 @@
 														<div class="modal-body">
 															<div>
 																<form action="#">
-																	<input type="text" name="departure" id="departure" placeholder="출발지" required="required" data-placement="bottom"> 
-																	<input type="text" name="arrival" id="arrival" placeholder="도착지" required="required" data-placement="bottom">
-																	<br>
-																	<label>출국</label>
-																	<input type="date" value="2020-07-21" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
-																	<label>입국</label>
-																	<input type="date" value='' name="returnDate" id="returnDate"  placeholder="오는날" required="required"> 
-																	<input type="number" name="adult" id="adult" placeholder="성인" required="required"> 
-																	<input type="number" name="children" id="children" placeholder="미성년(선택사항)">
-																	<br>
-																	<label>출발</label>
-																	<input type="date" value="2020-07-21" name="departureDate" id="departureDate" placeholder="가는날" required="required"> 
-																	<label>도착</label>
-																	<input type="date" value='' name="returnDate" id="returnDate"  placeholder="오는날"> 
+																	<div>
+																		<input type="text" name="departure" id="departure" placeholder="출발지" required="required" data-placement="bottom" style="width:40%"> 
+																		<input type="text" name="arrival" id="arrival" placeholder="도착지" required="required" data-placement="bottom" style="width:40%">
+																	</div>
+																	<div>
+																		<input type="number" name="adult" id="adult" placeholder="성인" required="required" style="width:40%"> 
+																		<input type="number" name="children" id="children" placeholder="미성년(선택사항)" style="width:40%">
+																	</div>
+																	<div>
+																		<input type="text" placeholder="출국일" disabled="disabled" style="width:40%"/>
+																		<input type="date" value="2020-07-21" name="departureDate" id="departureDate" placeholder="가는날" required="required" style="width:40%">
+																	</div>
 																</form>
 															</div>
 														</div>
@@ -853,7 +854,7 @@
 					$.each(evt.delegateTarget.children,(index,value)=>{
 						value.children[0].style=""
 					})
-			   		evt.toElement.style.backgroundColor='cyan';
+			   		evt.toElement.style.backgroundColor='sandybrown';
 			   		evt.toElement.style.color='white';
 				},
 			  /*close : function(evt) {}  */
@@ -907,7 +908,7 @@
 					$.each(evt.delegateTarget.children,(index,value)=>{
 						value.children[0].style=""
 					})
-			   		evt.toElement.style.backgroundColor='cyan';
+			   		evt.toElement.style.backgroundColor='sandybrown';
 			   		evt.toElement.style.color='white';
 				},
 			  /*close : function(evt) {}  */
@@ -1102,7 +1103,7 @@
 		function hs_successAjax(data){
 			$('#h_'+data.split(':')[0]).prop('class','btn btn-danger').html(data.split(':')[0]+' 등록 호텔 수정하기');
 			$('#h_modal_hotelName_'+data.split(':')[0]).html('예약된 호텔:'+data.split(':')[2]);
-			alert(data.split(':')[0]+data.split(':')[1])
+			alert(data.split(':')[0]+data.split(':')[1]+data.split(':')[2])
 		}
 		
 		function CallPlanDetilsByMap(data){
@@ -1194,38 +1195,33 @@
 				}
 			}//settings
 			$.ajax(settings).done(function(res) {
-				console.log(res)
-				console.log($('#adult').prop('value')*1+$('#children').prop('value')*1);
-				
+				console.log(res);
 				var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
 				for(var i=0;i<res.length-1;i++){
 					if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
 					else if(res[i].segmentsList0[2]==1) var code = res[i].segmentsList0[3].code2;
 					else if(res[i].segmentsList0[2]==2) var code = res[i].segmentsList0[3].code3;
 					else if(res[i].segmentsList0[2]==3) var code = res[i].segmentsList0[3].code4;
-					else if(true) var code = "";
-					if(res[i].segmentsList1[2]==0) var code2 = res[i].segmentsList1[3].code1;
-					else if(res[i].segmentsList1[2]==1) var code2 = res[i].segmentsList1[3].code2;
-					else if(res[i].segmentsList1[2]==2) var code2 = res[i].segmentsList1[3].code3;
-					else if(res[i].segmentsList1[2]==3) var code2 = res[i].segmentsList1[3].code4;
-					else if(true) var code2 = "";
+					else var code = "";
 					list+="<div class='container'>";
 					list+="<div class='alert alert-success'>";
 					list+="<div class='row'>";
-					list+="<div class='col-sm-8' style='height: 180px; width: 100px; padding:20px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+					list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
 					list+="<div id='AirList_"+i+"' class='row' style='text-align:center'>";
-					list+="<div class='col-md-2' style='height: 90px; width: 40px'>";
+					list+="<div class='col-md-2' style='height: 40px; width: 40px'>";
 					list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
  
-					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:right'>"+res[i].segmentsList0[0].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
-					list+="<div class='col-md-4' style='color:black; height: 90px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시간').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
-					list+="<div class='col-md-3' style='color:black; height: 90px; width: 40px; text-align:left'>"+res[i].segmentsList0[1].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
+					list+="<div class='col-md-5' style='color:black; height: 40px; width: 40px; text-align:right'>"+res[i].segmentsList0[0].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
+					list+="<div class='col-md-3' style='color:black; height: 40px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시간').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
+					list+="<div class='col-md-2' style='color:black; height: 40px; width: 40px; text-align:left'>"+res[i].segmentsList0[1].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
 					
 					list+="</div>";
 					list+="</div>";
-					list+="<div id='priceBtn_"+i+"' class='col-sm-4' style='color:black; height: 180px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-					list+="<div class='col-md-12' style='color:black; height: 90px; padding:20px; font-size:1.7em;text-align:center;'><Strong>￦"+(res[i].basePrice.split('.')[0]*1).toLocaleString()+"원</Strong><div><small>총 가격 "+(res[i].totalPrice.split('.')[0]*1).toLocaleString()+"원</small></div></div><br>";
-					list+="<button onclick='airReservation(this)' data-number="+i+" type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
+					list+="<div class='col-sm-4' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+					list+="<div class='col-md-12' style='color:black; height: 100px; padding:15px; font-size:1.7em;text-align:center;'><Strong>￦"+(res[i].basePrice.split('.')[0]*1).toLocaleString()+"원</Strong><div><small id='tp_"+i+"'>총 가격 "+(res[i].totalPrice.split('.')[0]*1).toLocaleString()+"원</small></div></div>";
+					list+="</div>";
+					list+="<div id='priceBtn_"+i+"' class='col-sm-2' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+					list+="<button style='margin-top:25px' onclick='airReservation(this)' data-number="+i+" type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
 					list+="</div>";
 					list+="</div>";
 					list+="</div>";
@@ -1246,7 +1242,7 @@
 					"passenger":($('#adult').prop('value')*1)+($('#children').prop('value')*1),
 					"ddate":$('#departureDate').prop('value'),
 					"rdate":$('#returnDate').prop('value'),
-					"price":$('#priceBtn_'+btn.dataset.number+' > div > div > small').html().substring(5,$('#priceBtn_'+btn.dataset.number+' > div > div > small').html().length-1),//.substr()
+					"price":$('#tp_'+btn.dataset.number).html().substring(5,$('#tp_'+btn.dataset.number).html().length-1),
 					"planner_no":'${planner_no}'
 				},
 				dataType:'text',
@@ -1260,6 +1256,7 @@
 		}
 		function as_successAjax(data) {
 			console.log(data);
+			alert(data);
 		}
 		
 		

@@ -13,4 +13,6 @@ public interface HotelService {
 
 	boolean updateHotelInfo(Map map);
 
+	HotelDTO selectHotelDTO(int hotel_no);
+	int selectHotelNo();
 }

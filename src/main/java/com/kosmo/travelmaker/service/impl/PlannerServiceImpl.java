@@ -7,10 +7,12 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.kosmo.travelmaker.service.AccDTO;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.PlanDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.PlannerService;
+import com.kosmo.travelmaker.service.ResDTO;
 
 @Service("plannerService")
 public class PlannerServiceImpl implements PlannerService{
@@ -174,5 +176,42 @@ public class PlannerServiceImpl implements PlannerService{
 		// TODO Auto-generated method stub
 		return plannerDAO.deleteAccByPlannerNo(planner_no);
 	}
+
+	@Override
+	public List<ResDTO> selectResDTOListByPlannerNo(String user_id) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectResDTOListByPlannerNo(user_id);
+	}
+
+	@Override
+	public void insertRes(Map map) {
+		// TODO Auto-generated method stub
+		plannerDAO.insertRes(map);
+	}
+
+	@Override
+	public boolean deleteResByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.deleteResByPlannerNo(planner_no);
+	}
+
+	@Override
+	public boolean deleteResByHotelNo(String h_a_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.deleteResByHotelNo(h_a_no);
+	}
+
+	@Override
+	public boolean deleteResByAirNo(String h_a_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.deleteResByAirNo(h_a_no);
+	}
+
+	@Override
+	public List<AccDTO> selectAccNosByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectAccNosByPlannerNo(planner_no);
+	}
+
 	
 }

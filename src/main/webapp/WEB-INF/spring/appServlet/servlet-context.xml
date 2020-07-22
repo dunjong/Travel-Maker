@@ -63,11 +63,7 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	
-
+	<!-- 업로드 후 응답을 json 데이터로 보내기 위한 View Resolver 설정 구문 추가-->
 	<context:component-scan base-package="com.kosmo.travelmaker" />
-
-
 
 </beans:beans>

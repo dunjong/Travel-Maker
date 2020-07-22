@@ -58,4 +58,18 @@ public class MemberDAO {
 	public List<MemberDTO> selectMemberList(){
 		return sqlMapper.selectList("selectMemberList");
 	}
+
+	public int checkAccByNo(int acc_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("checkAccByNo", acc_no);
+	}
+
+	public void updateAccYes(int acc_no) {
+		// TODO Auto-generated method stub
+		sqlMapper.update("updateAccYes", acc_no);
+	}
+	public void updateAccNo(int acc_no) {
+		System.out.println("acc_no:"+acc_no);
+		sqlMapper.update("updateAccAllowNo", acc_no);
+	}
 }

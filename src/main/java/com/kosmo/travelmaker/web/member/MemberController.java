@@ -19,10 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonArray;
+import com.kosmo.travelmaker.service.AccDTO;
+import com.kosmo.travelmaker.service.AirDTO;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
+import com.kosmo.travelmaker.service.HotelDTO;
 import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
+import com.kosmo.travelmaker.service.ResDTO;
 import com.kosmo.travelmaker.service.impl.AirServiceImpl;
 import com.kosmo.travelmaker.service.impl.CityServiceImpl;
 import com.kosmo.travelmaker.service.impl.HotelServiceImpl;
@@ -114,6 +118,7 @@ public class MemberController {
 		List<CitiesDTO> cities_dto_list= plannerService.selectCitiesDTOList(planner_no);
 		for(CitiesDTO cities_dto:cities_dto_list) {
 			int cities_no=cities_dto.getCities_no();
+			List<HotelDTO> hotel_dto_list= hotelService.selectHotelDTOByCitiesNo(cities_no);
 			System.out.println("cities_no: "+cities_no);
 			List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(cities_no);
 			for(int plan_no:plan_no_list ){
@@ -127,17 +132,35 @@ public class MemberController {
 				System.out.println("plan들 삭제 완료");
 				
 			};
-			if(hotelService.deleteHotelByCitiesNo(cities_no)){
-				System.out.println("호텔들 삭제 완료");
-			};
+			if(hotel_dto_list.size()!=0) {
+				
+				int hotel_no=hotel_dto_list.get(0).getHotel_no();
+				if(plannerService.deleteResByHotelNo("h_"+hotel_no)) {
+					System.out.println("res_h 삭제 완료");
+				}
+				if(hotelService.deleteHotelByCitiesNo(cities_no)){
+					System.out.println("호텔들 삭제 완료");
+				};
+			}
 		}
 		if(plannerService.deleteCitiesByPlannerNo(planner_no)) {
 			System.out.println("Cities들 삭제 완료");
 			
 		};
 		if(plannerService.deleteAccByPlannerNo(planner_no)) {
-			
+			System.out.println("Accompany들 삭제 완료");
 		}
+		List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
+		for(AirDTO air_dto:air_dto_list) {
+			System.out.println("air_no:"+air_dto.getAir_no());
+			if(plannerService.deleteResByAirNo("a_"+air_dto.getAir_no())) {
+				System.out.println("AirRes들 삭제 완료");
+			};
+		}
+		if(airService.deleteAirByPlannerNo(planner_no)) {
+			System.out.println("Air들 삭제 완료");
+		}
+		
 		
 		if(plannerService.deletePlannerByNo(planner_no)) {
 			System.out.println("planner 삭제 완료");
@@ -155,19 +178,60 @@ public class MemberController {
 	      
 	      for(PlannerDTO dto_planner:list_planner) {
 	         Map<String ,String> maps=new HashMap<String, String>();
-	         maps.put("planner_no", Integer.toString(dto_planner.getPlanner_no()));
+	         int planner_no=dto_planner.getPlanner_no();
+	         maps.put("planner_no", Integer.toString(planner_no));
 	         maps.put("planner_acc",  Integer.toString(dto_planner.getPlanner_acc()));
 	         maps.put("planner_name", dto_planner.getPlanner_name());
+	         
 	         list.add(maps);
 	      }
 	      model.addAttribute("list", list);
 		return "member/MyPlanner.tiles";
 	}
 	
-	@RequestMapping("PayFees.kosmo")
+	@RequestMapping(value="PayFees.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public String PayFees(@RequestParam Map map) {
-		return map.get("planner_no").toString();
+	public String PayFees(@RequestParam Map map,HttpSession session,Model model) {
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		String user_id=session.getAttribute("id").toString();
+	    List<ResDTO> res_dto_list=plannerService.selectResDTOListByPlannerNo(user_id);
+	    
+	    List<Map> collections = new Vector<Map>();
+	   
+	   
+	    for(ResDTO res_dto:res_dto_list) {
+	    	if(res_dto.getH_a_no().contains("a_")) {
+	    		Map<String, String> map_a=new HashMap<String,String>();
+	    		System.out.println("항공측:"+res_dto.getH_a_no());
+	    		AirDTO air_dto=airService.selectAirDTO(Integer.parseInt(res_dto.getH_a_no().substring(2)));
+	    		map_a.put("air_no",Integer.toString(air_dto.getAir_no()));
+	    		map_a.put("air_price", air_dto.getAir_price());
+	    		map_a.put("air_arr", air_dto.getAir_arr());
+	    		map_a.put("air_dep", air_dto.getAir_dep());
+	    		map_a.put("air_ddate", air_dto.getAir_ddate());
+	    		collections.add(map_a);
+	    	}///air res
+	    	else if(res_dto.getH_a_no().contains("h_")){
+	    		 Map<String, String> map_h=new HashMap<String,String>();
+	    		System.out.println("호텔측:"+res_dto.getUser_id());
+	    		System.out.println("호텔측:"+res_dto.getH_a_no());
+	    		int hotel_no=Integer.parseInt(res_dto.getH_a_no().substring(2));
+	    		System.out.println("호텔측:"+hotel_no);
+	    		HotelDTO hotel_dto=hotelService.selectHotelDTO(hotel_no);
+	    		System.out.println("hotel_no:"+hotel_dto.getHotel_no());
+	    		map_h.put("hotel_no", Integer.toString(hotel_dto.getHotel_no()));
+	    		map_h.put("hotel_price", hotel_dto.getHotel_price());
+	    		map_h.put("hotel_name", hotel_dto.getHotel_name());
+	    		map_h.put("hotel_in", hotel_dto.getHotel_in());
+	    		map_h.put("hotel_out", hotel_dto.getHotel_out());
+	    		
+	    		collections.add(map_h);
+	    	}
+	    }
+	    
+		
+		
+	    return JSONArray.toJSONString(collections);
 	}
 	
 	
@@ -195,6 +259,47 @@ public class MemberController {
 	public String IdCheck(@RequestParam String signUpId) {
 		return memberService.idCheck(signUpId);
 	}
+	
+	@RequestMapping(value="MyPlannerAccUpdate.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String MyPlannerAccUpdate(@RequestParam Map map) {
+		List<Map> collections = new Vector<Map>();
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		List<AccDTO> acc_dto_list=plannerService.selectAccNosByPlannerNo(planner_no);
+		 for(AccDTO acc_dto:acc_dto_list) {
+				 Map<String,String> map_mem =new HashMap<String,String>();
+				 String user_id=acc_dto.getUser_id();
+				 MemberDTO mem_dto=memberService.selectMemberDTO(user_id);
+				 map_mem.put("allow", Integer.toString(acc_dto.getAllow()));
+				 map_mem.put("acc_no", Integer.toString(acc_dto.getAcc_no()));
+				 map_mem.put("user_id", mem_dto.getUser_id());
+				 map_mem.put("user_name", mem_dto.getUser_name());
+				 map_mem.put("user_gender", mem_dto.getUser_gender());
+				 map_mem.put("user_rrn", mem_dto.getUser_rrn());
+				 collections.add(map_mem);
+		 }
+		
+		
+		 return JSONArray.toJSONString(collections);
+	}
+	
+	
+	@RequestMapping(value="UpdateAcc.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String UpdateAcc(@RequestParam Map map) {
+		int acc_no=Integer.parseInt(map.get("acc_no").toString());
+		String flag="실패";
+		if(memberService.checkAccByNo(acc_no)==0) {
+			memberService.updateAccYes(acc_no);
+			flag="수락";
+		}
+		else{
+			memberService.updateAccNo(acc_no);
+			flag="거부";
+		};
+		 return flag;
+	}
+	
 	
 	
 	

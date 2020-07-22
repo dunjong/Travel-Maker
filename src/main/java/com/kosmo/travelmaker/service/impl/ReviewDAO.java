@@ -41,6 +41,8 @@ public class ReviewDAO implements ReviewService {
 
 	@Override
 	public int insert(Map map) {
+
+		System.out.println("reviewInsertMap:"+map);
 		return sqlMapper.insert("reviewInsert",map);
 	}
 
