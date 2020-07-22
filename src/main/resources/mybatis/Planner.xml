@@ -13,7 +13,7 @@
 		Insert into plan VALUES(seq_plan.nextval,#{plan_date},#{cities_no})
 	</insert>
 	<insert id="insertAcc" parameterType="java.util.Map">
-		INSERT INTO ACCOMPANY VALUES(seq_acc.nextval,#{planner_no},#{user_id})
+		INSERT INTO ACCOMPANY VALUES(seq_acc.nextval,#{planner_no},#{user_id},0)
 	</insert>
 	
 	

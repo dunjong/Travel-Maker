@@ -403,19 +403,33 @@
 		var city_name=new Array();
 		var city_no=new Array();
 		for(i=0;i<$('.cityname').length;i++){
-			console.log($('div.cityname:eq('+i+') span').html());
-			console.log($('div.cityname:eq('+i+') a').html());
+			console.log('1:',$('div.cityname:eq('+i+') span').html());
+			console.log('2:',$('div.cityname:eq('+i+') a').html());
 			city_name.push($('div.cityname:eq('+i+') span').html());
 			city_no.push($('div.cityname:eq('+i+') a').html());
 		}
 		var citynames=city_name.toString();
 		var citynos=city_no.toString();
 		console.log(citynames);
-		console.log(citynos);
-		$('input[name=city_no]').val(citynos);
-		$('input[name=city_name]').val(citynames);
-		console.log($('input[name=city_no]').val());
-		console.log($('input[name=city_name]').val());
+		console.log('citynos:',citynos);
+		$.ajax({
+			url:'<c:url value="PlannerNoCreate.kosmo"/>',
+			data:{
+				'city_no':citynos
+			},
+			dataType:'json',
+			success:function(data){
+				console.log('planner_no:',data);
+				$('#planner_no').val(data);
+				$('#planner').submit();
+			},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
 	};
 	
 	function readURL(input) {
@@ -488,16 +502,16 @@
 					<input type="text" name="searchWord" id="inputid" class="form-control"
 						style="line-height:50px;opacity: 0.5;font-weight:bold;height:40px;width:150px;display:inline;" />
 				</div>
-				<form action="<c:url value='/TravelMaker/Planner.kosmo'/>" >
+				<form action="<c:url value='/TravelMaker/Planner.kosmo'/>" id="planner">
 				<div
 					class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-					<input type="hidden" name="city_no">
-					<input type="hidden" id="ctiyname" name="city_name"/>
+					<input type="hidden" id="planner_no" name="planner_no"/>
 					<!-- 콤마로 구분해서 도시 번호 넘겨주세요 -->
-					<button class="home_search_button citysearch" onclick="citypick();">도시선택</button>
+					
 					<!-- btn-lg float-right -->
 				</div>
-			</form>
+				</form>
+				<button class="home_search_button citysearch" onclick="citypick();">도시선택</button>
 				<div class="social-links">
 					<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a> <a
 						href="#" class="facebook"><i class="bx bxl-facebook"></i></a> <a

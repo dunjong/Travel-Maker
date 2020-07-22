@@ -129,13 +129,8 @@ public class MemberController {
 			};
 			if(hotelService.deleteHotelByCitiesNo(cities_no)){
 				System.out.println("호텔들 삭제 완료");
-				
 			};
-			
-			
-			
 		}
-		
 		if(plannerService.deleteCitiesByPlannerNo(planner_no)) {
 			System.out.println("Cities들 삭제 완료");
 			
