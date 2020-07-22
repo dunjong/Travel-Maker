@@ -219,5 +219,11 @@ public class PlannerServiceImpl implements PlannerService{
 		return plannerDAO.updateResOk(h_a_no);
 	}
 
+	@Override
+	public int selectOnePlannerNoByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectOnePlannerNoByCitiesNo(cities_no);
+	}
+
 	
 }

@@ -14,6 +14,16 @@ public class HotelDTO {
 	private String hotel_score;
 	private int hotel_customer;
 	private int hotel_room;
+	private int cities_no;
+	
+	
+	
+	public int getCities_no() {
+		return cities_no;
+	}
+	public void setCities_no(int cities_no) {
+		this.cities_no = cities_no;
+	}
 	public int getHotel_no() {
 		return hotel_no;
 	}
