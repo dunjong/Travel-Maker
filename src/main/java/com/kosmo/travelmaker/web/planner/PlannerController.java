@@ -33,7 +33,6 @@ import com.kosmo.travelmaker.service.CityDTO;
 import com.kosmo.travelmaker.service.CityService;
 import com.kosmo.travelmaker.service.CountDTO;
 import com.kosmo.travelmaker.service.HotelDTO;
-import com.kosmo.travelmaker.service.MemberService;
 import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.SpotsDTO;
 import com.kosmo.travelmaker.service.impl.AirServiceImpl;
@@ -52,7 +51,7 @@ public class PlannerController {
 	private String AutoCompleteApiKey;
 	@Value("${TripAdviserHotelApiKey}")
 	private String TripAdviserHotelApiKey;
-	
+	//주입
 	@Resource(name="spotsService")
 	private SpotsServiceImpl spotsService;
 	@Resource (name="cityService")
@@ -445,51 +444,44 @@ public class PlannerController {
 	@ResponseBody
 	public String CallPlannerList(@RequestParam Map map,HttpSession sessionSccope) throws ParseException {
 		List<Map> collections = new Vector<Map>();
-		String user_id=sessionSccope.getAttribute("id").toString();
-		if(user_id!=null) {
-			if(memberService.selectMemberDTO(user_id).getId_no()!=null) {
-				SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
-				Date today=new Date();
-				int gap=0;
-				String city_no=map.get("city_no").toString();
-				List<Integer> cities_no_list=cityService.selectCitiesNoListBycityNo(Integer.parseInt(city_no));
-				for(int cities_no:cities_no_list) {
-				String cities_date= cityService.selectCitiesDate(cities_no);
-						Map<String,String> maps=new HashMap<String,String>();
-						boolean flag=true;
-						PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
-						int planner_no=planner_dto.getPlanner_no();
-						System.out.println();
-						if(planner_dto.getUser_id().equals(user_id)) {
-							flag=false;
-						}
-						List <CitiesDTO> cities_dto_list=cityService.selectCitiesDTO(planner_no);
-						for(CitiesDTO cities_dto:cities_dto_list) {
-							if(cities_dto.getCities_date()!=null) {
-								Date cities_start_date=transFormat.parse(cities_dto.getCities_date().split(",")[0]);
-								if(today.compareTo(cities_start_date)>=0) {
-									flag=false;
-									}
-								else {
-									gap=(int)((cities_start_date.getTime()-today.getTime())/(1000*60*60*24)+1);
+		if(sessionSccope.getAttribute("id")!=null) {
+			String user_id=sessionSccope.getAttribute("id").toString();
+			SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
+			Date today=new Date();
+			int gap=0;
+			String city_no=map.get("city_no").toString();
+			List<Integer> cities_no_list=cityService.selectCitiesNoListBycityNo(Integer.parseInt(city_no));
+			for(int cities_no:cities_no_list) {
+			String cities_date= cityService.selectCitiesDate(cities_no);
+					Map<String,String> maps=new HashMap<String,String>();
+					boolean flag=true;
+					PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
+					int planner_no=planner_dto.getPlanner_no();
+					System.out.println();
+					if(planner_dto.getUser_id().equals(user_id)) {
+						flag=false;
+					}
+					List <CitiesDTO> cities_dto_list=cityService.selectCitiesDTO(planner_no);
+					for(CitiesDTO cities_dto:cities_dto_list) {
+						if(cities_dto.getCities_date()!=null) {
+							Date cities_start_date=transFormat.parse(cities_dto.getCities_date().split(",")[0]);
+							if(today.compareTo(cities_start_date)>=0) {
+								flag=false;
 								}
+							else {
+								gap=(int)((cities_start_date.getTime()-today.getTime())/(1000*60*60*24)+1);
 							}
 						}
-						if(flag) {
-							maps.put("gap", Integer.toString(gap));
-							maps.put("city_no", city_no);
-							maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
-							maps.put("name", planner_dto.getPlanner_name());
-							maps.put("id", planner_dto.getUser_id());
-							maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
-							collections.add(maps);
-						}
-				}
-			}
-			else {
-				Map<String,String> maps=new HashMap<String,String>();
-				maps.put("Auth", "동행서비스는 2차 인증 후 이용하세요");
-				collections.add(maps);
+					}
+					if(flag) {
+						maps.put("gap", Integer.toString(gap));
+						maps.put("city_no", city_no);
+						maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
+						maps.put("name", planner_dto.getPlanner_name());
+						maps.put("id", planner_dto.getUser_id());
+						maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
+						collections.add(maps);
+					}
 			}
 		}
 		else{
@@ -596,17 +588,21 @@ public class PlannerController {
 	@ResponseBody
 	public String PlannerAcc(@RequestParam Map map,HttpSession session) {
 		String planner_no=map.get("planner_no").toString();
-		System.out.println("planner_no:"+planner_no);
 		String user_id=session.getAttribute("id").toString();
 		Map<String,String> maps=new HashMap<String,String>();
 		maps.put("planner_no", planner_no);
 		maps.put("user_id", user_id);
-		if(plannerService.insertAcc(maps)) {
+		if(!"0".equals(memberService.selectMemberDTO(user_id).getId_no())) {
+			if(plannerService.insertAcc(maps)) {
+			}
+			int planner_acc=plannerService.selectAccNoByPlannerNo(Integer.parseInt(planner_no));
+			maps.put("planner_acc", Integer.toString(planner_acc));
+			if(plannerService.updateAccNo(maps)) {
+				System.out.println("동행자 수 변경");
+			}
 		}
-		int planner_acc=plannerService.selectAccNoByPlannerNo(Integer.parseInt(planner_no));
-		maps.put("planner_acc", Integer.toString(planner_acc));
-		if(plannerService.updateAccNo(maps)) {
-			System.out.println("동행자 수 변경");
+		else {
+			planner_no="fail";
 		}
 		return planner_no;
 	}
@@ -637,7 +633,32 @@ public class PlannerController {
 		plannerService.updatePlannerName(map);
 	}
 	
-	
+	@RequestMapping(value="PayFees.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String PayFees(@RequestParam Map map,HttpSession session){
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		String user_id=session.getAttribute("id").toString();
+		List<Map> collections = new Vector<Map>();
+		
+		List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
+		for(AirDTO air_dto:air_dto_list) {
+			Map<String, String> a_map=new HashMap<String,String>();
+			a_map.put("air_ddate", air_dto.getAir_ddate());
+			//collections.add(e)
+		}
+		List<CitiesDTO> cities_dto_list= cityService.selectCitiesDTO(planner_no);
+		for(CitiesDTO cities_dto:cities_dto_list) {
+			List<HotelDTO> hotel_dto_list= hotelService.selectHotelDTOByCitiesNo(cities_dto.getCities_no());
+			for(HotelDTO hotel_dto:hotel_dto_list) {
+				
+			}
+			
+		}
+		//hotelService.selectHotelDTOByCitiesNo(cities_no);
+		
+		
+		return JSONArray.toJSONString(collections);
+	}
 	
 }
 

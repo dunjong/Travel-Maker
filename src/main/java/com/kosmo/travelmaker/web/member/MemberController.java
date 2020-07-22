@@ -57,7 +57,6 @@ public class MemberController {
 	public String MyInfo(@RequestParam Map map, HttpSession session,Model model) {
 		MemberDTO dto = memberService.selectMemberDTO(session.getAttribute("id").toString());
 		model.addAttribute("id",dto.getUser_id());
-		model.addAttribute("pwd",dto.getUser_pwd());
 		model.addAttribute("name",dto.getUser_name());
 		model.addAttribute("gender",dto.getUser_gender());
 		model.addAttribute("rrn",dto.getUser_rrn());

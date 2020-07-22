@@ -119,12 +119,17 @@ function successAjaxAccCancel(data){
 }
 
 function successAjaxAcc(data){
-	console.log('acc data:',data)
-	console.log($('#accNo_'+data).html());
-	var accNo=parseInt($('#accNo_'+data).html())+1;
-	$('#accNo_'+data).html(accNo);
-	$('#acc_'+data).prop('class','btn btn-danger').attr('onclick','CancelAcc(this)').html('동행 취소하기');
-	
+	if(data=='fail'){
+		alert('동행서비스는 2차 인증 후 이용하세요');
+		
+	}
+	else{
+		console.log('acc data:',data)
+		console.log($('#accNo_'+data).html());
+		var accNo=parseInt($('#accNo_'+data).html())+1;
+		$('#accNo_'+data).html(accNo);
+		$('#acc_'+data).prop('class','btn btn-danger').attr('onclick','CancelAcc(this)').html('동행 취소하기');
+	}
 }
 
 function successAjaxPlanner(data){
