@@ -215,7 +215,7 @@
 																	</div>
 																	<div>
 																		<input type="text" placeholder="출국일" disabled="disabled" style="width:40%"/>
-																		<input type="date" value="2020-07-21" name="departureDate" id="departureDate" placeholder="가는날" required="required" style="width:40%">
+																		<input type="date" value="${today}" name="departureDate" id="departureDate" placeholder="가는날" required="required" style="width:40%">
 																	</div>
 																</form>
 															</div>
@@ -938,7 +938,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)+1).toString();
+				day=(parseInt(day)+1);
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 			else if(se=='e'){
@@ -946,7 +949,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)).toString();
+				day=(parseInt(day));
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 			else{
@@ -954,7 +960,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)+1).toString();
+				day=(parseInt(day)+1);
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 		}
