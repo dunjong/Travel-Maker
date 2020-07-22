@@ -174,7 +174,6 @@
 									<table id="example2" class="table table-bordered table-hover">
 										<thead>
 											<tr>
-												<th>NO</th>
 												<th>이름</th>
 												<th>아이디</th>
 												<th>비밀번호</th>
@@ -187,7 +186,6 @@
 											<c:if test="${not isEmpty}">
 												<c:forEach items="${list}" var="item" varStatus="loop">
 													<tr>
-														<td>${item.id_no}</td>
 														<td>${item.user_name}</td>
 														<td>${item.user_id}</td>
 														<td>${item.user_pwd}</td>
