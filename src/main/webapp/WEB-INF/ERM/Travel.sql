@@ -12,6 +12,9 @@ DROP TABLE plan CASCADE CONSTRAINTS;
 DROP TABLE cities CASCADE CONSTRAINTS;
 DROP TABLE tag_rel CASCADE CONSTRAINTS;
 DROP TABLE city CASCADE CONSTRAINTS;
+DROP TABLE Festival CASCADE CONSTRAINTS;
+DROP TABLE Festival_name CASCADE CONSTRAINTS;
+DROP TABLE Festival_ctr CASCADE CONSTRAINTS;
 DROP TABLE planner CASCADE CONSTRAINTS;
 DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE tag CASCADE CONSTRAINTS;
@@ -26,6 +29,8 @@ DROP SEQUENCE seq_air;
 DROP SEQUENCE seq_auto_plan;
 DROP SEQUENCE seq_cities;
 DROP SEQUENCE seq_city;
+DROP SEQUENCE seq_festival;
+DROP SEQUENCE seq_festival2;
 DROP SEQUENCE seq_hotel;
 DROP SEQUENCE seq_plan;
 DROP SEQUENCE seq_planner;
@@ -41,48 +46,22 @@ DROP SEQUENCE seq_tag_rel;
 
 /* Create Sequences */
 
-CREATE SEQUENCE seq_acc
-nocache
-nocycle;
-CREATE SEQUENCE seq_air
-nocache
-nocycle;
-CREATE SEQUENCE seq_auto_plan
-nocache
-nocycle;
-CREATE SEQUENCE seq_cities
-nocache
-nocycle;
-CREATE SEQUENCE seq_city
-nocache
-nocycle;
-CREATE SEQUENCE seq_hotel
-nocache
-nocycle;
-CREATE SEQUENCE seq_plan
-nocache
-nocycle;
-CREATE SEQUENCE seq_planner
-nocache
-nocycle;
-CREATE SEQUENCE seq_res
-nocache
-nocycle;
-CREATE SEQUENCE seq_review
-nocache
-nocycle;
-CREATE SEQUENCE seq_spot_auto
-nocache
-nocycle;
-CREATE SEQUENCE seq_spot_save
-nocache
-nocycle;
-CREATE SEQUENCE seq_tag
-nocache
-nocycle;
-CREATE SEQUENCE seq_tag_rel
-nocache
-nocycle;
+CREATE SEQUENCE seq_acc;
+CREATE SEQUENCE seq_air;
+CREATE SEQUENCE seq_auto_plan;
+CREATE SEQUENCE seq_cities;
+CREATE SEQUENCE seq_city;
+CREATE SEQUENCE seq_festival;
+CREATE SEQUENCE seq_festival2;
+CREATE SEQUENCE seq_hotel;
+CREATE SEQUENCE seq_plan;
+CREATE SEQUENCE seq_planner;
+CREATE SEQUENCE seq_res;
+CREATE SEQUENCE seq_review;
+CREATE SEQUENCE seq_spot_auto;
+CREATE SEQUENCE seq_spot_save;
+CREATE SEQUENCE seq_tag;
+CREATE SEQUENCE seq_tag_rel;
 
 
 
@@ -151,6 +130,34 @@ CREATE TABLE city
 	city_img nvarchar2(500) NOT NULL,
 	city_latlng nvarchar2(200) NOT NULL,
 	PRIMARY KEY (city_no)
+);
+
+
+CREATE TABLE Festival
+(
+	Festival_seq number NOT NULL,
+	Festival_local nvarchar2(50) NOT NULL,
+	Festival_season nvarchar2(50) NOT NULL,
+	Festival_spot nvarchar2(50) NOT NULL,
+	Festival_content nvarchar2(1000) NOT NULL,
+	Festival_no number,
+	PRIMARY KEY (Festival_seq)
+);
+
+
+CREATE TABLE Festival_ctr
+(
+	Festival_country nvarchar2(100) NOT NULL,
+	PRIMARY KEY (Festival_country)
+);
+
+
+CREATE TABLE Festival_name
+(
+	Festival_no number NOT NULL,
+	Festival_name nvarchar2(100) NOT NULL,
+	Festival_country nvarchar2(100),
+	PRIMARY KEY (Festival_no)
 );
 
 
@@ -302,6 +309,18 @@ ALTER TABLE review
 ALTER TABLE tag_rel
 	ADD FOREIGN KEY (city_no)
 	REFERENCES city (city_no)
+;
+
+
+ALTER TABLE Festival_name
+	ADD FOREIGN KEY (Festival_country)
+	REFERENCES Festival_ctr (Festival_country)
+;
+
+
+ALTER TABLE Festival
+	ADD FOREIGN KEY (Festival_no)
+	REFERENCES Festival_name (Festival_no)
 ;
 
 
