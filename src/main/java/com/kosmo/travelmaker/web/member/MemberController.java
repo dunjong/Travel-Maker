@@ -244,26 +244,26 @@ public class MemberController {
 	@RequestMapping("MyInfo.kosmo")
 	public String MyInfo(@RequestParam Map map, HttpSession session,Model model) {
 		MemberDTO dto = memberService.selectMemberDTO(session.getAttribute("id").toString());
-		model.addAttribute("id",dto.getUser_id());
-		model.addAttribute("name",dto.getUser_name());
-		model.addAttribute("gender",dto.getUser_gender());
-		model.addAttribute("rrn",dto.getUser_rrn());
+		model.addAttribute("user_id",dto.getUser_id());
+		model.addAttribute("user_name",dto.getUser_name());
+		model.addAttribute("user_gender",dto.getUser_gender());
+		model.addAttribute("user_rrn",dto.getUser_rrn());
 		return "member/MyInfo.tiles";
 	}
-	@RequestMapping(value="ValidationCheck.do",method = RequestMethod.POST)
+	@RequestMapping(value="ValidationCheck.do2")
 	public String valiE(MemberDTO dto,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
 		//내가 만든 validate클래스의 validate()호출 데이터로 cmd넣고 에러정보용으로 errors넣어준다.
 		validator.validate(dto, errors);
 		if(errors.hasErrors()) {
-			model.addAttribute("error","validation");
-			return "member/MyInfo.tiles";
+			model.addAttribute("error2","validation");
+			return "forward:/TravelMaker/MyInfo.kosmo";
 		}
 		model.addAttribute("dto",dto);
 		return "forward:/TravelMaker/MyInfoEdit.kosmo";
 	}///vali
 	@RequestMapping("MyInfoEdit.kosmo")
-	public String MyInfoEdit(@RequestParam Map map) {
-		if(memberService.updateMemberDTO(map)) {
+	public String MyInfoEdit(MemberDTO dto) {
+		if(memberService.updateMemberDTO(dto)) {
 			System.out.println("수정이 완료 되었습니다");
 		}
 		return "forward:/TravelMaker/MyInfo.kosmo";

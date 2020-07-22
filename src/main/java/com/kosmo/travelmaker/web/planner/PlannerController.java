@@ -632,34 +632,22 @@ public class PlannerController {
 	public void SavePlannerName(@RequestParam Map map){
 		plannerService.updatePlannerName(map);
 	}
-	
-	@RequestMapping(value="PayFees.kosmo", produces ="text/html; charset=UTF-8")
-	@ResponseBody
-	public String PayFees(@RequestParam Map map,HttpSession session){
-		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+	@RequestMapping(value="updateIdNoById.kosmo", produces ="text/html; charset=UTF-8")
+	public String updateIdNoById(@RequestParam Map map,HttpSession session) {
 		String user_id=session.getAttribute("id").toString();
-		List<Map> collections = new Vector<Map>();
+		if(map.get("id_no")!=null) {
+			String id_no=map.get("id_no").toString();
 		
-		List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
-		for(AirDTO air_dto:air_dto_list) {
-			Map<String, String> a_map=new HashMap<String,String>();
-			a_map.put("air_ddate", air_dto.getAir_ddate());
-			//collections.add(e)
+			Map<String, String> maps=new HashMap<String, String>();
+			maps.put("user_id", user_id);
+			maps.put("id_no", id_no);
+			memberService.updateUserInfoIdNo(maps);
+			return "home.tiles";
 		}
-		List<CitiesDTO> cities_dto_list= cityService.selectCitiesDTO(planner_no);
-		for(CitiesDTO cities_dto:cities_dto_list) {
-			List<HotelDTO> hotel_dto_list= hotelService.selectHotelDTOByCitiesNo(cities_dto.getCities_no());
-			for(HotelDTO hotel_dto:hotel_dto_list) {
-				
-			}
-			
+		else {
+			return "home.tiles";
 		}
-		//hotelService.selectHotelDTOByCitiesNo(cities_no);
-		
-		
-		return JSONArray.toJSONString(collections);
 	}
-	
 }
 
 

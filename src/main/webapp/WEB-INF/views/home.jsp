@@ -120,7 +120,9 @@ function successAjaxAccCancel(data){
 
 function successAjaxAcc(data){
 	if(data=='fail'){
-		alert('동행서비스는 2차 인증 후 이용하세요');
+		if(confirm('동행서비스는 2차 인증 후 이용하세요')){
+			$('#myModal').modal('show');
+		};
 		
 	}
 	else{
@@ -461,7 +463,37 @@ if('${city_no}'!=''){
 		</div>
 		
 	</div>
-
+	
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel" style="color: black;">회원정보
+					수정</h4>
+			</div>
+			<div class="modal-body">
+				<form action="<c:url value='/TravelMaker/updateIdNoById.kosmo'/>" method='POST'>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label" style="color: black;">여권 번호</label>
+						<div class="col-sm-4">
+							<!--  가로 배치 -->
+								<input type="text" name="id_no" value="" placeholder="여권번호를 입력하세요" >
+								
+							
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-info" id="EditSubmit" type="submit">확인</button>
+						<button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+	
 
 <!-- Footer -->
 

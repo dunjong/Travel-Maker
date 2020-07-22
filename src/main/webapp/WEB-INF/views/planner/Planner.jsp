@@ -40,7 +40,7 @@
       }
 
 </style>	
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" id="body">
 	<form action="#">
 		<input value="${planner_no}" name="planner_no" type="text" hidden="true">
 	</form>
@@ -949,6 +949,7 @@
 		}
 		function resultHotelModal(name,cities_no){
 			$('#loadingImg').attr('style','display:block')
+			$('#body').prop('style','opacity:0.5;')
 			$('#h_modal_'+name).modal('hide');
 			$('#h_places').html('')
 			$('#city_name').html(name);
@@ -974,6 +975,7 @@
 			}//settings
 			$.ajax(settings).done(
 				function(response) {
+					
 					console.log(response)
 					var placesList = document.getElementById('h_places');
 					console.log(placesList)
@@ -1046,7 +1048,8 @@
 						row2.appendChild(div_rating);
 						row2.appendChild(div_location);
 						row2.appendChild(div_price_level);
-
+						$('#body').prop('style','opacity:1;')
+						$('#loadingImg').attr('style','display:none')
 					}
 					$('#places img').css({
 						width : '300px',
@@ -1063,14 +1066,13 @@
 					})
 
 				});//ajax.done()
-			$('#loadingImg').attr('style','display:none')
 			$('#h_modal_result').modal('show');
 		}////////////////resultHotelModal()
 		
 		function getHotelDetails(data){
 			console.log('data',data);
 			console.log('getHotelDetails.data',data.getAttribute('name'));
-			$('#loadingImg').attr('style','display:block')
+			
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(2)').html());
@@ -1107,7 +1109,6 @@
 		}
 		function hs_successAjax(data){
 			$('#h_'+data.split(':')[0]).prop('class','btn btn-danger').html(data.split(':')[0]+' 등록 호텔 수정하기');
-			$('#loadingImg').attr('style','display:none')
 			$('#h_modal_hotelName_'+data.split(':')[0]).html('예약된 호텔:'+data.split(':')[2]);
 			alert(data.split(':')[0]+data.split(':')[1]+data.split(':')[2])
 		}
@@ -1185,6 +1186,8 @@
 		function resultAirModal(){
 			$('#a_modal').modal('hide');
 			$('#a_places').html(""); 
+			$('#loadingImg').attr('style','display:block')
+			$('#body').prop('style','opacity:0.5;')
 			console.log('ajax시작')
 			var settings = {
 				url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
@@ -1234,6 +1237,8 @@
 					list+="</div>";
 				}
 				$('#a_places').html(list); 
+				$('#body').prop('style','opacity:1;')
+				$('#loadingImg').attr('style','display:none')
 				$('#a_modal_result').modal('show');
 			});//ajax.done()
 		}
