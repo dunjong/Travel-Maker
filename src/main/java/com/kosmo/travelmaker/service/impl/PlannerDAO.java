@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kosmo.travelmaker.service.AccDTO;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.PlanDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
@@ -136,5 +137,9 @@ public class PlannerDAO {
 	public boolean deleteResByAirNo(String h_a_no) {
 		// TODO Auto-generated method stub
 		return sqlMapper.delete("deleteResByAirNo", h_a_no)==1?true:false;
+	}
+	public List<AccDTO> selectAccNosByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectAccNosByPlannerNo", planner_no);
 	}
 }

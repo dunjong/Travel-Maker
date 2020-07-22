@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonArray;
+import com.kosmo.travelmaker.service.AccDTO;
 import com.kosmo.travelmaker.service.AirDTO;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
@@ -187,7 +188,7 @@ public class MemberController {
 		return "member/MyPlanner.tiles";
 	}
 	
-	@RequestMapping("PayFees.kosmo")
+	@RequestMapping(value="PayFees.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public String PayFees(@RequestParam Map map,HttpSession session,Model model) {
 		int planner_no=Integer.parseInt(map.get("planner_no").toString());
@@ -257,6 +258,47 @@ public class MemberController {
 	public String IdCheck(@RequestParam String signUpId) {
 		return memberService.idCheck(signUpId);
 	}
+	
+	@RequestMapping(value="MyPlannerAccUpdate.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String MyPlannerAccUpdate(@RequestParam Map map) {
+		List<Map> collections = new Vector<Map>();
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		List<AccDTO> acc_dto_list=plannerService.selectAccNosByPlannerNo(planner_no);
+		 for(AccDTO acc_dto:acc_dto_list) {
+				 Map<String,String> map_mem =new HashMap<String,String>();
+				 String user_id=acc_dto.getUser_id();
+				 MemberDTO mem_dto=memberService.selectMemberDTO(user_id);
+				 map_mem.put("allow", Integer.toString(acc_dto.getAllow()));
+				 map_mem.put("acc_no", Integer.toString(acc_dto.getAcc_no()));
+				 map_mem.put("user_id", mem_dto.getUser_id());
+				 map_mem.put("user_name", mem_dto.getUser_name());
+				 map_mem.put("user_gender", mem_dto.getUser_gender());
+				 map_mem.put("user_rrn", mem_dto.getUser_rrn());
+				 collections.add(map_mem);
+		 }
+		
+		
+		 return JSONArray.toJSONString(collections);
+	}
+	
+	
+	@RequestMapping(value="UpdateAcc.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String UpdateAcc(@RequestParam Map map) {
+		int acc_no=Integer.parseInt(map.get("acc_no").toString());
+		String flag="실패";
+		if(memberService.checkAccByNo(acc_no)==0) {
+			memberService.updateAccYes(acc_no);
+			flag="수락";
+		}
+		else{
+			memberService.updateAccNo(acc_no);
+			flag="거부";
+		};
+		 return flag;
+	}
+	
 	
 	
 	

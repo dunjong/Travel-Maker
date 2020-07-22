@@ -34,5 +34,16 @@
 	<select id="selectMemberList" resultType="MemberDTO">
 		SELECT * FROM userinfo
 	</select>
+	<select id="checkAccByNo" parameterType="int" resultType="int">
+		SELECT ALLOW FROM ACCOMPANY WHERE ACC_NO=#{acc_no}
+	</select>
+	
+	<update id="updateAccYes" parameterType="int">
+		UPDATE ACCOMPANY SET ALLOW='1' WHERE ACC_NO=#{acc_no}
+	</update>
+	<update id="updateAccAllowNo" parameterType="int">
+		UPDATE ACCOMPANY SET ALLOW='0' WHERE ACC_NO=#{acc_no}
+	</update>
+	
 </mapper>
 

@@ -4,6 +4,16 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
+#AirListBack {
+	text-align: center;
+}
+
+#AirListBackImage {
+	background-image: url("<c:url value='/images/Tropical_Island_Beach_Palm_Exotic_Vacation_1920x1080.jpg'/>");
+	height: 1041px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
  #loadingImg{
       	position: absolute;
       	top:30%;
@@ -11,6 +21,10 @@
       	display:none;
       }
 </style>
+
+<div id=AirListBack>
+<div id="AirListBackImage"></div>
+</div>
 <script>
 	$(function(){
 		
@@ -209,8 +223,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="home_search_container">
-					<h2 style='text-align: center; color: #E8E822'>Where do you
-						Want to go?</h2>
+					<h2 style='text-align: center; color: sandybrown'>Where do you Want to go?</h2>
 					<div class="home_search_title">
 						<a href='<c:url value="/TravelMaker/AirList.kosmo"/>'>항공권 검색</a>
 					</div>

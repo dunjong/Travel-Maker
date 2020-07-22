@@ -24,6 +24,7 @@
 			<typeAlias alias="PlanDTO" type="com.kosmo.travelmaker.service.PlanDTO"/>
 			<typeAlias alias="CountDTO" type="com.kosmo.travelmaker.service.CountDTO"/>
 			<typeAlias alias="ResDTO" type="com.kosmo.travelmaker.service.ResDTO"/>
+			<typeAlias alias="AccDTO" type="com.kosmo.travelmaker.service.AccDTO"/>
 		</typeAliases>
 		
 		<mappers>

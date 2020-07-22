@@ -62,6 +62,9 @@
 	<select id="selectAirDTO" parameterType="int" resultType="AirDTO">
 		SELECT * FROM AIR WHERE air_no=#{air_no}
 	</select>
+	<select id="selectAccNosByPlannerNo" parameterType="int" resultType="AccDTO">
+		SELECT * FROM ACCOMPANY WHERE planner_no=#{planner_no}
+	</select>
 	
 	
 	<delete id="deletePlanByNo" parameterType="int">
