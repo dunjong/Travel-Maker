@@ -72,7 +72,12 @@ function payFees(num){
 				console.log(data);
 				$('#'+num.value+' #payment').prop('class','btn btn-info')
 				$('#'+num.value+' #payment').attr('onclick','refund(this)')
-				$('#'+num.value+' #pay_label').html('호텔 환불')
+				$('#'+num.value+' #pay_label').html('환불 하기')
+				
+				
+				successAjaxPayFee(data);
+				
+				
 			},
 			error:function(request,error){
 				console.log('상태코드:',request.status);
@@ -82,37 +87,69 @@ function payFees(num){
 			
 		});
 
-      var IMP = window.IMP; 
-      IMP.init('imp52792989');
-      IMP.request_pay({
-         pg : 'inicis', 
-         pay_method : 'card',
-         merchant_uid : 'merchant_' + new Date().getTime(),
-         name : '김포-부산행:제주도닷컴구매',
-         amount : 100,
-         //가격
-         buyer_email : 'wkddustnzz@Naver.com',
-         buyer_name : '트러블메이커',
-         buyer_tel : '010-9908-7545',
-         buyer_addr : '가산디지털단지역',
-         buyer_postcode : '123-456',
-         m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-      }, function(rsp) {
-         console.log(rsp);
-         if (rsp.success) {
-            var msg = rsp.paid_amount+ '원 결제가 완료되었습니다.';
-         } else {
-            var msg = '결제에 실패하였습니다.';
-            msg += '에러내용 : ' + rsp.error_msg;
-         }
-         alert(msg);
-      });
+     
 	
 }
+function successAjaxPayFee(data){
+	 $('#dt_title').html('결제 사항')
+	 var tableString="";
+	 var cities=document.getElementById('cities');
+	 $.each(data,function(index,city){
+		 if(city.hotel_no!=undefined){
+			 tableString+="<div class='destination item'>";
+			 tableString+="<div class='btn btn-info' id='"+city.hotel_no+"' onclick='Import(this)'>호텔 결제하기</div>";
+			 tableString+="<div class='destination_content'>";
+			 tableString+="<div class='destination_title'><h4>"+city.hotel_name+"</h4></div><div class='destination_subtitle'><p>";
+			 tableString+=city.hotel_price.split('-')[1].substring(2)+'원';
+			 tableString+="</p></div><div class='destination_price'>일정:"+city.hotel_in+"~"+city.hotel_out+"</div></div></div>";
+		 }
+		 else{
+			 tableString+="<div class='destination item'>";
+			 tableString+="<div class='btn btn-warning' id='"+city.air_no+"' onclick='Import(this)'>항공 결제하기</div>";
+			 tableString+="<div class='destination_content'>";
+			 tableString+="<div class='destination_title'><h4>"+city.air_ddate+"</h4></div><div class='destination_subtitle'><p>";
+			 tableString+=city.air_price+'원';
+			 tableString+="</p></div><div class='destination_price'>공항:"+city.air_dep+"~"+city.air_arr+"</div></div></div>";
+		 }
+		})
+		$('#cities').html(tableString);
+	 	fitting()
+	 	var offset=$('#destinations').offset();
+		$('html, body').animate({scrollTop : offset.top}, 400);
+}
+
+function Import(data){
+	 var IMP = window.IMP; 
+     IMP.init('imp52792989');
+     IMP.request_pay({
+        pg : 'inicis', 
+        pay_method : 'card',
+        merchant_uid : 'merchant_' + new Date().getTime(),
+        name : '김포-부산행:제주도닷컴구매',
+        amount : 100,
+        //가격
+        buyer_email : 'wkddustnzz@Naver.com',
+        buyer_name : '트러블메이커',
+        buyer_tel : '010-9908-7545',
+        buyer_addr : '가산디지털단지역',
+        buyer_postcode : '123-456',
+        m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+     }, function(rsp) {
+        console.log(rsp);
+        if (rsp.success) {
+           var msg = rsp.paid_amount+ '원 결제가 완료되었습니다.';
+        } else {
+           var msg = '결제에 실패하였습니다.';
+           msg += '에러내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+     });
+}
+
 function refund(num){
 	$('#'+num.value+' #payment').prop('class','btn btn-danger')
 	$('#'+num.value+' #payment').attr('onclick','payFees(this)')
-	$('#'+num.value+' #pay_label').html('호텔 결제')
+	$('#'+num.value+' #pay_label').html('결제 하기')
 }
 
 function fnMove(data){
@@ -120,25 +157,7 @@ function fnMove(data){
 	 var offset = $("#div" + seq).offset();
 }
 
-
-function successAjaxDetail(data){
-	console.log('data',data);
-	 var tableString="";
-	 var cities=document.getElementById('cities');
-	 
-	$.each(data,function(index,city){
-	 tableString+="<div class='destination item'>";
-	 tableString+="<div class='destination_image'>";
-	 tableString+="<img src='/travelmaker"+city.img+"' alt=''>";
-	 tableString+="</div><div class='destination_content'>";
-	 tableString+="<div class='destination_title'><a href='<c:url value='/TravelMaker/Plan.kosmo?cities_no="+city.cities_no+"&origin="+city.name+"&planner_no="+city.planner_no+"'/>'>";
-	 tableString+=city.name;
-	 tableString+="</a></div><div class='destination_subtitle'><p>";
-	 tableString+=city.intro;
-	 tableString+="</p></div><div class='destination_price'>일정:"+city.cities_date+"</div></div></div>"
-	 
-	})
-	$('#cities').html(tableString);
+function fitting(){
 	var size=$('#cities > div').length;
 	console.log('size',size);
 	$('#cities img').css({width:'360px',height:'261.37px'})
@@ -187,6 +206,26 @@ function successAjaxDetail(data){
 		}
 	}
 }
+function successAjaxDetail(data){
+	console.log('data',data);
+	 var tableString="";
+	 var cities=document.getElementById('cities');
+	 $('#dt_title').html('선택한 도시')
+	 $.each(data,function(index,city){
+	 tableString+="<div class='destination item'>";
+	 tableString+="<div class='destination_image'>";
+	 tableString+="<img src='/travelmaker"+city.img+"' alt=''>";
+	 tableString+="</div><div class='destination_content'>";
+	 tableString+="<div class='destination_title'><a href='<c:url value='/TravelMaker/Plan.kosmo?cities_no="+city.cities_no+"&origin="+city.name+"&planner_no="+city.planner_no+"'/>'>";
+	 tableString+=city.name;
+	 tableString+="</a></div><div class='destination_subtitle'><p>";
+	 tableString+=city.intro;
+	 tableString+="</p></div><div class='destination_price'>일정:"+city.cities_date+"</div></div></div>"
+	 
+	})
+	$('#cities').html(tableString);
+	fitting()
+}
 
 </script>
 
@@ -213,7 +252,7 @@ function successAjaxDetail(data){
 											<input name="detail" class="btn btn-info" onclick="detail(this)" value="${planner.planner_no}" />
 											<label>삭제 하기</label>
 											<input name="delete" class="btn btn-danger" onclick="deleteFunc(this)" value="${planner.planner_no}" />
-											<label id="pay_label">호텔 결제</label>
+											<label id="pay_label">결제 하기</label>
 											<input id="payment" name="payment" class="btn btn-danger" onclick="payFees(this)" value="${planner.planner_no}" />
 										</div>
 										<div class="intro_subtitle">
@@ -243,7 +282,7 @@ function successAjaxDetail(data){
 			<div class="row">
 				<div class="col text-center">
 					<div class="section_subtitle">Travel Maker</div>
-					<div class="section_title"><h2>선택한 도시</h2></div>
+					<div class="section_title"><h2 id="dt_title">선택한 도시</h2></div>
 				</div>
 			</div>
 			<div class="row destinations_row">

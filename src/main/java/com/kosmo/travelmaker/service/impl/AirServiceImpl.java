@@ -49,4 +49,24 @@ public class AirServiceImpl implements AirService {
 		// TODO Auto-generated method stub
 		return airDAO.selectAirDTOByplannerNo(planner_no);
 	}
+	@Override
+	public boolean deleteAirByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return airDAO.deleteAirByPlannerNo(planner_no);
+	}
+	@Override
+	public List<AirDTO> selectAirDTOList(String user_id) {
+		// TODO Auto-generated method stub
+		return airDAO.selectAirDTOList(user_id);
+	}
+	@Override
+	public AirDTO selectAirDTO(int air_no) {
+		// TODO Auto-generated method stub
+		return airDAO.selectAirDTO(air_no);
+	}
+	@Override
+	public int selectAirNo() {
+		// TODO Auto-generated method stub
+		return airDAO.selectAirNo();
+	}
 }

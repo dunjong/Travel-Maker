@@ -195,6 +195,7 @@ CREATE TABLE reservation
 	res_no number NOT NULL,
 	user_id nvarchar2(200),
 	h_a_no nvarchar2(100) NOT NULL,
+	res_ok number DEFAULT 0,
 	PRIMARY KEY (res_no)
 );
 

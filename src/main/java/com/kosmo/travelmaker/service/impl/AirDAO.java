@@ -52,4 +52,24 @@ public class AirDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectAirDTOByplannerNo", planner_no);
 	}
+
+	public boolean deleteAirByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteAirByPlannerNo", planner_no)!=0?true:false;
+	}
+
+	public List<AirDTO> selectAirDTOList(String user_id) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectAirDTOList", user_id);
+	}
+
+	public AirDTO selectAirDTO(int air_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectAirDTO", air_no);
+	}
+
+	public int selectAirNo() {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectAirNo");
+	}
 }

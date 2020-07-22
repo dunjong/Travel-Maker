@@ -6,14 +6,14 @@
 	<delete id="deleteAirRes" parameterType="AirDTO">
 		DELETE FROM reservation WHERE 
 	</delete>
-	<select id="selectAirResById" parameterType="String">
+	<select id="selectAirResById" parameterType="java.lang.String">
 		SELECT air_res_no FROM reservation where 
 	</select>
 	<insert id="insertAirDtoToAir" parameterType="AirDTO">
 		INSERT INTO air values() 
 	</insert>
-	<insert id="insertAirDtoToRes" parameterType="int">
-		INSERT INTO air values() 
+	<insert id="insertAirDtoToRes" parameterType="AirDTO">
+		INSERT INTO air values(seq_air.nextval,#{air_ddate},'0',#{air_price},#{air_passenger},#{air_class},#{air_dep},#{air_arr},#{planner_no}) 
 	</insert>
 	<select id="selectAirByResNo">
 		
@@ -24,4 +24,15 @@
 	<select id="selectAirDTOByplannerNo" parameterType="int" resultType="AirDTO">
 		Select * from air where planner_no=#{planner_no}
 	</select>
+	<delete id="deleteAirByPlannerNo" parameterType="int">
+		DELETE FROM AIR WHERE planner_no=#{planner_no}
+	</delete>
+	<select id="selectAirDTOList" parameterType="int" resultType="AirDTO">
+		SELECT * FROM air where air_no=#{air_no}
+	</select>
+	<select id="selectAirNo" resultType="int">
+		select seq_air.currval from dual
+	</select>
+	
+	
 </mapper>
