@@ -41,7 +41,6 @@
 		border-top-left-radius: 12px;
 		border-top-right-radius: 12px;
 }
-
 </style>
 <header class="header">
 	<div class="container">
@@ -87,7 +86,7 @@
 											<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
 											<li id="logoutbtn1"><a href="#">로그아웃</a></li>
 											<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
-											<li> <!-- 리뷰리스트.코스모를 리뷰서치.코스모로 변경: 여동준 --> 
+											<li>
 											<a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a></li>
 											<li><a href="<c:url value='/TravelMaker/admin1.kosmo'/>"> 관리자</a></li>
 										</c:if>
@@ -170,7 +169,7 @@
                   style="min-height: 60vh; border:none;"              
                   width="100%"
                   height="90%"
-                  src="https://b649736dbe9d.ngrok.io">                        
+                  src="https://727fc137a8ae.ngrok.io">                        
               </iframe>
               </div>
                </div>
@@ -211,9 +210,8 @@
 			<li>
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">리뷰 리스트</a></li>
-					<li><a href="<c:url value='/TravelMaker/ReviewView.kosmo'/>">리뷰 보기</a></li>
-					<li><a href="#">리뷰 작성</a></li>
+					<li><a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">리뷰 보기</a></li>
+					<li><a href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">리뷰 작성하기</a></li>
 				</ul>
 			</li>
 			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">MEMBER<span
@@ -228,7 +226,7 @@
 						<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
 						<li id="logoutbtn2"><a href="#">로그아웃</a></li>
 						<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
-						<li><a href="<c:url value='/TravelMaker/ReviewList.kosmo'/>">나의리뷰</a></li>
+						<li><a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a></li>
 						<li><a href="<c:url value='/TravelMaker/admin1.kosmo'/>"> 관리자</a></li>
 					</c:if>
 					
