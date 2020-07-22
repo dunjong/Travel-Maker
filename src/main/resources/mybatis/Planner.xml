@@ -101,5 +101,8 @@
 	<update id="updateAccNo" parameterType="java.util.Map">
 		UPDATE PLANNER SET planner_acc=#{planner_acc} WHERE planner_no=#{planner_no}
 	</update>
+	<update id="updateResOk" parameterType="java.lang.String">
+		update reservation set res_ok='1' where h_a_no=#{h_a_no}
+	</update>
 	
 </mapper>
