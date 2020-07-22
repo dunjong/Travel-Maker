@@ -55,4 +55,7 @@ public class MemberDAO {
 	public MemberDTO selectMember(String id) {
 		return sqlMapper.selectOne("selectMember",id);
 	}
+	public List<MemberDTO> selectMemberList(){
+		return sqlMapper.selectList("selectMemberList");
+	}
 }

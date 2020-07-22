@@ -132,7 +132,7 @@
 							</ul></li>
 				</nav>
 				<!-- /.sidebar-menu -->
-			</div> 
+			</div>
 			<!-- /.sidebar -->
 		</aside>
 
@@ -178,22 +178,26 @@
 												<th>이름</th>
 												<th>아이디</th>
 												<th>비밀번호</th>
-												<th>출생년도</th>
+												<th>연령대</th>
 												<th>성별</th>
 												<th>기능</th>
 											</tr>
 										</thead>
 										<tbody>
+											<c:if test="${not isEmpty}">
+												<c:forEach items="${list}" var="item" varStatus="loop">
+													<tr>
+														<td>${item.id_no}</td>
+														<td>${item.user_name}</td>
+														<td>${item.user_id}</td>
+														<td>${item.user_pwd}</td>
+														<td>${item.user_rrn}</td>
+														<td>${item.user_gender}</td>
+														<td><input type="checkbox"></td>
+													</tr>
+												</c:forEach>
+											</c:if>
 
-											<tr>
-												<td>1</td>
-												<td>박종현</td>
-												<td>park</td>
-												<td>1234</td>
-												<td>1997</td>
-												<td>남자</td>
-												<td><input type="checkbox"></td>
-											</tr>
 										</tbody>
 										<tfoot>
 									</table>
