@@ -3,10 +3,25 @@
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Air">
-	<delete id="deleteResByCitiesNo">
-		DELETE FROM reservation WHERE planner_no=#{planner_no}
+	<delete id="deleteAirRes" parameterType="AirDTO">
+		DELETE FROM reservation WHERE 
 	</delete>
-	<select id="selectAirResNoByPlannerNo">
-		SELECT air_res_no FROM reservation where planner_no=#{planner_no}
+	<select id="selectAirResById" parameterType="String">
+		SELECT air_res_no FROM reservation where 
+	</select>
+	<insert id="insertAirDtoToAir" parameterType="AirDTO">
+		INSERT INTO air values() 
+	</insert>
+	<insert id="insertAirDtoToRes" parameterType="int">
+		INSERT INTO air values() 
+	</insert>
+	<select id="selectAirByResNo">
+		
+	</select>
+	<select id="CompareTimePlace" parameterType="java.util.Map">
+		
+	</select>
+	<select id="selectAirDTOByplannerNo" parameterType="int" resultType="AirDTO">
+		Select * from air where planner_no=#{planner_no}
 	</select>
 </mapper>

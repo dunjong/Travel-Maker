@@ -12,6 +12,13 @@ public class AirDTO {
 	private String air_dep;
 	private String air_arr;
 	private int air_passenger;
+	private String user_id;
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public int getAir_no() {
 		return air_no;
 	}

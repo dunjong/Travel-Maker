@@ -11,6 +11,14 @@ public class MemberDTO {
 	private String password_check;
 	private String user_rrn;
 	private String user_gender;
+	private String id_no;
+	
+	public String getId_no() {
+		return id_no;
+	}
+	public void setId_no(String id_no) {
+		this.id_no = id_no;
+	}
 	public String getUser_name() {
 		return user_name;
 	}
