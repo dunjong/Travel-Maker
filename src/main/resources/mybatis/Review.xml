@@ -19,10 +19,12 @@
 		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
 		</if>
 	</select>
+	
 	<insert id="reviewInsert" parameterType="java.util.Map">
-		INSERT INTO review(review_no,city_no,review_title,review_content,review_date)
-		VALUES(seq_review.NEXTVAL,#{city_no},#{review_title},#{review_content},sysdate)
+		INSERT INTO review(review_no,user_id,city_no,review_title,review_content,review_date,review_file)
+		VALUES(seq_review.NEXTVAL,#{user_id},#{city_no},#{review_title},#{review_content},sysdate,#{review_file})
 	</insert>
+	
 	<select id="reviewSelectOne" parameterType="java.util.Map" resultType="reviewDTO">
 		SELECT * FROM review
 		WHERE review_no = #{review_no}

@@ -193,16 +193,16 @@
 										<div class="reviewTextInformation">
 											<br />
 											<h4>${item.review_title}</h4>
-											<p>${fn:length(item.review_content)<79? item.review_content: fn:substring(item.review_content,0,79)}
-												${fn:length(item.review_content)<79? "" : "..." }</p>
-											<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트</h5>
+											<p>${fn:length(item.review_content)<11? item.review_content: fn:substring(item.review_content,0,11)}
+												${fn:length(item.review_content)<11? "" : "..." }</p>
+											
 											<fmt:formatDate value="${item.review_date}"
 												pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate" />
 											<p>작성일시 : ${postdate}</p>
 										</div>
 										<div class="reviewMapOrImage">
 											<img
-												src="<c:url value='/images/reviewImage${item.review_no%4+1}.PNG'/>"
+												src="<c:url value='/resources/ReviewUpload/${item.review_file}'/>"
 												alt="리뷰지도/사진">
 										</div>
 									</div>

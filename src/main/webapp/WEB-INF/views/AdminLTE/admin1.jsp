@@ -202,10 +202,10 @@
 						</div>
 						<!-- ./col -->
 						<div class="col-lg-3 col-6">
-							<!-- small box -->
-							<div class="small-box bg-warning">
-								<div class="inner">
-									<h3>1명</h3>
+							<!-- small box --> 
+							<div class="small-box bg-warning"> 
+								<div class="inner"> 
+									<h3>2명</h3>
 
 									<p>새로운 회원</p>
 								</div>
@@ -235,7 +235,94 @@
 						</div>
 					</div>
 					<!-- /.row -->
-					<!-- Main row -->
+					<section class="col-lg-7 connectedSortable">
+
+							<!-- Map card -->
+							<div class="card bg-gradient-primary">
+								<div class="card-header border-0">
+									<h3 class="card-title" style="font-style: normal;">
+										<i class="fas fa-map-marker-alt mr-1"></i> COVID-19 World
+										Chart
+									</h3>
+									<!-- card tools -->
+									<div class="card-tools">
+										<button type="button" class="btn btn-primary btn-sm daterange"
+											data-toggle="tooltip" title="Date range">
+											<i class="far fa-calendar-alt"></i>
+										</button>
+										<button type="button" class="btn btn-primary btn-sm"
+											data-card-widget="collapse" data-toggle="tooltip"
+											title="Collapse">
+											<i class="fas fa-minus"></i>
+										</button>
+									</div>
+									<!-- /.card-tools -->
+								</div>
+								<div class="card-body">
+									<div id="world-map" style="height: 300px; width: 100%;"></div>
+								</div>
+							</div>
+							<!-- /.card -->
+
+							<!-- solid sales graph -->
+							<div class="card bg-gradient-info">
+								<div class="card-header border-0">
+									<h3 class="card-title">
+										<i class="fas fa-th mr-1"></i> 예약 현황 그래프
+									</h3>
+
+									<div class="card-tools">
+										<button type="button" class="btn bg-info btn-sm"
+											data-card-widget="collapse">
+											<i class="fas fa-minus"></i>
+										</button>
+										<button type="button" class="btn bg-info btn-sm"
+											data-card-widget="remove">
+											<i class="fas fa-times"></i>
+										</button>
+									</div>
+								</div>
+								<div class="card-body">
+									<canvas class="chart" id="line-chart"
+										style="min-height: 200px; height: 200px; max-height: 250px; max-width: 100%; font-color: white"></canvas>
+								</div>
+								<!-- /.card-body -->
+								<div class="card-footer bg-transparent">
+									<div class="row">
+										<div class="col-4 text-center">
+											<input type="text" class="knob" data-readonly="true"
+												value="16" data-width="60" data-height="60"
+												data-fgColor="#39CCCC">
+
+											<div class="text-white">다낭</div>
+										</div>
+										<!-- ./col -->
+										<div class="col-4 text-center">
+											<input type="text" class="knob" data-readonly="true"
+												value="13" data-width="60" data-height="60"
+												data-fgColor="#39CCCC">
+
+											<div class="text-white">괌</div>
+										</div>
+										<!-- ./col -->
+										<div class="col-4 text-center">
+											<input type="text" class="knob" data-readonly="true"
+												value="10" data-width="60" data-height="60"
+												data-fgColor="#39CCCC">
+
+											<div class="text-white">오사카</div>
+										</div>
+										<!-- ./col -->
+									</div>
+									<!-- /.row -->
+								</div>
+								<!-- /.card-footer -->
+							</div>
+							<!-- /.card -->
+
+						</section>
+						<!-- right col -->
+					<!-- Main row --> 
 					<div class="row">
 						<!-- Left col -->
 						<section class="col-lg-7 connectedSortable">
@@ -378,93 +465,7 @@
 						</section>
 						<!-- /.Left col -->
 						<!-- right col (We are only adding the ID to make the widgets sortable)-->
-						<section class="col-lg-5 connectedSortable">
-
-							<!-- Map card -->
-							<div class="card bg-gradient-primary">
-								<div class="card-header border-0">
-									<h3 class="card-title" style="font-style: normal;">
-										<i class="fas fa-map-marker-alt mr-1"></i> COVID-19 World
-										Chart
-									</h3>
-									<!-- card tools -->
-									<div class="card-tools">
-										<button type="button" class="btn btn-primary btn-sm daterange"
-											data-toggle="tooltip" title="Date range">
-											<i class="far fa-calendar-alt"></i>
-										</button>
-										<button type="button" class="btn btn-primary btn-sm"
-											data-card-widget="collapse" data-toggle="tooltip"
-											title="Collapse">
-											<i class="fas fa-minus"></i>
-										</button>
-									</div>
-									<!-- /.card-tools -->
-								</div>
-								<div class="card-body">
-									<div id="world-map" style="height: 300px; width: 100%;"></div>
-								</div>
-							</div>
-							<!-- /.card -->
-
-							<!-- solid sales graph -->
-							<div class="card bg-gradient-info">
-								<div class="card-header border-0">
-									<h3 class="card-title">
-										<i class="fas fa-th mr-1"></i> 예약 현황 그래프
-									</h3>
-
-									<div class="card-tools">
-										<button type="button" class="btn bg-info btn-sm"
-											data-card-widget="collapse">
-											<i class="fas fa-minus"></i>
-										</button>
-										<button type="button" class="btn bg-info btn-sm"
-											data-card-widget="remove">
-											<i class="fas fa-times"></i>
-										</button>
-									</div>
-								</div>
-								<div class="card-body">
-									<canvas class="chart" id="line-chart"
-										style="min-height: 200px; height: 200px; max-height: 250px; max-width: 100%; font-color: white"></canvas>
-								</div>
-								<!-- /.card-body -->
-								<div class="card-footer bg-transparent">
-									<div class="row">
-										<div class="col-4 text-center">
-											<input type="text" class="knob" data-readonly="true"
-												value="16" data-width="60" data-height="60"
-												data-fgColor="#39CCCC">
-
-											<div class="text-white">다낭</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-4 text-center">
-											<input type="text" class="knob" data-readonly="true"
-												value="13" data-width="60" data-height="60"
-												data-fgColor="#39CCCC">
-
-											<div class="text-white">괌</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-4 text-center">
-											<input type="text" class="knob" data-readonly="true"
-												value="10" data-width="60" data-height="60"
-												data-fgColor="#39CCCC">
-
-											<div class="text-white">오사카</div>
-										</div>
-										<!-- ./col -->
-									</div>
-									<!-- /.row -->
-								</div>
-								<!-- /.card-footer -->
-							</div>
-							<!-- /.card -->
-
-						</section>
-						<!-- right col -->
+						
 					</div>
 					<!-- /.row (main row) -->
 				</div>
