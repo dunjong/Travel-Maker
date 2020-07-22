@@ -31,5 +31,8 @@
 	<select id="memberlist" resultType="MemberDTO">
 		SELECT * FROM userinfo 
 	</select>
+	<select id="selectMemberList" resultType="MemberDTO">
+		SELECT * FROM userinfo
+	</select>
 </mapper>
 

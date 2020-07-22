@@ -15,7 +15,10 @@
 	<insert id="insertAcc" parameterType="java.util.Map">
 		INSERT INTO ACCOMPANY VALUES(seq_acc.nextval,#{planner_no},#{user_id},0)
 	</insert>
-	
+	<insert id="insertRes" parameterType="java.util.Map">
+		INSERT INTO RESERVATION VALUES(seq_res.nextval,#{user_id},#{h_a_no},0)
+	</insert>
+
 	
 	<select id="selectPlannerList" parameterType="int" resultType="int">
 		SELECT city_no from cities WHERE planner_no=#{planner_no}
@@ -53,6 +56,12 @@
 	<select id="selectPlannerNoListById" parameterType="java.lang.String" resultType="int">
 		SELECT planner_no from accompany where user_id=#{user_id}
 	</select>
+	<select id="selectResDTOListByPlannerNo" parameterType="java.lang.String" resultType="ResDTO">
+		SELECT * FROM RESERVATION WHERE user_id=#{user_id}
+	</select>
+	<select id="selectAirDTO" parameterType="int" resultType="AirDTO">
+		SELECT * FROM AIR WHERE air_no=#{air_no}
+	</select>
 	
 	
 	<delete id="deletePlanByNo" parameterType="int">
@@ -75,6 +84,12 @@
 	</delete>
 	<delete id="deleteAccByPlannerNo" parameterType="int">
 		Delete from accompany where planner_no=#{planner_no}
+	</delete>
+	<delete id="deleteResByHotelNo" parameterType="java.lang.String">
+		DELETE FROM RESERVATION WHERE h_a_no=#{h_a_no}
+	</delete>
+	<delete id="deleteResByAirNo" parameterType="java.lang.String">
+		delete from reservation where h_a_no=#{h_a_no}
 	</delete>
 	
 	<update id="updatePlannerName" parameterType="java.util.Map">

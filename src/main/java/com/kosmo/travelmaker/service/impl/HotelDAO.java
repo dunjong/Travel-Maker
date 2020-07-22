@@ -34,5 +34,13 @@ public class HotelDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.update("updateHotelInfo", map)==1?true:false;
 	}
+
+	public HotelDTO selectHotelDTO(int hotel_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectHotelDTO",hotel_no);
+	}
+	public int selectHotelNo() {
+		return sqlMapper.selectOne("selectHotelNo");
+	}
 	
 }
