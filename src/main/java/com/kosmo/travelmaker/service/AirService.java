@@ -19,4 +19,12 @@ public interface AirService {
 
 	List<AirDTO> selectAirDTOByplannerNo(int planner_no);
 
+	boolean deleteAirByPlannerNo(int planner_no);
+
+	List<AirDTO> selectAirDTOList(String user_id);
+
+	AirDTO selectAirDTO(int air_no);
+
+	int selectAirNo();
+
 }

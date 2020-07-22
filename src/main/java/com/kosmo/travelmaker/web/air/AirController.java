@@ -24,6 +24,7 @@ import com.kosmo.travelmaker.service.AirDTO;
 import com.kosmo.travelmaker.service.HotelDTO;
 import com.kosmo.travelmaker.service.impl.AirServiceImpl;
 import com.kosmo.travelmaker.service.impl.HotelServiceImpl;
+import com.kosmo.travelmaker.service.impl.PlannerServiceImpl;
 
 @Controller
 @RequestMapping("/TravelMaker/")
@@ -38,6 +39,11 @@ public class AirController {
 	//
 	@Resource(name="airService")
 	private AirServiceImpl airService;
+	
+	@Resource(name ="plannerService")
+	private PlannerServiceImpl plannerService;
+	
+	
 	// 아마데우스 API 사용을 위한 자바 구문
 	@ResponseBody
 	@RequestMapping(value="AirSearch.kosmo", produces = "text/html; charset=UTF-8")
@@ -113,11 +119,10 @@ public class AirController {
 		String departure = (String)map.get("departure");
 		String arrival = (String)map.get("arrival");
 		String ddate = (String)map.get("ddate");
-		String rdate = (String)map.get("rdate");
-		String planner_no=(String)map.get("planner_no");
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
 		int passenger = Integer.parseInt((String)map.get("passenger"));
 		String price = (String)map.get("price");
-		System.out.println("user_id:"+user_id+",departure:"+departure+",arrival:"+arrival+",ddate:"+ddate+",rdate:"+rdate+",passenger:"+passenger+",price:"+price+",planner_no:"+planner_no);
+		System.out.println("user_id:"+user_id+",departure:"+departure+",arrival:"+arrival+",ddate:"+ddate+",passenger:"+passenger+",price:"+price+",planner_no:"+planner_no);
 		String result = "failure";
 		AirDTO dto = new AirDTO();
 		dto.setAir_arr(arrival);
@@ -126,9 +131,19 @@ public class AirController {
 		dto.setAir_dep(departure);		
 		dto.setAir_passenger(passenger);
 		dto.setAir_price(price);
+		dto.setPlanner_no(planner_no);
 		if(airService.insertAirDtoToRes(dto)) {
-			result = "success";
+			
+			int air_no=airService.selectAirNo();
+			Map<String,String> maps=new HashMap<String,String>();
+			maps.put("user_id", session.getAttribute("id").toString());
+			maps.put("h_a_no", "a_"+air_no);
+			plannerService.insertRes(maps);
+			
+			result = user_id+"님! "+departure+"에서 "+arrival+"로 "+ddate+" 일에 성인"+passenger+"명 의 항공권이 등록되었습니다. 가격은 "+price+"원 입니다";
+			
 		};
+		
 		// 플래너에 항공권연결시 같은 플래너인지 확인하는 코드용 자리
 //		if(airService.CompareTimePlace(ddate,departure,arrival)>0) {}
 //		else {}
