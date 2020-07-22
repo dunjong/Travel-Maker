@@ -128,15 +128,12 @@
 								<li class="nav-item"><a href="ReviewSearch.kosmo"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>리뷰관리</p>
-								</a></li>
-								
-							
-						</li> 
+								</a></li></li>
 						<li class="nav-item"><a href="adminCity.kosmo"
 							class="nav-link"> <i class="nav-icon far fa-image"></i>
 								<p>도시관리</p>
 						</a></li>
-						</ul>
+					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -407,27 +404,6 @@
 								<div class="card-body">
 									<div id="world-map" style="height: 300px; width: 100%;"></div>
 								</div>
-								<!-- /.card-body-->
-								<div class="card-footer bg-transparent">
-									<div class="row">
-										<div class="col-4 text-center">
-											<div id="sparkline-1"></div>
-											<div class="text-white">Visitors</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-4 text-center">
-											<div id="sparkline-2"></div>
-											<div class="text-white">Online</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-4 text-center">
-											<div id="sparkline-3"></div>
-											<div class="text-white">Sales</div>
-										</div>
-
-									</div>
-									<!-- /.row -->
-								</div>
 							</div>
 							<!-- /.card -->
 
@@ -641,18 +617,11 @@
 		$('.knob').knob()
 
 		// jvectormap data
-		var visitorsData = {
-			'US' : 398, //USA
-			'SA' : 400, //Saudi Arabia
-			'CA' : 1000, //Canada
-			'DE' : 500, //Germany
-			'FR' : 760, //France
-			'CN' : 300, //China
-			'AU' : 700, //Australia
-			'BR' : 600, //Brazil
-			'IN' : 800, //India
-			'GB' : 320, //Great Britain
-			'RU' : 3000
+		var visitorsData = {			
+			'BD' : 100,
+			'MN' : 200,
+			'BN' : 300,
+			'KR' : 400 
 		}
 		// World map by jvectormap
 		$('#world-map').vectorMap(
@@ -681,30 +650,7 @@
 					}
 				})
 
-		// Sparkline charts
-		var sparkline1 = new Sparkline($("#sparkline-1")[0], {
-			width : 80,
-			height : 50,
-			lineColor : '#92c1dc',
-			endColor : '#ebf4f9'
-		});
-		var sparkline2 = new Sparkline($("#sparkline-2")[0], {
-			width : 80,
-			height : 50,
-			lineColor : '#92c1dc',
-			endColor : '#ebf4f9'
-		});
-		var sparkline3 = new Sparkline($("#sparkline-3")[0], {
-			width : 80,
-			height : 50,
-			lineColor : '#92c1dc',
-			endColor : '#ebf4f9'
-		});
-
-		sparkline1.draw([ 1000, 1200, 920, 927, 931, 1027, 819, 930, 1021 ]);
-		sparkline2
-				.draw([ 515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921 ]);
-		sparkline3.draw([ 15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21 ]);
+		
 	</script>
 </body>
 </html>
