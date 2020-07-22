@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,17 +31,19 @@ public class ReviewController {
 	private ReviewService reviewService;
 
 	@RequestMapping("Review.kosmo")
-	public String Review(@RequestParam Map map, Model model) {
+	public String Review(@RequestParam Map map, Model model,HttpSession session) {
 		// 서비스 호출]
 		ReviewDTO record = reviewService.selectOne(map);
 		// 데이타 저장]
 		// 줄바꿈 처리
 		record.setReview_content(record.getReview_content().replace("\r\n", "<br/>"));
+		System.out.println("userID:"+record.getUser_id());
 		model.addAttribute("record", record);
 		// 사진 임시 처리
 		int tmpImgNo = (record.getReview_no()) % 4 + 1;
 		System.out.println(tmpImgNo);
 		model.addAttribute("tmpImgNo", tmpImgNo);
+		model.addAttribute("user_id",session.getAttribute("id").toString());
 		// 뷰정보 반환:
 		return "review/Review.tiles";
 	}
@@ -50,7 +53,7 @@ public class ReviewController {
 
 	@RequestMapping("ReviewSearch.kosmo")
 	public String ReviewSearch(@RequestParam Map map, @RequestParam(required = false, defaultValue = "1") int nowPage,
-			HttpServletRequest req, Model model) {
+			HttpServletRequest req, Model model, HttpSession session) {
 		int totalRecordCount = reviewService.getTotalRecord(map);
 		// 전체 페이지수]
 		int totalPage = (int) Math.ceil((double) totalRecordCount / pageSize);
@@ -63,10 +66,10 @@ public class ReviewController {
 		map.put("end", end);
 		List<ReviewDTO> list = reviewService.selectList(map);
 		String pagingString = ReviewPagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
-				req.getContextPath() + "/TravelMaker/ReviewSearch.kosmo?");
+		req.getContextPath() + "/TravelMaker/ReviewSearch.kosmo?");
 		model.addAttribute("list", list);
 		model.addAttribute("pagingString", pagingString);
-		
+		model.addAttribute("user_id",session.getAttribute("id").toString());
 		return "review/ReviewSearch.tiles";
 	}
 
@@ -75,13 +78,19 @@ public class ReviewController {
 		return "review/ReviewWrite.tiles";
 	}
 	@RequestMapping(value="ReviewWriteOK.kosmo",method=RequestMethod.POST)
-	public String ReviewWriteOK(@RequestParam Map map, @RequestParam("reviewfile") MultipartFile file,HttpServletRequest req) throws IOException {
+	public String ReviewWriteOK(@RequestParam Map map, @RequestParam("review_file_real") MultipartFile file,HttpServletRequest req,HttpSession session) throws IOException {
+		String user_id=session.getAttribute("id").toString();
+		if(user_id!=null) {
+		map.put("user_id", user_id);	
+		System.out.println("reviewFile:"+map.get("review_file"));
+		
 		reviewService.insert(map);
 		String path=req.getSession().getServletContext().getRealPath("/resources/ReviewUpload");
-		System.out.println(path);
+		System.out.println("path:"+path);
 		File f = new File(path+File.separator+file.getOriginalFilename());
 		String fileName = path+File.separator+file.getOriginalFilename();
 		System.out.println(f);
+		
 		System.out.println(fileName);
 		file.transferTo(f);
 		try {
@@ -92,6 +101,10 @@ public class ReviewController {
 		}
 
 		return "forward:/TravelMaker/ReviewSearch.kosmo";
+		}
+		else {
+		return "forward:/TravelMaker/ReviewWrite.kosmo";
+		}
 	}
 
 	@RequestMapping("ReviewEdit.kosmo")
@@ -114,10 +127,13 @@ public class ReviewController {
 	// 삭제처리]
 	@RequestMapping("ReviewDelete.kosmo")
 	public String delete(@RequestParam Map map) {
-		// 서비스 호출
+		// 서비스 호출		
+		
 		reviewService.delete(map);
 		// 뷰정보 반환]
 		return "forward:/TravelMaker/ReviewSearch.kosmo";
 	}
+		
+	
 
 }

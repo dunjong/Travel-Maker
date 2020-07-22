@@ -80,6 +80,7 @@ CREATE TABLE air
 	air_class nvarchar2(200) DEFAULT 'economy' NOT NULL,
 	air_dep nvarchar2(200) DEFAULT '서울' NOT NULL,
 	air_arr nvarchar2(200) NOT NULL,
+	planner_no number NOT NULL,
 	PRIMARY KEY (air_no)
 );
 
@@ -179,6 +180,7 @@ CREATE TABLE review
 	review_title nvarchar2(100) NOT NULL,
 	review_content nvarchar2(1000) NOT NULL,
 	review_date date NOT NULL,
+	review_file nvarchar2(400),
 	PRIMARY KEY (review_no)
 );
 
@@ -281,6 +283,12 @@ ALTER TABLE save_spots
 
 
 ALTER TABLE accompany
+	ADD FOREIGN KEY (planner_no)
+	REFERENCES planner (planner_no)
+;
+
+
+ALTER TABLE air
 	ADD FOREIGN KEY (planner_no)
 	REFERENCES planner (planner_no)
 ;
