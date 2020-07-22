@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 public class AirDTO {
 	private int air_no;
 	private String air_ddate;
-	private String air_rdate;
+	private String air_adate;
+	private String air_time;
+	private String air_via;
 	private String air_price;
 	private String air_class;
 	private String air_dep;
@@ -15,6 +17,24 @@ public class AirDTO {
 	private String user_id;
 	private int planner_no;
 	
+	public String getAir_adate() {
+		return air_adate;
+	}
+	public void setAir_adate(String air_adate) {
+		this.air_adate = air_adate;
+	}
+	public String getAir_time() {
+		return air_time;
+	}
+	public void setAir_time(String air_time) {
+		this.air_time = air_time;
+	}
+	public String getAir_via() {
+		return air_via;
+	}
+	public void setAir_via(String air_via) {
+		this.air_via = air_via;
+	}
 	public int getPlanner_no() {
 		return planner_no;
 	}
@@ -38,12 +58,6 @@ public class AirDTO {
 	}
 	public void setAir_ddate(String air_ddate) {
 		this.air_ddate = air_ddate;
-	}
-	public String getAir_rdate() {
-		return air_rdate;
-	}
-	public void setAir_rdate(String air_rdate) {
-		this.air_rdate = air_rdate;
 	}
 	public String getAir_price() {
 		return air_price;

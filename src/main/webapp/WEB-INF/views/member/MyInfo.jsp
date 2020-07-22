@@ -123,14 +123,14 @@ $(function(){
 						<div class="col-sm-4">
 							<select class="form-control input-sm" name="user_rrn" >
 								<option>출생 연도를 선택하세요</option>
-								<option <c:if test="${user_rrn=='60~70' }">checked</c:if> value="60~70" >1950~1959</option>
-								<option <c:if test="${user_rrn=='50~60' }">checked</c:if>value="50~60">1960~1969</option>
-								<option <c:if test="${user_rrn=='40~50' }">checked</c:if>value="40~50">1970~1979</option>
-								<option <c:if test="${user_rrn=='30~40' }">checked</c:if>value="30~40">1980~1989</option>
-								<option <c:if test="${user_rrn=='20~30' }">checked</c:if>value="20~30">1990~1999</option>
-								<option <c:if test="${user_rrn=='10~20' }">checked</c:if>value="10~20">2000~2009</option>
-								<option <c:if test="${user_rrn=='0~10' }">checked</c:if>value="0~10">2010~2019</option>
-								<option <c:if test="${user_rrn=='0' }">checked</c:if>value="0">2020~</option>
+								<option <c:if test='${user_rrn}=="60~70"'>checked</c:if> value="60~70" >1950~1959</option>
+								<option <c:if test='${user_rrn}=="50~60"'>checked</c:if>value="50~60">1960~1969</option>
+								<option <c:if test='${user_rrn}=="40~50"'>checked</c:if>value="40~50">1970~1979</option>
+								<option <c:if test='${user_rrn}=="30~40"'>checked</c:if>value="30~40">1980~1989</option>
+								<option <c:if test='${user_rrn}=="20~30"'>checked</c:if>value="20~30">1990~1999</option>
+								<option <c:if test='${user_rrn}=="10~20"'>checked</c:if>value="10~20">2000~2009</option>
+								<option <c:if test='${user_rrn}=="0~10"'>checked</c:if>value="0~10">2010~2019</option>
+								<option <c:if test='${user_rrn}=="0"'>checked</c:if>value="0">2020~</option>
 							</select> <span style="color: red; font-size: .8em">${ageError}<form:errors
 									path="memberDTO.user_rrn" /></span>
 						</div>
@@ -141,9 +141,9 @@ $(function(){
 							<!--  가로 배치 -->
 							<div class="radio">
 								<label>남자</label>
-								<input type="radio" value="남자" name="user_gender" value="${user_gender}" <c:if test="${user_gender=='남자' }">checked</c:if>>
+								<input type="radio" value="male" name="user_gender" value="${user_gender}" <c:if test="${user_gender=='male'}">checked</c:if>>
 								<label>여자</label>
-								<input type="radio" value="여자" name="user_gender" value="${user_gender}" <c:if test="${user_gender=='여자' }">checked</c:if>> 
+								<input type="radio" value="female" name="user_gender" value="${user_gender}" <c:if test="${user_gender=='female'}">checked</c:if>> 
 							</div>
 							<span style="color: red; font-size: .8em">${genderError}<form:errors
 									path="memberDTO.user_gender" /></span>
