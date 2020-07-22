@@ -113,8 +113,8 @@ function AddAcc(planner_no){
 }
 
 function successAjaxAccCancel(data){
-	var accNo=parseInt($('#accNo_'+data).html())-1;
-	$('#accNo_'+data).html(accNo);
+	//var accNo=parseInt($('#accNo_'+data).html())-1;
+	//$('#accNo_'+data).html(accNo);
 	$('#acc_'+data).prop('class','btn btn-info').attr('onclick','AddAcc(this)').html('동행 하기');
 }
 
@@ -128,8 +128,8 @@ function successAjaxAcc(data){
 	else{
 		console.log('acc data:',data)
 		console.log($('#accNo_'+data).html());
-		var accNo=parseInt($('#accNo_'+data).html())+1;
-		$('#accNo_'+data).html(accNo);
+		//var accNo=parseInt($('#accNo_'+data).html())+1;
+		//$('#accNo_'+data).html(accNo);
 		$('#acc_'+data).prop('class','btn btn-danger').attr('onclick','CancelAcc(this)').html('동행 취소하기');
 	}
 }
@@ -199,7 +199,7 @@ function successAjaxCity(data){
 	var j=0;
 	for(var i=1;i<=size;i++){
 		switch(j){
-		case 0:
+		case 0:$('#destinations').css({height:'846.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'0px'})
@@ -212,7 +212,7 @@ function successAjaxCity(data){
 				j+=1;
 			}
 			break;
-		case 1:
+		case 1:$('#destinations').css({height:'1261.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'415px'})
@@ -225,7 +225,7 @@ function successAjaxCity(data){
 				j+=1;
 			}
 			break;
-		default :
+		default :$('#destinations').css({height:'1676.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'830px'})

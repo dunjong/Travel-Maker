@@ -102,4 +102,9 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.updateUserInfoIdNo(maps);
 		
 	}
+	@Override
+	public int selectAllowedByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return memberDAO.selectAllowedByPlannerNo(planner_no);
+	}
 }

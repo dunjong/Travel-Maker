@@ -482,7 +482,7 @@ public class PlannerController {
 					if(flag) {
 						maps.put("gap", Integer.toString(gap));
 						maps.put("city_no", city_no);
-						maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
+						maps.put("acc", Integer.toString(memberService.selectAllowedByPlannerNo(planner_no)));
 						maps.put("name", planner_dto.getPlanner_name());
 						maps.put("id", planner_dto.getUser_id());
 						maps.put("no", Integer.toString(planner_dto.getPlanner_no()));

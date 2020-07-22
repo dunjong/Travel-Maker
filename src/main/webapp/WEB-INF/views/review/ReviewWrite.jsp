@@ -141,7 +141,7 @@
 						<div class="reviewWrite">
 							<form action="<c:url value='/TravelMaker/ReviewWriteOK.kosmo'/>"
 								class="home_search_form" id="home_search_form" enctype="multipart/form-data" method="post">
-								<input type="text" id="reviewWriteTitle" class="search_input"
+								<input style="width:100%" type="text" id="reviewWriteTitle" class="search_input"
 									name="review_title" placeholder="제목을 입력하세요" required="required"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '제목을 입력하세요'">

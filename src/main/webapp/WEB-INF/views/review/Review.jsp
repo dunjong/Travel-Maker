@@ -14,7 +14,6 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 }
-
 .review {
 	max-height: 100%;
 	max-width: 100%;
@@ -76,23 +75,23 @@
 			<div class="col">
 				<div class="home_search_container">
 					<div class="home_search_title">리뷰</div>
-					<div class="home_search_content">
+					<div class="home_search_content" >
 						<div class="review">
 							<div class="reviewText">
 								<br>
 								<h4 class="reviewTextTittle">${record.review_title}</h4>
 								
 									<h5 class="reviewPlaceInfomation"></h5>
-							
-								<p>${record.review_content}</p>
 							</div>
 							<div class="reviewMapOrImage">
 								<img src="<c:url value='/resources/ReviewUpload/${record.review_file} '/>"
 									alt="리뷰지도/사진">
 							</div>
+							<span>${record.review_content}</span>
 							<fmt:formatDate value="${record.review_date}"
 								pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate" />
-							<p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp작성일시 : ${postdate}</p>
+							<p style="text-align: center;">작성일시 : ${postdate}</p>
+							<p style="text-align: center;">작성자 : ${record.user_id} </p>
 							<div class="reviewFooterUtil">
 								<br> <img src="<c:url value='/images/reviewLikes.png'/>"
 									alt="좋아요"> <br> <span>${record.review_no+1}</span> <span>명</span>
@@ -140,11 +139,9 @@
 	<div id="reviewBackImage"></div>
 </div>
 <script>
+
 	function isDelete() {
 		if (confirm("정말로 삭제 하시겠습니까?"))
-			location
-					.replace("<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>");
-		
-			
+			location.replace("<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>");
 	}
 </script>
