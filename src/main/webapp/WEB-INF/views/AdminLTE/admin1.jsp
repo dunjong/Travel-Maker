@@ -42,9 +42,9 @@
 <!-- Google Font: Source Sans Pro -->
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet"> 
+	rel="stylesheet">
 </head>
-<body class="hold-transition sidebar-mini layout-fixed"> 
+<body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
 		<!-- Navbar -->
 		<nav
@@ -69,12 +69,13 @@
 
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
-			<!-- Brand Logo -->  
-			<a href="admin1.kosmo" class="brand-link"> 
-			<img src="<c:url value='/dist/img/AdminLTELogo.png'/>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-				style="opacity: .8"> 
-				<span class="brand-text font-weight-light">Travel-Maker</span>
-			</a> 
+			<!-- Brand Logo -->
+			<a href="admin1.kosmo" class="brand-link"> <img
+				src="<c:url value='/dist/img/AdminLTELogo.png'/>"
+				alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+				style="opacity: .8"> <span
+				class="brand-text font-weight-light">Travel-Maker</span>
+			</a>
 
 			<!-- Sidebar -->
 			<div class="sidebar">
@@ -120,23 +121,19 @@
 						<li class="nav-item has-treeview"><a href="#"
 							class="nav-link"> <i class="nav-icon fas fa-chart-pie"></i>
 								<p>
-									리뷰 및 공지사항 관리 <i class="right fas fa-angle-left"></i>
+									리뷰 및 도시 관리 <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="ReviewSearch.kosmo"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>리뷰관리</p>
-								</a></li>
-								<li class="nav-item"><a href="CustomerService.kosmo"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>공지사항 관리</p>
-								</a></li>
-							</ul></li>
-						<li class="nav-item"><a href="pages/gallery.html"
+								</a></li></li>
+						<li class="nav-item"><a href="adminCity.kosmo"
 							class="nav-link"> <i class="nav-icon far fa-image"></i>
 								<p>도시관리</p>
 						</a></li>
+					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -407,27 +404,6 @@
 								<div class="card-body">
 									<div id="world-map" style="height: 300px; width: 100%;"></div>
 								</div>
-								<!-- /.card-body-->
-								<div class="card-footer bg-transparent">
-									<div class="row">
-										<div class="col-4 text-center">
-											<div id="sparkline-1"></div>
-											<div class="text-white">Visitors</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-4 text-center">
-											<div id="sparkline-2"></div>
-											<div class="text-white">Online</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-4 text-center">
-											<div id="sparkline-3"></div>
-											<div class="text-white">Sales</div>
-										</div>
-
-									</div>
-									<!-- /.row -->
-								</div>
 							</div>
 							<!-- /.card -->
 
@@ -451,7 +427,7 @@
 								</div>
 								<div class="card-body">
 									<canvas class="chart" id="line-chart"
-										style="min-height: 200px; height: 200px; max-height: 250px; max-width: 100%;"></canvas>
+										style="min-height: 200px; height: 200px; max-height: 250px; max-width: 100%; font-color: white"></canvas>
 								</div>
 								<!-- /.card-body -->
 								<div class="card-footer bg-transparent">
@@ -534,7 +510,8 @@
 	<script
 		src="<c:url value='/plugins2/jqvmap/maps/jquery.vmap.world.js'/>"></script>
 
-	<script src="<c:url value='/plugins2/jqvmap/maps/continents/jquery-jvectormap-asia-merc.js'/>"></script>
+	<script
+		src="<c:url value='/plugins2/jqvmap/maps/continents/jquery-jvectormap-asia-merc.js'/>"></script>
 	<!-- jQuery Knob Chart -->
 	<script src="<c:url value='/plugins2/jquery-knob/jquery.knob.min.js'/>"></script>
 	<!-- daterangepicker -->
@@ -557,16 +534,15 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="<c:url value='/dist/js/demo.js'/>"></script>
 	<script>
-
 		//방문자
 		new Chart(document.getElementById("bar-chart"), {
 			type : 'bar',
 			data : {
 				labels : [ "SUN", "MON", "THUE", "WED", "THUR", "FRI", "SAT" ],
 				datasets : [ {
-					label : "Population",
-					backgroundColor : [ "#3e95cd", "#8e5ea2", "#3cba9f",
-							"#e8c3b9", "#c45850", "#7e4719", "#0022bb" ],
+					label : "방문자:",
+					backgroundColor : [ "#0fc6fe", "#0faafe", "#0f7bfe",
+							"#0f67fe", "#0f4ffe", "#0f33fe", "#170ffe" ],
 					data : [ 1, 10, 18, 15, 16, 21, 24 ]
 				} ]
 			},
@@ -587,8 +563,8 @@
 				labels : [ "SUN", "MON", "THUE", "WED", "THUR", "FRI", "SAT" ],
 				datasets : [ {
 					label : "Population",
-					backgroundColor : [ "#3e95cd", "#8e5ea2", "#3cba9f",
-							"#e8c3b9", "#c45850", "#7e4719", "#e3as10" ],
+					backgroundColor : [ "#0fc6fe", "#0faafe", "#0f7bfe",
+						"#0f67fe", "#0f4ffe", "#0f33fe", "#170ffe" ],
 					data : [ 0, 10, 18, 15, 16, 21, 25 ]
 				} ]
 			},
@@ -610,15 +586,14 @@
 				labels : [ '방콕', '괌', '세부', '다낭', '오사카' ],
 				datasets : [ {
 					label : '예약자 수',
-					fill : false,
 					borderWidth : 2,
 					lineTension : 0,
 					spanGaps : true,
-					borderColor : '#efefef',
-					pointRadius : 3,
+					borderColor : '#0f3ffe',
+					pointRadius : 5,
 					pointHoverRadius : 7,
-					pointColor : '#efefef',
-					pointBackgroundColor : '#efefef',
+					pointColor : 'white',
+					pointBackgroundColor : 'white',
 					data : [ 8, 13, 3, 16, 10 ],
 				} ]
 			},
@@ -629,7 +604,7 @@
 				},
 				title : {
 					display : true,
-					text : 'July Reservation Graph'
+					text : 'July Most Reservation Graph'
 
 				}
 			}
@@ -642,23 +617,16 @@
 
 		// jvectormap data
 		var visitorsData = {
-			'US' : 398, //USA
-			'SA' : 400, //Saudi Arabia
-			'CA' : 1000, //Canada
-			'DE' : 500, //Germany
-			'FR' : 760, //France
-			'CN' : 300, //China
-			'AU' : 700, //Australia
-			'BR' : 600, //Brazil
-			'IN' : 800, //India
-			'GB' : 320, //Great Britain
-			'RU' : 3000 
+			'BD' : 100,
+			'MN' : 200,
+			'BN' : 300,
+			'KR' : 400
 		}
 		// World map by jvectormap
 		$('#world-map').vectorMap(
-				{ 
-					map : 'asia_merc',   
-					backgroundColor : 'transparent', 
+				{
+					map : 'asia_merc',
+					backgroundColor : 'transparent',
 					regionStyle : {
 						initial : {
 							fill : 'rgba(255, 255, 255, 0.7)',
@@ -680,30 +648,6 @@
 									+ ' new visitors')
 					}
 				})
- 
-		// Sparkline charts
-		var sparkline1 = new Sparkline($("#sparkline-1")[0], {
-			width : 80,
-			height : 50,
-			lineColor : '#92c1dc',
-			endColor : '#ebf4f9'
-		});
-		var sparkline2 = new Sparkline($("#sparkline-2")[0], {
-			width : 80,
-			height : 50,
-			lineColor : '#92c1dc',
-			endColor : '#ebf4f9'
-		});
-		var sparkline3 = new Sparkline($("#sparkline-3")[0], {
-			width : 80,
-			height : 50,
-			lineColor : '#92c1dc',
-			endColor : '#ebf4f9'
-		});
-
-		sparkline1.draw([ 1000, 1200, 920, 927, 931, 1027, 819, 930, 1021 ]);
-		sparkline2.draw([ 515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921 ]);
-		sparkline3.draw([ 15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21 ]);
 	</script>
 </body>
 </html>

@@ -613,42 +613,7 @@ function initMap() {
 	tilt_changed
 	zoom_changed
   */
-  	var input = document.getElementById('autocomplete');
   	
-	var autocomplete = new google.maps.places.Autocomplete(input);
-	google.maps.event.addListener(autocomplete, 'place_changed', function () {
-		var bounds = new google.maps.LatLngBounds();
-		var searchedPlace=autocomplete.getPlace();
-		console.log('autocomplete place',searchedPlace);
-		 var logo;
-		  
-		 if(nearSearchType=='restaurant'){
-			logo='<c:url value="/images/foodIcon.png"/>';
-		 }
-		 else{
-			logo='<c:url value="/images/spotIcon.png"/>';
-		 }
-		 var image = {
-		          url: logo,
-		          size: new google.maps.Size(71, 71),
-		          origin: new google.maps.Point(0, 0),
-		          anchor: new google.maps.Point(17, 34),
-		          scaledSize: new google.maps.Size(25, 25)
-		       };
-		 marker = new google.maps.Marker({
-	          map: map,
-	          icon: image,
-	          animation: google.maps.Animation.DROP,
-	          title: searchedPlace.name,
-	          position: searchedPlace.geometry.location
-	        });
-         markers.push(marker);
-         infoWindow.open(map, marker);
-         buildIWContent(searchedPlace);
-         buildDetailContent(searchedPlace);
-         bounds.extend(searchedPlace.geometry.location);  
-         map.fitBounds(bounds);
-	})
   
   
   map.addListener('click', function(event) {
@@ -690,7 +655,42 @@ function initMap() {
 	     
 	     
 	   });////map.addListener
-  
+	   var input = document.getElementById('autocomplete');
+	  	
+		var autocomplete = new google.maps.places.Autocomplete(input);
+		google.maps.event.addListener(autocomplete, 'place_changed', function () {
+			var bounds = new google.maps.LatLngBounds();
+			var searchedPlace=autocomplete.getPlace();
+			console.log('autocomplete place',searchedPlace);
+			 var logo;
+			  
+			 if(nearSearchType=='restaurant'){
+				logo='<c:url value="/images/foodIcon.png"/>';
+			 }
+			 else{
+				logo='<c:url value="/images/spotIcon.png"/>';
+			 }
+			 var image = {
+			          url: logo,
+			          size: new google.maps.Size(71, 71),
+			          origin: new google.maps.Point(0, 0),
+			          anchor: new google.maps.Point(17, 34),
+			          scaledSize: new google.maps.Size(25, 25)
+			       };
+			 marker = new google.maps.Marker({
+		          map: map,
+		          icon: image,
+		          animation: google.maps.Animation.DROP,
+		          title: searchedPlace.name,
+		          position: searchedPlace.geometry.location
+		        });
+	         markers.push(marker);
+	         infoWindow.open(map, marker);
+	         buildIWContent(searchedPlace);
+	         buildDetailContent(searchedPlace);
+	         bounds.extend(searchedPlace.geometry.location);  
+	         map.fitBounds(bounds);
+		})
 }////initMap
 
 function getDetailById(placeIds){ 
@@ -902,6 +902,7 @@ $(function(){
 		   	    markers=[];
 		   	   }
 		  var savedSpot=[]
+		  
 		  spotsForSave['day'+day]='';
 		  spots=dayplans['day'+day].spots=[];
 		  spotInfo['day'+day]=savedSpot
@@ -1331,6 +1332,7 @@ async function streetView(){
 	 if(confirm('모든 플랜들을 정말 삭제하시겠습니까?')){
 		spotInfo={}
 		dayplans={};
+		spotsForSave="";
 		spotsForSave={city_name:'${origin}',planner_no:'${planner_no}',cities_no:'${cities_no}'};
 		alert('모든 플랜들이 삭제되었습니다')
 	 }
