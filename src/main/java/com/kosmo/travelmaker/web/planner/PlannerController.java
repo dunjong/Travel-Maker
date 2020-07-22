@@ -33,11 +33,13 @@ import com.kosmo.travelmaker.service.CityDTO;
 import com.kosmo.travelmaker.service.CityService;
 import com.kosmo.travelmaker.service.CountDTO;
 import com.kosmo.travelmaker.service.HotelDTO;
+import com.kosmo.travelmaker.service.MemberService;
 import com.kosmo.travelmaker.service.PlannerDTO;
 import com.kosmo.travelmaker.service.SpotsDTO;
 import com.kosmo.travelmaker.service.impl.AirServiceImpl;
 import com.kosmo.travelmaker.service.impl.CityServiceImpl;
 import com.kosmo.travelmaker.service.impl.HotelServiceImpl;
+import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
 import com.kosmo.travelmaker.service.impl.PlannerServiceImpl;
 import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 
@@ -50,19 +52,19 @@ public class PlannerController {
 	private String AutoCompleteApiKey;
 	@Value("${TripAdviserHotelApiKey}")
 	private String TripAdviserHotelApiKey;
+	
 	@Resource(name="spotsService")
 	private SpotsServiceImpl spotsService;
 	@Resource (name="cityService")
 	private CityServiceImpl cityService;
-	
 	@Resource(name ="plannerService")
 	private PlannerServiceImpl plannerService;
-	
 	@Resource(name="hotelService")
 	private HotelServiceImpl hotelService;
 	@Resource(name="airService")
 	private AirServiceImpl airService;
-	
+	@Resource(name="memberService")
+	private MemberServiceImpl memberService;
 	
 	@RequestMapping(value="PlannerNoCreate.kosmo")
 	@ResponseBody
@@ -443,44 +445,51 @@ public class PlannerController {
 	@ResponseBody
 	public String CallPlannerList(@RequestParam Map map,HttpSession sessionSccope) throws ParseException {
 		List<Map> collections = new Vector<Map>();
-		if(sessionSccope.getAttribute("id")!=null) {
-			String user_id=sessionSccope.getAttribute("id").toString();
-			SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
-			Date today=new Date();
-			int gap=0;
-			String city_no=map.get("city_no").toString();
-			List<Integer> cities_no_list=cityService.selectCitiesNoListBycityNo(Integer.parseInt(city_no));
-			for(int cities_no:cities_no_list) {
-			String cities_date= cityService.selectCitiesDate(cities_no);
-					Map<String,String> maps=new HashMap<String,String>();
-					boolean flag=true;
-					PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
-					int planner_no=planner_dto.getPlanner_no();
-					System.out.println();
-					if(planner_dto.getUser_id().equals(user_id)) {
-						flag=false;
-					}
-					List <CitiesDTO> cities_dto_list=cityService.selectCitiesDTO(planner_no);
-					for(CitiesDTO cities_dto:cities_dto_list) {
-						if(cities_dto.getCities_date()!=null) {
-							Date cities_start_date=transFormat.parse(cities_dto.getCities_date().split(",")[0]);
-							if(today.compareTo(cities_start_date)>=0) {
-								flag=false;
+		String user_id=sessionSccope.getAttribute("id").toString();
+		if(user_id!=null) {
+			if(memberService.selectMemberDTO(user_id).getId_no()!=null) {
+				SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
+				Date today=new Date();
+				int gap=0;
+				String city_no=map.get("city_no").toString();
+				List<Integer> cities_no_list=cityService.selectCitiesNoListBycityNo(Integer.parseInt(city_no));
+				for(int cities_no:cities_no_list) {
+				String cities_date= cityService.selectCitiesDate(cities_no);
+						Map<String,String> maps=new HashMap<String,String>();
+						boolean flag=true;
+						PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
+						int planner_no=planner_dto.getPlanner_no();
+						System.out.println();
+						if(planner_dto.getUser_id().equals(user_id)) {
+							flag=false;
+						}
+						List <CitiesDTO> cities_dto_list=cityService.selectCitiesDTO(planner_no);
+						for(CitiesDTO cities_dto:cities_dto_list) {
+							if(cities_dto.getCities_date()!=null) {
+								Date cities_start_date=transFormat.parse(cities_dto.getCities_date().split(",")[0]);
+								if(today.compareTo(cities_start_date)>=0) {
+									flag=false;
+									}
+								else {
+									gap=(int)((cities_start_date.getTime()-today.getTime())/(1000*60*60*24)+1);
 								}
-							else {
-								gap=(int)((cities_start_date.getTime()-today.getTime())/(1000*60*60*24)+1);
 							}
 						}
-					}
-					if(flag) {
-						maps.put("gap", Integer.toString(gap));
-						maps.put("city_no", city_no);
-						maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
-						maps.put("name", planner_dto.getPlanner_name());
-						maps.put("id", planner_dto.getUser_id());
-						maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
-						collections.add(maps);
-					}
+						if(flag) {
+							maps.put("gap", Integer.toString(gap));
+							maps.put("city_no", city_no);
+							maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
+							maps.put("name", planner_dto.getPlanner_name());
+							maps.put("id", planner_dto.getUser_id());
+							maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
+							collections.add(maps);
+						}
+				}
+			}
+			else {
+				Map<String,String> maps=new HashMap<String,String>();
+				maps.put("Auth", "동행서비스는 2차 인증 후 이용하세요");
+				collections.add(maps);
 			}
 		}
 		else{
