@@ -36,7 +36,7 @@
       	top:30%;
       	left:40%;
       	display:none;
-      	z-index: 5;
+      	z-index: 2000;
       }
 
 </style>	
