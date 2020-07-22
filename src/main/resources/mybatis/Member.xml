@@ -34,5 +34,8 @@
 	<select id="selectMemberList" resultType="MemberDTO">
 		SELECT * FROM userinfo
 	</select>
+	<select id="">
+	select count(user_id) from userinfo;
+	</select>
 </mapper>
 
