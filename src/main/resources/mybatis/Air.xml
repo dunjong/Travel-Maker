@@ -13,7 +13,7 @@
 		INSERT INTO air values() 
 	</insert>
 	<insert id="insertAirDtoToRes" parameterType="AirDTO">
-		INSERT INTO air values(seq_air.nextval,#{air_ddate},'0',#{air_price},#{air_passenger},#{air_class},#{air_dep},#{air_arr},#{planner_no}) 
+		INSERT INTO air values(seq_air.nextval,#{air_ddate},'0',#{air_price},#{air_passenger},#{air_dep},#{air_arr},#{planner_no}) 
 	</insert>
 	<select id="selectAirByResNo">
 		

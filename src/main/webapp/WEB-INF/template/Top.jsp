@@ -25,21 +25,22 @@
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 <style>
-#chatbtn{
-		position: absolute;
-        top:2500%;
-        left:120%;
-        z-index: 5;
-        padding: 5px; 
-       
+#chatbtn {
+	position: absolute;
+	top: 2500%;
+	left: 120%;
+	z-index: 5;
+	padding: 5px;
 }
-#chatbtn img{
- 		width:56px;
-        height:56px;
+
+#chatbtn img {
+	width: 56px;
+	height: 56px;
 }
-.modal-header{
-		border-top-left-radius: 12px;
-		border-top-right-radius: 12px;
+
+.modal-header {
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
 }
 </style>
 <header class="header">
@@ -58,10 +59,11 @@
 								class="d-flex flex-row align-items-start justify-content-start">
 								<li><a class="active" href="<c:url value="/"/>">HOME</a></li>
 								<c:if test="${not empty sessionScope.id}">
-								<li><a href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a></li>
+									<li><a
+										href="<c:url value='/TravelMaker/CitySearch.kosmo'/>">PLANNER</a></li>
 								</c:if>
 								<c:if test="${empty sessionScope.id}">
-								<li><a href="#" id='loginrequired'>PLANNER</a></li>
+									<li><a href="#" id='loginrequired'>PLANNER</a></li>
 								</c:if>
 								<li><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown">REVIEW<span class="caret"></span>
@@ -85,26 +87,34 @@
 										<c:if test="${!login}">
 											<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
 											<li id="logoutbtn1"><a href="#">로그아웃</a></li>
-											<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
-											<li>
-											<a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a></li>
-											<li><a href="<c:url value='/TravelMaker/admin1.kosmo'/>"> 관리자</a></li>
+											<li><a
+												href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
+											<li><a
+												href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a></li>
 										</c:if>
-										
-									</ul>
-									</li>
-								<li>
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer Service<span class="caret"></span></a>
+										<li><c:if test="${sessionScope.id == 'ADMIN'}">
+												<a href="<c:url value='/TravelMaker/admin1.kosmo'/>">
+													관리자</a></li>
+										</c:if>
+
+									</ul></li>
+								<li><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown">Customer Service<span class="caret"></span></a>
 									<ul class="dropdown-menu">
-										<li><a href="<c:url value='/TravelMaker/CustomerService.kosmo'/>">공지사항</a></li>
+										<li><a
+											href="<c:url value='/TravelMaker/CustomerService.kosmo'/>">공지사항</a></li>
 										<li><a href="#">QnA</a></li>
-									</ul>
-									</li>
+									</ul></li>
 							</ul>
-							<button id="chatbtn" class="rounded-circle" type="button" data-toggle="modal" data-target="#ChatModal" style="text-align: right;cursor: pointer; "><img src="<c:url value='/images/104352_482_1650.jpg'/>" class="rounded-circle" style="color: sandybrown" alt=""></button>
-							
-							
-							
+							<button id="chatbtn" class="rounded-circle" type="button"
+								data-toggle="modal" data-target="#ChatModal"
+								style="text-align: right; cursor: pointer;">
+								<img src="<c:url value='/images/104352_482_1650.jpg'/>"
+									class="rounded-circle" style="color: sandybrown" alt="">
+							</button>
+
+
+
 						</nav>
 						<!--  <div class="header_phone ml-auto">Call us:010-7928-1552</div>-->
 
@@ -150,38 +160,39 @@
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<div class="modal-chatbot">
-                              
-            <div class="modal fade bd-example-modal-lg" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <div class="modal-dialog modal-lg">
-            <div class="modal-dialog modal-notify modal-info">
-         <div class="modal-content">
-              <div class="modal-header">        
-                <h4 class="modal-title" id="myModalLabel" style="color:white;"><i class="fa fa-fighter-jet"></i>TravelMaker</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              </div>
-              <div class="modal-body">
-      
-            <iframe
-                  id="iframe"            
-                  style="min-height: 60vh; border:none;"              
-                  width="100%"
-                  height="90%"
-                  src="https://727fc137a8ae.ngrok.io">                        
-              </iframe>
-              </div>
-               </div>
-         </div>
-             <!-- /.modal-content -->
-           </div>
-           <!-- /.modal-dialog -->
-         </div>
-         <!-- /.modal -->
-   
-      </div>
-	
+
+		<div class="modal fade bd-example-modal-lg" id="ChatModal"
+			tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-dialog modal-notify modal-info">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel" style="color: white;">
+								<i class="fa fa-fighter-jet"></i>TravelMaker
+							</h4>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+						</div>
+						<div class="modal-body">
+
+							<iframe id="iframe" style="min-height: 60vh; border: none;"
+								width="100%" height="90%" src="https://727fc137a8ae.ngrok.io">
+							</iframe>
+						</div>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
+	</div>
+
 </div>
 
 <div class="menu">
@@ -207,17 +218,18 @@
 			<c:if test="${empty sessionScope.id}">
 				<li><a href="#" id='loginrequired2'>PLANNER</a></li>
 			</c:if>
-			<li>
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span class="caret"></span></a>
+			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">REVIEW<span
+					class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">리뷰 보기</a></li>
-					<li><a href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">리뷰 작성하기</a></li>
-				</ul>
-			</li>
+					<li><a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">리뷰
+							보기</a></li>
+					<li><a href="<c:url value='/TravelMaker/ReviewWrite.kosmo'/>">리뷰
+							작성하기</a></li>
+				</ul></li>
 			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">MEMBER<span
 					class="caret"></span></a>
 				<ul class="dropdown-menu">
-					
+
 					<c:if test="${empty sessionScope.id}" var="login">
 						<li id="loginbtn2" data-toggle="modal"><a href="#">로그인</a></li>
 						<li><a href="#" id="signupmodalbtn">회원가입</a></li>
@@ -225,12 +237,15 @@
 					<c:if test="${!login}">
 						<li><a href="<c:url value='/TravelMaker/MyInfo.kosmo'/>">회원정보</a></li>
 						<li id="logoutbtn2"><a href="#">로그아웃</a></li>
-						<li><a href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
-						<li><a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a></li>
-						<li><a href="<c:url value='/TravelMaker/admin1.kosmo'/>"> 관리자</a></li>
+						<li><a
+							href="<c:url value='/TravelMaker/MyPlanner.kosmo?user_id=${sessionScope.id}'/>">나의플랜</a></li>
+						<li><a
+							href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">나의리뷰</a></li>
+						<li><a href="<c:url value='/TravelMaker/admin1.kosmo'/>">
+								관리자</a></li>
 					</c:if>
-					
-					
+
+
 				</ul></li>
 			<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer
 					Service<span class="caret"></span>
@@ -267,23 +282,30 @@
 				</button>
 			</div>
 			<div class="modal-body mx-4">
-				<form id="logInForm" action="<c:url value='/TravelMaker/LoginProcess.do'/>" method="post">
+				<form id="logInForm"
+					action="<c:url value='/TravelMaker/LoginProcess.do'/>"
+					method="post">
 					<div class="md-form mb-5">
-						<label data-error="wrong" data-success="right" for="Form-id1" class="username"> 아이디 </label> 
-						<input id="id" name="user_id" type="text" autocomplete="on" class="form-control validate" placeholder="아이디를 입력하세요">
+						<label data-error="wrong" data-success="right" for="Form-id1"
+							class="username"> 아이디 </label> <input id="id" name="user_id"
+							type="text" autocomplete="on" class="form-control validate"
+							placeholder="아이디를 입력하세요">
 					</div>
 					<div class="md-form pb-3">
-						<label data-error="wrong" data-success="right" for="Form-pass1" class="userpass"> <span style="color: black;">비밀번호</span></label> 
-						<input id="pwd" name="user_pwd" type="password" class="form-control validate" placeholder="비밀번호를 입력하세요" />
+						<label data-error="wrong" data-success="right" for="Form-pass1"
+							class="userpass"> <span style="color: black;">비밀번호</span></label>
+						<input id="pwd" name="user_pwd" type="password"
+							class="form-control validate" placeholder="비밀번호를 입력하세요" />
 					</div>
 					<span id="loginfailmessage" style="color: red; font-size: .8em">${NotMember}</span>
 				</form>
 			</div>
 			<div class="modal-footer">
 				<div class="text-center mb-3" style="width: 100%; height: 100%">
-					<a href="#" id='loginsubmit' class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
-					<p class="font-small grey-text d-flex justify-content-end">회원이 아니신가요?
-						<a href="#" id="signupmodalbtn2" class="blue-text ml-1">
+					<a href="#" id='loginsubmit'
+						class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
+					<p class="font-small grey-text d-flex justify-content-end">
+						회원이 아니신가요? <a href="#" id="signupmodalbtn2" class="blue-text ml-1">
 							<i class="fas fa-share animated rotateIn">Click!</i>
 						</a>
 					</p>
@@ -294,8 +316,8 @@
 				<label>간편 로그인</label>
 				<div></div>
 				<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-				<a id="kakao-login-btn"></a> 
-				<a href="http://developers.kakao.com/logout"></a>
+				<a id="kakao-login-btn"></a> <a
+					href="http://developers.kakao.com/logout"></a>
 				<script type='text/javascript'>
 					//<![CDATA[
 					Kakao.init('788481db29afb2534dcb46b9ac0c6770'); //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
@@ -402,8 +424,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div>
-						</div>
+						<div></div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label" style="color: black;">비밀번호</label>
@@ -429,14 +450,22 @@
 						<div class="col-sm-4">
 							<select class="form-control input-sm" name="user_rrn">
 								<option>출생 연도를 선택하세요</option>
-								<option <c:if test="${param.user_rrn=='60~70' }">checked</c:if> value="60~70" >1950~1959</option>
-								<option <c:if test="${param.user_rrn=='50~60' }">checked</c:if>value="50~60">1960~1969</option>
-								<option <c:if test="${param.user_rrn=='40~50' }">checked</c:if>value="40~50">1970~1979</option>
-								<option <c:if test="${param.user_rrn=='30~40' }">checked</c:if>value="30~40">1980~1989</option>
-								<option <c:if test="${param.user_rrn=='20~30' }">checked</c:if>value="20~30">1990~1999</option>
-								<option <c:if test="${param.user_rrn=='10~20' }">checked</c:if>value="10~20">2000~2009</option>
-								<option <c:if test="${param.user_rrn=='0~10' }">checked</c:if>value="0~10">2010~2019</option>
-								<option <c:if test="${param.user_rrn=='0' }">checked</c:if>value="0">2020~</option>
+								<option <c:if test="${param.user_rrn=='60~70' }">checked</c:if>
+									value="60~70">1950~1959</option>
+								<option <c:if test="${param.user_rrn=='50~60' }">checked</c:if>
+									value="50~60">1960~1969</option>
+								<option <c:if test="${param.user_rrn=='40~50' }">checked</c:if>
+									value="40~50">1970~1979</option>
+								<option <c:if test="${param.user_rrn=='30~40' }">checked</c:if>
+									value="30~40">1980~1989</option>
+								<option <c:if test="${param.user_rrn=='20~30' }">checked</c:if>
+									value="20~30">1990~1999</option>
+								<option <c:if test="${param.user_rrn=='10~20' }">checked</c:if>
+									value="10~20">2000~2009</option>
+								<option <c:if test="${param.user_rrn=='0~10' }">checked</c:if>
+									value="0~10">2010~2019</option>
+								<option <c:if test="${param.user_rrn=='0' }">checked</c:if>
+									value="0">2020~</option>
 							</select> <span style="color: red; font-size: .8em">${ageError}<form:errors
 									path="memberDTO.user_rrn" /></span>
 						</div>
@@ -447,9 +476,10 @@
 							<!--  가로 배치 -->
 							<div class="radio">
 								<label><input type="radio" value="남자" name="user_gender"
-									<c:if test="${param.user_gender=='male' }">checked</c:if>>male</label> <label><input
-									type="radio" value="여자" name="gender"
-									<c:if test="${param.user_gender=='female' }">checked</c:if>>female</label>
+									<c:if test="${param.user_gender=='male' }">checked</c:if>>male</label> <label>
+									<input
+									type="radio" value="여자" name="user_gender"
+									<c:if test="${param.user_gender=='female'}">checked</c:if>>female</label>
 							</div>
 							<span style="color: red; font-size: .8em">${genderError}<form:errors
 									path="memberDTO.user_gender" /></span>

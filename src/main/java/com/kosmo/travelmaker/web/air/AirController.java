@@ -122,11 +122,16 @@ public class AirController {
 		int planner_no=Integer.parseInt(map.get("planner_no").toString());
 		int passenger = Integer.parseInt((String)map.get("passenger"));
 		String price = (String)map.get("price");
-		System.out.println("user_id:"+user_id+",departure:"+departure+",arrival:"+arrival+",ddate:"+ddate+",passenger:"+passenger+",price:"+price+",planner_no:"+planner_no);
+		String adate = (String)map.get("adate");
+		String time = (String)map.get("time");
+		String via = (String)map.get("via");
 		String result = "failure";
 		AirDTO dto = new AirDTO();
+		dto.setUser_id(user_id);
+		dto.setAir_adate(adate);
+		dto.setAir_time(time);
+		dto.setAir_via(via);
 		dto.setAir_arr(arrival);
-		dto.setAir_class("언젠간 넣겠지");
 		dto.setAir_ddate(ddate);
 		dto.setAir_dep(departure);		
 		dto.setAir_passenger(passenger);

@@ -263,7 +263,7 @@ public class MemberController {
 		model.addAttribute("user_rrn",dto.getUser_rrn());
 		return "member/MyInfo.tiles";
 	}
-	@RequestMapping(value="ValidationCheck.do2")
+	@RequestMapping(value="ValidationCheck2.do")
 	public String valiE(MemberDTO dto,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
 		//내가 만든 validate클래스의 validate()호출 데이터로 cmd넣고 에러정보용으로 errors넣어준다.
 		validator.validate(dto, errors);

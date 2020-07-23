@@ -2,29 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-<!-- Google Fonts -->
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-<!-- Bootstrap core CSS -->
-
-<!-- Material Design Bootstrap -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css"
-	rel="stylesheet">
-<!-- JQuery -->
-
-<!-- Bootstrap tooltips -->
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-
-<!-- MDB core JavaScript -->
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-
 <style>
 #reviewBack {
 	text-align: center;
@@ -170,29 +147,29 @@
 									onblur="this.placeholder = '제목을 입력하세요'">
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<select style="width:100%" class="col-lg-4" id="reviewWriteCityTag" name="city_no" required="required">
+									<select class="form-control input-sm" id="reviewWriteCityTag" name="city_no" required="required">
 										<option value="">도시를 선택하세요</option>
-										<option value="1">세부</option>
-										<option value="2">보라카이</option>
-										<option value="3">마닐라</option>
-										<option value="4">하노이</option>
-										<option value="5">나트랑</option>
-										<option value="6">다낭</option>
-										<option value="7">푸켓</option>
-										<option value="8">방콕</option>
-										<option value="9">발리</option>
-										<option value="10">롬복</option>
-										<option value="11">쿠알라룸푸르</option>
-										<option value="12">코타키나발루</option>
-										<option value="13">싱가포르</option>
-										<option value="14">라오스</option>
-									</select> <select style="width:100%" class="col-lg-5" id="reviewWritePlaceTag">
+										<option value="2">세부</option>
+										<option value="3">보라카이</option>
+										<option value="4">마닐라</option>
+										<option value="5">하노이</option>
+										<option value="6">나트랑</option>
+										<option value="7">다낭</option>
+										<option value="8">푸켓</option>
+										<option value="9">방콕</option>
+										<option value="10">발리</option>
+										<option value="11">롬복</option>
+										<option value="12">쿠알라룸푸르</option>
+										<option value="13">코타키나발루</option>
+										<option value="14">싱가포르</option>
+										<option value="15">라오스</option>
+									</select> <select class="form-control input-sm" id="reviewWritePlaceTag">
 										<option>리뷰 장소를 선택하세요</option>
 										<option value="food">식당</option>
 										<option value="tours">관광명소</option>
 										<option value="hotels">숙소</option>
 										<option value="myPlanner">내 플랜</option>
-									</select> <input style="width:100%" type="text" id="reviewWritePlace" class="search_input"
+									</select> <input type="text" id="reviewWritePlace" class="search_input"
 										placeholder="장소 이름을 입력하세요">
 								</div>
 								<textarea rows="" cols="" id="reviewWriteText"
@@ -201,10 +178,12 @@
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 									<input name='review_file_real' type="file" id="reviewWriteImageUpButtonInput" onchange="fileCheck(this)" accept="image/gif,image/jpeg,image/png">
-									<button style="width:100%" id="reviewWriteImageUpButton" type="button">
+									<button id="reviewWriteImageUpButton" type="button">
 										사진을 올리시려면 클릭하세요</button>
 									<input type="hidden" name="review_file" value="" id="review_file">
-									<button style="width:100%" type="submit" id="reviewWriteSubmmit">리뷰 작성 완료</button>
+									<input type="password" id="reviewWritePwd" class="search_input"
+										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요">
+									<button type="submit" id="reviewWriteSubmmit">리뷰 작성 완료</button>
 								</div>
 							</form>
 						</div>

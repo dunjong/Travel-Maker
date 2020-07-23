@@ -125,8 +125,14 @@ public class PlannerController {
 				city_no_name.put(cityDTO.getCity_name(),cities_no);
 				city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
 			}
+			List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
+		if(air_dto_list.size()!=0)
+			model.addAttribute("air_size", air_dto_list.size());
+		else
+			model.addAttribute("air_size", 0);
+		model.addAttribute("air_dto_list", air_dto_list);
 		model.addAttribute("city_plan_no",city_plan_no);
 		model.addAttribute("city_hotel_name",city_hotel_name);
 		model.addAttribute("planner_name",planner_name);

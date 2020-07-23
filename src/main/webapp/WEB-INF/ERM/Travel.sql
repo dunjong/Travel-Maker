@@ -81,12 +81,14 @@ CREATE TABLE air
 (
 	air_no number NOT NULL,
 	air_ddate nvarchar2(200) NOT NULL,
-	air_rdate nvarchar2(200),
+	air_adate nvarchar2(200),
 	air_price nvarchar2(200) NOT NULL,
+	air_time nvarchar2(50),
 	air_passenger number DEFAULT 1 NOT NULL,
 	air_class nvarchar2(200) DEFAULT 'economy' NOT NULL,
 	air_dep nvarchar2(200) DEFAULT '서울' NOT NULL,
 	air_arr nvarchar2(200) NOT NULL,
+	air_via number NOT NULL,
 	planner_no number NOT NULL,
 	PRIMARY KEY (air_no)
 );
