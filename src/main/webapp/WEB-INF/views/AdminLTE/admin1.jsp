@@ -236,7 +236,7 @@
 				<!-- Main row -->
 				<div class="row">
 					<!-- Left col -->
-					<section class="col-lg-10 connectedSortable">
+					<section class="col-lg-8 connectedSortable">
 						<!-- Custom tabs (Charts with tabs)-->
 						<div class="card">
 							<div class="card-header">
@@ -269,164 +269,152 @@
 							<!-- /.card-body -->
 						</div>
 						<!-- /.card -->
+					</section>
+					<!-- TO DO List -->
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">
+								<i class="ion ion-clipboard mr-1"></i> To Do List
+							</h3>
 
-						<!-- TO DO List -->
-						<div class="card">
-							<div class="card-header">
-								<h3 class="card-title">
-									<i class="ion ion-clipboard mr-1"></i> To Do List
-								</h3>
-
-								<div class="card-tools">
-									<ul class="pagination pagination-sm">
-										<li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-										<li class="page-item"><a href="#" class="page-link">1</a></li>
-										<li class="page-item"><a href="#" class="page-link">2</a></li>
-										<li class="page-item"><a href="#" class="page-link">3</a></li>
-										<li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-									</ul>
-								</div>
-							</div>
-							<!-- /.card-header -->
-							<div class="card-body">
-								<ul class="todo-list" data-widget="todo-list">
-									<li>
-										<!-- drag handle --> <span class="handle"> <i
-											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-									</span> <!-- checkbox -->
-										<div class="icheck-primary d-inline ml-2">
-											<input type="checkbox" value="" name="todo1" id="todoCheck1">
-											<label for="todoCheck1"></label>
-										</div> <!-- todo text --> <span class="text">방문자수 확인하기</span> <!-- Emphasis label -->
-										<small class="badge badge-danger"><i
-											class="far fa-clock"></i> 2 mins</small> <!-- General tools such as edit or delete-->
-										<div class="tools">
-											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-										</div>
-									</li>
-									<li><span class="handle"> <i
-											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-									</span>
-										<div class="icheck-primary d-inline ml-2">
-											<input type="checkbox" value="" name="todo2" id="todoCheck2"
-												checked> <label for="todoCheck2"></label>
-										</div> <span class="text">예약현황 확인</span> <small
-										class="badge badge-info"><i class="far fa-clock"></i>
-											4 hours</small>
-										<div class="tools">
-											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-										</div></li>
-									<li><span class="handle"> <i
-											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-									</span>
-										<div class="icheck-primary d-inline ml-2">
-											<input type="checkbox" value="" name="todo3" id="todoCheck3">
-											<label for="todoCheck3"></label>
-										</div> <span class="text">리뷰 및 공지사항 체크</span> <small
-										class="badge badge-warning"><i class="far fa-clock"></i>
-											1 day</small>
-										<div class="tools">
-											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-										</div></li>
-									<li><span class="handle"> <i
-											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-									</span>
-										<div class="icheck-primary d-inline ml-2">
-											<input type="checkbox" value="" name="todo4" id="todoCheck4">
-											<label for="todoCheck4"></label>
-										</div> <span class="text">깃 허브 체크 </span> <small
-										class="badge badge-success"><i class="far fa-clock"></i>
-											3 days</small>
-										<div class="tools">
-											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-										</div></li>
-									<li><span class="handle"> <i
-											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-									</span>
-										<div class="icheck-primary d-inline ml-2">
-											<input type="checkbox" value="" name="todo5" id="todoCheck5">
-											<label for="todoCheck5"></label>
-										</div> <span class="text">이번달 인기여행지 자료 확인</span> <small
-										class="badge badge-primary"><i class="far fa-clock"></i>
-											1 week</small>
-										<div class="tools">
-											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-										</div></li>
-									<li><span class="handle"> <i
-											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-									</span>
-										<div class="icheck-primary d-inline ml-2">
-											<input type="checkbox" value="" name="todo6" id="todoCheck6">
-											<label for="todoCheck6"></label>
-										</div> <span class="text">데이터베이스 연동</span> <small
-										class="badge badge-secondary"><i class="far fa-clock"></i>
-											1 month</small>
-										<div class="tools">
-											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-										</div></li>
+							<div class="card-tools">
+								<ul class="pagination pagination-sm">
+									<li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+									<li class="page-item"><a href="#" class="page-link">1</a></li>
+									<li class="page-item"><a href="#" class="page-link">2</a></li>
+									<li class="page-item"><a href="#" class="page-link">3</a></li>
+									<li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
 								</ul>
 							</div>
-							<!-- /.card-body -->
-							<div class="card-footer clearfix">
-								<button type="button" class="btn btn-info float-right">
-									<i class="fas fa-plus"></i> Add item
-								</button>
-							</div>
 						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<ul class="todo-list" data-widget="todo-list">
+								<li>
+									<!-- drag handle --> <span class="handle"> <i
+										class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+								</span> <!-- checkbox -->
+									<div class="icheck-primary d-inline ml-2">
+										<input type="checkbox" value="" name="todo1" id="todoCheck1">
+										<label for="todoCheck1"></label>
+									</div> <!-- todo text --> <span class="text">방문자수 확인하기</span> <!-- Emphasis label -->
+									<small class="badge badge-danger"><i
+										class="far fa-clock"></i> 2 mins</small> <!-- General tools such as edit or delete-->
+									<div class="tools">
+										<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+									</div>
+								</li>
+								<li><span class="handle"> <i
+										class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+								</span>
+									<div class="icheck-primary d-inline ml-2">
+										<input type="checkbox" value="" name="todo2" id="todoCheck2"
+											checked> <label for="todoCheck2"></label>
+									</div> <span class="text">현재 예약현황 확인하기</span> <small
+									class="badge badge-info"><i class="far fa-clock"></i> 4
+										hours</small>
+									<div class="tools">
+										<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+									</div></li>
+								<li><span class="handle"> <i
+										class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+								</span>
+									<div class="icheck-primary d-inline ml-2">
+										<input type="checkbox" value="" name="todo3" id="todoCheck3">
+										<label for="todoCheck3"></label>
+									</div> <span class="text">리뷰 및 공지사항 체크</span> <small
+									class="badge badge-warning"><i class="far fa-clock"></i>
+										1 day</small>
+									<div class="tools">
+										<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+									</div></li>
+								<li><span class="handle"> <i
+										class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+								</span>
+									<div class="icheck-primary d-inline ml-2">
+										<input type="checkbox" value="" name="todo4" id="todoCheck4">
+										<label for="todoCheck4"></label>
+									</div> <span class="text">깃 허브 체크 </span> <small
+									class="badge badge-success"><i class="far fa-clock"></i>
+										3 days</small>
+									<div class="tools">
+										<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+									</div></li>
+								<li><span class="handle"> <i
+										class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+								</span>
+									<div class="icheck-primary d-inline ml-2">
+										<input type="checkbox" value="" name="todo5" id="todoCheck5">
+										<label for="todoCheck5"></label>
+									</div> <span class="text">이번달 인기여행지 자료 확인</span> <small
+									class="badge badge-primary"><i class="far fa-clock"></i>
+										1 week</small>
+									<div class="tools">
+										<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+									</div></li>
+								<li><span class="handle"> <i
+										class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+								</span>
+									<div class="icheck-primary d-inline ml-2">
+										<input type="checkbox" value="" name="todo6" id="todoCheck6">
+										<label for="todoCheck6"></label>
+									</div> <span class="text">코로나 관련 이슈 확인 하기</span> <small
+									class="badge badge-secondary"><i class="far fa-clock"></i>
+										1 month</small>
+									<div class="tools">
+										<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+									</div></li>
+								<li><span class="handle"> <i
+										class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+								</span>
+									<div class="icheck-primary d-inline ml-2">
+										<input type="checkbox" value="" name="todo4" id="todoCheck4">
+										<label for="todoCheck4"></label>
+									</div> <span class="text">회원 블랙여부 확인하기 </span> <small
+									class="badge badge-success"><i class="far fa-clock"></i>
+										3 days</small>
+									<div class="tools">
+										<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+									</div></li>
+								<li><span class="handle"> <i
+										class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+								</span>
+									<div class="icheck-primary d-inline ml-2">
+										<input type="checkbox" value="" name="todo5" id="todoCheck5"> 
+										<label for="todoCheck5"></label>
+									</div> <span class="text">그동한 고생했어</span> <small
+									class="badge badge-primary"><i class="far fa-clock"></i>
+										1 week</small>
+									<div class="tools">
+										<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+									</div></li>
+								<li><span class="handle"> <i
+										class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+								</span>
+									<div class="icheck-primary d-inline ml-2">
+										<input type="checkbox" value="" name="todo6" id="todoCheck6">
+										<label for="todoCheck6"></label>
+									</div> <span class="text">마지막 까지 화이팅~!</span> <small
+									class="badge badge-secondary"><i class="far fa-clock"></i>
+										1 month</small>
+									<div class="tools">
+										<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+									</div></li>
+							</ul>
+						</div>
+						<!-- /.card-body -->
+						<div class="card-footer clearfix">
+							<button type="button" class="btn btn-info float-right">
+								<i class="fas fa-plus"></i> Add item
+							</button>
+						</div>
+					</div>
 				</div>
-				</section>
 				<!-- /.card-body -->
 			</div>
 			<!-- /.card -->
-			<!-- Map card --> 
-			<section class="col-lg-10 connectedSortable">
-				<!-- Map card -->
-				<div class="card bg-gradient-primary">
-					<div class="card-header border-0">
-						<h3 class="card-title">
-							<i class="fas fa-map-marker-alt mr-1"></i> COVID-19 World Chart
-						</h3>  
-						<!-- card tools -->
-						<div class="card-tools">
-							<button type="button" class="btn btn-primary btn-sm daterange"
-								data-toggle="tooltip" title="Date range">
-								<i class="far fa-calendar-alt"></i>
-							</button>
-							<button type="button" class="btn btn-primary btn-sm"
-								data-card-widget="collapse" data-toggle="tooltip"
-								title="Collapse">
-								<i class="fas fa-minus"></i>
-							</button> 
-						</div>
-						<!-- /.card-tools -->
-					</div>
-					<div class="card-body">
-						<div id="world-map" style="height: 450px; width: 100%;"></div>
-					</div>
-					<!-- /.card-body-->
-					<div class="card-footer bg-transparent">
-						<div class="row">
-							<div class="col-4 text-center">
-								<div id="sparkline-1"></div>
-								<div class="text-white">Visitors</div>
-							</div>
-							<!-- ./col -->
-							<div class="col-4 text-center">
-								<div id="sparkline-2"></div>
-								<div class="text-white">Online</div>
-							</div>
-							<!-- ./col -->
-							<div class="col-4 text-center">
-								<div id="sparkline-3"></div>
-								<div class="text-white">Sales</div>
-							</div>
-							<!-- ./col -->
-						</div>
-						<!-- /.row -->
-					</div>
-				</div>
-				<!-- /.card -->
-
+			<!-- Map card -->
+			<section class="col-lg-8 connectedSortable">
 				<!-- solid sales graph -->
 				<div class="card bg-gradient-info">
 					<div class="card-header border-0">
@@ -463,14 +451,14 @@
 								<input type="text" class="knob" data-readonly="true" value="13"
 									data-width="60" data-height="60" data-fgColor="#05fce4">
 
-								<div class="text-white">괌</div>
+								<div class="text-white">세부</div>
 							</div>
 							<!-- ./col -->
 							<div class="col-4 text-center">
 								<input type="text" class="knob" data-readonly="true" value="10"
 									data-width="60" data-height="60" data-fgColor="#05fce4">
 
-								<div class="text-white">오사카</div>
+								<div class="text-white">방콕</div>
 							</div>
 							<!-- ./col -->
 						</div>
@@ -595,35 +583,37 @@
 		});
 
 		//예약현황
-		new Chart(document.getElementById("line-chart"), {
-			type : 'line',
-			data : {
-				labels : [ '방콕', '괌', '세부', '다낭', '오사카','발리','사이판','하와이' ],
-				datasets : [ {
-					label : '예약자 수',
-					borderWidth : 2,
-					lineTension : 0,
-					spanGaps : true,
-					borderColor : '#0f3ffe',
-					pointRadius : 5,
-					pointHoverRadius : 7,
-					pointColor : 'white',
-					pointBackgroundColor : 'white',
-					data : [ 8, 13, 3, 16, 10,4,7,3 ],
-				} ]
-			},
+		new Chart(document.getElementById("line-chart"),
+				{
+					type : 'line',
+					data : {
+						labels : [ '오사카', '세부', '오사카', '다낭', '방콕', '발리', '사이판',
+								'하와이' ],
+						datasets : [ {
+							label : '예약자 수',
+							borderWidth : 2,
+							lineTension : 0,
+							spanGaps : true,
+							borderColor : '#0f3ffe',
+							pointRadius : 5,
+							pointHoverRadius : 7,
+							pointColor : 'white',
+							pointBackgroundColor : 'white',
+							data : [ 8, 13, 3, 16, 10, 4, 7, 3 ],
+						} ]
+					},
 
-			options : {
-				legend : {
-					display : false
-				},
-				title : {
-					display : true,
-					text : 'July Most Reservation Graph'
+					options : {
+						legend : {
+							display : false
+						},
+						title : {
+							display : true,
+							text : 'July Most Reservation Graph'
 
-				}
-			}
-		});
+						}
+					}
+				});
 
 		//인기도시 지도차트
 
