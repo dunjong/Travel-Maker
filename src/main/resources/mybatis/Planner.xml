@@ -54,7 +54,7 @@
 		SELECT COUNT(*) FROM ACCOMPANY WHERE planner_no=#{planner_no}
 	</select>
 	<select id="selectPlannerNoListById" parameterType="java.lang.String" resultType="int">
-		SELECT planner_no from accompany where user_id=#{user_id}
+		SELECT planner_no from accompany where user_id=#{user_id} and allow='1'
 	</select>
 	<select id="selectResDTOListByPlannerNo" parameterType="java.lang.String" resultType="ResDTO">
 		SELECT * FROM RESERVATION WHERE user_id=#{user_id}
@@ -64,6 +64,9 @@
 	</select>
 	<select id="selectAccNosByPlannerNo" parameterType="int" resultType="AccDTO">
 		SELECT * FROM ACCOMPANY WHERE planner_no=#{planner_no}
+	</select>
+	<select id="selectOnePlannerNoByCitiesNo" parameterType="int" resultType="int">
+		SELECT planner_no from cities where cities_no=#{cities_no}
 	</select>
 	
 	
@@ -100,6 +103,9 @@
 	</update>
 	<update id="updateAccNo" parameterType="java.util.Map">
 		UPDATE PLANNER SET planner_acc=#{planner_acc} WHERE planner_no=#{planner_no}
+	</update>
+	<update id="updateResOk" parameterType="java.lang.String">
+		update reservation set res_ok='1' where h_a_no=#{h_a_no}
 	</update>
 	
 </mapper>

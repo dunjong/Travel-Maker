@@ -125,8 +125,14 @@ public class PlannerController {
 				city_no_name.put(cityDTO.getCity_name(),cities_no);
 				city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
 			}
+			List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
+		if(air_dto_list.size()!=0)
+			model.addAttribute("air_size", air_dto_list.size());
+		else
+			model.addAttribute("air_size", 0);
+		model.addAttribute("air_dto_list", air_dto_list);
 		model.addAttribute("city_plan_no",city_plan_no);
 		model.addAttribute("city_hotel_name",city_hotel_name);
 		model.addAttribute("planner_name",planner_name);
@@ -189,14 +195,17 @@ public class PlannerController {
 		String calendarDate=cityService.selectCitiesDate(Integer.parseInt(cities_no));
 		int gap=5;
 		Map<String, String> maps=new HashMap<String, String>();
-		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		//호텔
 		List<HotelDTO> hotel_dto_list=hotelService.selectHotelDTOByCitiesNo(Integer.parseInt(cities_no));
 		if(hotel_dto_list.size()!=0) {
 			HotelDTO hotel_dto =hotel_dto_list.get(0);
 			Date checkIn=transFormat.parse(hotel_dto.getHotel_in());
+			System.out.println("checkIn:"+hotel_dto.getHotel_in());
 			Date checkOut=transFormat.parse(hotel_dto.getHotel_out());
+			System.out.println("checkOut:"+hotel_dto.getHotel_out());
 			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
+			System.out.println("if gap:"+gap);
 			maps.put("hotel_name", hotel_dto.getHotel_name());
 			maps.put("hotel_latlng",hotel_dto.getHotel_latlng());
 			maps.put("hotel_date",Integer.toString(gap));
@@ -211,6 +220,7 @@ public class PlannerController {
 				Date checkIn=transFormat.parse(calendarDate.split(",")[0]);
 				Date checkOut=transFormat.parse(calendarDate.split(",")[1]);
 				gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
+				System.out.println("else gap:"+gap);
 				maps.put("hotel_date",Integer.toString(gap));
 			}
 			else {
@@ -243,7 +253,7 @@ public class PlannerController {
 		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
 		List<HotelDTO> hotel_dto_list=hotelService.selectHotelDTOByCitiesNo(Integer.parseInt(cities_no));
 		String calendarDate=cityService.selectCitiesDate(Integer.parseInt(cities_no));
-		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		if(hotel_dto_list.size()!=0) {
 			HotelDTO hotel_dto =hotel_dto_list.get(0);
 			Date checkIn=transFormat.parse(hotel_dto.getHotel_in());
@@ -476,7 +486,7 @@ public class PlannerController {
 					if(flag) {
 						maps.put("gap", Integer.toString(gap));
 						maps.put("city_no", city_no);
-						maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
+						maps.put("acc", Integer.toString(memberService.selectAllowedByPlannerNo(planner_no)));
 						maps.put("name", planner_dto.getPlanner_name());
 						maps.put("id", planner_dto.getUser_id());
 						maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
@@ -580,7 +590,6 @@ public class PlannerController {
 				collections.add(map_spot);
 			}
 			
-		
 		
 		return JSONArray.toJSONString(collections);
 	}

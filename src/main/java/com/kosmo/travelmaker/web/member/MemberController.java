@@ -187,12 +187,18 @@ public class MemberController {
 	    		Map<String, String> map_a=new HashMap<String,String>();
 	    		System.out.println("항공측:"+res_dto.getH_a_no());
 	    		AirDTO air_dto=airService.selectAirDTO(Integer.parseInt(res_dto.getH_a_no().substring(2)));
-	    		map_a.put("air_no",Integer.toString(air_dto.getAir_no()));
-	    		map_a.put("air_price", air_dto.getAir_price());
-	    		map_a.put("air_arr", air_dto.getAir_arr());
-	    		map_a.put("air_dep", air_dto.getAir_dep());
-	    		map_a.put("air_ddate", air_dto.getAir_ddate());
-	    		collections.add(map_a);
+	    		if(air_dto.getPlanner_no()==planner_no) {
+		    		map_a.put("air_no",Integer.toString(air_dto.getAir_no()));
+		    		map_a.put("air_price", air_dto.getAir_price());
+		    		map_a.put("air_arr", air_dto.getAir_arr());
+		    		map_a.put("air_dep", air_dto.getAir_dep());
+		    		map_a.put("air_ddate", air_dto.getAir_ddate());
+		    		System.out.println("OK?:"+res_dto.getRes_ok());
+		    		if(res_dto.getRes_ok()==1) {
+		    			map_a.put("paid","yes");
+		    		}
+		    		collections.add(map_a);
+	    		}
 	    	}///air res
 	    	else if(res_dto.getH_a_no().contains("h_")){
 	    		 Map<String, String> map_h=new HashMap<String,String>();
@@ -201,14 +207,20 @@ public class MemberController {
 	    		int hotel_no=Integer.parseInt(res_dto.getH_a_no().substring(2));
 	    		System.out.println("호텔측:"+hotel_no);
 	    		HotelDTO hotel_dto=hotelService.selectHotelDTO(hotel_no);
-	    		System.out.println("hotel_no:"+hotel_dto.getHotel_no());
-	    		map_h.put("hotel_no", Integer.toString(hotel_dto.getHotel_no()));
-	    		map_h.put("hotel_price", hotel_dto.getHotel_price());
-	    		map_h.put("hotel_name", hotel_dto.getHotel_name());
-	    		map_h.put("hotel_in", hotel_dto.getHotel_in());
-	    		map_h.put("hotel_out", hotel_dto.getHotel_out());
+	    		if(planner_no==plannerService.selectOnePlannerNoByCitiesNo(hotel_dto.getCities_no())) {
+		    		System.out.println("hotel_no:"+hotel_dto.getHotel_no());
+		    		map_h.put("hotel_no", Integer.toString(hotel_dto.getHotel_no()));
+		    		map_h.put("hotel_price", hotel_dto.getHotel_price());
+		    		map_h.put("hotel_name", hotel_dto.getHotel_name());
+		    		map_h.put("hotel_in", hotel_dto.getHotel_in());
+		    		map_h.put("hotel_out", hotel_dto.getHotel_out());
+		    		System.out.println("OK?:"+res_dto.getRes_ok());
+		    		if(res_dto.getRes_ok()==1) {
+		    			map_h.put("paid","yes");
+		    		}
+		    		collections.add(map_h);
 	    		
-	    		collections.add(map_h);
+	    		};
 	    	}
 	    }
 	    
@@ -251,7 +263,7 @@ public class MemberController {
 		model.addAttribute("user_rrn",dto.getUser_rrn());
 		return "member/MyInfo.tiles";
 	}
-	@RequestMapping(value="ValidationCheck.do2")
+	@RequestMapping(value="ValidationCheck2.do")
 	public String valiE(MemberDTO dto,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
 		//내가 만든 validate클래스의 validate()호출 데이터로 cmd넣고 에러정보용으로 errors넣어준다.
 		validator.validate(dto, errors);
@@ -309,8 +321,45 @@ public class MemberController {
 		 return flag;
 	}
 	
+	@RequestMapping(value="getAirOrHotel.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String getAirOrHotel(@RequestParam Map map,HttpSession session) {
+		List<Map> collections = new Vector<Map>();
+		String user_id=session.getAttribute("id").toString();
+		Map<String, String> maps=new HashMap<String,String>();
+		maps.put("user_id", user_id);
+		if(map.get("h_a_no").toString().contains("h_")) {
+			int hotel_no=Integer.parseInt(map.get("h_a_no").toString().substring(2));
+			HotelDTO hotel_dto= hotelService.selectHotelDTO(hotel_no);
+			maps.put("price", hotel_dto.getHotel_price().split("-")[1].substring(2));
+			maps.put("h_a_no",map.get("h_a_no").toString());
+			maps.put("name", hotel_dto.getHotel_name());
+			collections.add(maps);
+		}
+		else {
+			int air_no=Integer.parseInt(map.get("h_a_no").toString().substring(2));
+			AirDTO air_dto=airService.selectAirDTO(air_no);
+			maps.put("price", air_dto.getAir_price());
+			maps.put("h_a_no",map.get("h_a_no").toString());
+			maps.put("name", air_dto.getAir_dep()+"->"+air_dto.getAir_arr()+":"+air_dto.getAir_ddate());
+			collections.add(maps);
+		}
+		
+		return JSONArray.toJSONString(collections);
+	}
 	
 	
+	@RequestMapping(value="updateResOk.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String updateResOk(@RequestParam Map map) {
+		String flag="결제 실패";
+		String h_a_no=map.get("h_a_no").toString();
+		System.out.println("updateResOk:h_a_no"+h_a_no);
+		if(plannerService.updateResOk(h_a_no)) {
+			flag= "결제 완료";
+		};
+		return flag;
+	}
 	
 //	@RequestMapping("admin2.kosmo")
 //	public String memberList(Map map, Model model) {

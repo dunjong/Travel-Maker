@@ -6,9 +6,6 @@
 	height: 261.37px;
 	width: 360px;
 }
-.planner_name{
-	color:black;
-}
 
 </style>
 <script type="text/javascript"
@@ -18,9 +15,9 @@
 function deleteFunc(num){
 	$.ajax({
 		url:'<c:url value="MyPlannerDelete.kosmo"/>',
-		data:{planner_no:num.value},
+		data:{planner_no:num},
 		dataType:'text',
-		success:function(data){successAjaxDelete(data,num.value)},
+		success:function(data){successAjaxDelete(data,num)},
 		error:function(request,error){
 			console.log('상태코드:',request.status);
 			console.log('서버로부터 받은 HTML데이타:',request.responseText);
@@ -44,7 +41,7 @@ function detail(num){
 	
 	  $.ajax({
 			url:'<c:url value="MyPlannerDetails.kosmo"/>',
-			data:{planner_no:num.value},
+			data:{planner_no:num},
 			dataType:'json',
 			success:function(data){successAjaxDetail(data)},
 			error:function(request,error){
@@ -64,7 +61,7 @@ function acc_allow(num){
 	
 	 $.ajax({
 			url:'<c:url value="MyPlannerAccUpdate.kosmo"/>',
-			data:{planner_no:num.value},
+			data:{planner_no:num},
 			dataType:'json',
 			success:function(data){successAjaxAccUpdate(data)},
 			error:function(request,error){
@@ -80,7 +77,7 @@ function successAjaxAccUpdate(data){
 	 $('#dt_title').html('동행자 정보')
 	var tableString="";
 	$.each(data,function(index,city){
-		 tableString+="<div class='destination item'>";
+		 tableString+="<div class='destination item' style='background-color:#e6f4fa;border-radius:25px;'>";
 		 tableString+="<div class='destination_content'>";
 		 if(city.allow==0){
 			 tableString+="<div class='btn btn-danger' id='Y"+city.acc_no+"' onclick='allow_acc(this)'>동행 수락하기</div>";
@@ -88,9 +85,9 @@ function successAjaxAccUpdate(data){
 		 else{
 			 tableString+="<div class='btn btn-info' id='N"+city.acc_no+"' onclick='deny_acc(this)'>동행 취소하기</div>";
 		 }
-		 tableString+="<div class='destination_title'>"+city.user_id+"</div><div class='destination_subtitle'><p>";
+		 tableString+="<div class='destination_title'><h3 style='color:black'><small style='color:#003458'>아이디: </small>"+city.user_id+"</h3><h3 style='color:black'><small style='color:#003458'>나이:</small> "+city.user_rrn+" 대</h3></div><div class='destination_subtitle'><h4 style='color:black'><small style='color:#003458'>이름: </small>";
 		 tableString+=city.user_name;
-		 tableString+="</p></div><div class='destination_price'>성별:"+city.user_gender+"</div></div></div>"
+		 tableString+="</h4></div><div class='destination_price'><small style='color:#003458'>성별:</small>"+city.user_gender+"</div></div></div>"
 		 
 		})
 	$('#cities').html(tableString);
@@ -148,13 +145,10 @@ function payFees(num){
 	
 	  $.ajax({
 			url:'<c:url value="PayFees.kosmo"/>',
-			data:{planner_no:num.value},
+			data:{planner_no:num},
 			dataType:'json',
 			success:function(data){
 				console.log(data);
-				$('#'+num.value+' #payment').prop('class','btn btn-info')
-				$('#'+num.value+' #payment').attr('onclick','refund(this)')
-				$('#'+num.value+' #pay_label').html('환불 하기')
 				
 				
 				successAjaxPayFee(data);
@@ -179,19 +173,29 @@ function successAjaxPayFee(data){
 	 $.each(data,function(index,city){
 		 if(city.hotel_no!=undefined){
 			 tableString+="<div class='destination item'>";
-			 tableString+="<div class='btn btn-info' id='"+city.hotel_no+"' onclick='Import(this)'>호텔 결제하기</div>";
+			 if(city.paid!='yes'){
+			 	 tableString+="<div class='btn btn-info' id='h_"+city.hotel_no+"' onclick='preImport(this)'>호텔 결제하기</div>";
+			 }
+			 else{
+				 tableString+="<div class='btn btn-danger' id='h_"+city.hotel_no+"' onclick='alertFunc(this)'>결제 완료</div>";
+			 }
 			 tableString+="<div class='destination_content'>";
-			 tableString+="<div class='destination_title'><h4>"+city.hotel_name+"</h4></div><div class='destination_subtitle'><p>";
+			 tableString+="<div class='destination_title'><h4 style='color:black'>"+city.hotel_name+"</h4></div><div class='destination_subtitle'><h4>";
 			 tableString+=city.hotel_price.split('-')[1].substring(2)+'원';
-			 tableString+="</p></div><div class='destination_price'>일정:"+city.hotel_in+"~"+city.hotel_out+"</div></div></div>";
+			 tableString+="</h4></div><div class='destination_price'>일정:"+city.hotel_in+"~"+city.hotel_out+"</div></div></div>";
 		 }
 		 else{
 			 tableString+="<div class='destination item'>";
-			 tableString+="<div class='btn btn-warning' id='"+city.air_no+"' onclick='Import(this)'>항공 결제하기</div>";
+			 if(city.paid!='yes'){
+			 	tableString+="<div class='btn btn-warning' id='a_"+city.air_no+"' onclick='preImport(this)'>항공 결제하기</div>";
+			 }
+			 else{
+				 tableString+="<div class='btn btn-danger' id='a_"+city.air_no+"' onclick='alertFunc(this)'>결제 완료</div>";
+			 }
 			 tableString+="<div class='destination_content'>";
-			 tableString+="<div class='destination_title'><h4>"+city.air_ddate+"</h4></div><div class='destination_subtitle'><p>";
+			 tableString+="<div class='destination_title'><h4 style='color:black'>"+city.air_ddate+"</h4></div><div class='destination_subtitle'><h4>";
 			 tableString+=city.air_price+'원';
-			 tableString+="</p></div><div class='destination_price'>공항:"+city.air_dep+"~"+city.air_arr+"</div></div></div>";
+			 tableString+="</h4></div><div class='destination_price'>공항:"+city.air_dep+"~"+city.air_arr+"</div></div></div>";
 		 }
 		})
 		$('#cities').html(tableString);
@@ -199,7 +203,26 @@ function successAjaxPayFee(data){
 	 	var offset=$('#destinations').offset();
 		$('html, body').animate({scrollTop : offset.top}, 400);
 }
-
+function preImport(data){
+	console.log('preImport data.id:',data.id);
+	alert('id:'+data.id);
+	 $.ajax({
+			url:'<c:url value="getAirOrHotel.kosmo"/>',
+			data:{'h_a_no':data.id},
+			dataType:'json',
+			success:function(data){
+				console.log(data);
+				Import(data);
+				
+			},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+}
 function Import(data){
 	 console.log('Import data:',data);
 	 var IMP = window.IMP; 
@@ -208,11 +231,11 @@ function Import(data){
         pg : 'inicis', 
         pay_method : 'card',
         merchant_uid : 'merchant_' + new Date().getTime(),
-        name : '김포-부산행:제주도닷컴구매',
+        name : data[0].name,
         amount : 100,
         //가격
         buyer_email : 'wkddustnzz@Naver.com',
-        buyer_name : '트러블메이커',
+        buyer_name : data[0].user_id,
         buyer_tel : '010-9908-7545',
         buyer_addr : '가산디지털단지역',
         buyer_postcode : '123-456',
@@ -220,7 +243,8 @@ function Import(data){
      }, function(rsp) {
         console.log(rsp);
         if (rsp.success) {
-           var msg = rsp.paid_amount+ '원 결제가 완료되었습니다.';
+           PostImport(data);
+           var msg = data[0].h_a_no+'의 '+rsp.paid_amount+ '원 결제가 완료되었습니다.';
         } else {
            var msg = '결제에 실패하였습니다.';
            msg += '에러내용 : ' + rsp.error_msg;
@@ -228,11 +252,27 @@ function Import(data){
         alert(msg);
      });
 }
-
-function refund(num){
-	$('#'+num.value+' #payment').prop('class','btn btn-danger')
-	$('#'+num.value+' #payment').attr('onclick','payFees(this)')
-	$('#'+num.value+' #pay_label').html('결제 하기')
+function PostImport(data){
+	console.log('PostImport.data:',data[0].h_a_no)
+	 $.ajax({
+			url:'<c:url value="updateResOk.kosmo"/>',
+			data:{'h_a_no':data[0].h_a_no},
+			dataType:'text',
+			success:function(data){
+				console.log(data)
+				
+			},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+	$('#'+data[0].h_a_no).attr('class','btn btn-danger').attr('onclick','alertFunc(this)').html('결제 완료');
+}
+function alertFunc(data){
+	alert('완료된 결제입니다.')
 }
 
 function fnMove(data){
@@ -247,7 +287,7 @@ function fitting(){
 	var j=0;
 	for(var i=1;i<=size;i++){
 		switch(j){
-		case 0:
+		case 0:$('#destinations').css({height:'846.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'0px'})
@@ -260,10 +300,11 @@ function fitting(){
 				j+=1;
 			}
 			break;
-		case 1:
+		case 1:$('#destinations').css({height:'1261.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'415px'})
+				
 				break;
 			case 2:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'390px',top:'415px'})
@@ -273,7 +314,7 @@ function fitting(){
 				j+=1;
 			}
 			break;
-		default :
+		default :$('#destinations').css({height:'1676.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'830px'})
@@ -296,14 +337,14 @@ function successAjaxDetail(data){
 	 $('#dt_title').html('선택한 도시')
 	 $.each(data,function(index,city){
 	 tableString+="<div class='destination item'>";
-	 tableString+="<div class='destination_image'>";
-	 tableString+="<img src='/travelmaker"+city.img+"' alt=''>";
+	 tableString+="<div class='destination_image' >";
+	 tableString+="<img style='border-radius:24px;' src='/travelmaker"+city.img+"' alt=''>";
 	 tableString+="</div><div class='destination_content'>";
-	 tableString+="<div class='destination_title'><a href='<c:url value='/TravelMaker/Plan.kosmo?cities_no="+city.cities_no+"&origin="+city.name+"&planner_no="+city.planner_no+"'/>'>";
+	 tableString+="<div class='destination_title' style='text-align:center;'><a class='btn btn-warning' style='border-radius:12px;' href='<c:url value='/TravelMaker/Plan.kosmo?cities_no="+city.cities_no+"&origin="+city.name+"&planner_no="+city.planner_no+"'/>'>";
 	 tableString+=city.name;
-	 tableString+="</a></div><div class='destination_subtitle'><p>";
-	 tableString+=city.intro;
-	 tableString+="</p></div><div class='destination_price'>일정:"+city.cities_date+"</div></div></div>"
+	 tableString+="</a></div><div class='destination_subtitle'>";
+	 tableString+="<p>"+city.intro;+"</p>"
+	 tableString+="</div><div class='destination_price'>일정:"+city.cities_date+"</div></div></div>"
 	 
 	})
 	$('#cities').html(tableString);
@@ -324,26 +365,34 @@ function successAjaxDetail(data){
 
 						<!-- Intro Item -->
 						<c:forEach items="${list}" var="planner">
-							<div class="col-lg-4 intro_col" id="${planner.planner_no}" style="margin-bottom:30px">
-								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_content">
-										<div>
-											<h3 class="planner_name">${planner.planner_name}</h3>
-										</div>
-										<div class="intro_title">
-											<label>상세 보기</label>
-											<input name="detail" class="btn btn-info" onclick="detail(this)" value="${planner.planner_no}" />
-											<label>삭제 하기</label>
-											<input name="delete" class="btn btn-danger" onclick="deleteFunc(this)" value="${planner.planner_no}" />
-											<label id="pay_label">결제 하기</label>
-											<input id="payment" name="payment" class="btn btn-danger" onclick="payFees(this)" value="${planner.planner_no}" />
-											<label>동행 수락</label>
-											<input id="acc_allow" name="acc_allow" class="btn btn-danger" onclick="acc_allow(this)" value="${planner.planner_no}" >
-											<p style="color:#2e63bf;font-size:2em;" >전체 동행자:<span id="planner_acc">${planner.planner_acc}</span>명</p>
-											<p style="color:red;font-size:2em;" >수락 동행자:<span id="planner_allow">${planner.planner_allow}</span>명</p>
-										</div>
-										
+							<div class="col-lg-3" id="${planner.planner_no}" style="margin:20px;margin-bottom:100px;background-color:#e0f7fa;">
+								<div class="row">
+									<div class="col-lg-12">
+										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
+										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${planner.planner_no}</span>
+										  ${planner.planner_name}
+										</button>	
 									</div>
+									<div class="col-lg-6" style="text-align:center;">
+										  <button type="button" style="background:#2196f3; color:white;" class="btn" onclick="detail(${planner.planner_no})">상세 보기</button>
+										  <button type="button" class="btn btn-danger"  onclick="deleteFunc(${planner.planner_no})">삭제 하기</button>
+									
+									</div>	
+									<div class="col-lg-6" style="text-align:center;">	
+										  <button type="button" style="background:#2196f3; color:white; " class="btn" onclick="payFees(${planner.planner_no})" id="payment" >결제 하기</button>
+										  <button type="button" style="background:#2196f3; color:white; " class="btn" onclick="acc_allow(${planner.planner_no})"id="acc_allow" >동행 수락</button>
+										
+									</div>	
+									<div class="col-lg-12" >		  
+									      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width:100%; background:#80deea; color:white;">
+									        	동행자 보기
+									        <span class="caret"></span>
+									      </button>
+									      <ul class="dropdown-menu" style="margin-left:45px;"role="menu">
+									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;" >전체 동행자:<span id="planner_acc">${planner.planner_acc}</span>명</div></li>
+									        <li><div style="color:#8977ad;font-size:1.5em;text-align:center;" >수락 동행자:<span id="planner_allow">${planner.planner_allow}</span>명</div></li>
+									      </ul>
+									</div>  
 								</div>
 							</div>
 						</c:forEach>
@@ -382,7 +431,7 @@ function successAjaxDetail(data){
 								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
 							</div>
 							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Bali</a></div>
+								<div class="destination_title"><a href="#">Bali</a></div>
 								<div class="destination_subtitle"><p>꿈의 섬 발리로 바로 떠나보세요</p></div>
 								<div class="destination_price">From $699</div>
 							</div>
@@ -394,7 +443,7 @@ function successAjaxDetail(data){
 								<img src="<c:url value='/images/destination_2.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Indonesia</a></div>
+								<div class="destination_title"><a href="#">Indonesia</a></div>
 								<div class="destination_subtitle"><p>인도는 지금 몇시야?인도네시아로 떠나보세요</p></div>
 								<div class="destination_price">From $444</div>
 							</div>
@@ -406,7 +455,7 @@ function successAjaxDetail(data){
 								<img src="<c:url value='/images/destination_6.jpg'/>" alt="">
 							</div>
 							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Mykonos</a></div>
+								<div class="destination_title"><a href="#">Mykonos</a></div>
 								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
 								<div class="destination_price">From $679</div>
 							</div>

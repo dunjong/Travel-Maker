@@ -213,5 +213,17 @@ public class PlannerServiceImpl implements PlannerService{
 		return plannerDAO.selectAccNosByPlannerNo(planner_no);
 	}
 
+	@Override
+	public boolean updateResOk(String h_a_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.updateResOk(h_a_no);
+	}
+
+	@Override
+	public int selectOnePlannerNoByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectOnePlannerNoByCitiesNo(cities_no);
+	}
+
 	
 }

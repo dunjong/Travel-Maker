@@ -34,7 +34,7 @@
 #loadingImg{
       	position: absolute;
       	top:30%;
-      	left:40%;
+      	left:60%;
       	display:none;
       	z-index: 2000;
       }
@@ -55,6 +55,7 @@
 						
 						<div class="col-md-12" style="text-align: center;margin-top:50px;">
 							<form action="<c:url value="/TravelMaker/PlannerSave.kosmo"/>">
+								<input id='airMany' type='hidden' value='${air_z}'>
 								<div class="row">
 									<div class="col-md-1">
 									
@@ -193,8 +194,8 @@
 											<h4 class="card-title">항공권 예매</h4>
 										</div>
 										<div class="card-body">	
-											
-											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#a_modal" style="width:100%">항공권 검색</button>
+											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#a_modal" style="width:100%;margin-bottom:4px">항공권 검색</button>
+											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#air_result_modal" style="width:100%">총 ${air_size}회 항공권 목록</button>
 											<div class="modal fade" id="a_modal">
 												<div class="modal-dialog">
 													<div class="modal-content">
@@ -214,7 +215,7 @@
 																	</div>
 																	<div>
 																		<input type="text" placeholder="출국일" disabled="disabled" style="width:40%"/>
-																		<input type="date" value="2020-07-21" name="departureDate" id="departureDate" placeholder="가는날" required="required" style="width:40%">
+																		<input type="date" value="${today}" name="departureDate" id="departureDate" placeholder="가는날" required="required" style="width:40%">
 																	</div>
 																</form>
 															</div>
@@ -234,6 +235,21 @@
 														</div>
 														<div class="modal-body">
 															<div id='a_places'></div>
+														</div>
+														<div class="modal-footer justify-content-between bg-info">
+												            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+											            </div>
+													</div>
+												</div>
+											</div>
+											<div class="modal fade" id="air_result_modal">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header bg-info ">
+															<h2>항공권 예약 현황</h2>
+														</div>
+														<div class="modal-body" id='air_body'>
+															
 														</div>
 														<div class="modal-footer justify-content-between bg-info">
 												            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
@@ -345,8 +361,8 @@
 	
 	
 	<script>
-		
-		
+			
+			
 		var origin;
 		var map;
 		var directionsService;
@@ -356,464 +372,459 @@
 		var lat,lng;//호텔용
 			
 			
-			function initMap() {
-				var styledMapType = new google.maps.StyledMapType(
-			            [
-			              {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
-			              {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
-			              {elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
-			              {
-			                featureType: 'administrative',
-			                elementType: 'geometry.stroke',
-			                stylers: [{color: '#c9b2a6'}]
-			              },
-			              {
-			                featureType: 'administrative.land_parcel',
-			                elementType: 'geometry.stroke',
-			                stylers: [{color: '#dcd2be'}]
-			              },
-			              {
-			                featureType: 'administrative.land_parcel',
-			                elementType: 'labels.text.fill',
-			                stylers: [{color: '#ae9e90'}]
-			              },
-			              {
-			                featureType: 'landscape.natural',
-			                elementType: 'geometry',
-			                stylers: [{color: '#dfd2ae'}]
-			              },
-			              {
-			                featureType: 'poi',
-			                elementType: 'geometry',
-			                stylers: [{color: '#dfd2ae'}]
-			              },
-			              {
-			                featureType: 'poi',
-			                elementType: 'labels.text.fill',
-			                stylers: [{color: '#93817c'}]
-			              },
-			              {
-			                featureType: 'poi.park',
-			                elementType: 'geometry.fill',
-			                stylers: [{color: '#a5b076'}]
-			              },
-			              {
-			                featureType: 'poi.park',
-			                elementType: 'labels.text.fill',
-			                stylers: [{color: '#447530'}]
-			              },
-			              {
-			                featureType: 'road',
-			                elementType: 'geometry',
-			                stylers: [{color: '#f5f1e6'}]
-			              },
-			              {
-			                featureType: 'road.arterial',
-			                elementType: 'geometry',
-			                stylers: [{color: '#fdfcf8'}]
-			              },
-			              {
-			                featureType: 'road.highway',
-			                elementType: 'geometry',
-			                stylers: [{color: '#f8c967'}]
-			              },
-			              {
-			                featureType: 'road.highway',
-			                elementType: 'geometry.stroke',
-			                stylers: [{color: '#e9bc62'}]
-			              },
-			              {
-			                featureType: 'road.highway.controlled_access',
-			                elementType: 'geometry',
-			                stylers: [{color: '#e98d58'}]
-			              },
-			              {
-			                featureType: 'road.highway.controlled_access',
-			                elementType: 'geometry.stroke',
-			                stylers: [{color: '#db8555'}]
-			              },
-			              {
-			                featureType: 'road.local',
-			                elementType: 'labels.text.fill',
-			                stylers: [{color: '#806b63'}]
-			              },
-			              {
-			                featureType: 'transit.line',
-			                elementType: 'geometry',
-			                stylers: [{color: '#dfd2ae'}]
-			              },
-			              {
-			                featureType: 'transit.line',
-			                elementType: 'labels.text.fill',
-			                stylers: [{color: '#8f7d77'}]
-			              },
-			              {
-			                featureType: 'transit.line',
-			                elementType: 'labels.text.stroke',
-			                stylers: [{color: '#ebe3cd'}]
-			              },
-			              {
-			                featureType: 'transit.station',
-			                elementType: 'geometry',
-			                stylers: [{color: '#dfd2ae'}]
-			              },
-			              {
-			                featureType: 'water',
-			                elementType: 'geometry.fill',
-			                stylers: [{color: '#b9d3c2'}]
-			              },
-			              {
-			                featureType: 'water',
-			                elementType: 'labels.text.fill',
-			                stylers: [{color: '#92998d'}]
-			              }
-			            ],
-			            {name: 'Main Map'});
-			 
-			 
-			//맵 생성
-		  map = new google.maps.Map(document.getElementById('map'), {
+		function initMap() {
+			var styledMapType = new google.maps.StyledMapType(
+		            [
+		              {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
+		              {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
+		              {elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
+		              {
+		                featureType: 'administrative',
+		                elementType: 'geometry.stroke',
+		                stylers: [{color: '#c9b2a6'}]
+		              },
+		              {
+		                featureType: 'administrative.land_parcel',
+		                elementType: 'geometry.stroke',
+		                stylers: [{color: '#dcd2be'}]
+		              },
+		              {
+		                featureType: 'administrative.land_parcel',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#ae9e90'}]
+		              },
+		              {
+		                featureType: 'landscape.natural',
+		                elementType: 'geometry',
+		                stylers: [{color: '#dfd2ae'}]
+		              },
+		              {
+		                featureType: 'poi',
+		                elementType: 'geometry',
+		                stylers: [{color: '#dfd2ae'}]
+		              },
+		              {
+		                featureType: 'poi',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#93817c'}]
+		              },
+		              {
+		                featureType: 'poi.park',
+		                elementType: 'geometry.fill',
+		                stylers: [{color: '#a5b076'}]
+		              },
+		              {
+		                featureType: 'poi.park',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#447530'}]
+		              },
+		              {
+		                featureType: 'road',
+		                elementType: 'geometry',
+		                stylers: [{color: '#f5f1e6'}]
+		              },
+		              {
+		                featureType: 'road.arterial',
+		                elementType: 'geometry',
+		                stylers: [{color: '#fdfcf8'}]
+		              },
+		              {
+		                featureType: 'road.highway',
+		                elementType: 'geometry',
+		                stylers: [{color: '#f8c967'}]
+		              },
+		              {
+		                featureType: 'road.highway',
+		                elementType: 'geometry.stroke',
+		                stylers: [{color: '#e9bc62'}]
+		              },
+		              {
+		                featureType: 'road.highway.controlled_access',
+		                elementType: 'geometry',
+		                stylers: [{color: '#e98d58'}]
+		              },
+		              {
+		                featureType: 'road.highway.controlled_access',
+		                elementType: 'geometry.stroke',
+		                stylers: [{color: '#db8555'}]
+		              },
+		              {
+		                featureType: 'road.local',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#806b63'}]
+		              },
+		              {
+		                featureType: 'transit.line',
+		                elementType: 'geometry',
+		                stylers: [{color: '#dfd2ae'}]
+		              },
+		              {
+		                featureType: 'transit.line',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#8f7d77'}]
+		              },
+		              {
+		                featureType: 'transit.line',
+		                elementType: 'labels.text.stroke',
+		                stylers: [{color: '#ebe3cd'}]
+		              },
+		              {
+		                featureType: 'transit.station',
+		                elementType: 'geometry',
+		                stylers: [{color: '#dfd2ae'}]
+		              },
+		              {
+		                featureType: 'water',
+		                elementType: 'geometry.fill',
+		                stylers: [{color: '#b9d3c2'}]
+		              },
+		              {
+		                featureType: 'water',
+		                elementType: 'labels.text.fill',
+		                stylers: [{color: '#92998d'}]
+		              }
+		            ],
+		            {name: 'Main Map'});
+		 
+		 
+		//맵 생성
+		map = new google.maps.Map(document.getElementById('map'), {
 		  		zoom: 4,
 		  		center: {lat: -8.672062, lng: 115.231609},  // 처음 지도 센터 위치: 발리 덴파사르.
 		  		mapTypeControlOptions: {
-		       	mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
-		               'styled_map']
-		      }
-		  });////map 생성
-		  map.mapTypes.set('styled_map', styledMapType);
-		  map.setMapTypeId('styled_map');
-		  directionsService = new google.maps.DirectionsService;
-		  directionsRenderer = new google.maps.DirectionsRenderer({
-		   	draggable:false,//드래그 가능 여부
-		    map: map
-		  });
-		  
-
-			<c:forEach items="${city_no_name}" var="name" varStatus='h_i'>
-			console.log('name: ${name}')
-			var input_${name.key} = document.getElementById('autocomplete_${name.key}');
-			var autocomplete_${name.key} = new google.maps.places.Autocomplete(input_${name.key});
-			
-			google.maps.event.addListener(autocomplete_${name.key}, 'place_changed', function () {
-				
-				var place = autocomplete_${name.key}.getPlace();
-				console.log('place:',place);
-				console.log('lat', place.geometry.location.lat())
-		        console.log('lng', place.geometry.location.lng())
-		        lat = place.geometry.location.lat()
-		        lng = place.geometry.location.lng()
-			})
-			$('#h_${name.key}').click(function(){
-				console.log($('div.pac-container'))
-				$('div.pac-container')['${h_i.index}'].style.zIndex=2000;
-			})
-			</c:forEach>
-			
-		  
-		  
-		  
+		       	mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain','styled_map']
 			}
+		});////map 생성
+		map.mapTypes.set('styled_map', styledMapType);
+		map.setMapTypeId('styled_map');
+		directionsService = new google.maps.DirectionsService;
+		directionsRenderer = new google.maps.DirectionsRenderer({
+	   	draggable:false,//드래그 가능 여부
+	    map: map
+		});
+	  
+	
+		<c:forEach items="${city_no_name}" var="name" varStatus='h_i'>
+		console.log('name: ${name}')
+		var input_${name.key} = document.getElementById('autocomplete_${name.key}');
+		var autocomplete_${name.key} = new google.maps.places.Autocomplete(input_${name.key});
+		
+		google.maps.event.addListener(autocomplete_${name.key}, 'place_changed', function () {
 			
-
-			$('#planner_name').change(function(){
-				$.ajax({
-					url:'<c:url value="SavePlannerName.kosmo"/>',
-					data:{
-						'planner_no':'${planner_no}',
-						'planner_name':$('#planner_name').val()
-					},
-					success:function(){console.log('아이디가 ',$('#planner_name').val()+'로 변경됨')},
-					error:function(request,error){
-						console.log('상태코드:',request.status);
-						console.log('서버로부터 받은 HTML데이타:',request.responseText);
-						console.log('에러:',error);
-					}
-					
-				});
-			});
+			var place = autocomplete_${name.key}.getPlace();
+			console.log('place:',place);
+			console.log('lat', place.geometry.location.lat())
+	        console.log('lng', place.geometry.location.lng())
+	        lat = place.geometry.location.lat()
+	        lng = place.geometry.location.lng()
+		})
+		$('#h_${name.key}').click(function(){
+			console.log($('div.pac-container'))
+			$('div.pac-container')['${h_i.index}'].style.zIndex=2000;
+		})
+		</c:forEach>
+		}
 			
-			
-			
-			<c:forEach items="${city_hotel}" var="check" >
-			console.log('${check}')
-			if('${check.value}'=='1')
-				$('#h_${check.key}').prop('class','btn btn-danger').html( '${check.key} 등록 호텔 수정하기');
-				
-			</c:forEach>
-			
-			<c:forEach items="${city_hotel_name}" var="hotelName">
-				$('#h_modal_hotelName_${hotelName.key}').html('예약된 호텔:${hotelName.value}');
-			</c:forEach>
-			<c:forEach items="${city_plan_no}" var="plan_check" >
-				if('${plan_check.value ==1}')
-				$('#plan_btn_${plan_check.key}').prop('class','btn btn-danger').html('${plan_check.key}에 대한 세부 일정 수정')
-			</c:forEach>
-			
-			console.log('today: ${today}');
-			console.log('city_name_date','${city_name_date}');
-			var events=[
-				{
-				start: '2020-01-01',
-				end: '${today}',
-		        overlap: false,
-		        color: '#ffffff'
+	
+		$('#planner_name').change(function(){
+			$.ajax({
+				url:'<c:url value="SavePlannerName.kosmo"/>',
+				data:{
+					'planner_no':'${planner_no}',
+					'planner_name':$('#planner_name').val()
+				},
+				success:function(){console.log('아이디가 ',$('#planner_name').val()+'로 변경됨')},
+				error:function(request,error){
+					console.log('상태코드:',request.status);
+					console.log('서버로부터 받은 HTML데이타:',request.responseText);
+					console.log('에러:',error);
 				}
-			]
-			if('${city_name_date}'!=''){
 				
-				<c:forEach items="${city_name_date}" var="date" >
-					if('${date.value}'!=''){
-					$('#datepicker_${date.key}').attr('value','${date.value}'.split(',')[0]);
-					$('#datepicker1_${date.key}').attr('value','${date.value}'.split(',')[1]);
-					var cityBar={
-						start: '${date.value}'.split(',')[0],
-						end: dateFiting('${date.value}'.split(',')[1],'c'),
-				        overlap: false,
-				        color: '#17A2B8',
-				        title:'${date.key}'
-					}
-					events.push(cityBar);
-					}
-				</c:forEach>
-				console.log('events',events);
+			});
+		});
+			
+			
+			
+		<c:forEach items="${city_hotel}" var="check" >
+		console.log('${check}')
+		if('${check.value}'=='1')
+			$('#h_${check.key}').prop('class','btn btn-danger').html( '${check.key} 등록 호텔 수정하기');
+			
+		</c:forEach>
+		
+		<c:forEach items="${city_hotel_name}" var="hotelName">
+			$('#h_modal_hotelName_${hotelName.key}').html('예약된 호텔:${hotelName.value}');
+		</c:forEach>
+		<c:forEach items="${city_plan_no}" var="plan_check" >
+			if('${plan_check.value ==1}')
+			$('#plan_btn_${plan_check.key}').prop('class','btn btn-danger').html('${plan_check.key}에 대한 세부 일정 수정')
+		</c:forEach>
+		
+		console.log('today: ${today}');
+		console.log('city_name_date','${city_name_date}');
+		var events=[
+			{
+			start: '2020-01-01',
+			end: '${today}',
+	        overlap: false,
+	        color: '#ffffff'
 			}
-			var date = new Date();
-			/* initialize the external events
-			 -----------------------------------------------------------------*/
-			function ini_events(ele) {
-				ele.each(function() {
-					// create an Event Object (https://fullcalendar.io/docs/event-object)
-					// it doesn't need to have a start or end
-					// use the element's text as the event title
-
-					// store the Event Object in the DOM element so we can get to it later
-					$(this).data('eventObject', {
-						title : $.trim($(this).text()),
-						overlab : false
-					})
-
-					// make the event draggable using jQuery UI
-					$(this).draggable({
-						zIndex : 1070,
-						revert : true, // will cause the event to go back to its
-						revertDuration : 0
-					//  original position after the drag
-					})
-
+		]
+		if('${city_name_date}'!=''){
+			
+			<c:forEach items="${city_name_date}" var="date" >
+				if('${date.value}'!=''){
+				$('#datepicker_${date.key}').attr('value','${date.value}'.split(',')[0]);
+				$('#datepicker1_${date.key}').attr('value','${date.value}'.split(',')[1]);
+				var cityBar={
+					start: '${date.value}'.split(',')[0],
+					end: dateFiting('${date.value}'.split(',')[1],'c'),
+			        overlap: false,
+			        color: '#17A2B8',
+			        title:'${date.key}'
+				}
+				events.push(cityBar);
+				}
+			</c:forEach>
+			console.log('events',events);
+		}
+		var date = new Date();
+		/* initialize the external events
+		 -----------------------------------------------------------------*/
+		function ini_events(ele) {
+			ele.each(function() {
+				// create an Event Object (https://fullcalendar.io/docs/event-object)
+				// it doesn't need to have a start or end
+				// use the element's text as the event title
+	
+				// store the Event Object in the DOM element so we can get to it later
+				$(this).data('eventObject', {
+					title : $.trim($(this).text()),
+					overlab : false
 				})
+	
+				// make the event draggable using jQuery UI
+				$(this).draggable({
+					zIndex : 1070,
+					revert : true, // will cause the event to go back to its
+					revertDuration : 0
+				//  original position after the drag
+				})
+	
+			})
+		}
+	
+		ini_events($('#external-events div.external-event'))
+	
+		/* initialize the calendar
+		 -----------------------------------------------------------------*/
+		//Date for the calendar events (dummy data)
+		var d = date.getDate(), m = date.getMonth(), y = date.getFullYear()
+	
+		var Calendar = FullCalendar.Calendar;
+		var Draggable = FullCalendarInteraction.Draggable;
+	
+		var containerEl = document.getElementById('external-events');
+		var calendarEl = document.getElementById('calendar');
+	
+		// initialize the external events
+		// -----------------------------------------------------------------
+	
+		new Draggable(containerEl, {
+			itemSelector : '.external-event',
+			eventData : function(eventEl) {
+				return {
+					title : eventEl.innerText,
+					backgroundColor : window
+							.getComputedStyle(eventEl, null)
+							.getPropertyValue('background-color'),
+					borderColor : window.getComputedStyle(eventEl, null)
+							.getPropertyValue('background-color'),
+					textColor : window.getComputedStyle(eventEl, null)
+							.getPropertyValue('color'),
+				};
 			}
-
-			ini_events($('#external-events div.external-event'))
-
-			/* initialize the calendar
-			 -----------------------------------------------------------------*/
-			//Date for the calendar events (dummy data)
-			var d = date.getDate(), m = date.getMonth(), y = date.getFullYear()
-
-			var Calendar = FullCalendar.Calendar;
-			var Draggable = FullCalendarInteraction.Draggable;
-
-			var containerEl = document.getElementById('external-events');
-			var calendarEl = document.getElementById('calendar');
-
-			// initialize the external events
-			// -----------------------------------------------------------------
-
-			new Draggable(containerEl, {
-				itemSelector : '.external-event',
-				eventData : function(eventEl) {
-					return {
-						title : eventEl.innerText,
-						backgroundColor : window
-								.getComputedStyle(eventEl, null)
-								.getPropertyValue('background-color'),
-						borderColor : window.getComputedStyle(eventEl, null)
-								.getPropertyValue('background-color'),
-						textColor : window.getComputedStyle(eventEl, null)
-								.getPropertyValue('color'),
-					};
-				}
-			});
-
-			var calendar = new Calendar(calendarEl,
-					{
-						plugins : [ 'bootstrap', 'interaction', 'dayGrid'],
-						header : {
-							left : 'prev,next today',
-							center : 'title',
-							right : 'dayGridMonth'
-						},
-						'themeSystem' : 'bootstrap',
-						events:events,
-						editable : true,
-						droppable : true, // this allows things to be dropped onto the calendar !!!
-						//카드에서 드랍시 한번만 1
-						drop : function(info) {
-							info.draggedEl.parentNode.removeChild(info.draggedEl);
-							console.log('drop',info);
-						},
-						//카드에서 드랍시 한번만 2
-						eventReceive:function(info){
+		});
+	
+		var calendar = new Calendar(calendarEl,
+				{
+					plugins : [ 'bootstrap', 'interaction', 'dayGrid'],
+					header : {
+						left : 'prev,next today',
+						center : 'title',
+						right : 'dayGridMonth'
+					},
+					'themeSystem' : 'bootstrap',
+					events:events,
+					editable : true,
+					droppable : true, // this allows things to be dropped onto the calendar !!!
+					//카드에서 드랍시 한번만 1
+					drop : function(info) {
+						info.draggedEl.parentNode.removeChild(info.draggedEl);
+						console.log('drop',info);
+					},
+					//카드에서 드랍시 한번만 2
+					eventReceive:function(info){
+						
+						alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s'));
+						console.log('eventReceive',info);
+						if(info.event.end==null){
+							$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+							$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
 							
-							alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s'));
-							console.log('eventReceive',info);
-							if(info.event.end==null){
-								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
-								
-								$.ajax({
-									url:'<c:url value="SaveDates.kosmo"/>',
-									data:{
-										'city_name':info.event.title,
-										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.start.toISOString(),'s'),
-										'planner_no':'${planner_no}'
-										
-									},
-									dataType:'text',
-									success:function(data){console.log(data)},
-									error:function(request,error){
-										console.log('상태코드:',request.status);
-										console.log('서버로부터 받은 HTML데이타:',request.responseText);
-										console.log('에러:',error);
-									}
+							$.ajax({
+								url:'<c:url value="SaveDates.kosmo"/>',
+								data:{
+									'city_name':info.event.title,
+									'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.start.toISOString(),'s'),
+									'planner_no':'${planner_no}'
 									
-								});
+								},
+								dataType:'text',
+								success:function(data){console.log(data)},
+								error:function(request,error){
+									console.log('상태코드:',request.status);
+									console.log('서버로부터 받은 HTML데이타:',request.responseText);
+									console.log('에러:',error);
+								}
 								
-							}
-							else{
-								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
-								
-								$.ajax({
-									url:'<c:url value="SaveDates.kosmo"/>',
-									data:{
-										'city_name':info.event.title,
-										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.end.toISOString(),'e'),
-										'planner_no':'${planner_no}'
-										
-									},
-									dataType:'text',
-									success:function(data){console.log(data)},
-									error:function(request,error){
-										console.log('상태코드:',request.status);
-										console.log('서버로부터 받은 HTML데이타:',request.responseText);
-										console.log('에러:',error);
-									}
-									
-								});
-							}
+							});
 							
-						},
-						//옮기는 드롭
-						eventDrop: function(info) {
-							if(info.event.end==null){
-								alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s')+',끝날짜:'+dateFiting(info.event.start.toISOString(),'s'));
-							}
-							else{
-								alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s')+',끝날짜:'+dateFiting(info.event.end.toISOString(),'e'));
-							}
-							console.log('eventDrop',info);
-							if(date>=info.event.start){
-								info.revert();
-							}
-							if(info.event.end==null){
-								console.log('eventDrop',info)
-								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
-								
-								$.ajax({
-									url:'<c:url value="SaveDates.kosmo"/>',
-									data:{
-										'city_name':info.event.title,
-										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.start.toISOString(),'s'),
-										'planner_no':'${planner_no}'
-										
-									},
-									dataType:'text',
-									success:function(data){console.log(data)},
-									error:function(request,error){
-										console.log('상태코드:',request.status);
-										console.log('서버로부터 받은 HTML데이타:',request.responseText);
-										console.log('에러:',error);
-									}
+						}
+						else{
+							$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+							$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
+							
+							$.ajax({
+								url:'<c:url value="SaveDates.kosmo"/>',
+								data:{
+									'city_name':info.event.title,
+									'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.end.toISOString(),'e'),
+									'planner_no':'${planner_no}'
 									
-								});
-							}
-							else{
-								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
+								},
+								dataType:'text',
+								success:function(data){console.log(data)},
+								error:function(request,error){
+									console.log('상태코드:',request.status);
+									console.log('서버로부터 받은 HTML데이타:',request.responseText);
+									console.log('에러:',error);
+								}
 								
-								$.ajax({
-									url:'<c:url value="SaveDates.kosmo"/>',
-									data:{
-										'city_name':info.event.title,
-										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.end.toISOString(),'e'),
-										'planner_no':'${planner_no}'
-										
-									},
-									dataType:'text',
-									success:function(data){console.log(data)},
-									error:function(request,error){
-										console.log('상태코드:',request.status);
-										console.log('서버로부터 받은 HTML데이타:',request.responseText);
-										console.log('에러:',error);
-									}
+							});
+						}
+						
+					},
+					//옮기는 드롭
+					eventDrop: function(info) {
+						if(info.event.end==null){
+							alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s')+',끝날짜:'+dateFiting(info.event.start.toISOString(),'s'));
+						}
+						else{
+							alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s')+',끝날짜:'+dateFiting(info.event.end.toISOString(),'e'));
+						}
+						console.log('eventDrop',info);
+						if(date>=info.event.start){
+							info.revert();
+						}
+						if(info.event.end==null){
+							console.log('eventDrop',info)
+							$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+							$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+							
+							$.ajax({
+								url:'<c:url value="SaveDates.kosmo"/>',
+								data:{
+									'city_name':info.event.title,
+									'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.start.toISOString(),'s'),
+									'planner_no':'${planner_no}'
 									
-								});
-							}
-						},
-						//크기 변경
-						eventResize: function(info) {
-						    alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s')+',끝 날짜:'+dateFiting(info.event.end.toISOString(),'e'));
-							console.log('eventResize',info);
-							if(info.event.end==null){
-								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+								},
+								dataType:'text',
+								success:function(data){console.log(data)},
+								error:function(request,error){
+									console.log('상태코드:',request.status);
+									console.log('서버로부터 받은 HTML데이타:',request.responseText);
+									console.log('에러:',error);
+								}
 								
-								$.ajax({
-									url:'<c:url value="SaveDates.kosmo"/>',
-									data:{
-										'city_name':info.event.title,
-										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.start.toISOString(),'s'),
-										'planner_no':'${planner_no}'
-										
-									},
-									dataType:'text',
-									success:function(data){console.log(data)},
-									error:function(request,error){
-										console.log('상태코드:',request.status);
-										console.log('서버로부터 받은 HTML데이타:',request.responseText);
-										console.log('에러:',error);
-									}
+							});
+						}
+						else{
+							$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+							$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
+							
+							$.ajax({
+								url:'<c:url value="SaveDates.kosmo"/>',
+								data:{
+									'city_name':info.event.title,
+									'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.end.toISOString(),'e'),
+									'planner_no':'${planner_no}'
 									
-								});
-							}
-							else{
-								$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
-								$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
+								},
+								dataType:'text',
+								success:function(data){console.log(data)},
+								error:function(request,error){
+									console.log('상태코드:',request.status);
+									console.log('서버로부터 받은 HTML데이타:',request.responseText);
+									console.log('에러:',error);
+								}
 								
-								$.ajax({
-									url:'<c:url value="SaveDates.kosmo"/>',
-									data:{
-										'city_name':info.event.title,
-										'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.end.toISOString(),'e'),
-										'planner_no':'${planner_no}'
-										
-										
-									},
-									dataType:'text',
-									success:function(data){console.log(data)},
-									error:function(request,error){
-										console.log('상태코드:',request.status);
-										console.log('서버로부터 받은 HTML데이타:',request.responseText);
-										console.log('에러:',error);
-									}
+							});
+						}
+					},
+					//크기 변경
+					eventResize: function(info) {
+					    alert('도시명:'+info.event.title+',시작 날짜:'+dateFiting(info.event.start.toISOString(),'s')+',끝 날짜:'+dateFiting(info.event.end.toISOString(),'e'));
+						console.log('eventResize',info);
+						if(info.event.end==null){
+							$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+							$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+							
+							$.ajax({
+								url:'<c:url value="SaveDates.kosmo"/>',
+								data:{
+									'city_name':info.event.title,
+									'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.start.toISOString(),'s'),
+									'planner_no':'${planner_no}'
 									
-								});
-							}
-						    
-						  }
-					});
+								},
+								dataType:'text',
+								success:function(data){console.log(data)},
+								error:function(request,error){
+									console.log('상태코드:',request.status);
+									console.log('서버로부터 받은 HTML데이타:',request.responseText);
+									console.log('에러:',error);
+								}
+								
+							});
+						}
+						else{
+							$('#datepicker_'+info.event.title).attr('value',dateFiting(info.event.start.toISOString(),'s'));
+							$('#datepicker1_'+info.event.title).attr('value',dateFiting(info.event.end.toISOString(),'e'));
+							
+							$.ajax({
+								url:'<c:url value="SaveDates.kosmo"/>',
+								data:{
+									'city_name':info.event.title,
+									'cities_date':dateFiting(info.event.start.toISOString(),'s')+','+dateFiting(info.event.end.toISOString(),'e'),
+									'planner_no':'${planner_no}'
+									
+									
+								},
+								dataType:'text',
+								success:function(data){console.log(data)},
+								error:function(request,error){
+									console.log('상태코드:',request.status);
+									console.log('서버로부터 받은 HTML데이타:',request.responseText);
+									console.log('에러:',error);
+								}
+								
+							});
+						}
+					    
+					  }
+				});
 			/* $('.fc-today').appendChild('') */
 			calendar.render();
 			// $('#calendar').fullCalendar()
@@ -927,7 +938,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)+1).toString();
+				day=(parseInt(day)+1);
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 			else if(se=='e'){
@@ -935,7 +949,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)).toString();
+				day=(parseInt(day));
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 			else{
@@ -943,7 +960,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)+1).toString();
+				day=(parseInt(day)+1);
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 		}
@@ -1023,7 +1043,7 @@
 						div_location.className = 'col-sm-12';
 						var div_price_level = document.createElement('div');
 						div_price_level.className = 'col-sm-12';
-
+	
 						div_name.textContent = '호텔이름: '
 								+ response.data[i].name;
 						div_rating.textContent = '평점:'
@@ -1034,9 +1054,9 @@
 								+ response.data[i].longitude;
 						div_price_level.textContent = '가격: '
 								+ response.data[i].price;
-
+	
 						br = document.createElement('br');
-
+	
 						placesList.appendChild(row);
 						row.appendChild(div);
 						div.appendChild(img);
@@ -1064,7 +1084,7 @@
 						boxShadow : '1px 1px 1px 1px gray',
 						borderRadius : '11px /11px'
 					})
-
+	
 				});//ajax.done()
 			$('#h_modal_result').modal('show');
 		}////////////////resultHotelModal()
@@ -1112,7 +1132,6 @@
 			$('#h_modal_hotelName_'+data.split(':')[0]).html('예약된 호텔:'+data.split(':')[2]);
 			alert(data.split(':')[0]+data.split(':')[1]+data.split(':')[2])
 		}
-		
 		function CallPlanDetilsByMap(data){
 			$.ajax({
 				url:'<c:url value="CallPlanDetilsByMap.kosmo"/>',
@@ -1128,34 +1147,22 @@
 					console.log('서버로부터 받은 HTML데이타:',request.responseText);
 					console.log('에러:',error);
 				}
-				
 			});
-			
 		}///CallPlanDetilsByMap
-		
-		
 		function callPlanDetails(cities_no,city_name){
 			var planDetail=document.getElementById('planDetail_'+city_name)
 			planDetail.innerHTML=''
-			
 			$.ajax({
 				url:'<c:url value="SelectPlanDetails.kosmo"/>',
-				data:{
-					'cities_no':cities_no
-					
-				},
+				data:{'cities_no':cities_no},
 				dataType:'json',
 				success:function(data){
-					
 					console.log('detailData:',data)
 					$.each(data[0],function(index,value){
-						
 						console.log(index,':',value)
-						
 						var row=document.createElement('div');
 						row.setAttribute('class','row')
 						planDetail.appendChild(row);
-						
 						var div=document.createElement('div');
 						div=document.createElement('div');
 						div.textContent='day '+index;
@@ -1169,20 +1176,16 @@
 						div.setAttribute('class','col-sm-8')
 						div.setAttribute('style','margin-top:5px;font-weight:bolder')
 						row.appendChild(div);
-							
 					});
-					
 				},
 				error:function(request,error){
 					console.log('상태코드:',request.status);
 					console.log('서버로부터 받은 HTML데이타:',request.responseText);
 					console.log('에러:',error);
 				}
-				
 			});
-			
 		}
-		
+		var air_res_list;
 		function resultAirModal(){
 			$('#a_modal').modal('hide');
 			$('#a_places').html(""); 
@@ -1193,11 +1196,12 @@
 				url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
 				type : "GET",
 				dataType: "json",
-				data : {"departure" : $('#departure').prop('value'),
-						"arrival":$('#arrival').prop('value'),
-						"adult":$('#adult').prop('value'),
-						"children":$('#children').prop('value'),
-						"departureDate":$('#departureDate').prop('value')
+				data : {
+					"departure" : $('#departure').prop('value'),
+					"arrival":$('#arrival').prop('value'),
+					"adult":$('#adult').prop('value'),
+					"children":$('#children').prop('value'),
+					"departureDate":$('#departureDate').prop('value')
 				},
 				error : function(e){
 					console.log(e);
@@ -1205,6 +1209,7 @@
 			}//settings
 			$.ajax(settings).done(function(res) {
 				console.log(res);
+				air_res_list = res;
 				var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
 				for(var i=0;i<res.length-1;i++){
 					if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
@@ -1219,7 +1224,7 @@
 					list+="<div id='AirList_"+i+"' class='row' style='text-align:center'>";
 					list+="<div class='col-md-2' style='height: 40px; width: 40px'>";
 					list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
- 
+	
 					list+="<div class='col-md-5' style='color:black; height: 40px; width: 40px; text-align:right'>"+res[i].segmentsList0[0].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
 					list+="<div class='col-md-3' style='color:black; height: 40px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시간').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
 					list+="<div class='col-md-2' style='color:black; height: 40px; width: 40px; text-align:left'>"+res[i].segmentsList0[1].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
@@ -1251,10 +1256,12 @@
 					"departure" : $('#departure').prop('value'),
 					"arrival":$('#arrival').prop('value'),
 					"passenger":($('#adult').prop('value')*1)+($('#children').prop('value')*1),
-					"ddate":$('#departureDate').prop('value'),
-					"rdate":$('#returnDate').prop('value'),
 					"price":$('#tp_'+btn.dataset.number).html().substring(5,$('#tp_'+btn.dataset.number).html().length-1),
-					"planner_no":'${planner_no}'
+					"planner_no":'${planner_no}',
+					"via":"",
+					"time":"",
+					"ddate":"",
+					"adate":""
 				},
 				dataType:'text',
 				success:function(data){as_successAjax(data)},
@@ -1268,64 +1275,79 @@
 		function as_successAjax(data) {
 			console.log(data);
 			alert(data);
+			var airMany = $('#airMany').prop('value');
+			$('#airMany').prop('value',airMany*1+1);
+			console.log(airMany);
 		}
-		
-		
-	function ChangeMap(data){
-		console.log('data1:',data)
-		var spots=[]
-		$('#d-modal-'+data[0].city_name).modal('hide');
-		$.each(data,function(index,value){
-			console.log('latlng:',value.latlng);
-			var latlng={location:value.latlng};
-			spots.push(latlng);
-		})
-		console.log('[0]:',data[0].city_name);
-		origin=data[0].origin;
-		$('#map_title').html('지도 in '+data[0].city_name+'의 '+'<span style="color:red;font-size:1.5em;">'+data[0].day+'</span>일차');
-		displayRoute(origin, directionsService,directionsRenderer,spots);
-		 var offset=$('#map_title').offset();
-		 $('html, body').animate({scrollTop : offset.top}, 400);
-		
-	}
-	 function displayRoute(origin, service, display,spots) {
-	     service.route({
-	     origin: origin,//출발지
-	     destination:origin,//도착지
-	     waypoints:spots,/*,{location: 'ubud, 발리'},{location: '공항, 발리'}*///여기에 경유지 추가
-	     travelMode: 'DRIVING',
-	     /*탈것 추가
-	     DRIVING (Default)
-		 BICYCLING
-		 WALKING
-		 ※TRANSIT
-		 { 트렌짓은 이런 옵션들도 가지고 있다
-		  arrivalTime: Date,
-		  departureTime: Date,
-		  modes[]: TransitMode,
-			  BUS 
-			  RAIL 
-			  SUBWAY 
-			  TRAIN
-			  TRAM
-		  
-		  routingPreference: TransitRoutePreference
-	  		  FEWER_TRANSFERS
-	 		  LESS_WALKING
-			}
-		 
-	     */
-	     avoidTolls: false,//톨게이트 피해서?
-	     optimizeWaypoints: true
-	   }, function(response, status) {
-	     if (status === 'OK') {
-	       display.setDirections(response);
-	     } else {
-	       alert('Could not display directions due to: ' + status);
-	     }
-	   });
-	 }////displayRoute
-		
+		function ChangeMap(data){
+			console.log('data1:',data)
+			var spots=[]
+			$('#d-modal-'+data[0].city_name).modal('hide');
+			$.each(data,function(index,value){
+				console.log('latlng:',value.latlng);
+				var latlng={location:value.latlng};
+				spots.push(latlng);
+			})
+			console.log('[0]:',data[0].city_name);
+			origin=data[0].origin;
+			$('#map_title').html('지도 in '+data[0].city_name+'의 '+'<span style="color:red;font-size:1.5em;">'+data[0].day+'</span>일차');
+			displayRoute(origin, directionsService,directionsRenderer,spots);
+			var offset=$('#map_title').offset();
+			$('html, body').animate({scrollTop : offset.top}, 400);
+			
+		}
+		function displayRoute(origin, service, display,spots) {
+		    service.route({
+			    origin: origin,//출발지
+			    destination:origin,//도착지
+				waypoints:spots,/*,{location: 'ubud, 발리'},{location: '공항, 발리'}*///여기에 경유지 추가
+				travelMode: 'DRIVING',
+				avoidTolls: false,//톨게이트 피해서?
+				optimizeWaypoints: true
+			}, 
+			function(response, status) {
+				if (status === 'OK') {
+					display.setDirections(response);
+				} 
+	     		else {
+					alert('Could not display directions due to: ' + status);
+				}
+			});
+		}////displayRoute
+		<c:if test="${air_dto_list!=null}">
+			var list="<h2 style='text-align:center;color:#58DE4D'>Reservation List</h2>";
+			<c:forEach items="${air_dto_list}" var="item" varStatus="loop">
+				if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
+				else if(res[i].segmentsList0[2]==1) var code = res[i].segmentsList0[3].code2;
+				else if(res[i].segmentsList0[2]==2) var code = res[i].segmentsList0[3].code3;
+				else if(res[i].segmentsList0[2]==3) var code = res[i].segmentsList0[3].code4;
+				else var code = "";
+				list+="<div class='container'>";
+				list+="<div class='alert alert-success'>";
+				list+="<div class='row'>";
+				list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+				list+="<div id='AirList_"+i+"' class='row' style='text-align:center'>";
+				list+="<div class='col-md-2' style='height: 40px; width: 40px'>";
+				list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
+	
+				list+="<div class='col-md-5' style='color:black; height: 40px; width: 40px; text-align:right'>"+res[i].segmentsList0[0].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
+				list+="<div class='col-md-3' style='color:black; height: 40px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시간').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
+				list+="<div class='col-md-2' style='color:black; height: 40px; width: 40px; text-align:left'>"+res[i].segmentsList0[1].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
+				
+				list+="</div>";
+				list+="</div>";
+				list+="<div class='col-sm-4' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+				list+="<div class='col-md-12' style='color:black; height: 100px; padding:15px; font-size:1.7em;text-align:center;'><Strong>￦"+(res[i].basePrice.split('.')[0]*1).toLocaleString()+"원</Strong><div><small id='tp_"+i+"'>총 가격 "+(res[i].totalPrice.split('.')[0]*1).toLocaleString()+"원</small></div></div>";
+				list+="</div>";
+				list+="<div id='priceBtn_"+i+"' class='col-sm-2' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+				list+="<button style='margin-top:25px' onclick='airReservation(this)' data-number="+i+" type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
+				list+="</div>";
+				list+="</div>";
+				list+="</div>";
+				list+="</div>";
+			</c:forEach>
+			$('#air_body').html(list);
+		</c:if>
 	</script>
 </body>
 </html>

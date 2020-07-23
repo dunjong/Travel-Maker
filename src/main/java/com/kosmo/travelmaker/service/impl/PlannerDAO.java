@@ -142,4 +142,12 @@ public class PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectAccNosByPlannerNo", planner_no);
 	}
+	public boolean updateResOk(String h_a_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.update("updateResOk", h_a_no)==1?true:false;
+	}
+	public int selectOnePlannerNoByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("selectOnePlannerNoByCitiesNo", cities_no);
+	}
 }

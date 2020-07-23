@@ -113,8 +113,8 @@ function AddAcc(planner_no){
 }
 
 function successAjaxAccCancel(data){
-	var accNo=parseInt($('#accNo_'+data).html())-1;
-	$('#accNo_'+data).html(accNo);
+	//var accNo=parseInt($('#accNo_'+data).html())-1;
+	//$('#accNo_'+data).html(accNo);
 	$('#acc_'+data).prop('class','btn btn-info').attr('onclick','AddAcc(this)').html('동행 하기');
 }
 
@@ -128,8 +128,8 @@ function successAjaxAcc(data){
 	else{
 		console.log('acc data:',data)
 		console.log($('#accNo_'+data).html());
-		var accNo=parseInt($('#accNo_'+data).html())+1;
-		$('#accNo_'+data).html(accNo);
+		//var accNo=parseInt($('#accNo_'+data).html())+1;
+		//$('#accNo_'+data).html(accNo);
 		$('#acc_'+data).prop('class','btn btn-danger').attr('onclick','CancelAcc(this)').html('동행 취소하기');
 	}
 }
@@ -151,7 +151,6 @@ function successAjaxPlanner(data){
 					else{
 						tableString+="출발 <div>"+planner.gap+"</div>일 전";
 					}
-					
 					tableString+="<div>planner from<h3 style='font-weight:bolder'>"+planner.id+"</h3></div>";
 					tableString+="</div><div class='news_post_title'><a style='color:#2e63bf' href='<c:url value='/TravelMaker/PlannerView.kosmo?planner_no="+planner.no+"&city_no="+planner.city_no+"'/>'>"+planner.name+", No."+planner.no+"</a>";
 					tableString+="<div class='row'><div class='col-sm-5' style='font-size:2em;color:black'>인원:</div><div style='font-size:2em;color:black;font-weight:bolder' class='col-sm-6' style='font-weight:bolder;color:blue' id='accNo_"+planner.no+"'>"+planner.acc+"</div></div><br>";
@@ -199,7 +198,7 @@ function successAjaxCity(data){
 	var j=0;
 	for(var i=1;i<=size;i++){
 		switch(j){
-		case 0:
+		case 0:$('#destinations').css({height:'846.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'0px'})
@@ -212,7 +211,7 @@ function successAjaxCity(data){
 				j+=1;
 			}
 			break;
-		case 1:
+		case 1:$('#destinations').css({height:'1261.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'415px'})
@@ -225,7 +224,7 @@ function successAjaxCity(data){
 				j+=1;
 			}
 			break;
-		default :
+		default :$('#destinations').css({height:'1676.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'830px'})
@@ -267,7 +266,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/beach.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div style="color:#2e63bf" class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
+									<div style="color:#2e63bf; cursor:pointer;"  class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
 									<div class="intro_subtitle">
 										<p>#여행</p>
 									</div>
@@ -283,7 +282,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/wallet.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div style="color:#2e63bf" class="intro_title">해외 인기여행지</div>
+									<div style="color:#2e63bf; cursor:pointer;" class="intro_title">해외 인기여행지</div>
 									<div class="intro_subtitle">
 										<p>Best Price</p>
 									</div>
@@ -334,7 +333,7 @@ if('${city_no}'!=''){
 								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
 							</div>
 							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Bali</a></div>
+								<div class="destination_title"><a href="#">Bali</a></div>
 								<div class="destination_subtitle"><p>꿈의 섬 발리로 바로 떠나보세요</p></div>
 								<div class="destination_price">From $699</div>
 							</div>

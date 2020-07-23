@@ -8,7 +8,14 @@ public class ResDTO {
 	private int res_no;
 	private String user_id;
 	private String h_a_no;
+	private int res_ok;
 	
+	public int getRes_ok() {
+		return res_ok;
+	}
+	public void setRes_ok(int res_ok) {
+		this.res_ok = res_ok;
+	}
 	public int getRes_no() {
 		return res_no;
 	}
