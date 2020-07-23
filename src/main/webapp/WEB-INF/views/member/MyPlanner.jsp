@@ -337,14 +337,14 @@ function successAjaxDetail(data){
 	 var cities=document.getElementById('cities');
 	 $('#dt_title').html('선택한 도시')
 	 $.each(data,function(index,city){
-	 tableString+="<div class='destination item'>";
+	 tableString+="<div class='destination item' style='background:#e6f4fa;height:500px;'>";
 	 tableString+="<div class='destination_image' >";
 	 tableString+="<img style='border-radius:24px;' src='/travelmaker"+city.img+"' alt=''>";
 	 tableString+="</div><div class='destination_content'>";
 	 tableString+="<div class='destination_title' style='text-align:center;'><a class='btn btn-warning' style='border-radius:12px;' href='<c:url value='/TravelMaker/Plan.kosmo?cities_no="+city.cities_no+"&origin="+city.name+"&planner_no="+city.planner_no+"'/>'>";
 	 tableString+=city.name;
 	 tableString+="</a></div><div class='destination_subtitle'>";
-	 tableString+="<p>"+city.intro;+"</p>"
+	 tableString+="<p style='color:black;font-size:1.2em;'>"+city.intro;+"</p>"
 	 tableString+="</div><div class='destination_price'>일정:"+city.cities_date+"</div></div></div>"
 	 
 	})
