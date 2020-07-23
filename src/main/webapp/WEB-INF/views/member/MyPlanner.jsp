@@ -352,7 +352,8 @@ function successAjaxDetail(data){
 	fitting()
 }
 
-function selectPlannerView(){
+function ToPlannerView(data){
+	window.location.href='<c:url value="/TravelMaker/PlannerView.kosmo?planner_no='+data+'"/>'
 	
 }
 </script>
@@ -386,6 +387,9 @@ function selectPlannerView(){
 										  <button type="button" style="background:#2196f3; color:white; " class="btn" onclick="payFees(${planner.planner_no})" id="payment" >결제 하기</button>
 										  <button type="button" style="background:#2196f3; color:white; " class="btn" onclick="acc_allow(${planner.planner_no})"id="acc_allow" >동행 수락</button>
 										
+									</div>	
+									<div class="col-lg-12" style="text-align:center;">	
+										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;" onclick='ToPlannerView(${planner.planner_no})'>간단 보기</button>
 									</div>	
 									<div class="col-lg-12" >		  
 									      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width:100%; background:#80deea; color:white;">

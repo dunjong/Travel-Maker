@@ -506,7 +506,10 @@ public class PlannerController {
 		int planner_no=0;
 		String planner_name="NoName";
 		String cities_date="";
-		String city_no_from_home=map.get("city_no").toString();
+		String city_no_from_home=null;
+		if(map.get("city_no")!=null) {
+			city_no_from_home=map.get("city_no").toString();
+		}
 		Map<String,Integer> city_no_name=new HashMap<String, Integer>();
 		Map<String, String> city_name_date=new HashMap<String, String>();
 		Map<String, String> city_hotel=new HashMap<String, String>();
