@@ -165,77 +165,78 @@
 			<!-- /.content-header -->
 
 			<!-- Main content -->
-			<section class="content">
-				<div class="container-fluid">
-					<!-- Small boxes (Stat box) -->
-					<div class="row">
-						<div class="col-lg-3 col-6">
-							<!-- small box -->
-							<div class="small-box bg-info">
-								<div class="inner">
-									<h3>50 명</h3>
+			<div class="container-fluid">
+				<!-- Small boxes (Stat box) -->
+				<div class="row">
+					<div class="col-lg-3 col-6">
+						<!-- small box -->
+						<div class="small-box bg-info">
+							<div class="inner">
+								<h3>50 명</h3>
 
-									<p>예약자 수</p>
-								</div>
-								<div class="icon">
-									<i class="ion ion-bag"></i>
-								</div>
-								<a href="#" class="small-box-footer">More info <i
-									class="fas fa-arrow-circle-right"></i></a>
+								<p>예약자 수</p>
 							</div>
-						</div>
-						<!-- ./col -->
-						<div class="col-lg-3 col-6">
-							<!-- small box -->
-							<div class="small-box bg-success">
-								<div class="inner">
-									<h3>105명</h3>
-
-									<p>금주 방문자 수</p>
-								</div>
-								<div class="icon">
-									<i class="ion ion-stats-bars"></i>
-								</div>
-								<a href="#" class="small-box-footer">More info<i
-									class="fas fa-arrow-circle-right"></i></a>
+							<div class="icon">
+								<i class="ion ion-bag"></i>
 							</div>
-						</div>
-						<!-- ./col -->
-						<div class="col-lg-3 col-6">
-							<!-- small box -->
-							<div class="small-box bg-warning">
-								<div class="inner">
-									<h3>2명</h3>
-
-									<p>새로운 회원</p>
-								</div>
-								<div class="icon">
-									<i class="ion ion-person-add"></i>
-								</div>
-								<a href="admin2.kosmo" class="small-box-footer">More info <i
-									class="fas fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-						<!-- ./col -->
-						<div class="col-lg-3 col-6">
-							<!-- small box -->
-							<div class="small-box bg-danger">
-								<div class="inner">
-									<h3>COVID-19</h3>
-									<p>실시간 코로나 현황 및 이슈</p>
-								</div>
-								<div class="icon">
-									<i class="ion ion-logo-freebsd-devil"></i>
-								</div>
-								<a
-									href="http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun="
-									class="small-box-footer">More info <i
-									class="fas fa-arrow-circle-right"></i></a>
-							</div>
+							<a href="#" class="small-box-footer">More info <i
+								class="fas fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
-					<!-- /.row -->
-					<section class="col-lg-7 connectedSortable">
+					<!-- ./col -->
+					<div class="col-lg-3 col-6">
+						<!-- small box -->
+						<div class="small-box bg-success">
+							<div class="inner">
+								<h3>105명</h3>
+
+								<p>금주 방문자 수</p>
+							</div>
+							<div class="icon">
+								<i class="ion ion-stats-bars"></i>
+							</div>
+							<a href="#" class="small-box-footer">More info<i
+								class="fas fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-3 col-6">
+						<!-- small box -->
+						<div class="small-box bg-warning">
+							<div class="inner">
+								<h3>2명</h3>
+
+								<p>새로운 회원</p>
+							</div>
+							<div class="icon">
+								<i class="ion ion-person-add"></i>
+							</div>
+							<a href="admin2.kosmo" class="small-box-footer">More info <i
+								class="fas fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-3 col-6">
+						<!-- small box -->
+						<div class="small-box bg-danger">
+							<div class="inner">
+								<h3>COVID-19</h3>
+								<p>실시간 코로나 현황 및 이슈</p>
+							</div>
+							<div class="icon">
+								<i class="ion ion-logo-freebsd-devil"></i>
+							</div>
+							<a
+								href="http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun="
+								class="small-box-footer">More info <i
+								class="fas fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+				<!-- Main row -->
+				<div class="row">
+					<!-- Left col -->
+					<section class="col-lg-10 connectedSortable">
 						<!-- Custom tabs (Charts with tabs)-->
 						<div class="card">
 							<div class="card-header">
@@ -265,204 +266,227 @@
 									</div>
 								</div>
 							</div>
-							<!-- TO DO List -->
-							<div class="card">
-								<div class="card-header">
-									<h3 class="card-title">
-										<i class="ion ion-clipboard mr-1"></i> To Do List
-									</h3>
+							<!-- /.card-body -->
+						</div>
+						<!-- /.card -->
 
-									<div class="card-tools">
-										<ul class="pagination pagination-sm">
-											<li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-											<li class="page-item"><a href="#" class="page-link">1</a></li>
-											<li class="page-item"><a href="#" class="page-link">2</a></li>
-											<li class="page-item"><a href="#" class="page-link">3</a></li>
-											<li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-										</ul>
-									</div>
-								</div>
-								<!-- /.card-header -->
-								<div class="card-body">
-									<ul class="todo-list" data-widget="todo-list">
-										<li>
-											<!-- drag handle --> <span class="handle"> <i
-												class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-										</span> <!-- checkbox -->
-											<div class="icheck-primary d-inline ml-2">
-												<input type="checkbox" value="" name="todo1" id="todoCheck1">
-												<label for="todoCheck1"></label>
-											</div> <!-- todo text --> <span class="text">방문자수 확인하기</span> <!-- Emphasis label -->
-											<small class="badge badge-danger"><i
-												class="far fa-clock"></i> 2 mins</small> <!-- General tools such as edit or delete-->
-											<div class="tools">
-												<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-											</div>
-										</li>
-										<li><span class="handle"> <i
-												class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-										</span>
-											<div class="icheck-primary d-inline ml-2">
-												<input type="checkbox" value="" name="todo2" id="todoCheck2"
-													checked> <label for="todoCheck2"></label>
-											</div> <span class="text">예약현황 확인</span> <small
-											class="badge badge-info"><i class="far fa-clock"></i>
-												4 hours</small>
-											<div class="tools">
-												<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-											</div></li>
-										<li><span class="handle"> <i
-												class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-										</span>
-											<div class="icheck-primary d-inline ml-2">
-												<input type="checkbox" value="" name="todo3" id="todoCheck3">
-												<label for="todoCheck3"></label>
-											</div> <span class="text">리뷰 및 공지사항 체크</span> <small
-											class="badge badge-warning"><i class="far fa-clock"></i>
-												1 day</small>
-											<div class="tools">
-												<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-											</div></li>
-										<li><span class="handle"> <i
-												class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-										</span>
-											<div class="icheck-primary d-inline ml-2">
-												<input type="checkbox" value="" name="todo4" id="todoCheck4">
-												<label for="todoCheck4"></label>
-											</div> <span class="text">깃 허브 체크 </span> <small
-											class="badge badge-success"><i class="far fa-clock"></i>
-												3 days</small>
-											<div class="tools">
-												<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-											</div></li>
-										<li><span class="handle"> <i
-												class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-										</span>
-											<div class="icheck-primary d-inline ml-2">
-												<input type="checkbox" value="" name="todo5" id="todoCheck5">
-												<label for="todoCheck5"></label>
-											</div> <span class="text">이번달 인기여행지 자료 확인</span> <small
-											class="badge badge-primary"><i class="far fa-clock"></i>
-												1 week</small>
-											<div class="tools">
-												<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-											</div></li>
-										<li><span class="handle"> <i
-												class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
-										</span>
-											<div class="icheck-primary d-inline ml-2">
-												<input type="checkbox" value="" name="todo6" id="todoCheck6">
-												<label for="todoCheck6"></label>
-											</div> <span class="text">데이터베이스 연동</span> <small
-											class="badge badge-secondary"><i class="far fa-clock"></i>
-												1 month</small>
-											<div class="tools">
-												<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
-											</div></li>
+						<!-- TO DO List -->
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">
+									<i class="ion ion-clipboard mr-1"></i> To Do List
+								</h3>
+
+								<div class="card-tools">
+									<ul class="pagination pagination-sm">
+										<li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+										<li class="page-item"><a href="#" class="page-link">1</a></li>
+										<li class="page-item"><a href="#" class="page-link">2</a></li>
+										<li class="page-item"><a href="#" class="page-link">3</a></li>
+										<li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
 									</ul>
 								</div>
-								<!-- /.card-body -->
-								<div class="card-footer clearfix">
-									<button type="button" class="btn btn-info float-right">
-										<i class="fas fa-plus"></i> Add item
-									</button>
-								</div>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								<ul class="todo-list" data-widget="todo-list">
+									<li>
+										<!-- drag handle --> <span class="handle"> <i
+											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+									</span> <!-- checkbox -->
+										<div class="icheck-primary d-inline ml-2">
+											<input type="checkbox" value="" name="todo1" id="todoCheck1">
+											<label for="todoCheck1"></label>
+										</div> <!-- todo text --> <span class="text">방문자수 확인하기</span> <!-- Emphasis label -->
+										<small class="badge badge-danger"><i
+											class="far fa-clock"></i> 2 mins</small> <!-- General tools such as edit or delete-->
+										<div class="tools">
+											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+										</div>
+									</li>
+									<li><span class="handle"> <i
+											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+									</span>
+										<div class="icheck-primary d-inline ml-2">
+											<input type="checkbox" value="" name="todo2" id="todoCheck2"
+												checked> <label for="todoCheck2"></label>
+										</div> <span class="text">예약현황 확인</span> <small
+										class="badge badge-info"><i class="far fa-clock"></i>
+											4 hours</small>
+										<div class="tools">
+											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+										</div></li>
+									<li><span class="handle"> <i
+											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+									</span>
+										<div class="icheck-primary d-inline ml-2">
+											<input type="checkbox" value="" name="todo3" id="todoCheck3">
+											<label for="todoCheck3"></label>
+										</div> <span class="text">리뷰 및 공지사항 체크</span> <small
+										class="badge badge-warning"><i class="far fa-clock"></i>
+											1 day</small>
+										<div class="tools">
+											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+										</div></li>
+									<li><span class="handle"> <i
+											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+									</span>
+										<div class="icheck-primary d-inline ml-2">
+											<input type="checkbox" value="" name="todo4" id="todoCheck4">
+											<label for="todoCheck4"></label>
+										</div> <span class="text">깃 허브 체크 </span> <small
+										class="badge badge-success"><i class="far fa-clock"></i>
+											3 days</small>
+										<div class="tools">
+											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+										</div></li>
+									<li><span class="handle"> <i
+											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+									</span>
+										<div class="icheck-primary d-inline ml-2">
+											<input type="checkbox" value="" name="todo5" id="todoCheck5">
+											<label for="todoCheck5"></label>
+										</div> <span class="text">이번달 인기여행지 자료 확인</span> <small
+										class="badge badge-primary"><i class="far fa-clock"></i>
+											1 week</small>
+										<div class="tools">
+											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+										</div></li>
+									<li><span class="handle"> <i
+											class="fas fa-ellipsis-v"></i> <i class="fas fa-ellipsis-v"></i>
+									</span>
+										<div class="icheck-primary d-inline ml-2">
+											<input type="checkbox" value="" name="todo6" id="todoCheck6">
+											<label for="todoCheck6"></label>
+										</div> <span class="text">데이터베이스 연동</span> <small
+										class="badge badge-secondary"><i class="far fa-clock"></i>
+											1 month</small>
+										<div class="tools">
+											<i class="fas fa-edit"></i> <i class="fas fa-trash-o"></i>
+										</div></li>
+								</ul>
+							</div>
+							<!-- /.card-body -->
+							<div class="card-footer clearfix">
+								<button type="button" class="btn btn-info float-right">
+									<i class="fas fa-plus"></i> Add item
+								</button>
 							</div>
 						</div>
-					</section>
-					<!-- /.card-body -->
+				</div>
+				</section>
+				<!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+			<!-- Map card --> 
+			<section class="col-lg-10 connectedSortable">
+				<!-- Map card -->
+				<div class="card bg-gradient-primary">
+					<div class="card-header border-0">
+						<h3 class="card-title">
+							<i class="fas fa-map-marker-alt mr-1"></i> COVID-19 World Chart
+						</h3>  
+						<!-- card tools -->
+						<div class="card-tools">
+							<button type="button" class="btn btn-primary btn-sm daterange"
+								data-toggle="tooltip" title="Date range">
+								<i class="far fa-calendar-alt"></i>
+							</button>
+							<button type="button" class="btn btn-primary btn-sm"
+								data-card-widget="collapse" data-toggle="tooltip"
+								title="Collapse">
+								<i class="fas fa-minus"></i>
+							</button> 
+						</div>
+						<!-- /.card-tools -->
+					</div>
+					<div class="card-body">
+						<div id="world-map" style="height: 450px; width: 100%;"></div>
+					</div>
+					<!-- /.card-body-->
+					<div class="card-footer bg-transparent">
+						<div class="row">
+							<div class="col-4 text-center">
+								<div id="sparkline-1"></div>
+								<div class="text-white">Visitors</div>
+							</div>
+							<!-- ./col -->
+							<div class="col-4 text-center">
+								<div id="sparkline-2"></div>
+								<div class="text-white">Online</div>
+							</div>
+							<!-- ./col -->
+							<div class="col-4 text-center">
+								<div id="sparkline-3"></div>
+								<div class="text-white">Sales</div>
+							</div>
+							<!-- ./col -->
+						</div>
+						<!-- /.row -->
+					</div>
 				</div>
 				<!-- /.card -->
-				<!-- Map card -->
-				<section class="col-lg-5 connectedSortable">
-					<div class="card bg-gradient-primary">
-						<div class="card-header border-0">
-							<h3 class="card-title" style="font-style: normal;">
-								<i class="fas fa-map-marker-alt mr-1"></i> COVID-19 World Chart
-							</h3>
-							<!-- card tools -->
-							<div class="card-tools">
-								<button type="button" class="btn btn-primary btn-sm daterange"
-									data-toggle="tooltip" title="Date range">
-									<i class="far fa-calendar-alt"></i>
-								</button>
-								<button type="button" class="btn btn-primary btn-sm"
-									data-card-widget="collapse" data-toggle="tooltip"
-									title="Collapse">
-									<i class="fas fa-minus"></i>
-								</button>
-							</div>
-							<!-- /.card-tools -->
-						</div>
-						<div class="card-body">
-							<div id="world-map" style="height: 300px; width: 100%;"></div>
-						</div>
-					</div>
-					<!-- /.card -->
-				</section>
+
 				<!-- solid sales graph -->
-				<section class="col-lg-5 connectedSortable">
-					<div class="card bg-gradient-info">
-						<div class="card-header border-0">
-							<h3 class="card-title">
-								<i class="fas fa-th mr-1"></i> 예약 현황 그래프
-							</h3>
+				<div class="card bg-gradient-info">
+					<div class="card-header border-0">
+						<h3 class="card-title">
+							<i class="fas fa-th mr-1"></i> 예약 현황 그래프
+						</h3>
 
-							<div class="card-tools">
-								<button type="button" class="btn bg-info btn-sm"
-									data-card-widget="collapse">
-									<i class="fas fa-minus"></i>
-								</button>
-								<button type="button" class="btn bg-info btn-sm"
-									data-card-widget="remove">
-									<i class="fas fa-times"></i>
-								</button>
-							</div>
+						<div class="card-tools">
+							<button type="button" class="btn bg-info btn-sm"
+								data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn bg-info btn-sm"
+								data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
 						</div>
-						<div class="card-body">
-							<canvas class="chart" id="line-chart"
-								style="min-height: 200px; height: 200px; max-height: 250px; max-width: 100%; font-color: white"></canvas>
-						</div>
-						<!-- /.card-body -->
-						<div class="card-footer bg-transparent">
-							<div class="row">
-								<div class="col-4 text-center">
-									<input type="text" class="knob" data-readonly="true" value="16"
-										data-width="60" data-height="60" data-fgColor="#39CCCC">
-
-									<div class="text-white">다낭</div>
-								</div>
-								<!-- ./col -->
-								<div class="col-4 text-center">
-									<input type="text" class="knob" data-readonly="true" value="13"
-										data-width="60" data-height="60" data-fgColor="#39CCCC">
-
-									<div class="text-white">괌</div>
-								</div>
-								<!-- ./col -->
-								<div class="col-4 text-center">
-									<input type="text" class="knob" data-readonly="true" value="10"
-										data-width="60" data-height="60" data-fgColor="#39CCCC">
-
-									<div class="text-white">오사카</div>
-								</div>
-								<!-- ./col -->
-							</div>
-							<!-- /.row -->
-						</div>
-						<!-- /.card-footer -->
 					</div>
-					<!-- /.card -->
+					<div class="card-body" style="background-color: white">
+						<canvas class="chart" id="line-chart"
+							style="min-height: 300px; height: 300px; max-height: 600px; max-width: 130%;"></canvas>
+					</div>
+					<!-- /.card-body -->
+					<div class="card-footer bg-transparent">
+						<div class="row">
+							<div class="col-4 text-center">
+								<input type="text" class="knob" data-readonly="true" value="16"
+									data-width="60" data-height="60" data-fgColor="#05fce4">
 
-				</section>
-				<!-- right col -->
+								<div class="text-white">다낭</div>
+							</div>
+							<!-- ./col -->
+							<div class="col-4 text-center">
+								<input type="text" class="knob" data-readonly="true" value="13"
+									data-width="60" data-height="60" data-fgColor="#05fce4">
 
-				<!-- right col (We are only adding the ID to make the widgets sortable)-->
+								<div class="text-white">괌</div>
+							</div>
+							<!-- ./col -->
+							<div class="col-4 text-center">
+								<input type="text" class="knob" data-readonly="true" value="10"
+									data-width="60" data-height="60" data-fgColor="#05fce4">
+
+								<div class="text-white">오사카</div>
+							</div>
+							<!-- ./col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.card-footer -->
+				</div>
+				<!-- /.card -->
+			</section>
+			<!-- right col -->
+			<!-- right col (We are only adding the ID to make the widgets sortable)-->
 		</div>
 		<!-- /.row (main row) -->
 	</div>
 	<!-- /.container-fluid -->
- 
+
 	<!-- /.content -->
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
@@ -478,7 +502,6 @@
 		<!-- Control sidebar content goes here -->
 	</aside>
 	<!-- /.control-sidebar -->
-	</div>
 	<!-- ./wrapper -->
 
 	<!-- jQuery -->
@@ -575,7 +598,7 @@
 		new Chart(document.getElementById("line-chart"), {
 			type : 'line',
 			data : {
-				labels : [ '방콕', '괌', '세부', '다낭', '오사카' ],
+				labels : [ '방콕', '괌', '세부', '다낭', '오사카','발리','사이판','하와이' ],
 				datasets : [ {
 					label : '예약자 수',
 					borderWidth : 2,
@@ -586,7 +609,7 @@
 					pointHoverRadius : 7,
 					pointColor : 'white',
 					pointBackgroundColor : 'white',
-					data : [ 8, 13, 3, 16, 10 ],
+					data : [ 8, 13, 3, 16, 10,4,7,3 ],
 				} ]
 			},
 
