@@ -140,9 +140,6 @@ function deny_acc(data){
 
 function payFees(num){
 	  
-	
-	
-	
 	  $.ajax({
 			url:'<c:url value="PayFees.kosmo"/>',
 			data:{planner_no:num},
@@ -163,9 +160,8 @@ function payFees(num){
 			
 		});
 
-     
-	
 }
+
 function successAjaxPayFee(data){
 	 $('#dt_title').html('결제 사항')
 	 var tableString="";
@@ -203,6 +199,7 @@ function successAjaxPayFee(data){
 	 	var offset=$('#destinations').offset();
 		$('html, body').animate({scrollTop : offset.top}, 400);
 }
+
 function preImport(data){
 	console.log('preImport data.id:',data.id);
 	alert('id:'+data.id);
@@ -223,6 +220,7 @@ function preImport(data){
 			
 		});
 }
+
 function Import(data){
 	 console.log('Import data:',data);
 	 var IMP = window.IMP; 
@@ -252,6 +250,7 @@ function Import(data){
         alert(msg);
      });
 }
+
 function PostImport(data){
 	console.log('PostImport.data:',data[0].h_a_no)
 	 $.ajax({
@@ -271,6 +270,7 @@ function PostImport(data){
 		});
 	$('#'+data[0].h_a_no).attr('class','btn btn-danger').attr('onclick','alertFunc(this)').html('결제 완료');
 }
+
 function alertFunc(data){
 	alert('완료된 결제입니다.')
 }
@@ -330,6 +330,7 @@ function fitting(){
 		}
 	}
 }
+
 function successAjaxDetail(data){
 	console.log('data',data);
 	 var tableString="";
@@ -351,6 +352,9 @@ function successAjaxDetail(data){
 	fitting()
 }
 
+function selectPlannerView(){
+	
+}
 </script>
 
 
