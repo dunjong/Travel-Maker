@@ -585,7 +585,6 @@ public class PlannerController {
 			}
 			
 		
-		
 		return JSONArray.toJSONString(collections);
 	}
 	@RequestMapping(value="PlannerAcc.kosmo", produces ="text/html; charset=UTF-8")

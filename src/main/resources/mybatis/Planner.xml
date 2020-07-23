@@ -54,7 +54,7 @@
 		SELECT COUNT(*) FROM ACCOMPANY WHERE planner_no=#{planner_no}
 	</select>
 	<select id="selectPlannerNoListById" parameterType="java.lang.String" resultType="int">
-		SELECT planner_no from accompany where user_id=#{user_id}
+		SELECT planner_no from accompany where user_id=#{user_id} and allow='1'
 	</select>
 	<select id="selectResDTOListByPlannerNo" parameterType="java.lang.String" resultType="ResDTO">
 		SELECT * FROM RESERVATION WHERE user_id=#{user_id}

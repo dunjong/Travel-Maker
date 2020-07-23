@@ -151,7 +151,6 @@ function successAjaxPlanner(data){
 					else{
 						tableString+="출발 <div>"+planner.gap+"</div>일 전";
 					}
-					
 					tableString+="<div>planner from<h3 style='font-weight:bolder'>"+planner.id+"</h3></div>";
 					tableString+="</div><div class='news_post_title'><a style='color:#2e63bf' href='<c:url value='/TravelMaker/PlannerView.kosmo?planner_no="+planner.no+"&city_no="+planner.city_no+"'/>'>"+planner.name+", No."+planner.no+"</a>";
 					tableString+="<div class='row'><div class='col-sm-5' style='font-size:2em;color:black'>인원:</div><div style='font-size:2em;color:black;font-weight:bolder' class='col-sm-6' style='font-weight:bolder;color:blue' id='accNo_"+planner.no+"'>"+planner.acc+"</div></div><br>";
@@ -267,7 +266,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/beach.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div style="color:#2e63bf" class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
+									<div style="color:#2e63bf; cursor:pointer;"  class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
 									<div class="intro_subtitle">
 										<p>#여행</p>
 									</div>
@@ -283,7 +282,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/wallet.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div style="color:#2e63bf" class="intro_title">해외 인기여행지</div>
+									<div style="color:#2e63bf; cursor:pointer;" class="intro_title">해외 인기여행지</div>
 									<div class="intro_subtitle">
 										<p>Best Price</p>
 									</div>

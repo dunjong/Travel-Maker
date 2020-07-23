@@ -6,9 +6,6 @@
 	height: 261.37px;
 	width: 360px;
 }
-.planner_name{
-	color:black;
-}
 
 </style>
 <script type="text/javascript"
@@ -340,14 +337,14 @@ function successAjaxDetail(data){
 	 $('#dt_title').html('선택한 도시')
 	 $.each(data,function(index,city){
 	 tableString+="<div class='destination item'>";
-	 tableString+="<div class='destination_image'>";
-	 tableString+="<img src='/travelmaker"+city.img+"' alt=''>";
+	 tableString+="<div class='destination_image' >";
+	 tableString+="<img style='border-radius:24px;' src='/travelmaker"+city.img+"' alt=''>";
 	 tableString+="</div><div class='destination_content'>";
-	 tableString+="<div class='destination_title'><a href='<c:url value='/TravelMaker/Plan.kosmo?cities_no="+city.cities_no+"&origin="+city.name+"&planner_no="+city.planner_no+"'/>'>";
+	 tableString+="<div class='destination_title' style='text-align:center;'><a class='btn btn-warning' style='border-radius:12px;' href='<c:url value='/TravelMaker/Plan.kosmo?cities_no="+city.cities_no+"&origin="+city.name+"&planner_no="+city.planner_no+"'/>'>";
 	 tableString+=city.name;
-	 tableString+="</a></div><div class='destination_subtitle'><p>";
-	 tableString+=city.intro;
-	 tableString+="</p></div><div class='destination_price'>일정:"+city.cities_date+"</div></div></div>"
+	 tableString+="</a></div><div class='destination_subtitle'>";
+	 tableString+="<p>"+city.intro;+"</p>"
+	 tableString+="</div><div class='destination_price'>일정:"+city.cities_date+"</div></div></div>"
 	 
 	})
 	$('#cities').html(tableString);
@@ -368,22 +365,34 @@ function successAjaxDetail(data){
 
 						<!-- Intro Item -->
 						<c:forEach items="${list}" var="planner">
-							<div class="col-lg-4 intro_col" id="${planner.planner_no}" style="margin-bottom:10px;background-color:#e6f4fa;border-radius:25px;">
-								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_content">
-										<div>
-											<h3 style="text-align:center;color:#190b05" class="planner_name">제목:${planner.planner_name}</h3>
-										</div>
-										<div class="intro_title">
-											<div style="background-color:#eee6c4" class="btn" onclick="detail(${planner.planner_no})">상세 보기</div>
-											<div class="btn btn-danger" onclick="deleteFunc(${planner.planner_no})">삭제 하기</div>
-											<div style="background-color:#ece6cc" id="payment" class="btn" onclick="payFees(${planner.planner_no})" >결제 하기</div>
-											<div style="background-color:#f5f5dc" id="acc_allow" class="btn" onclick="acc_allow(${planner.planner_no})">동행 수락</div>
-											<div style="color:#0080ff;font-size:1.5em;text-align:center;" >전체 동행자:<span id="planner_acc">${planner.planner_acc}</span>명</div>
-											<div style="color:#8977ad;font-size:1.5em;text-align:center;" >수락 동행자:<span id="planner_allow">${planner.planner_allow}</span>명</div>
-										</div>
-										
+							<div class="col-lg-3" id="${planner.planner_no}" style="margin:20px;margin-bottom:100px;background-color:#e0f7fa;">
+								<div class="row">
+									<div class="col-lg-12">
+										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
+										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${planner.planner_no}</span>
+										  ${planner.planner_name}
+										</button>	
 									</div>
+									<div class="col-lg-6" style="text-align:center;">
+										  <button type="button" style="background:#2196f3; color:white;" class="btn" onclick="detail(${planner.planner_no})">상세 보기</button>
+										  <button type="button" class="btn btn-danger"  onclick="deleteFunc(${planner.planner_no})">삭제 하기</button>
+									
+									</div>	
+									<div class="col-lg-6" style="text-align:center;">	
+										  <button type="button" style="background:#2196f3; color:white; " class="btn" onclick="payFees(${planner.planner_no})" id="payment" >결제 하기</button>
+										  <button type="button" style="background:#2196f3; color:white; " class="btn" onclick="acc_allow(${planner.planner_no})"id="acc_allow" >동행 수락</button>
+										
+									</div>	
+									<div class="col-lg-12" >		  
+									      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width:100%; background:#80deea; color:white;">
+									        	동행자 보기
+									        <span class="caret"></span>
+									      </button>
+									      <ul class="dropdown-menu" style="margin-left:45px;"role="menu">
+									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;" >전체 동행자:<span id="planner_acc">${planner.planner_acc}</span>명</div></li>
+									        <li><div style="color:#8977ad;font-size:1.5em;text-align:center;" >수락 동행자:<span id="planner_allow">${planner.planner_allow}</span>명</div></li>
+									      </ul>
+									</div>  
 								</div>
 							</div>
 						</c:forEach>
