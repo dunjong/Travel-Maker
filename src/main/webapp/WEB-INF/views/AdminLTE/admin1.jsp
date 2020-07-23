@@ -24,9 +24,6 @@
 <!-- iCheck -->
 <link rel="stylesheet"
 	href="<c:url value='/plugins2/icheck-bootstrap/icheck-bootstrap.min.css'/>">
-<!-- JQVMap -->
-<link rel="stylesheet"
-	href="<c:url value='/plugins2/jqvmap/jqvmap.min.css'/>">
 <!-- Theme style -->
 <link rel="stylesheet"
 	href="<c:url value='/dist/css/adminlte.min.css'/>">
@@ -507,14 +504,7 @@
 	<script src="<c:url value='/plugins2/chart.js/Chart.min.js'/>"></script>
 	<!-- Sparkline -->
 	<script src="<c:url value='/plugins2/sparklines/sparkline.js'/>"></script>
-	<!-- JQVMap -->
-	<script src="<c:url value='/plugins2/jqvmap/jquery.vmap.min.js'/>"></script>
-	<script src="<c:url value='/plugins2/jqvmap/maps/jquery.vmap.usa.js'/>"></script>
-	<script
-		src="<c:url value='/plugins2/jqvmap/maps/jquery.vmap.world.js'/>"></script>
 
-	<script
-		src="<c:url value='/plugins2/jqvmap/maps/continents/jquery-jvectormap-asia-merc.js'/>"></script>
 	<!-- jQuery Knob Chart -->
 	<script src="<c:url value='/plugins2/jquery-knob/jquery.knob.min.js'/>"></script>
 	<!-- daterangepicker -->
@@ -595,7 +585,7 @@
 							lineTension : 0,
 							spanGaps : true,
 							borderColor : '#0f3ffe',
-							pointRadius : 5,
+							pointRadius : 5, 
 							pointHoverRadius : 7,
 							pointColor : 'white',
 							pointBackgroundColor : 'white',
@@ -619,40 +609,6 @@
 
 		/* jQueryKnob */
 		$('.knob').knob()
-
-		// jvectormap data
-		var visitorsData = {
-			'BD' : 100,
-			'MN' : 200,
-			'BN' : 300,
-			'KR' : 400
-		}
-		// World map by jvectormap
-		$('#world-map').vectorMap(
-				{
-					map : 'asia_merc',
-					backgroundColor : 'transparent',
-					regionStyle : {
-						initial : {
-							fill : 'rgba(255, 255, 255, 0.7)',
-							'fill-opacity' : 1,
-							stroke : 'rgba(0,0,0,.2)',
-							'stroke-width' : 1,
-							'stroke-opacity' : 1
-						}
-					},
-					series : {
-						regions : [ {
-							scale : [ '#ffffff', '#0154ad' ],
-							normalizeFunction : 'polynomial'
-						} ]
-					},
-					onRegionLabelShow : function(e, el, code) {
-						if (typeof visitorsData[code] != 'undefined')
-							el.html(el.html() + ': ' + visitorsData[code]
-									+ ' new visitors')
-					}
-				})
 	</script>
 </body>
 </html>
