@@ -202,9 +202,9 @@
 						</div>
 						<!-- ./col -->
 						<div class="col-lg-3 col-6">
-							<!-- small box --> 
-							<div class="small-box bg-warning"> 
-								<div class="inner"> 
+							<!-- small box -->
+							<div class="small-box bg-warning">
+								<div class="inner">
 									<h3>2명</h3>
 
 									<p>새로운 회원</p>
@@ -236,128 +236,35 @@
 					</div>
 					<!-- /.row -->
 					<section class="col-lg-7 connectedSortable">
-
-							<!-- Map card -->
-							<div class="card bg-gradient-primary">
-								<div class="card-header border-0">
-									<h3 class="card-title" style="font-style: normal;">
-										<i class="fas fa-map-marker-alt mr-1"></i> COVID-19 World
-										Chart
-									</h3>
-									<!-- card tools -->
-									<div class="card-tools">
-										<button type="button" class="btn btn-primary btn-sm daterange"
-											data-toggle="tooltip" title="Date range">
-											<i class="far fa-calendar-alt"></i>
-										</button>
-										<button type="button" class="btn btn-primary btn-sm"
-											data-card-widget="collapse" data-toggle="tooltip"
-											title="Collapse">
-											<i class="fas fa-minus"></i>
-										</button>
-									</div>
-									<!-- /.card-tools -->
-								</div>
-								<div class="card-body">
-									<div id="world-map" style="height: 300px; width: 100%;"></div>
+						<!-- Custom tabs (Charts with tabs)-->
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">
+									<i class="fas fa-chart-pie mr-1"></i> 금주 방문자 그래프
+								</h3>
+								<div class="card-tools">
+									<ul class="nav nav-pills ml-auto">
+										<li class="nav-item"><a class="nav-link active"
+											href="#revenue-chart" data-toggle="tab">굴곡형</a></li>
+										<li class="nav-item"><a class="nav-link"
+											href="#sales-chart" data-toggle="tab">도넛형</a></li>
+									</ul>
 								</div>
 							</div>
-							<!-- /.card -->
-
-							<!-- solid sales graph -->
-							<div class="card bg-gradient-info">
-								<div class="card-header border-0">
-									<h3 class="card-title">
-										<i class="fas fa-th mr-1"></i> 예약 현황 그래프
-									</h3>
-
-									<div class="card-tools">
-										<button type="button" class="btn bg-info btn-sm"
-											data-card-widget="collapse">
-											<i class="fas fa-minus"></i>
-										</button>
-										<button type="button" class="btn bg-info btn-sm"
-											data-card-widget="remove">
-											<i class="fas fa-times"></i>
-										</button>
+							<!-- /.card-header -->
+							<div class="card-body">
+								<div class="tab-content p-0">
+									<!-- Morris chart - Sales -->
+									<div class="chart tab-pane active" id="revenue-chart"
+										style="position: relative; height: 550px;">
+										<canvas id="bar-chart" width="800" height="450"></canvas>
+									</div>
+									<div class="chart tab-pane" id="sales-chart"
+										style="position: relative; height: 450;">
+										<canvas id="pie-chart" width="800" style="height: 450;"></canvas>
 									</div>
 								</div>
-								<div class="card-body">
-									<canvas class="chart" id="line-chart"
-										style="min-height: 200px; height: 200px; max-height: 250px; max-width: 100%; font-color: white"></canvas>
-								</div>
-								<!-- /.card-body -->
-								<div class="card-footer bg-transparent">
-									<div class="row">
-										<div class="col-4 text-center">
-											<input type="text" class="knob" data-readonly="true"
-												value="16" data-width="60" data-height="60"
-												data-fgColor="#39CCCC">
-
-											<div class="text-white">다낭</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-4 text-center">
-											<input type="text" class="knob" data-readonly="true"
-												value="13" data-width="60" data-height="60"
-												data-fgColor="#39CCCC">
-
-											<div class="text-white">괌</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-4 text-center">
-											<input type="text" class="knob" data-readonly="true"
-												value="10" data-width="60" data-height="60"
-												data-fgColor="#39CCCC">
-
-											<div class="text-white">오사카</div>
-										</div>
-										<!-- ./col -->
-									</div>
-									<!-- /.row -->
-								</div>
-								<!-- /.card-footer -->
 							</div>
-							<!-- /.card -->
-
-						</section>
-						<!-- right col -->
-					<!-- Main row --> 
-					<div class="row">
-						<!-- Left col -->
-						<section class="col-lg-7 connectedSortable">
-							<!-- Custom tabs (Charts with tabs)-->
-							<div class="card">
-								<div class="card-header">
-									<h3 class="card-title">
-										<i class="fas fa-chart-pie mr-1"></i> 금주 방문자 그래프
-									</h3>
-									<div class="card-tools">
-										<ul class="nav nav-pills ml-auto">
-											<li class="nav-item"><a class="nav-link active"
-												href="#revenue-chart" data-toggle="tab">굴곡형</a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="#sales-chart" data-toggle="tab">도넛형</a></li>
-										</ul>
-									</div>
-								</div>
-								<!-- /.card-header -->
-								<div class="card-body">
-									<div class="tab-content p-0">
-										<!-- Morris chart - Sales -->
-										<div class="chart tab-pane active" id="revenue-chart"
-											style="position: relative; height: 550px;">
-											<canvas id="bar-chart" width="800" height="450"></canvas>
-										</div>
-										<div class="chart tab-pane" id="sales-chart"
-											style="position: relative; height: 450;">
-											<canvas id="pie-chart" width="800" style="height: 450;"></canvas>
-										</div>
-									</div>
-								</div>
-								<!-- /.card-body -->
-							</div>
-							<!-- /.card -->
 							<!-- TO DO List -->
 							<div class="card">
 								<div class="card-header">
@@ -461,32 +368,116 @@
 									</button>
 								</div>
 							</div>
-							<!-- /.card -->
-						</section>
-						<!-- /.Left col -->
-						<!-- right col (We are only adding the ID to make the widgets sortable)-->
-						
-					</div>
-					<!-- /.row (main row) -->
+						</div>
+					</section>
+					<!-- /.card-body -->
 				</div>
-				<!-- /.container-fluid -->
-			</section>
-			<!-- /.content -->
-		</div>
-		<!-- /.content-wrapper -->
-		<footer class="main-footer">
-			<strong>Copyright &copy; 2020 <a href="http://adminlte.io">Travel_maker</a>.
-			</strong> All rights reserved.
-			<div class="float-right d-none d-sm-inline-block">
-				<b>Version</b> 0.0.1
-			</div>
-		</footer>
+				<!-- /.card -->
+				<!-- Map card -->
+				<section class="col-lg-5 connectedSortable">
+					<div class="card bg-gradient-primary">
+						<div class="card-header border-0">
+							<h3 class="card-title" style="font-style: normal;">
+								<i class="fas fa-map-marker-alt mr-1"></i> COVID-19 World Chart
+							</h3>
+							<!-- card tools -->
+							<div class="card-tools">
+								<button type="button" class="btn btn-primary btn-sm daterange"
+									data-toggle="tooltip" title="Date range">
+									<i class="far fa-calendar-alt"></i>
+								</button>
+								<button type="button" class="btn btn-primary btn-sm"
+									data-card-widget="collapse" data-toggle="tooltip"
+									title="Collapse">
+									<i class="fas fa-minus"></i>
+								</button>
+							</div>
+							<!-- /.card-tools -->
+						</div>
+						<div class="card-body">
+							<div id="world-map" style="height: 300px; width: 100%;"></div>
+						</div>
+					</div>
+					<!-- /.card -->
+				</section>
+				<!-- solid sales graph -->
+				<section class="col-lg-5 connectedSortable">
+					<div class="card bg-gradient-info">
+						<div class="card-header border-0">
+							<h3 class="card-title">
+								<i class="fas fa-th mr-1"></i> 예약 현황 그래프
+							</h3>
 
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
+							<div class="card-tools">
+								<button type="button" class="btn bg-info btn-sm"
+									data-card-widget="collapse">
+									<i class="fas fa-minus"></i>
+								</button>
+								<button type="button" class="btn bg-info btn-sm"
+									data-card-widget="remove">
+									<i class="fas fa-times"></i>
+								</button>
+							</div>
+						</div>
+						<div class="card-body">
+							<canvas class="chart" id="line-chart"
+								style="min-height: 200px; height: 200px; max-height: 250px; max-width: 100%; font-color: white"></canvas>
+						</div>
+						<!-- /.card-body -->
+						<div class="card-footer bg-transparent">
+							<div class="row">
+								<div class="col-4 text-center">
+									<input type="text" class="knob" data-readonly="true" value="16"
+										data-width="60" data-height="60" data-fgColor="#39CCCC">
+
+									<div class="text-white">다낭</div>
+								</div>
+								<!-- ./col -->
+								<div class="col-4 text-center">
+									<input type="text" class="knob" data-readonly="true" value="13"
+										data-width="60" data-height="60" data-fgColor="#39CCCC">
+
+									<div class="text-white">괌</div>
+								</div>
+								<!-- ./col -->
+								<div class="col-4 text-center">
+									<input type="text" class="knob" data-readonly="true" value="10"
+										data-width="60" data-height="60" data-fgColor="#39CCCC">
+
+									<div class="text-white">오사카</div>
+								</div>
+								<!-- ./col -->
+							</div>
+							<!-- /.row -->
+						</div>
+						<!-- /.card-footer -->
+					</div>
+					<!-- /.card -->
+
+				</section>
+				<!-- right col -->
+
+				<!-- right col (We are only adding the ID to make the widgets sortable)-->
+		</div>
+		<!-- /.row (main row) -->
+	</div>
+	<!-- /.container-fluid -->
+ 
+	<!-- /.content -->
+	<!-- /.content-wrapper -->
+	<footer class="main-footer">
+		<strong>Copyright &copy; 2020 <a href="http://adminlte.io">Travel_maker</a>.
+		</strong> All rights reserved.
+		<div class="float-right d-none d-sm-inline-block">
+			<b>Version</b> 0.0.1
+		</div>
+	</footer>
+
+	<!-- Control Sidebar -->
+	<aside class="control-sidebar control-sidebar-dark">
+		<!-- Control sidebar content goes here -->
+	</aside>
+	<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
 
@@ -565,7 +556,7 @@
 				datasets : [ {
 					label : "Population",
 					backgroundColor : [ "#0fc6fe", "#0faafe", "#0f7bfe",
-						"#0f67fe", "#0f4ffe", "#0f33fe", "#170ffe" ],
+							"#0f67fe", "#0f4ffe", "#0f33fe", "#170ffe" ],
 					data : [ 0, 10, 18, 15, 16, 21, 25 ]
 				} ]
 			},
