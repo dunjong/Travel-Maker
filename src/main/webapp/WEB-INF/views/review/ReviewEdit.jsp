@@ -26,7 +26,6 @@
 	width: 100%;
 	border-radius: 20px;
 	margin-bottom: 10px;
-	text-align: center;
 }
 #reviewWriteCityTag {
 	height: 50px;
@@ -129,6 +128,10 @@
 .reviewFooterUtil span {
 	color: #3EB489;
 }
+.home_search_content{
+	background-color:white;
+	border-radius:20px;
+}
 </style>
 </head>
 <!-- Search -->
@@ -151,20 +154,20 @@
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 									<select style="width:100%" class="col-lg-4" id="reviewWriteCityTag" name="city_no" required="required">
-										<option value="1" <c:if test="${record.city_no == '1'}">selected</c:if>>세부</option>
-										<option value="2" <c:if test="${record.city_no == '2'}">selected</c:if>>보라카이</option>
-										<option value="3" <c:if test="${record.city_no == '3'}">selected</c:if>>마닐라</option>
-										<option value="4" <c:if test="${record.city_no == '4'}">selected</c:if>>하노이</option>
-										<option value="5" <c:if test="${record.city_no == '5'}">selected</c:if>>나트랑</option>
-										<option value="6" <c:if test="${record.city_no == '6'}">selected</c:if>>다낭</option>
-										<option value="7" <c:if test="${record.city_no == '7'}">selected</c:if>>푸켓</option>
-										<option value="8" <c:if test="${record.city_no == '8'}">selected</c:if>>방콕</option>
-										<option value="9" <c:if test="${record.city_no == '9'}">selected</c:if>>발리</option>
-										<option value="10" <c:if test="${record.city_no == '10'}">selected</c:if>>롬복</option>
-										<option value="11" <c:if test="${record.city_no == '11'}">selected</c:if>>쿠알라룸푸르</option>
-										<option value="12" <c:if test="${record.city_no == '12'}">selected</c:if>>코타키나발루</option>
-										<option value="13" <c:if test="${record.city_no == '13'}">selected</c:if>>싱가포르</option>
-										<option value="14" <c:if test="${record.city_no == '14'}">selected</c:if>>라오스</option>
+										<option value="2" <c:if test="${record.city_no == '2'}">selected</c:if>>세부</option>
+										<option value="3" <c:if test="${record.city_no == '3'}">selected</c:if>>보라카이</option>
+										<option value="4" <c:if test="${record.city_no == '4'}">selected</c:if>>마닐라</option>
+										<option value="5" <c:if test="${record.city_no == '5'}">selected</c:if>>하노이</option>
+										<option value="6" <c:if test="${record.city_no == '6'}">selected</c:if>>나트랑</option>
+										<option value="7" <c:if test="${record.city_no == '7'}">selected</c:if>>다낭</option>
+										<option value="8" <c:if test="${record.city_no == '8'}">selected</c:if>>푸켓</option>
+										<option value="9" <c:if test="${record.city_no == '9'}">selected</c:if>>방콕</option>
+										<option value="10" <c:if test="${record.city_no == '10'}">selected</c:if>>발리</option>
+										<option value="11" <c:if test="${record.city_no == '11'}">selected</c:if>>롬복</option>
+										<option value="12" <c:if test="${record.city_no == '12'}">selected</c:if>>쿠알라룸푸르</option>
+										<option value="13" <c:if test="${record.city_no == '13'}">selected</c:if>>코타키나발루</option>
+										<option value="14" <c:if test="${record.city_no == '14'}">selected</c:if>>싱가포르</option>
+										<option value="15" <c:if test="${record.city_no == '15'}">selected</c:if>>라오스</option>
 									</select> <select style="width:100%" class="col-lg-5" id="reviewWritePlaceTag">
 										<option>리뷰 장소를 선택하세요</option>
 										<option value="food">식당</option>
@@ -184,7 +187,9 @@
 										accept="image/gif,image/jpeg,image/png">
 									<button style="width:100%" id="reviewWriteImageUpButton" type="button">
 										사진을 올리시려면 클릭하세요</button>
+									
 									<button style="width:100%" type="submit" id="reviewWriteSubmmit">리뷰 수정 완료</button>
+								
 								</div>
 							</form>
 						</div>
