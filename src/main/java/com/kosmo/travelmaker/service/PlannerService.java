@@ -35,4 +35,7 @@ public interface PlannerService {
 	boolean deleteResByPlannerNo(int planner_no);
 	boolean deleteResByHotelNo(String h_a_no);
 	boolean deleteResByAirNo(String h_a_no);
+	List<AccDTO> selectAccNosByPlannerNo(int planner_no);
+	boolean updateResOk(String h_a_no);
+	int selectOnePlannerNoByCitiesNo(int cities_no);
 }

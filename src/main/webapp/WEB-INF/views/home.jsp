@@ -113,18 +113,25 @@ function AddAcc(planner_no){
 }
 
 function successAjaxAccCancel(data){
-	var accNo=parseInt($('#accNo_'+data).html())-1;
-	$('#accNo_'+data).html(accNo);
+	//var accNo=parseInt($('#accNo_'+data).html())-1;
+	//$('#accNo_'+data).html(accNo);
 	$('#acc_'+data).prop('class','btn btn-info').attr('onclick','AddAcc(this)').html('동행 하기');
 }
 
 function successAjaxAcc(data){
-	console.log('acc data:',data)
-	console.log($('#accNo_'+data).html());
-	var accNo=parseInt($('#accNo_'+data).html())+1;
-	$('#accNo_'+data).html(accNo);
-	$('#acc_'+data).prop('class','btn btn-danger').attr('onclick','CancelAcc(this)').html('동행 취소하기');
-	
+	if(data=='fail'){
+		if(confirm('동행서비스는 2차 인증 후 이용하세요')){
+			$('#myModal').modal('show');
+		};
+		
+	}
+	else{
+		console.log('acc data:',data)
+		console.log($('#accNo_'+data).html());
+		//var accNo=parseInt($('#accNo_'+data).html())+1;
+		//$('#accNo_'+data).html(accNo);
+		$('#acc_'+data).prop('class','btn btn-danger').attr('onclick','CancelAcc(this)').html('동행 취소하기');
+	}
 }
 
 function successAjaxPlanner(data){
@@ -192,7 +199,7 @@ function successAjaxCity(data){
 	var j=0;
 	for(var i=1;i<=size;i++){
 		switch(j){
-		case 0:
+		case 0:$('#destinations').css({height:'846.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'0px'})
@@ -205,7 +212,7 @@ function successAjaxCity(data){
 				j+=1;
 			}
 			break;
-		case 1:
+		case 1:$('#destinations').css({height:'1261.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'415px'})
@@ -218,7 +225,7 @@ function successAjaxCity(data){
 				j+=1;
 			}
 			break;
-		default :
+		default :$('#destinations').css({height:'1676.39px'});
 			switch(i%3){
 			case 1:
 				$('#cities > div:eq('+(i-1)+')').css({position:'absolute',left:'0px',top:'830px'})
@@ -327,7 +334,7 @@ if('${city_no}'!=''){
 								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
 							</div>
 							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Bali</a></div>
+								<div class="destination_title"><a href="#">Bali</a></div>
 								<div class="destination_subtitle"><p>꿈의 섬 발리로 바로 떠나보세요</p></div>
 								<div class="destination_price">From $699</div>
 							</div>
@@ -456,7 +463,37 @@ if('${city_no}'!=''){
 		</div>
 		
 	</div>
-
+	
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel" style="color: black;">회원정보
+					수정</h4>
+			</div>
+			<div class="modal-body">
+				<form action="<c:url value='/TravelMaker/updateIdNoById.kosmo'/>" method='POST'>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label" style="color: black;">여권 번호</label>
+						<div class="col-sm-4">
+							<!--  가로 배치 -->
+								<input type="text" name="id_no" value="" placeholder="여권번호를 입력하세요" >
+								
+							
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-info" id="EditSubmit" type="submit">확인</button>
+						<button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+	
 
 <!-- Footer -->
 

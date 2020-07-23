@@ -62,6 +62,12 @@
 	<select id="selectAirDTO" parameterType="int" resultType="AirDTO">
 		SELECT * FROM AIR WHERE air_no=#{air_no}
 	</select>
+	<select id="selectAccNosByPlannerNo" parameterType="int" resultType="AccDTO">
+		SELECT * FROM ACCOMPANY WHERE planner_no=#{planner_no}
+	</select>
+	<select id="selectOnePlannerNoByCitiesNo" parameterType="int" resultType="int">
+		SELECT planner_no from cities where cities_no=#{cities_no}
+	</select>
 	
 	
 	<delete id="deletePlanByNo" parameterType="int">
@@ -97,6 +103,9 @@
 	</update>
 	<update id="updateAccNo" parameterType="java.util.Map">
 		UPDATE PLANNER SET planner_acc=#{planner_acc} WHERE planner_no=#{planner_no}
+	</update>
+	<update id="updateResOk" parameterType="java.lang.String">
+		update reservation set res_ok='1' where h_a_no=#{h_a_no}
 	</update>
 	
 </mapper>

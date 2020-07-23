@@ -2,6 +2,29 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+
+<!-- Material Design Bootstrap -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css"
+	rel="stylesheet">
+<!-- JQuery -->
+
+<!-- Bootstrap tooltips -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+
+<!-- MDB core JavaScript -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
 <style>
 #reviewBack {
 	text-align: center;
@@ -140,14 +163,14 @@
 					<div class="home_search_content">
 						<div class="reviewWrite">
 							<form action="<c:url value='/TravelMaker/ReviewWriteOK.kosmo'/>"
-								class="home_search_form" id="home_search_form" method="post">
-								<input type="text" id="reviewWriteTittle" class="search_input"
+								class="home_search_form" id="home_search_form" enctype="multipart/form-data" method="post">
+								<input style="width:100%" type="text" id="reviewWriteTitle" class="search_input"
 									name="review_title" placeholder="제목을 입력하세요" required="required"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '제목을 입력하세요'">
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<select class="form-control input-sm" id="reviewWriteCityTag" name="city_no" required="required">
+									<select style="width:100%" class="col-lg-4" id="reviewWriteCityTag" name="city_no" required="required">
 										<option value="">도시를 선택하세요</option>
 										<option value="1">세부</option>
 										<option value="2">보라카이</option>
@@ -163,13 +186,13 @@
 										<option value="12">코타키나발루</option>
 										<option value="13">싱가포르</option>
 										<option value="14">라오스</option>
-									</select> <select class="form-control input-sm" id="reviewWritePlaceTag">
+									</select> <select style="width:100%" class="col-lg-5" id="reviewWritePlaceTag">
 										<option>리뷰 장소를 선택하세요</option>
 										<option value="food">식당</option>
 										<option value="tours">관광명소</option>
 										<option value="hotels">숙소</option>
 										<option value="myPlanner">내 플랜</option>
-									</select> <input type="text" id="reviewWritePlace" class="search_input"
+									</select> <input style="width:100%" type="text" id="reviewWritePlace" class="search_input"
 										placeholder="장소 이름을 입력하세요">
 								</div>
 								<textarea rows="" cols="" id="reviewWriteText"
@@ -177,21 +200,18 @@
 									required="required"></textarea>
 								<div
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<input type="file" id="reviewWriteImageUpButtonInput"
-										onchange="fileCheck(this)"
-										accept="image/gif,image/jpeg,image/png">
-									<button id="reviewWriteImageUpButton" type="button">
+									<input name='review_file_real' type="file" id="reviewWriteImageUpButtonInput" onchange="fileCheck(this)" accept="image/gif,image/jpeg,image/png">
+									<button style="width:100%" id="reviewWriteImageUpButton" type="button">
 										사진을 올리시려면 클릭하세요</button>
-									<input type="password" id="reviewWritePwd" class="search_input"
-										placeholder="수정/삭제시 사용하실 비밀번호를 입력하세요">
-									<button type="submit" id="reviewWriteSubmmit">리뷰 작성 완료</button>
+									<input type="hidden" name="review_file" value="" id="review_file">
+									<button style="width:100%" type="submit" id="reviewWriteSubmmit">리뷰 작성 완료</button>
 								</div>
 							</form>
 						</div>
 						<div class="reviewFooterUtil">
 							<br> <a
 								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
-								src="<c:url value='/images/reviewBack.png'/>" alt="목록으로 아가기">
+								src="<c:url value='/images/reviewBack.png'/>" alt="목록으로 돌아가기">
 							</a><br> <span>목록으로 돌아가기</span>
 						</div>
 					</div>
@@ -211,11 +231,17 @@
 		});
 	});
 	function fileCheck(obj) {
+		console.log('obj:',obj);
+		console.log('obj.value:',obj.value);
+		$('#review_file').val(obj.value.split('\\')[2]);
 		pathpoint = obj.value.lastIndexOf('.');
 		filepoint = obj.value.substring(pathpoint + 1, obj.length);
 		filetype = filepoint.toLowerCase();
+		
 		if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png'
 				|| filetype == 'jpeg' || filetype == 'bmp') {
+			
+			
 		} else {
 			alert('사진(이미지 파일)만 올려주세요!');
 			parentObj = obj.parentNode
@@ -223,4 +249,4 @@
 			return false;
 		}
 	}
-</script>
+</script> 

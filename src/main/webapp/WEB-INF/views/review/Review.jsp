@@ -14,7 +14,6 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 }
-
 .review {
 	max-height: 100%;
 	max-width: 100%;
@@ -76,46 +75,59 @@
 			<div class="col">
 				<div class="home_search_container">
 					<div class="home_search_title">리뷰</div>
-					<div class="home_search_content">
+					<div class="home_search_content" >
 						<div class="review">
 							<div class="reviewText">
 								<br>
 								<h4 class="reviewTextTittle">${record.review_title}</h4>
-								<a href="https://www.google.com/maps/search/몽키+포레스트"
-									target="_blank">
-									<h5 class="reviewPlaceInfomation">관광명소 : 몽키 포레스트</h5>
-								</a>
-								<p>${record.review_content}</p>
+								
+									<h5 class="reviewPlaceInfomation"></h5>
 							</div>
 							<div class="reviewMapOrImage">
-								<img src="<c:url value='/images/reviewImage${tmpImgNo}.PNG'/>"
+								<img src="<c:url value='/resources/ReviewUpload/${record.review_file} '/>"
 									alt="리뷰지도/사진">
 							</div>
+							<span>${record.review_content}</span>
 							<fmt:formatDate value="${record.review_date}"
 								pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate" />
-							<p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp작성일시 : ${postdate}</p>
+							<p style="text-align: center;">작성일시 : ${postdate}</p>
+							<p style="text-align: center;">작성자 : ${record.user_id} </p>
 							<div class="reviewFooterUtil">
 								<br> <img src="<c:url value='/images/reviewLikes.png'/>"
 									alt="좋아요"> <br> <span>${record.review_no+1}</span> <span>명</span>
 							</div>
 						</div>
 						<div class="reviewFooterUtil">
-							<br> <a
+							<br> 
+							<c:if test="${user_id == 'ADMIN' or user_id == record.user_id}">
+							<a
 								href="<c:url value='/TravelMaker/ReviewEdit.kosmo?review_no=${record.review_no}'/>">
 								<img src="<c:url value='/images/reviewEdit.png'/>" alt="수정하기">
-							</a><span>&nbsp&nbsp&nbsp&nbsp</span><a href="javascript:isDelete();">
+							</a>
+							
+							<span>&nbsp&nbsp&nbsp&nbsp</span><a href="javascript:isDelete();">
 								<img src="<c:url value='/images/reviewDelete.png'/>" alt="삭제하기">
-							</a><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><a
+							</a><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+							</c:if>
+							<a
 								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"> <img
 								src="<c:url value='/images/reviewBack.png'/>" alt="목록보기">
-							</a> <br> <a
+							</a> <br> 
+							<c:if test="${user_id == 'ADMIN' or user_id == record.user_id}">
+							<a
 								href="<c:url value='/TravelMaker/ReviewEdit.kosmo?review_no=${record.review_no}'/>">
-								<span>수정하기</span>
-							</a><span> &nbsp&nbsp </span> <a
-								href="<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>">
+								<span>수정하기</span>						
+							</a>
+							
+							<span> &nbsp&nbsp </span> 
+							
+							<a	href="<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>">
+						
 								<span>삭제하기</span>
-							</a><span> &nbsp&nbsp </span> <a
-								href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"><span>목록보기</span></a>
+							</a>
+							</c:if>
+							<span> &nbsp&nbsp </span> <a href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>"><span>목록보기</span></a>
+							
 						</div>
 					</div>
 				</div>
@@ -127,9 +139,9 @@
 	<div id="reviewBackImage"></div>
 </div>
 <script>
+
 	function isDelete() {
 		if (confirm("정말로 삭제 하시겠습니까?"))
-			location
-					.replace("<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>");
+			location.replace("<c:url value='/TravelMaker/ReviewDelete.kosmo?review_no=${record.review_no}'/>");
 	}
 </script>

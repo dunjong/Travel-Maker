@@ -780,6 +780,7 @@ $(function(){
 			var flag=false;
 			if(item.length!=0){
 				$('#loadingImg').attr('style','display:block')
+				$('#map').attr('style','opacity:0.5')
 			}
 			
 			for(var i=0;i<item.length;i++){
@@ -792,6 +793,7 @@ $(function(){
 								setTimeout(function() {
 									spots=dayplans['day1'].spots
 									$('#loadingImg').attr('style','display:none')
+									$('#map').attr('style','opacity:1')
 									displayRoute(origin,destination , directionsService,
 										      directionsRenderer,spots);
 								},2000)

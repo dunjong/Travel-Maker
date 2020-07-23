@@ -13,8 +13,15 @@ public class ReviewDTO {
 	private String review_content;
 	private Date review_date;
 	private int city_no;
+	private String review_file;
 	
 	
+	public String getReview_file() {
+		return review_file;
+	}
+	public void setReivew_file(String reivew_file) {
+		this.review_file = reivew_file;
+	}
 	public int getCity_no() {
 		return city_no;
 	}

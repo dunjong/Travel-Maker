@@ -34,12 +34,13 @@
 #loadingImg{
       	position: absolute;
       	top:30%;
-      	left:40%;
+      	left:60%;
       	display:none;
+      	z-index: 2000;
       }
 
 </style>	
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" id="body">
 	<form action="#">
 		<input value="${planner_no}" name="planner_no" type="text" hidden="true">
 	</form>
@@ -75,10 +76,11 @@
 							<br>
 						</div>
 						<div class="col-md-9">
+							<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 							<div class="card card-primary">
 								<div class="card-body p-0">
 									<!-- THE CALENDAR -->
-									<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
+									
 									<div id="calendar">
 									<!-- 이 안에 생긴다 -->
 									</div>
@@ -212,7 +214,7 @@
 																	</div>
 																	<div>
 																		<input type="text" placeholder="출국일" disabled="disabled" style="width:40%"/>
-																		<input type="date" value="2020-07-21" name="departureDate" id="departureDate" placeholder="가는날" required="required" style="width:40%">
+																		<input type="date" value="${today}" name="departureDate" id="departureDate" placeholder="가는날" required="required" style="width:40%">
 																	</div>
 																</form>
 															</div>
@@ -925,7 +927,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)+1).toString();
+				day=(parseInt(day)+1);
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 			else if(se=='e'){
@@ -933,7 +938,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)).toString();
+				day=(parseInt(day));
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 			else{
@@ -941,11 +949,16 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)+1).toString();
+				day=(parseInt(day)+1);
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 		}
 		function resultHotelModal(name,cities_no){
+			$('#loadingImg').attr('style','display:block')
+			$('#body').prop('style','opacity:0.5;')
 			$('#h_modal_'+name).modal('hide');
 			$('#h_places').html('')
 			$('#city_name').html(name);
@@ -971,6 +984,7 @@
 			}//settings
 			$.ajax(settings).done(
 				function(response) {
+					
 					console.log(response)
 					var placesList = document.getElementById('h_places');
 					console.log(placesList)
@@ -1043,7 +1057,8 @@
 						row2.appendChild(div_rating);
 						row2.appendChild(div_location);
 						row2.appendChild(div_price_level);
-
+						$('#body').prop('style','opacity:1;')
+						$('#loadingImg').attr('style','display:none')
 					}
 					$('#places img').css({
 						width : '300px',
@@ -1066,6 +1081,7 @@
 		function getHotelDetails(data){
 			console.log('data',data);
 			console.log('getHotelDetails.data',data.getAttribute('name'));
+			
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(2)').html());
@@ -1179,6 +1195,8 @@
 		function resultAirModal(){
 			$('#a_modal').modal('hide');
 			$('#a_places').html(""); 
+			$('#loadingImg').attr('style','display:block')
+			$('#body').prop('style','opacity:0.5;')
 			console.log('ajax시작')
 			var settings = {
 				url : '<c:url value="/TravelMaker/AirSearch.kosmo"/>',
@@ -1228,6 +1246,8 @@
 					list+="</div>";
 				}
 				$('#a_places').html(list); 
+				$('#body').prop('style','opacity:1;')
+				$('#loadingImg').attr('style','display:none')
 				$('#a_modal_result').modal('show');
 			});//ajax.done()
 		}

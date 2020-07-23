@@ -38,6 +38,7 @@ import com.kosmo.travelmaker.service.SpotsDTO;
 import com.kosmo.travelmaker.service.impl.AirServiceImpl;
 import com.kosmo.travelmaker.service.impl.CityServiceImpl;
 import com.kosmo.travelmaker.service.impl.HotelServiceImpl;
+import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
 import com.kosmo.travelmaker.service.impl.PlannerServiceImpl;
 import com.kosmo.travelmaker.service.impl.SpotsServiceImpl;
 
@@ -50,19 +51,19 @@ public class PlannerController {
 	private String AutoCompleteApiKey;
 	@Value("${TripAdviserHotelApiKey}")
 	private String TripAdviserHotelApiKey;
+	//주입
 	@Resource(name="spotsService")
 	private SpotsServiceImpl spotsService;
 	@Resource (name="cityService")
 	private CityServiceImpl cityService;
-	
 	@Resource(name ="plannerService")
 	private PlannerServiceImpl plannerService;
-	
 	@Resource(name="hotelService")
 	private HotelServiceImpl hotelService;
 	@Resource(name="airService")
 	private AirServiceImpl airService;
-	
+	@Resource(name="memberService")
+	private MemberServiceImpl memberService;
 	
 	@RequestMapping(value="PlannerNoCreate.kosmo")
 	@ResponseBody
@@ -188,14 +189,17 @@ public class PlannerController {
 		String calendarDate=cityService.selectCitiesDate(Integer.parseInt(cities_no));
 		int gap=5;
 		Map<String, String> maps=new HashMap<String, String>();
-		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		//호텔
 		List<HotelDTO> hotel_dto_list=hotelService.selectHotelDTOByCitiesNo(Integer.parseInt(cities_no));
 		if(hotel_dto_list.size()!=0) {
 			HotelDTO hotel_dto =hotel_dto_list.get(0);
 			Date checkIn=transFormat.parse(hotel_dto.getHotel_in());
+			System.out.println("checkIn:"+hotel_dto.getHotel_in());
 			Date checkOut=transFormat.parse(hotel_dto.getHotel_out());
+			System.out.println("checkOut:"+hotel_dto.getHotel_out());
 			gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
+			System.out.println("if gap:"+gap);
 			maps.put("hotel_name", hotel_dto.getHotel_name());
 			maps.put("hotel_latlng",hotel_dto.getHotel_latlng());
 			maps.put("hotel_date",Integer.toString(gap));
@@ -210,6 +214,7 @@ public class PlannerController {
 				Date checkIn=transFormat.parse(calendarDate.split(",")[0]);
 				Date checkOut=transFormat.parse(calendarDate.split(",")[1]);
 				gap=(int)((checkOut.getTime()-checkIn.getTime())/(1000*60*60*24)+1);
+				System.out.println("else gap:"+gap);
 				maps.put("hotel_date",Integer.toString(gap));
 			}
 			else {
@@ -242,7 +247,7 @@ public class PlannerController {
 		List<Integer> plan_no_list=plannerService.selectPlanNoByCitiesNo(Integer.parseInt(cities_no));
 		List<HotelDTO> hotel_dto_list=hotelService.selectHotelDTOByCitiesNo(Integer.parseInt(cities_no));
 		String calendarDate=cityService.selectCitiesDate(Integer.parseInt(cities_no));
-		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		if(hotel_dto_list.size()!=0) {
 			HotelDTO hotel_dto =hotel_dto_list.get(0);
 			Date checkIn=transFormat.parse(hotel_dto.getHotel_in());
@@ -475,7 +480,7 @@ public class PlannerController {
 					if(flag) {
 						maps.put("gap", Integer.toString(gap));
 						maps.put("city_no", city_no);
-						maps.put("acc", Integer.toString(planner_dto.getPlanner_acc()));
+						maps.put("acc", Integer.toString(memberService.selectAllowedByPlannerNo(planner_no)));
 						maps.put("name", planner_dto.getPlanner_name());
 						maps.put("id", planner_dto.getUser_id());
 						maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
@@ -587,17 +592,21 @@ public class PlannerController {
 	@ResponseBody
 	public String PlannerAcc(@RequestParam Map map,HttpSession session) {
 		String planner_no=map.get("planner_no").toString();
-		System.out.println("planner_no:"+planner_no);
 		String user_id=session.getAttribute("id").toString();
 		Map<String,String> maps=new HashMap<String,String>();
 		maps.put("planner_no", planner_no);
 		maps.put("user_id", user_id);
-		if(plannerService.insertAcc(maps)) {
+		if(!"0".equals(memberService.selectMemberDTO(user_id).getId_no())) {
+			if(plannerService.insertAcc(maps)) {
+			}
+			int planner_acc=plannerService.selectAccNoByPlannerNo(Integer.parseInt(planner_no));
+			maps.put("planner_acc", Integer.toString(planner_acc));
+			if(plannerService.updateAccNo(maps)) {
+				System.out.println("동행자 수 변경");
+			}
 		}
-		int planner_acc=plannerService.selectAccNoByPlannerNo(Integer.parseInt(planner_no));
-		maps.put("planner_acc", Integer.toString(planner_acc));
-		if(plannerService.updateAccNo(maps)) {
-			System.out.println("동행자 수 변경");
+		else {
+			planner_no="fail";
 		}
 		return planner_no;
 	}
@@ -627,9 +636,22 @@ public class PlannerController {
 	public void SavePlannerName(@RequestParam Map map){
 		plannerService.updatePlannerName(map);
 	}
-	
-	
-	
+	@RequestMapping(value="updateIdNoById.kosmo", produces ="text/html; charset=UTF-8")
+	public String updateIdNoById(@RequestParam Map map,HttpSession session) {
+		String user_id=session.getAttribute("id").toString();
+		if(map.get("id_no")!=null) {
+			String id_no=map.get("id_no").toString();
+		
+			Map<String, String> maps=new HashMap<String, String>();
+			maps.put("user_id", user_id);
+			maps.put("id_no", id_no);
+			memberService.updateUserInfoIdNo(maps);
+			return "home.tiles";
+		}
+		else {
+			return "home.tiles";
+		}
+	}
 }
 
 

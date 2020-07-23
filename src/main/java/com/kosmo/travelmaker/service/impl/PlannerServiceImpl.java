@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.kosmo.travelmaker.service.AccDTO;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.PlanDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
@@ -204,6 +205,24 @@ public class PlannerServiceImpl implements PlannerService{
 	public boolean deleteResByAirNo(String h_a_no) {
 		// TODO Auto-generated method stub
 		return plannerDAO.deleteResByAirNo(h_a_no);
+	}
+
+	@Override
+	public List<AccDTO> selectAccNosByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectAccNosByPlannerNo(planner_no);
+	}
+
+	@Override
+	public boolean updateResOk(String h_a_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.updateResOk(h_a_no);
+	}
+
+	@Override
+	public int selectOnePlannerNoByCitiesNo(int cities_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.selectOnePlannerNoByCitiesNo(cities_no);
 	}
 
 	

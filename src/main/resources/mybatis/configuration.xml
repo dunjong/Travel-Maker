@@ -7,8 +7,10 @@
 	<configuration>
 		<!-- 자바빈 별칭 -->
 		<typeAliases>
-		
+			<typeAlias alias="AndroidFestivalDTO" type="com.kosmo.travelmaker.service.AndroidFestivalDTO"/>
 			<typeAlias alias="AndroidSpotDTO" type="com.kosmo.travelmaker.service.AndroidSpotDTO"/>
+			<typeAlias alias="AndroidFestivalNameDTO" type="com.kosmo.travelmaker.service.AndroidFestivalNameDTO"/>
+			<typeAlias alias="AndroidCountryDTO" type="com.kosmo.travelmaker.service.AndroidCountryDTO"/>
 			<typeAlias alias="AndroidPlanDTO" type="com.kosmo.travelmaker.service.AndroidPlanDTO"/>
 			<typeAlias alias="AndroidMemberDTO" type="com.kosmo.travelmaker.service.AndroidMemberDTO"/>
 			<typeAlias alias="AndroidCityDTO" type="com.kosmo.travelmaker.service.AndroidCityDTO"/>
@@ -24,6 +26,7 @@
 			<typeAlias alias="PlanDTO" type="com.kosmo.travelmaker.service.PlanDTO"/>
 			<typeAlias alias="CountDTO" type="com.kosmo.travelmaker.service.CountDTO"/>
 			<typeAlias alias="ResDTO" type="com.kosmo.travelmaker.service.ResDTO"/>
+			<typeAlias alias="AccDTO" type="com.kosmo.travelmaker.service.AccDTO"/>
 		</typeAliases>
 		
 		<mappers>

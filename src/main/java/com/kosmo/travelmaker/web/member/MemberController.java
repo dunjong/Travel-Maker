@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonArray;
+import com.kosmo.travelmaker.service.AccDTO;
 import com.kosmo.travelmaker.service.AirDTO;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
@@ -53,25 +54,7 @@ public class MemberController {
 	private AirServiceImpl airService;
 	
 
-	@RequestMapping("MyInfo.kosmo")
-	public String MyInfo(@RequestParam Map map, HttpSession session,Model model) {
-		MemberDTO dto = memberService.selectMemberDTO(session.getAttribute("id").toString());
-		model.addAttribute("id",dto.getUser_id());
-		model.addAttribute("pwd",dto.getUser_pwd());
-		model.addAttribute("name",dto.getUser_name());
-		model.addAttribute("gender",dto.getUser_gender());
-		model.addAttribute("rrn",dto.getUser_rrn());
-		return "member/MyInfo.tiles";
-	}
-	@RequestMapping("MyInfoEdit.kosmo")
-	public String MyInfoEdit(@RequestParam Map map, HttpSession session) {
-
-		if(memberService.updateMemberDTO(map)) {
-			System.out.println("수정이 완료 되었습니다");
-		}
-		
-		return "forward:/TravelMaker/MyInfo.kosmo";
-	}
+	
 	@RequestMapping("BookMark.kosmo")
 	public String BookMark() {
 		return "member/BookMark.tiles";
@@ -181,14 +164,15 @@ public class MemberController {
 	         maps.put("planner_no", Integer.toString(planner_no));
 	         maps.put("planner_acc",  Integer.toString(dto_planner.getPlanner_acc()));
 	         maps.put("planner_name", dto_planner.getPlanner_name());
-	         
+	         int allowedCount=memberService.selectAllowedByPlannerNo(planner_no);
+	         maps.put("planner_allow",Integer.toString(allowedCount));
 	         list.add(maps);
 	      }
 	      model.addAttribute("list", list);
 		return "member/MyPlanner.tiles";
 	}
 	
-	@RequestMapping("PayFees.kosmo")
+	@RequestMapping(value="PayFees.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public String PayFees(@RequestParam Map map,HttpSession session,Model model) {
 		int planner_no=Integer.parseInt(map.get("planner_no").toString());
@@ -203,12 +187,18 @@ public class MemberController {
 	    		Map<String, String> map_a=new HashMap<String,String>();
 	    		System.out.println("항공측:"+res_dto.getH_a_no());
 	    		AirDTO air_dto=airService.selectAirDTO(Integer.parseInt(res_dto.getH_a_no().substring(2)));
-	    		map_a.put("air_no",Integer.toString(air_dto.getAir_no()));
-	    		map_a.put("air_price", air_dto.getAir_price());
-	    		map_a.put("air_arr", air_dto.getAir_arr());
-	    		map_a.put("air_dep", air_dto.getAir_dep());
-	    		map_a.put("air_ddate", air_dto.getAir_ddate());
-	    		collections.add(map_a);
+	    		if(air_dto.getPlanner_no()==planner_no) {
+		    		map_a.put("air_no",Integer.toString(air_dto.getAir_no()));
+		    		map_a.put("air_price", air_dto.getAir_price());
+		    		map_a.put("air_arr", air_dto.getAir_arr());
+		    		map_a.put("air_dep", air_dto.getAir_dep());
+		    		map_a.put("air_ddate", air_dto.getAir_ddate());
+		    		System.out.println("OK?:"+res_dto.getRes_ok());
+		    		if(res_dto.getRes_ok()==1) {
+		    			map_a.put("paid","yes");
+		    		}
+		    		collections.add(map_a);
+	    		}
 	    	}///air res
 	    	else if(res_dto.getH_a_no().contains("h_")){
 	    		 Map<String, String> map_h=new HashMap<String,String>();
@@ -217,14 +207,20 @@ public class MemberController {
 	    		int hotel_no=Integer.parseInt(res_dto.getH_a_no().substring(2));
 	    		System.out.println("호텔측:"+hotel_no);
 	    		HotelDTO hotel_dto=hotelService.selectHotelDTO(hotel_no);
-	    		System.out.println("hotel_no:"+hotel_dto.getHotel_no());
-	    		map_h.put("hotel_no", Integer.toString(hotel_dto.getHotel_no()));
-	    		map_h.put("hotel_price", hotel_dto.getHotel_price());
-	    		map_h.put("hotel_name", hotel_dto.getHotel_name());
-	    		map_h.put("hotel_in", hotel_dto.getHotel_in());
-	    		map_h.put("hotel_out", hotel_dto.getHotel_out());
+	    		if(planner_no==plannerService.selectOnePlannerNoByCitiesNo(hotel_dto.getCities_no())) {
+		    		System.out.println("hotel_no:"+hotel_dto.getHotel_no());
+		    		map_h.put("hotel_no", Integer.toString(hotel_dto.getHotel_no()));
+		    		map_h.put("hotel_price", hotel_dto.getHotel_price());
+		    		map_h.put("hotel_name", hotel_dto.getHotel_name());
+		    		map_h.put("hotel_in", hotel_dto.getHotel_in());
+		    		map_h.put("hotel_out", hotel_dto.getHotel_out());
+		    		System.out.println("OK?:"+res_dto.getRes_ok());
+		    		if(res_dto.getRes_ok()==1) {
+		    			map_h.put("paid","yes");
+		    		}
+		    		collections.add(map_h);
 	    		
-	    		collections.add(map_h);
+	    		};
 	    	}
 	    }
 	    
@@ -258,8 +254,112 @@ public class MemberController {
 	public String IdCheck(@RequestParam String signUpId) {
 		return memberService.idCheck(signUpId);
 	}
+	@RequestMapping("MyInfo.kosmo")
+	public String MyInfo(@RequestParam Map map, HttpSession session,Model model) {
+		MemberDTO dto = memberService.selectMemberDTO(session.getAttribute("id").toString());
+		model.addAttribute("user_id",dto.getUser_id());
+		model.addAttribute("user_name",dto.getUser_name());
+		model.addAttribute("user_gender",dto.getUser_gender());
+		model.addAttribute("user_rrn",dto.getUser_rrn());
+		return "member/MyInfo.tiles";
+	}
+	@RequestMapping(value="ValidationCheck.do2")
+	public String valiE(MemberDTO dto,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
+		//내가 만든 validate클래스의 validate()호출 데이터로 cmd넣고 에러정보용으로 errors넣어준다.
+		validator.validate(dto, errors);
+		if(errors.hasErrors()) {
+			model.addAttribute("error2","validation");
+			return "forward:/TravelMaker/MyInfo.kosmo";
+		}
+		model.addAttribute("dto",dto);
+		return "forward:/TravelMaker/MyInfoEdit.kosmo";
+	}///vali
+	@RequestMapping("MyInfoEdit.kosmo")
+	public String MyInfoEdit(MemberDTO dto) {
+		if(memberService.updateMemberDTO(dto)) {
+			System.out.println("수정이 완료 되었습니다");
+		}
+		return "forward:/TravelMaker/MyInfo.kosmo";
+	}
+	@RequestMapping(value="MyPlannerAccUpdate.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String MyPlannerAccUpdate(@RequestParam Map map) {
+		List<Map> collections = new Vector<Map>();
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		List<AccDTO> acc_dto_list=plannerService.selectAccNosByPlannerNo(planner_no);
+		 for(AccDTO acc_dto:acc_dto_list) {
+				 Map<String,String> map_mem =new HashMap<String,String>();
+				 String user_id=acc_dto.getUser_id();
+				 MemberDTO mem_dto=memberService.selectMemberDTO(user_id);
+				 map_mem.put("allow", Integer.toString(acc_dto.getAllow()));
+				 map_mem.put("acc_no", Integer.toString(acc_dto.getAcc_no()));
+				 map_mem.put("user_id", mem_dto.getUser_id());
+				 map_mem.put("user_name", mem_dto.getUser_name());
+				 map_mem.put("user_gender", mem_dto.getUser_gender());
+				 map_mem.put("user_rrn", mem_dto.getUser_rrn());
+				 collections.add(map_mem);
+		 }
+		
+		
+		 return JSONArray.toJSONString(collections);
+	}
 	
 	
+	@RequestMapping(value="UpdateAcc.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String UpdateAcc(@RequestParam Map map) {
+		int acc_no=Integer.parseInt(map.get("acc_no").toString());
+		String flag="실패";
+		if(memberService.checkAccByNo(acc_no)==0) {
+			memberService.updateAccYes(acc_no);
+			flag="수락";
+		}
+		else{
+			memberService.updateAccNo(acc_no);
+			flag="거부";
+		};
+		 return flag;
+	}
+	
+	@RequestMapping(value="getAirOrHotel.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String getAirOrHotel(@RequestParam Map map,HttpSession session) {
+		List<Map> collections = new Vector<Map>();
+		String user_id=session.getAttribute("id").toString();
+		Map<String, String> maps=new HashMap<String,String>();
+		maps.put("user_id", user_id);
+		if(map.get("h_a_no").toString().contains("h_")) {
+			int hotel_no=Integer.parseInt(map.get("h_a_no").toString().substring(2));
+			HotelDTO hotel_dto= hotelService.selectHotelDTO(hotel_no);
+			maps.put("price", hotel_dto.getHotel_price().split("-")[1].substring(2));
+			maps.put("h_a_no",map.get("h_a_no").toString());
+			maps.put("name", hotel_dto.getHotel_name());
+			collections.add(maps);
+		}
+		else {
+			int air_no=Integer.parseInt(map.get("h_a_no").toString().substring(2));
+			AirDTO air_dto=airService.selectAirDTO(air_no);
+			maps.put("price", air_dto.getAir_price());
+			maps.put("h_a_no",map.get("h_a_no").toString());
+			maps.put("name", air_dto.getAir_dep()+"->"+air_dto.getAir_arr()+":"+air_dto.getAir_ddate());
+			collections.add(maps);
+		}
+		
+		return JSONArray.toJSONString(collections);
+	}
+	
+	
+	@RequestMapping(value="updateResOk.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String updateResOk(@RequestParam Map map) {
+		String flag="결제 실패";
+		String h_a_no=map.get("h_a_no").toString();
+		System.out.println("updateResOk:h_a_no"+h_a_no);
+		if(plannerService.updateResOk(h_a_no)) {
+			flag= "결제 완료";
+		};
+		return flag;
+	}
 	
 //	@RequestMapping("admin2.kosmo")
 //	public String memberList(Map map, Model model) {
