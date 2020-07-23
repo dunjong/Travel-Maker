@@ -127,6 +127,7 @@ public class AirController {
 		String via = (String)map.get("via");
 		String result = "failure";
 		AirDTO dto = new AirDTO();
+		dto.setUser_id(user_id);
 		dto.setAir_adate(adate);
 		dto.setAir_time(time);
 		dto.setAir_via(via);
