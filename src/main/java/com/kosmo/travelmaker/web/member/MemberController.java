@@ -169,7 +169,6 @@ public class MemberController {
 	         list.add(maps);
 	      }
 	      model.addAttribute("list", list);
-	      model.addAttribute("user_id",session.getAttribute("id").toString());
 		return "member/MyPlanner.tiles";
 	}
 	
