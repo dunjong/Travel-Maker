@@ -14,8 +14,36 @@ public class ReviewDTO {
 	private Date review_date;
 	private int city_no;
 	private String review_file;
+	private int like;
+	private int hate;
+	private int flagLikeById;
+	private int flagHateById;
 	
 	
+	public int getFlagHateById() {
+		return flagHateById;
+	}
+	public void setFlagHateById(int flagHateById) {
+		this.flagHateById = flagHateById;
+	}
+	public int getFlagLikeById() {
+		return flagLikeById;
+	}
+	public void setFlagLikeById(int flagLikeById) {
+		this.flagLikeById = flagLikeById;
+	}
+	public int getLike() {
+		return like;
+	}
+	public void setLike(int like) {
+		this.like = like;
+	}
+	public int getHate() {
+		return hate;
+	}
+	public void setHate(int hate) {
+		this.hate = hate;
+	}
 	public String getReview_file() {
 		return review_file;
 	}

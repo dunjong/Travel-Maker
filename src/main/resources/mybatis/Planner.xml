@@ -4,7 +4,7 @@
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Planner">
 	<insert id="insertPlanner" parameterType="java.lang.String">
-		INSERT INTO PLANNER VALUES(seq_planner.nextval,0,'NoName',#{id})
+		INSERT INTO PLANNER VALUES(seq_planner.nextval,0,'NoName',#{id},0)
 	</insert>
 	<insert id="insertCities" parameterType="java.util.Map">
 		INSERT INTO cities(cities_no,city_no,planner_no,cities_date) VALUES(seq_cities.nextval,#{city_no},#{planner_no},#{cities_date})

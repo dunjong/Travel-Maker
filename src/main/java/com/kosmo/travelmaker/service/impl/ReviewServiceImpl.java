@@ -50,4 +50,28 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.selectReviewDTOListByCityNo(city_no);
 	}
 
+	@Override
+	public int likeSelect(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return dao.likeSelect(maps);
+	}
+
+	@Override
+	public boolean Likeinsert(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return dao.Likeinsert(maps);
+	}
+
+	@Override
+	public boolean selectLikeByIdReviewNo(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return dao.selectLikeByIdReviewNo(maps);
+	}
+
+	@Override
+	public boolean deleteLike(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return dao.deleteLike(maps);
+	}
+
 }
