@@ -24,5 +24,9 @@ public interface MemberService {
 	void updateUserInfoIdNo(Map<String, String> maps);
 	int selectAllowedByPlannerNo(int planner_no);
 	List<MemberDTO> selectMemberDTOListByAccAllow(int planner_no);
+	List<ChatDTO> selectChatDTOList(int planner_no);
+	boolean inputChat(Map<String, String> maps);
+	List<PlannerDTO> AccplannerList(String user_id);
+	void deleteChat(int planner_no);
 }
 

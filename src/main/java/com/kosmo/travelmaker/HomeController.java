@@ -39,6 +39,7 @@ public class HomeController {
 			}
 			if(planner_nos.length()!=0)
 			planner_nos=planner_nos.substring(1);
+			System.out.println("planner_nos:"+planner_nos);
 			model.addAttribute("planner_nos", planner_nos);
 		}
 		

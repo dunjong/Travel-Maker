@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kosmo.travelmaker.service.impl.MemberDAO;
 import com.kosmo.travelmaker.service.AndroidMemberDTO;
+import com.kosmo.travelmaker.service.ChatDTO;
 import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.MemberService;
 import com.kosmo.travelmaker.service.PlannerDTO;
@@ -111,5 +112,25 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberDTO> selectMemberDTOListByAccAllow(int planner_no) {
 		// TODO Auto-generated method stub
 		return memberDAO.selectMemberDTOListByAccAllow(planner_no);
+	}
+	@Override
+	public List<ChatDTO> selectChatDTOList(int planner_no) {
+		// TODO Auto-generated method stub
+		return memberDAO.selectChatDTOList(planner_no);
+	}
+	@Override
+	public boolean inputChat(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return memberDAO.inputChat(maps);
+	}
+	@Override
+	public List<PlannerDTO> AccplannerList(String user_id) {
+		// TODO Auto-generated method stub
+		return memberDAO.AccplannerList(user_id);
+	}
+	@Override
+	public void deleteChat(int planner_no) {
+		// TODO Auto-generated method stub
+		memberDAO.deleteChat(planner_no);
 	}
 }

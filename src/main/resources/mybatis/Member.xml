@@ -53,5 +53,17 @@
 	<select id="selectMemberDTOListByAccAllow" parameterType="int" resultType="MemberDTO">
 		select u.* from accompany a join userinfo u on a.user_id=u.user_id where planner_no=#{planner_no} and allow=1
 	</select>
+	<select id="selectChatDTOList" parameterType="int" resultType="ChatDTO">
+		select * from chat where planner_no=#{planner_no} order by chat_time asc
+	</select>
+	<insert id="inputChat" parameterType="java.util.Map">
+		INSERT INTO chat values(seq_chat.nextval,#{planner_no},#{user_id},default,#{chat_text})
+	</insert>
+	<select id="AccplannerList" parameterType="java.lang.String" resultType="PlannerDTO">
+		select p.* from accompany a join planner p on a.planner_no=p.planner_no where a.user_id=#{user_id} and a.allow='1'
+	</select>
+	<delete id="deleteChat" parameterType="int">
+		delete from chat where planner_no=#{planner_no}
+	</delete>
 </mapper>
 
