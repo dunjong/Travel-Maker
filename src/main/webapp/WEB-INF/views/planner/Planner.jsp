@@ -995,7 +995,6 @@
 			}//settings
 			$.ajax(settings).done(
 				function(response) {
-					console.log(air_res_list[0].totalPrice.replace('.0','')),
 					console.log(response)
 					var placesList = document.getElementById('h_places');
 					console.log(placesList)
