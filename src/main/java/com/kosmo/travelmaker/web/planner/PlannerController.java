@@ -154,7 +154,7 @@ public class PlannerController {
 		if(plannerService.updatePlannerName(map)) {
 			System.out.println("planner 저장 완료!");
 		}
-		return "forward:/";
+		return "forward:/TravelMaker/MyPlanner.kosmo";
 	}
 	@RequestMapping(value ="SaveDates.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
@@ -450,6 +450,27 @@ public class PlannerController {
 		}
 		return JSONArray.toJSONString(collections);
 	}
+	
+	@RequestMapping(value="CallSearchedCity.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String CallSearchedCity() {
+		List<Map> collections = new Vector<Map>();
+		for(int i=2;i<5;i++) {
+			int city_no=i;
+			Map<String, String> maps_cities=new HashMap<String, String>();
+			CityDTO dto_city= cityService.selectCityDTO(city_no);
+			maps_cities.put("img", dto_city.getCity_img());
+			maps_cities.put("name", dto_city.getCity_name());
+			maps_cities.put("intro", dto_city.getCity_intro());
+			maps_cities.put("city_no",Integer.toString(city_no));
+			maps_cities.put("city_count", Integer.toString(5));
+			collections.add(maps_cities);
+		}
+		return JSONArray.toJSONString(collections);
+	}
+	
+	
+	
 	@RequestMapping(value="CallPlannerList.kosmo", produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public String CallPlannerList(@RequestParam Map map,HttpSession sessionSccope) throws ParseException {

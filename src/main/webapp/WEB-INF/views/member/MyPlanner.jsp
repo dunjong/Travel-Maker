@@ -13,18 +13,22 @@
 <script>
 
 function deleteFunc(num){
-	$.ajax({
-		url:'<c:url value="MyPlannerDelete.kosmo"/>',
-		data:{planner_no:num},
-		dataType:'text',
-		success:function(data){successAjaxDelete(data,num)},
-		error:function(request,error){
-			console.log('상태코드:',request.status);
-			console.log('서버로부터 받은 HTML데이타:',request.responseText);
-			console.log('에러:',error);
-		}
-		
-	});
+	if(confirm('정말로'+num+'번 일정을 삭제하시겠습니까?')){
+	
+		$.ajax({
+			url:'<c:url value="MyPlannerDelete.kosmo"/>',
+			data:{planner_no:num},
+			dataType:'text',
+			success:function(data){successAjaxDelete(data,num)},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+	
+	}
 }
 
 function successAjaxDelete(data,num){
@@ -38,7 +42,7 @@ function successAjaxDelete(data,num){
 }
 
 function detail(num){
-	
+	/*
 	  $.ajax({
 			url:'<c:url value="MyPlannerDetails.kosmo"/>',
 			data:{planner_no:num},
@@ -51,6 +55,8 @@ function detail(num){
 			}
 			
 		});
+	*/
+	window.location.replace('<c:url value="Planner.kosmo?planner_no='+num+'" />')
 	  var offset=$('#destinations').offset();
 	  $('html, body').animate({scrollTop : offset.top}, 400);
 	  
@@ -220,6 +226,11 @@ function preImport(data){
 			
 		});
 }
+function chatRoom(num){
+	//window.location.replace('<c:url value="ChatRoom.kosmo?planner_no='+num+'" />')
+	$('#chat-modal').modal('show');
+}
+
 
 function Import(data){
 	 console.log('Import data:',data);
@@ -282,6 +293,10 @@ function fnMove(data){
 
 function fitting(){
 	var size=$('#cities > div').length;
+	if(size==0){
+		var tableString="<h2 style='text-align:center;'>확인하실 정보가 없습니다.</h2>";
+		$('#cities').html(tableString);
+	}
 	console.log('size',size);
 	$('#cities img').css({width:'360px',height:'261.37px'})
 	var j=0;
@@ -379,8 +394,8 @@ function ToPlannerView(data){
 										</button>	
 									</div>
 									<div class="col-lg-6" style="text-align:center;">
-										  <button type="button" style="background:#2196f3; color:white;" class="btn" onclick="detail(${planner.planner_no})">상세 보기</button>
-										  <button type="button" class="btn btn-danger"  onclick="deleteFunc(${planner.planner_no})">삭제 하기</button>
+										  <button type="button" style="background:#2196f3; color:white;" class="btn" onclick="detail(${planner.planner_no})">수정 하기</button>
+										  <button class="btn" type="button" style="background:#2196f3; color:white;" onclick='ToPlannerView(${planner.planner_no})'>간단 보기</button>
 									
 									</div>	
 									<div class="col-lg-6" style="text-align:center;">	
@@ -389,7 +404,8 @@ function ToPlannerView(data){
 										
 									</div>	
 									<div class="col-lg-12" style="text-align:center;">	
-										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;" onclick='ToPlannerView(${planner.planner_no})'>간단 보기</button>
+										
+										<button type="button" class="btn btn-danger"  style="width:100%; background:#80deea; color:white; font-weight: bold;"  onclick="deleteFunc(${planner.planner_no})">삭제 하기</button>
 									</div>	
 									<div class="col-lg-12" >		  
 									      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width:100%; background:#80deea; color:white;">
@@ -399,6 +415,7 @@ function ToPlannerView(data){
 									      <ul class="dropdown-menu" style="margin-left:45px;"role="menu">
 									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;" >전체 동행자:<span id="planner_acc">${planner.planner_acc}</span>명</div></li>
 									        <li><div style="color:#8977ad;font-size:1.5em;text-align:center;" >수락 동행자:<span id="planner_allow">${planner.planner_allow}</span>명</div></li>
+									        <li><div style="color:black;font-size:1.5em;text-align:center;cursor:pointer;" onclick="chatRoom(${planner.planner_no})" >동행자 채팅방</div></li>
 									      </ul>
 									</div>  
 								</div>
@@ -414,6 +431,10 @@ function ToPlannerView(data){
 			</div>
 		</div>
 	</div>
+	
+	
+	
+	
 </div>
 
 
@@ -423,7 +444,7 @@ function ToPlannerView(data){
 			<div class="row">
 				<div class="col text-center">
 					<div class="section_subtitle">Travel Maker</div>
-					<div class="section_title"><h2 id="dt_title">선택한 도시</h2></div>
+					<div class="section_title"><h2 id="dt_title">정보 보기 창</h2></div>
 				</div>
 			</div>
 			<div class="row destinations_row">
@@ -475,4 +496,235 @@ function ToPlannerView(data){
 				</div>
 			</div>
 		</div>
+	</div>
+<script>
+$(function(){
+	var me = {};
+	me.avatar = "https://lh6.googleusercontent.com/-lr2nyjhhjXw/AAAAAAAAAAI/AAAAAAAARmE/MdtfUmC0M4s/photo.jpg?sz=48";
+
+	var you = {};
+	you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
+
+	function formatAMPM(date) {
+	    var hours = date.getHours();
+	    var minutes = date.getMinutes();
+	    var ampm = hours >= 12 ? 'PM' : 'AM';
+	    hours = hours % 12;
+	    hours = hours ? hours : 12; // the hour '0' should be '12'
+	    minutes = minutes < 10 ? '0'+minutes : minutes;
+	    var strTime = hours + ':' + minutes + ' ' + ampm;
+	    return strTime;
+	}            
+
+	//-- No use time. It is a javaScript effect.
+	function insertChat(who, text, time){
+	    if (time === undefined){
+	        time = 0;
+	    }
+	    var control = "";
+	    var date = formatAMPM(new Date());
+	    
+	    if (who == "me"){
+	        control = '<li style="width:100%">' +
+	                        '<div class="msj macro">' +
+	                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
+	                            '<div class="text text-l">' +
+	                                '<p>'+ text +'</p>' +
+	                                '<p><small>'+date+'</small></p>' +
+	                            '</div>' +
+	                        '</div>' +
+	                    '</li>';                    
+	    }else{
+	        control = '<li style="width:100%;">' +
+	                        '<div class="msj-rta macro">' +
+	                            '<div class="text text-r">' +
+	                                '<p>'+text+'</p>' +
+	                                '<p><small>'+date+'</small></p>' +
+	                            '</div>' +
+	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +                                
+	                  '</li>';
+	    }
+	    setTimeout(
+	        function(){                        
+	            $("#chat-modal ul").append(control).scrollTop($("#chat-modal ul").prop('scrollHeight'));
+	        }, time);
+	    
+	}
+	function enter(){
+        var text = $('.mytext').val();
+        if (text !== ""){
+            insertChat("me", text);              
+            $('.mytext').val('');
+		    }
+		}
+
+	function resetChat(){
+	    $("#chat-modal ul").empty();
+	}
+	function enter(){
+	        var text = $('.mytext').val();
+	        if (text !== ""){
+	            insertChat("me", text);              
+	            $('.mytext').val('');
+	        }
+	}
+
+	$(".mytext").on("keyup", function(e){
+	    if (e.which == 13){
+	        var text = $(this).val();
+	        if (text !== ""){
+	            insertChat("me", text);              
+	            $(this).val('');
+	        }
+	    }
+	});
+
+	$('body > div > div > div:nth-child(2) > span').click(function(){
+	    $(".mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
+	})
+
+	//-- Clear Chat
+	resetChat();
+
+	//-- Print Messages
+	insertChat("me", "Hello Tom...", 0);  
+	insertChat("you", "Hi, Pablo", 1500);
+	/*
+	insertChat("me", "What would you like to talk about today?", 3500);
+	insertChat("you", "Tell me a joke",7000);
+	insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
+	insertChat("you", "LOL", 12000);
+	*/
+	})
+
+</script>
+<style type="text/css">
+.mytext{
+    border:0;padding:10px;background:whitesmoke;
+}
+.text{
+    width:75%;display:flex;flex-direction:column;
+}
+.text > p:first-of-type{
+    width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
+}
+.text > p:last-of-type{
+    width:100%;text-align:right;color:silver;margin-bottom:-7px;margin-top:auto;
+}
+.text-l{
+    float:left;padding-right:10px;
+}        
+.text-r{
+    float:right;padding-left:10px;
+}
+.avatar{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:25%;
+    float:left;
+    padding-right:10px;
+}
+.macro{
+    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
+}
+.msj-rta{
+    float:right;background:whitesmoke;
+}
+.msj{
+    float:left;background:white;
+}
+.frame{
+    background:#e0e0de;
+    height:450px;
+    overflow:hidden;
+    padding:0;
+}
+.frame > div:last-of-type{
+    position:absolute;bottom:0;width:100%;display:flex;
+}
+#chat-modal span{
+    background: whitesmoke;padding: 10px;font-size: 21px;border-radius: 50%;
+}
+#chat-modal div.msj-rta.macro{
+    margin:auto;margin-left:1%;
+}
+#chat-modal ul {
+    width:100%;
+    list-style-type: none;
+    padding:18px;
+    position:absolute;
+    bottom:47px;
+    display:flex;
+    flex-direction: column;
+    top:0;
+    overflow-y:scroll;
+}
+.msj:before{
+    width: 0;
+    height: 0;
+    content:"";
+    top:-5px;
+    left:-14px;
+    position:relative;
+    border-style: solid;
+    border-width: 0 13px 13px 0;
+    border-color: transparent #ffffff transparent transparent;            
+}
+.msj-rta:after{
+    width: 0;
+    height: 0;
+    content:"";
+    top:-5px;
+    left:14px;
+    position:relative;
+    border-style: solid;
+    border-width: 13px 13px 0 0;
+    border-color: whitesmoke transparent transparent transparent;           
+}  
+.mytext:focus{
+    outline: none;
+}        
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #d4d4d4;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: #d4d4d4;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: #d4d4d4;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #d4d4d4;
+}  
+
+</style>	
+	
+<div class="modal fade" id="chat-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+	  <div class="modal-dialog modal-notify modal-info" role="document">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+	         <p class="heading lead">채팅</p>	         		
+	         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	           <span aria-hidden="true" class="white-text">&times;</span>
+	         </button>
+	       </div>
+	    	<div class="modal-body" >	   		
+	    		<div class="col-sm-12 frame">
+		            <ul></ul>
+		            <div>
+		                <div class="msj-rta macro">                        
+		                    <div class="text text-r" style="background:whitesmoke !important">
+		                        <input class="mytext" placeholder="Type a message"/>
+		                    </div> 
+		
+		                </div>
+		                <div style="padding:10px;">
+		                    <span style="font-size:0.5em;" onclick="enter()">send</span>
+		                </div>                
+		            </div>
+		        </div>    
+	    	</div>
+	    </div>
+	  </div>
 	</div>
