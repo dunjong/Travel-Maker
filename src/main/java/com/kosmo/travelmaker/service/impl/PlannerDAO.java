@@ -150,4 +150,8 @@ public class PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectOne("selectOnePlannerNoByCitiesNo", cities_no);
 	}
+	public boolean deleteChatByAccNo(int acc_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteChatByAccNo",acc_no)==1?true:false;
+	}
 }

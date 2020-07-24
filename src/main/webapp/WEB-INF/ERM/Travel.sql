@@ -1,8 +1,10 @@
 
 /* Drop Tables */
 
+DROP TABLE chat CASCADE CONSTRAINTS;
 DROP TABLE accompany CASCADE CONSTRAINTS;
 DROP TABLE air CASCADE CONSTRAINTS;
+DROP TABLE review_like CASCADE CONSTRAINTS;
 DROP TABLE review CASCADE CONSTRAINTS;
 DROP TABLE auto_spots CASCADE CONSTRAINTS;
 DROP TABLE auto_plan CASCADE CONSTRAINTS;
@@ -27,6 +29,7 @@ DROP TABLE userinfo CASCADE CONSTRAINTS;
 DROP SEQUENCE seq_acc;
 DROP SEQUENCE seq_air;
 DROP SEQUENCE seq_auto_plan;
+DROP SEQUENCE seq_chat;
 DROP SEQUENCE seq_cities;
 DROP SEQUENCE seq_city;
 DROP SEQUENCE seq_festival;
@@ -49,6 +52,7 @@ DROP SEQUENCE seq_tag_rel;
 CREATE SEQUENCE seq_acc;
 CREATE SEQUENCE seq_air;
 CREATE SEQUENCE seq_auto_plan;
+CREATE SEQUENCE seq_chat;
 CREATE SEQUENCE seq_cities;
 CREATE SEQUENCE seq_city;
 CREATE SEQUENCE seq_festival;
@@ -110,6 +114,17 @@ CREATE TABLE auto_spots
 	spot_latlng nvarchar2(200) NOT NULL,
 	auto_plan_no number NOT NULL,
 	PRIMARY KEY (auto_spot_no)
+);
+
+
+CREATE TABLE chat
+(
+	chat_no number NOT NULL,
+	acc_no number NOT NULL,
+	user_id nvarchar2(200) NOT NULL,
+	chat_time date DEFAULT sysdate NOT NULL,
+	chat_text nvarchar2(2000),
+	PRIMARY KEY (chat_no)
 );
 
 
@@ -222,6 +237,16 @@ CREATE TABLE review
 );
 
 
+CREATE TABLE review_like
+(
+	re_likeno number NOT NULL,
+	user_id nvarchar2(200) NOT NULL,
+	review_no number NOT NULL,
+	re_hateno number NOT NULL,
+	PRIMARY KEY (re_likeno)
+);
+
+
 CREATE TABLE save_spots
 (
 	save_spot_no number NOT NULL,
@@ -264,6 +289,12 @@ CREATE TABLE userinfo
 
 
 /* Create Foreign Keys */
+
+ALTER TABLE chat
+	ADD FOREIGN KEY (acc_no)
+	REFERENCES accompany (acc_no)
+;
+
 
 ALTER TABLE auto_spots
 	ADD FOREIGN KEY (auto_plan_no)
@@ -349,6 +380,12 @@ ALTER TABLE cities
 ;
 
 
+ALTER TABLE review_like
+	ADD FOREIGN KEY (review_no)
+	REFERENCES review (review_no)
+;
+
+
 ALTER TABLE tag_rel
 	ADD FOREIGN KEY (tag_name)
 	REFERENCES tag (tag_name)
@@ -356,6 +393,12 @@ ALTER TABLE tag_rel
 
 
 ALTER TABLE accompany
+	ADD FOREIGN KEY (user_id)
+	REFERENCES userinfo (user_id)
+;
+
+
+ALTER TABLE chat
 	ADD FOREIGN KEY (user_id)
 	REFERENCES userinfo (user_id)
 ;
@@ -374,6 +417,12 @@ ALTER TABLE reservation
 
 
 ALTER TABLE review
+	ADD FOREIGN KEY (user_id)
+	REFERENCES userinfo (user_id)
+;
+
+
+ALTER TABLE review_like
 	ADD FOREIGN KEY (user_id)
 	REFERENCES userinfo (user_id)
 ;

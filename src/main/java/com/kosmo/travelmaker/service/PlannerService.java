@@ -38,4 +38,5 @@ public interface PlannerService {
 	List<AccDTO> selectAccNosByPlannerNo(int planner_no);
 	boolean updateResOk(String h_a_no);
 	int selectOnePlannerNoByCitiesNo(int cities_no);
+	boolean deleteChatByAccNo(int acc_no);
 }

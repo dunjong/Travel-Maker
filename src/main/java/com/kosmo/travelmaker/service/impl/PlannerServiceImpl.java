@@ -225,5 +225,11 @@ public class PlannerServiceImpl implements PlannerService{
 		return plannerDAO.selectOnePlannerNoByCitiesNo(cities_no);
 	}
 
+	@Override
+	public boolean deleteChatByAccNo(int acc_no) {
+		// TODO Auto-generated method stub
+		return plannerDAO.deleteChatByAccNo(acc_no);
+	}
+
 	
 }

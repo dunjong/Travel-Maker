@@ -129,6 +129,13 @@ public class MemberController {
 			System.out.println("Cities들 삭제 완료");
 			
 		};
+		List<AccDTO> acc_dto_list=plannerService.selectAccNosByPlannerNo(planner_no);
+		for(AccDTO acc_dto:acc_dto_list) {
+			int acc_no=acc_dto.getAcc_no();
+			if(plannerService.deleteChatByAccNo(acc_no)) {
+				System.out.println("Chat들 삭제 완료");
+			};
+		}
 		if(plannerService.deleteAccByPlannerNo(planner_no)) {
 			System.out.println("Accompany들 삭제 완료");
 		}
