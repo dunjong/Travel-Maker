@@ -502,18 +502,14 @@ function ToPlannerView(data){
 <script>
 
 
-var me = {};
-me.avatar = "https://lh6.googleusercontent.com/-lr2nyjhhjXw/AAAAAAAAAAI/AAAAAAAARmE/MdtfUmC0M4s/photo.jpg?sz=48";
 
-var you = {};
-you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
 
 	        
 function callChats(num){
 	$.ajax({
 		url:'<c:url value="updateChat.kosmo"/>',
 		data:{'planner_no':num},
-		dataType:'text',
+		dataType:'json',
 		success:function(data){
 			
 			successChatUpdate(data);
@@ -562,6 +558,11 @@ $(function(){
 })
 	//-- No use time. It is a javaScript effect.
 function insertChat(who, text, time){
+	var me = {};
+	me.avatar = "https://lh6.googleusercontent.com/-lr2nyjhhjXw/AAAAAAAAAAI/AAAAAAAARmE/MdtfUmC0M4s/photo.jpg?sz=48";
+
+	var you = {};
+	you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
     if (time === undefined){
         time = 0;
     }
@@ -569,7 +570,7 @@ function insertChat(who, text, time){
     var date = formatAMPM(new Date());
     
     if (who == "me"){
-        control = '<li style="width:100%">' +
+        control = '<li style="width:100%;margin:5px;">' +
                         '<div class="msj macro">' +
                         '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
                             '<div class="text text-l">' +
@@ -579,7 +580,7 @@ function insertChat(who, text, time){
                         '</div>' +
                     '</li>';                    
     }else{
-        control = '<li style="width:100%;">' +
+        control = '<li style="width:100%;margin:5px;">' +
                         '<div class="msj-rta macro">' +
                             '<div class="text text-r">' +
                                 '<p>'+text+'</p>' +
