@@ -3,6 +3,7 @@ package com.kosmo.travelmaker.web.review;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +41,29 @@ public class ReviewController {
 	public String Review(@RequestParam Map map, Model model,HttpSession session) {
 		// 서비스 호출]
 		ReviewDTO record = reviewService.selectOne(map);
+		String user_id=session.getAttribute("id").toString();
 		// 데이타 저장]
+		String review_no=map.get("review_no").toString();
+		Map<String, String> maps=new HashMap<String, String>();
+		maps.put("user_id", user_id);
+		maps.put("review_no", review_no);
+		maps.put("re_hateno", "1");
+		int likeCount=reviewService.likeSelect(maps);
+		if(reviewService.selectLikeByIdReviewNo(maps)) {
+			record.setFlagLikeById(1);
+		}
+		record.setLike(likeCount);
+		maps=new HashMap<String, String>();
+		maps.put("user_id", user_id);
+		maps.put("review_no", review_no);
+		maps.put("re_hateno", "0");
+		likeCount=reviewService.likeSelect(maps);
+		if(reviewService.selectLikeByIdReviewNo(maps)) {
+			record.setFlagHateById(1);
+		}
+		record.setHate(likeCount);
+		
+		
 		// 줄바꿈 처리
 		record.setReview_content(record.getReview_content().replace("\r\n", "<br/>"));
 		System.out.println("userID:"+record.getUser_id());
@@ -73,6 +96,23 @@ public class ReviewController {
 		map.put("start", start);
 		map.put("end", end);
 		List<ReviewDTO> list = reviewService.selectList(map);
+		for(ReviewDTO review_dto:list) {
+			String review_no=Integer.toString(review_dto.getReview_no());
+			Map<String, String> maps=new HashMap<String, String>();
+			maps.put("review_no", review_no);
+			maps.put("re_hateno", "1");
+			int likeCount=reviewService.likeSelect(maps);
+			review_dto.setLike(likeCount);
+			maps=new HashMap<String, String>();
+			maps.put("review_no", review_no);
+			maps.put("re_hateno", "0");
+			likeCount=reviewService.likeSelect(maps);
+			review_dto.setHate(likeCount);
+		}
+		
+		
+		
+		
 		String pagingString = ReviewPagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
 		req.getContextPath() + "/TravelMaker/ReviewSearch.kosmo?");
 		model.addAttribute("list", list);
@@ -140,13 +180,49 @@ public class ReviewController {
 		// 뷰정보 반환]
 		return "forward:/TravelMaker/ReviewSearch.kosmo";
 	}
-	@RequestMapping(value ="getcityno.kosmo",produces ="text/html; charset=UTF-8")
+	@RequestMapping(value ="/TravelMaker/getcityno.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public String getcityno(@RequestParam String city_name){
 		
 		
 		return Integer.toString(cityService.selectCityNo(city_name));
 	}
+	@ResponseBody
+	@RequestMapping(value="ReviewLike.kosmo",produces ="text/html; charset=UTF-8")
+	public String Likeinsert(@RequestParam Map map,HttpSession session) {
+		String re_hateno=map.get("likeNo").toString();
+		String review_no=map.get("review_no").toString();
+		String user_id=session.getAttribute("id").toString();
+		String flag="";
+		System.out.println("review_hateno:"+re_hateno+"review_no:"+review_no);
+		Map<String, String> maps=new HashMap<String, String>();
+		maps.put("user_id", user_id);
+		maps.put("review_no", review_no);
+		maps.put("re_hateno", re_hateno);
+		
+		if(reviewService.selectLikeByIdReviewNo(maps)) {
+			if(reviewService.Likeinsert(maps)) {
+				flag="like 생성 성공";
+				System.out.println("like 생성 성공");
+			};
+		}
+		else {
+			if(re_hateno=="0") {
+				if(reviewService.deleteLike(maps)) {
+					flag="이미 싫어요를 누른 아이디입니다";
+				};
+				
+			}
+			else {
+				if(reviewService.deleteLike(maps)) {
+					flag="이미 좋아요를 누른 아이디입니다";
+				}
+			}
+		}
+		return flag;
+	}
+	
+	
 	
 
 }

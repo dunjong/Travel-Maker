@@ -206,8 +206,8 @@ text-align:center;
 											<i style="color:red;" class="fas fa-heart"></i> &nbsp;
 											<i style="color:black;" class="fas fa-heart-broken"></i>
 									
-											<br> <span>${item.review_no+1}</span>
-											&nbsp;<span>${item.review_no+1}</span>
+											<br> <span>${item.like}</span>
+											&nbsp;<span>${item.hate}</span>
 										
 										</div>
 										<div class="reviewTextInformation">

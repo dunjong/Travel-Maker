@@ -40,5 +40,21 @@
 		select * from review where city_no=#{city_no}
 	</select>
 	
+	<select id="likeSelect" parameterType="java.util.Map" resultType="int">
+		SELECT count(*) FROM review_like WHERE review_no=#{review_no} and re_hateno=#{re_hateno}
+	</select>
+	<select id="selectLikeByIdReviewNo" parameterType="java.util.Map" resultType="int">
+		SELECT count(*) FROM review_like WHERE review_no=#{review_no} and re_hateno=#{re_hateno} and user_id=#{user_id}
+	</select>
+	
+	<insert id = "Likeinsert" parameterType="java.util.Map">
+		INSERT INTO review_like VALUES(seq_review_like.nextval,#{user_id},#{review_no},#{re_hateno})
+	</insert>
+	
+	
+	<delete id ="deleteLike" parameterType="java.util.Map">
+		DELETE FROM review_like WHERE review_no=#{review_no} and re_hateno=#{re_hateno} and user_id=#{user_id}
+	</delete>
+		
 	
 </mapper>
