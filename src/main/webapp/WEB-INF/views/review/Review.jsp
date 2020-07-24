@@ -89,6 +89,7 @@
 }
 
 .reviewFooterUtil span {
+
 	color: #3EB489;
 }
 .home_search_content{
@@ -122,9 +123,11 @@
 								pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate" />
 						
 							<div class="reviewFooterUtil">
-						
-							<img src="<c:url value='/images/reviewLikes.png'/>"
-									alt="좋아요"> <br> <span>${record.review_no+1}</span> <span>명</span>
+								<button type="button" class="btn btn-info"><i style="color:red;" class="fas fa-heart fa-lg"></i></button> &nbsp;
+								<button type="button" class="btn btn-info"><i style="color:black;" class="fas fa-heart-broken fa-lg"></i></button>
+								
+							 <br> <span>${record.review_no+1}</span> <span style="padding-right: 60px;">명</span> 
+							 <span>${record.review_no+1}</span> <span>명</span>
 									<div style="" class="starRev">
 									  <span class="starR1 on">별1_왼쪽</span>
 									  <span class="starR2">별1_오른쪽</span>
@@ -137,8 +140,10 @@
 									  <span class="starR1">별5_왼쪽</span>
 									  <span class="starR2">별5_오른쪽</span>
 									</div>
+									<br>
 							<p style="text-align: right; font-weight: bold; font-size:0.8em; color:sandybrown; margin-right:10px;">작성일시 : ${postdate}</p>
-							<p style="text-align: right; font-weight: bold; font-size:0.8em; color:sandybrown; margin-right:10px;">작성자 : ${record.user_id} </p>
+							<p style="text-align: right; font-weight: bold; font-size:0.8em; color:sandybrown; margin-right:10px;">작성자 : ${record.user_id}</p> 
+							<p style="text-align: right; font-weight: bold; font-size:0.8em; color:sandybrown; margin-right:10px;">도시이름 : ${record.city_no}</p> 
 							</div>
 						</div>
 						<div class="reviewFooterUtil">

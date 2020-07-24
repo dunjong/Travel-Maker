@@ -61,10 +61,11 @@
 	width: 15%;
 	height: 100%;
 	float: left;
-	color: #2a7a5d;
+	padding-top:67px;
+	padding-left:41px;
 	font-size: 1.5em;
 	font-weight: bold;
-	text-align: center;
+	text-align: left;
 }
 
 .bestReviewAndLikes img {
@@ -95,16 +96,18 @@
 }
 
 .reviewPagingBack {
-	text-align: center;
+text-align:center;
 }
 
 .reviewPaging {
-	width: 50%;
+	width: 100%;
 	height: 70px;
 	background-color: white;
 	margin-top: 20px;
 	border-radius: 30px;
 	display: inline-block;
+	text-align:center;
+
 }
 
 .reviewPaging a {
@@ -146,6 +149,7 @@
 </style>
 </head>
 <!-- Search -->
+
 <div class="home_search">
 	<div class="container">
 		<div class="row">
@@ -167,7 +171,7 @@
 									<option>검색 범위를 선택하세요</option>
 									<option value="review_title">제목</option>
 									<option value="review_content">내용</option>
-									<option value="city_no">도시</option>
+									<option value="city_no" >도시</option>
 								</select>
 						
 								<input type="text" id="reviewSearch" class="search_input col-lg-6" style="width:100%"
@@ -199,9 +203,12 @@
 									href="<c:url value='/TravelMaker/Review.kosmo?review_no=${item.review_no}'/>">
 									<div class="reviewInformation">
 										<div class="bestReviewAndLikes">
-											<br> <img src="<c:url value='/images/reviewLikes.png'/>"
-												alt="좋아요"> <br> <span>${item.review_no+1}</span>
-											<span>명</span>
+											<i style="color:red;" class="fas fa-heart"></i> &nbsp;
+											<i style="color:black;" class="fas fa-heart-broken"></i>
+									
+											<br> <span>${item.review_no+1}</span>
+											&nbsp;<span>${item.review_no+1}</span>
+										
 										</div>
 										<div class="reviewTextInformation">
 											<br />
@@ -210,9 +217,10 @@
 												${fn:length(item.review_content)<11? "" : "..." }</p>
 											
 											<fmt:formatDate value="${item.review_date}"
-												pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate" />
-											<p>작성일시 : ${postdate}</p>
-											<p>작성자 : ${item.user_id}</p>
+												pattern="MM월 dd일 EEEE HH시mm분" var="postdate" />
+											<span>작성일시 : ${postdate}</span><br>
+											<span>작성자 : ${item.user_id}</span><br>
+											<span>도시이름 : ${item.city_no}</span>
 										</div>
 										<div class="reviewMapOrImage">
 											<img

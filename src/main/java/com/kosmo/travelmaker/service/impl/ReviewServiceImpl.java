@@ -44,4 +44,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.update(map);
 	}
 
+	@Override
+	public List<ReviewDTO> selectReviewDTOListByCityNo(int city_no) {
+		// TODO Auto-generated method stub
+		return dao.selectReviewDTOListByCityNo(city_no);
+	}
+
 }

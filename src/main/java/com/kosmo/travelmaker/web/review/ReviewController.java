@@ -20,8 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kosmo.travelmaker.service.ReviewPagingUtil;
+import com.kosmo.travelmaker.service.CityService;
+import com.kosmo.travelmaker.service.CityTagService;
 import com.kosmo.travelmaker.service.ReviewDTO;
 import com.kosmo.travelmaker.service.ReviewService;
+import com.kosmo.travelmaker.service.impl.CityServiceImpl;
+import com.kosmo.travelmaker.service.impl.ReviewServiceImpl;
 
 @Controller
 @RequestMapping("/TravelMaker/")
@@ -29,7 +33,9 @@ public class ReviewController {
 	// 서비스 주입]
 	@Resource(name = "reviewService")
 	private ReviewService reviewService;
-
+	@Resource (name="cityService")
+	private CityServiceImpl cityService;
+	
 	@RequestMapping("Review.kosmo")
 	public String Review(@RequestParam Map map, Model model,HttpSession session) {
 		// 서비스 호출]
@@ -53,7 +59,9 @@ public class ReviewController {
 
 	@RequestMapping("ReviewSearch.kosmo")
 	public String ReviewSearch(@RequestParam Map map, @RequestParam(required = false, defaultValue = "1") int nowPage,
-			HttpServletRequest req, Model model, HttpSession session) {
+		
+		HttpServletRequest req, Model model, HttpSession session) {
+		
 		int totalRecordCount = reviewService.getTotalRecord(map);
 		// 전체 페이지수]
 		int totalPage = (int) Math.ceil((double) totalRecordCount / pageSize);
@@ -132,7 +140,13 @@ public class ReviewController {
 		// 뷰정보 반환]
 		return "forward:/TravelMaker/ReviewSearch.kosmo";
 	}
+	@RequestMapping(value ="getcityno.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String getcityno(@RequestParam String city_name){
 		
+		
+		return Integer.toString(cityService.selectCityNo(city_name));
+	}
 	
 
 }

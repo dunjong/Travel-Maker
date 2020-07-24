@@ -18,8 +18,7 @@
 		<if test="searchWord != null">
 		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
 		</if>
-	</select>
-	
+	</select>	
 	<insert id="reviewInsert" parameterType="java.util.Map">
 		INSERT INTO review(review_no,user_id,city_no,review_title,review_content,review_date,review_file)
 		VALUES(seq_review.NEXTVAL,#{user_id},#{city_no},#{review_title},#{review_content},sysdate,#{review_file})
@@ -36,4 +35,10 @@
 	<delete id="reviewDelete" parameterType="java.util.Map">
 		DELETE review WHERE review_no=#{review_no}
 	</delete>
+	
+	<select id="selectReviewDTOListByCityNo" parameterType="int" resultType="reviewDTO">
+		select * from review where city_no=#{city_no}
+	</select>
+	
+	
 </mapper>
