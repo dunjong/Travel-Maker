@@ -3,6 +3,7 @@
 
 DROP TABLE chat CASCADE CONSTRAINTS;
 DROP TABLE accompany CASCADE CONSTRAINTS;
+DROP TABLE account_book CASCADE CONSTRAINTS;
 DROP TABLE air CASCADE CONSTRAINTS;
 DROP TABLE review_like CASCADE CONSTRAINTS;
 DROP TABLE review CASCADE CONSTRAINTS;
@@ -14,9 +15,6 @@ DROP TABLE plan CASCADE CONSTRAINTS;
 DROP TABLE cities CASCADE CONSTRAINTS;
 DROP TABLE tag_rel CASCADE CONSTRAINTS;
 DROP TABLE city CASCADE CONSTRAINTS;
-DROP TABLE Festival CASCADE CONSTRAINTS;
-DROP TABLE Festival_name CASCADE CONSTRAINTS;
-DROP TABLE Festival_ctr CASCADE CONSTRAINTS;
 DROP TABLE planner CASCADE CONSTRAINTS;
 DROP TABLE reservation CASCADE CONSTRAINTS;
 DROP TABLE tag CASCADE CONSTRAINTS;
@@ -80,6 +78,16 @@ CREATE TABLE accompany
 	user_id nvarchar2(200) NOT NULL,
 	allow number,
 	PRIMARY KEY (acc_no)
+);
+
+
+CREATE TABLE account_book
+(
+	count_no number NOT NULL,
+	case nvarchar2(200) NOT NULL,
+	money number NOT NULL,
+	plan_no number,
+	PRIMARY KEY (count_no)
 );
 
 
@@ -151,34 +159,6 @@ CREATE TABLE city
 );
 
 
-CREATE TABLE Festival
-(
-	Festival_seq number NOT NULL,
-	Festival_local nvarchar2(50) NOT NULL,
-	Festival_season nvarchar2(50) NOT NULL,
-	Festival_spot nvarchar2(50) NOT NULL,
-	Festival_content nvarchar2(1000) NOT NULL,
-	Festival_no number,
-	PRIMARY KEY (Festival_seq)
-);
-
-
-CREATE TABLE Festival_ctr
-(
-	Festival_country nvarchar2(100) NOT NULL,
-	PRIMARY KEY (Festival_country)
-);
-
-
-CREATE TABLE Festival_name
-(
-	Festival_no number NOT NULL,
-	Festival_name nvarchar2(100) NOT NULL,
-	Festival_country nvarchar2(100),
-	PRIMARY KEY (Festival_no)
-);
-
-
 CREATE TABLE hotel
 (
 	hotel_no number NOT NULL,
@@ -211,6 +191,7 @@ CREATE TABLE planner
 	planner_acc number DEFAULT 0 NOT NULL,
 	planner_name nvarchar2(200),
 	user_id nvarchar2(200) NOT NULL,
+	total_count number,
 	PRIMARY KEY (planner_no)
 );
 
@@ -346,15 +327,9 @@ ALTER TABLE tag_rel
 ;
 
 
-ALTER TABLE Festival_name
-	ADD FOREIGN KEY (Festival_country)
-	REFERENCES Festival_ctr (Festival_country)
-;
-
-
-ALTER TABLE Festival
-	ADD FOREIGN KEY (Festival_no)
-	REFERENCES Festival_name (Festival_no)
+ALTER TABLE account_book
+	ADD FOREIGN KEY (plan_no)
+	REFERENCES plan (plan_no)
 ;
 
 

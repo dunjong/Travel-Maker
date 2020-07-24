@@ -475,16 +475,10 @@
 							<!--  가로 배치 -->
 							<div class="radio">
 								<label><input type="radio" value="남자" name="user_gender"
-<<<<<<< HEAD
 									<c:if test="${param.user_gender=='male' }">checked</c:if>>male</label> <label><input
 									type="radio" value="여자" name="user_gender"
 									<c:if test="${param.user_gender=='female' }">checked</c:if>>female</label>
-=======
-									<c:if test="${param.user_gender=='male' }">checked</c:if>>male</label> <label>
-									<input
-									type="radio" value="여자" name="user_gender"
-									<c:if test="${param.user_gender=='female'}">checked</c:if>>female</label>
->>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
+
 							</div>
 							<span style="color: red; font-size: .8em">${genderError}<form:errors
 									path="memberDTO.user_gender" /></span>
