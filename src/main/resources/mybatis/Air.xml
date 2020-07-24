@@ -3,18 +3,23 @@
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Air">
+	<insert id="insertAirDtoToRes" parameterType="AirDTO">
+		INSERT INTO air values(seq_air.nextval,#{air_ddate},#{air_adate},#{air_price},#{air_time},#{air_passenger},#{air_dep},#{air_arr},#{air_via},#{planner_no}) 
+	</insert>
+	<select id="selectAirNo" resultType="int">
+		select seq_air.currval from dual
+	</select>
+	
+	
+	
+	
+	
 	<delete id="deleteAirRes" parameterType="AirDTO">
 		DELETE FROM reservation WHERE 
 	</delete>
 	<select id="selectAirResById" parameterType="java.lang.String">
 		SELECT air_res_no FROM reservation where 
 	</select>
-	<insert id="insertAirDtoToAir" parameterType="AirDTO">
-		INSERT INTO air values() 
-	</insert>
-	<insert id="insertAirDtoToRes" parameterType="AirDTO">
-		INSERT INTO air values(seq_air.nextval,#{air_ddate},'0',#{air_price},#{air_passenger},#{air_class},#{air_dep},#{air_arr},#{planner_no}) 
-	</insert>
 	<select id="selectAirByResNo">
 		
 	</select>
@@ -30,9 +35,4 @@
 	<select id="selectAirDTOList" parameterType="int" resultType="AirDTO">
 		SELECT * FROM air where air_no=#{air_no}
 	</select>
-	<select id="selectAirNo" resultType="int">
-		select seq_air.currval from dual
-	</select>
-	
-	
 </mapper>

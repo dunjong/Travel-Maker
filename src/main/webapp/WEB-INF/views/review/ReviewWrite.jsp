@@ -151,6 +151,10 @@
 .reviewFooterUtil span {
 	color: #3EB489;
 }
+.home_search_content{
+	background-color:#e0e0e0;
+	border-radius:20px;
+}
 </style>
 </head>
 <!-- Search -->
@@ -172,20 +176,20 @@
 									class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
 									<select style="width:100%" class="col-lg-4" id="reviewWriteCityTag" name="city_no" required="required">
 										<option value="">도시를 선택하세요</option>
-										<option value="1">세부</option>
-										<option value="2">보라카이</option>
-										<option value="3">마닐라</option>
-										<option value="4">하노이</option>
-										<option value="5">나트랑</option>
-										<option value="6">다낭</option>
-										<option value="7">푸켓</option>
-										<option value="8">방콕</option>
-										<option value="9">발리</option>
-										<option value="10">롬복</option>
-										<option value="11">쿠알라룸푸르</option>
-										<option value="12">코타키나발루</option>
-										<option value="13">싱가포르</option>
-										<option value="14">라오스</option>
+										<option value="2">세부</option>
+										<option value="3">보라카이</option>
+										<option value="4">마닐라</option>
+										<option value="5">하노이</option>
+										<option value="6">나트랑</option>
+										<option value="7">다낭</option>
+										<option value="8">푸켓</option>
+										<option value="9">방콕</option>
+										<option value="10">발리</option>
+										<option value="11">롬복</option>
+										<option value="12">쿠알라룸푸르</option>
+										<option value="13">코타키나발루</option>
+										<option value="14">싱가포르</option>
+										<option value="15">라오스</option>
 									</select> <select style="width:100%" class="col-lg-5" id="reviewWritePlaceTag">
 										<option>리뷰 장소를 선택하세요</option>
 										<option value="food">식당</option>

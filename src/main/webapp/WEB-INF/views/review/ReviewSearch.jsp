@@ -140,7 +140,7 @@
 	color: #3EB489;
 }
 .home_search_content{
-	background-color:#5c6bc0;
+	background-color:#e0e0e0;
 	border-radius:20px;
 }
 </style>
@@ -167,6 +167,7 @@
 									<option>검색 범위를 선택하세요</option>
 									<option value="review_title">제목</option>
 									<option value="review_content">내용</option>
+									<option value="city_no">도시</option>
 								</select>
 						
 								<input type="text" id="reviewSearch" class="search_input col-lg-6" style="width:100%"

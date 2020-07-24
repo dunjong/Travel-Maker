@@ -47,6 +47,7 @@
 					<div class="row" >
 						
 						<div class="col-md-12" style="text-align: center;margin-top:50px;">
+							<c:if test="${not empty city_no}" var="city_no_empty">
 							<form action="<c:url value='/' />">
 								<div class="row">
 									<div class="col-md-1">
@@ -65,6 +66,26 @@
 									</div>
 								</div>
 							</form>
+							</c:if>
+							<c:if test="${!city_no_empty}">
+							<form action="<c:url value='/TravelMaker/MyPlanner.kosmo'/>">
+								<div class="row">
+									<div class="col-md-1">
+									
+									</div>
+									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
+										<div class="form-control"  id="planner_name">${planner_name}</div>
+									</div>
+									<div class="col-md-1">
+									
+									</div>
+									<div class="col-md-3">
+										<button class="btn btn-info" style="width:100%" >MyPlanner로</button>
+									</div>
+								</div>
+							</form>
+							
+							</c:if>
 						</div>
 						<div class="col-md-12" style="text-align: center;">
 							<br>
