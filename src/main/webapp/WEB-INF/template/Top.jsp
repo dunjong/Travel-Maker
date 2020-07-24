@@ -169,7 +169,7 @@
                   style="min-height: 60vh; border:none;"              
                   width="100%"
                   height="90%"
-                  src="https://727fc137a8ae.ngrok.io">                        
+                  src="https://bd1a84e68a0a.ngrok.io">                        
               </iframe>
               </div>
                </div>
@@ -448,7 +448,7 @@
 							<div class="radio">
 								<label><input type="radio" value="남자" name="user_gender"
 									<c:if test="${param.user_gender=='male' }">checked</c:if>>male</label> <label><input
-									type="radio" value="여자" name="gender"
+									type="radio" value="여자" name="user_gender"
 									<c:if test="${param.user_gender=='female' }">checked</c:if>>female</label>
 							</div>
 							<span style="color: red; font-size: .8em">${genderError}<form:errors
