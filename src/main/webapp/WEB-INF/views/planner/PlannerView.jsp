@@ -386,7 +386,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)+1).toString();
+				day=(parseInt(day)+1);
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 			else if(se=='e'){
@@ -394,7 +397,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)).toString();
+				day=(parseInt(day));
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 			else{
@@ -402,7 +408,10 @@
 				var year=dates[0];
 				var month=dates[1];
 				var day=dates[2];
-				day=(parseInt(day)+1).toString();
+				day=(parseInt(day)+1);
+				if(day<10){
+					day='0'+day;
+				}
 				return (year+'-'+month+'-'+day);
 			}
 		}
