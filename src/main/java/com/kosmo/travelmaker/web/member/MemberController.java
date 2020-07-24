@@ -386,9 +386,23 @@ public class MemberController {
 		};
 		return flag;
 	}
-	@RequestMapping(value="updateChat.kosmo",produces ="text/html; charset=UTF-8")
+	@RequestMapping(value="CallChat.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public String updateChat(@RequestParam Map map) {
+	public String CallChat(@RequestParam Map map) {
+		List<Map> collections = new Vector<Map>();
+		
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		
+		List<MemberDTO> member_dto_list= memberService.selectMemberDTOListByAccAllow(planner_no);
+		for(MemberDTO member_dto:member_dto_list) {
+			
+		}
+		
+		return JSONArray.toJSONString(collections);
+	}
+	@RequestMapping(value="PutChat.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String PutChat(@RequestParam Map map) {
 		List<Map> collections = new Vector<Map>();
 		int planner_no=Integer.parseInt(map.get("planner_no").toString());
 		

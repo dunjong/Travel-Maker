@@ -505,14 +505,14 @@ function ToPlannerView(data){
 
 
 	        
-function callChats(num){
+function CallChat(num){
 	$.ajax({
-		url:'<c:url value="updateChat.kosmo"/>',
+		url:'<c:url value="CallChat.kosmo"/>',
 		data:{'planner_no':num},
 		dataType:'json',
 		success:function(data){
 			
-			successChatUpdate(data);
+			successChatCall(data);
 		},
 		error:function(request,error){
 			console.log('상태코드:',request.status);
@@ -522,10 +522,32 @@ function callChats(num){
 		
 	});
 }
-function successChatUpdate(data){
+function PutChat(data){
+	$.ajax({
+		url:'<c:url value="PutChat.kosmo"/>',
+		data:{
+			'planner_no':data.planner_no,
+			'chat_text':data.chat_text,
+		},
+		dataType:'json',
+		success:function(data){
+			
+			successChatPut(data);
+		},
+		error:function(request,error){
+			console.log('상태코드:',request.status);
+			console.log('서버로부터 받은 HTML데이타:',request.responseText);
+			console.log('에러:',error);
+		}
+		
+	});
+}
+function successChatCall(data){
 	console.log(data);
 }
-	
+function successChatPut(data){
+	console.log(data);
+}
 	
 
 $(function(){
