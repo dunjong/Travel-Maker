@@ -56,7 +56,19 @@ function CallPlanners(city_no){
 	});
 	}
 }
-
+function CallSearchedCity(){
+	 $.ajax({
+			url:'<c:url value="/TravelMaker/CallSearchedCity.kosmo"/>',
+			dataType:'json',
+			success:function(data){successAjaxCity(data)},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+}
 function CallCity(){
 	
 	  $.ajax({
@@ -176,6 +188,7 @@ function successAjaxPlanner(data){
 
 
 function successAjaxCity(data){
+	console.log('city data:',data)
 	 var tableString="";
 	 var cities=document.getElementById('cities');
 	 
@@ -282,7 +295,7 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/wallet.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div style="color:#2e63bf; cursor:pointer;" class="intro_title">해외 인기여행지</div>
+									<div style="color:#2e63bf; cursor:pointer;" class="intro_title" onclick="CallSearchedCity()">해외 인기여행지</div>
 									<div class="intro_subtitle">
 										<p>Best Price</p>
 									</div>

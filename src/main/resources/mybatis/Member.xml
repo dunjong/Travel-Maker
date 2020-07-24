@@ -50,5 +50,8 @@
 	<select id="selectAllowedByPlannerNo" parameterType="int" resultType="int">
 		select count(*) from accompany where planner_no=#{planner_no} and allow=1
 	</select>
+	<select id="selectMemberDTOListByAccAllow" parameterType="int" resultType="MemberDTO">
+		select u.* from accompany a join userinfo u on a.user_id=u.user_id where planner_no=#{planner_no} and allow=1
+	</select>
 </mapper>
 

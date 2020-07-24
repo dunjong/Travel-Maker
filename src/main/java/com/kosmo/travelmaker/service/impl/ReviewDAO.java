@@ -51,4 +51,10 @@ public class ReviewDAO implements ReviewService {
 		return sqlMapper.update("reviewUpdate",map);
 	}
 
+	@Override
+	public List<ReviewDTO> selectReviewDTOListByCityNo(int city_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectReviewDTOListByCityNo", city_no);
+	}
+
 }

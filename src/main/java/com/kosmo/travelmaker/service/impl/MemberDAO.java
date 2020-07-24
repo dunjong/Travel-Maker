@@ -82,4 +82,9 @@ public class MemberDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectOne("selectAllowedByPlannerNo",planner_no);
 	}
+
+	public List<MemberDTO> selectMemberDTOListByAccAllow(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectMemberDTOListByAccAllow", planner_no);
+	}
 }

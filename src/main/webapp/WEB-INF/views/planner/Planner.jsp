@@ -55,7 +55,7 @@
 						
 						<div class="col-md-12" style="text-align: center;margin-top:50px;">
 							<form action="<c:url value="/TravelMaker/PlannerSave.kosmo"/>">
-								<input id='airMany' type='hidden' value='${air_z}'>
+								<input id='airMany' type='hidden' value='${air_size}'>
 								<div class="row">
 									<div class="col-md-1">
 									
@@ -195,7 +195,7 @@
 										</div>
 										<div class="card-body">	
 											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#a_modal" style="width:100%;margin-bottom:4px">항공권 검색</button>
-											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#air_result_modal" style="width:100%">총 ${air_size}회 항공권 목록</button>
+											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#air_result_modal" style="width:100%">총 <span id='air_size'>${air_size}</span>회 항공권 목록</button>
 											<div class="modal fade" id="a_modal">
 												<div class="modal-dialog">
 													<div class="modal-content">
@@ -243,7 +243,7 @@
 												</div>
 											</div>
 											<div class="modal fade" id="air_result_modal">
-												<div class="modal-dialog">
+												<div class="modal-dialog modal-lg">
 													<div class="modal-content">
 														<div class="modal-header bg-info ">
 															<h2>항공권 예약 현황</h2>
@@ -1266,7 +1266,7 @@
 					"ddate":air_res_list[btn.dataset.number].segmentsList0[0].replace('T',','),
 					"adate":air_res_list[btn.dataset.number].segmentsList0[1].replace('T',','),
 				},
-				dataType:'text',
+				dataType:'json',
 				success:function(data){as_successAjax(data)},
 				error:function(request,error){
 					console.log('상태코드:',request.status);
@@ -1280,7 +1280,31 @@
 			alert(data);
 			var airMany = $('#airMany').prop('value');
 			$('#airMany').prop('value',airMany*1+1);
-			
+			$('#air_size').html(airMany*1+1);
+			var ind = $('#air_body > div[class=container]').length;
+			var list="";
+			list+="<div class='container'>";
+			list+="<div class='alert alert-success'>";
+			list+="<div class='row'>";
+			list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+			list+="<div id='AirRList_"+ind+"' class='row' style='text-align:center'>";
+			list+="<div class='col-md-2' style='height: 40px; width: 40px'>";
+			list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
+			list+="<div class='col-md-5' style='color:black; height: 40px; width: 40px; text-align:right'>"+data.air_ddate.split(',')[0].substr(5,5)+"<br><Strong>"+data.air_ddate.split(',')[1].substr(11,5)+"</Strong><br>"+data.air_dep+"</div>";
+			list+="<div class='col-md-3' style='color:black; height: 40px; width: 40px'><small>"+data.air_time+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+data.air_via+"회 경유</Strong></div></div>";
+			list+="<div class='col-md-2' style='color:black; height: 40px; width: 40px; text-align:left'>"+data.air_adate.split(',')[0].substr(5,5)+"<br><Strong>"+data.air_adate.split(',')[1].substr(11,5)+"</Strong><br>"+data.air_arr+"</div>";
+			list+="</div>";
+			list+="</div>";
+			list+="<div class='col-sm-4' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+			list+="<div class='col-md-12' style='color:black; height: 100px; margin-top:25px; font-size:1.7em;text-align:center;'><Strong>￦"+data.air_price+"원</Strong></div>";
+			list+="</div>";
+			list+="<div id='AirRpriceBtn_"+ind+"' class='col-sm-2' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+			list+="<button style='margin-top:25px' onclick='airReservation(this)' data-number="+ind+" type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
+			list+="</div>";
+			list+="</div>";
+			list+="</div>";
+			list+="</div>";
+			$('#air_body').append(list);
 		}
 		function ChangeMap(data){
 			console.log('data1:',data)
@@ -1317,28 +1341,29 @@
 				}
 			});
 		}////displayRoute
-		<c:if test="${air_dto_list!=null}">
+		$(function(){
+			<c:if test="${air_dto_list!=null}">
 			var list="<h2 style='text-align:center;color:#58DE4D'>Reservation List</h2>";
-			<c:forEach items="${air_dto_list}" var="air_dto" varStatus="loop">
+			<c:forEach items="${air_dto_list}" var="air_dto" varStatus="i">
 				list+="<div class='container'>";
 				list+="<div class='alert alert-success'>";
 				list+="<div class='row'>";
 				list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
-				list+="<div id='AirList_"+i+"' class='row' style='text-align:center'>";
+				list+="<div id='AirRList_${i.index}' class='row' style='text-align:center'>";
 				list+="<div class='col-md-2' style='height: 40px; width: 40px'>";
 				list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
-	
-				list+="<div class='col-md-5' style='color:black; height: 40px; width: 40px; text-align:right'>"+res[i].segmentsList0[0].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>";
-				list+="<div class='col-md-3' style='color:black; height: 40px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시간').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div></div>";
-				list+="<div class='col-md-2' style='color:black; height: 40px; width: 40px; text-align:left'>"+res[i].segmentsList0[1].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>";
+		
+				list+="<div class='col-md-5' style='color:black; height: 40px; width: 40px; text-align:right'>"+'${air_dto.air_ddate}'.split(',')[0].substr(5,5)+"<br><Strong>"+'${air_dto.air_ddate}'.split(',')[1].substr(11,5)+"</Strong><br>${air_dto.air_dep}</div>";
+				list+="<div class='col-md-3' style='color:black; height: 40px; width: 40px'><small>${air_dto.air_time}</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'<br><div style='color:sandybrown'><Strong>${air_dto.air_via}회 경유</Strong></div></div>";
+				list+="<div class='col-md-2' style='color:black; height: 40px; width: 40px; text-align:left'>"+'${air_dto.air_adate}'.split(',')[0].substr(5,5)+"<br><Strong>"+'${air_dto.air_adate}'.split(',')[1].substr(11,5)+"</Strong><br>${air_dto.air_arr}</div>";
 				
 				list+="</div>";
 				list+="</div>";
 				list+="<div class='col-sm-4' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-				list+="<div class='col-md-12' style='color:black; height: 100px; padding:15px; font-size:1.7em;text-align:center;'><Strong>￦"+(res[i].basePrice.split('.')[0]*1).toLocaleString()+"원</Strong><div><small id='tp_"+i+"'>총 가격 "+(res[i].totalPrice.split('.')[0]*1).toLocaleString()+"원</small></div></div>";
+				list+="<div class='col-md-12' style='color:black; height: 100px; margin-top:25px; font-size:1.7em;text-align:center;'><Strong>￦${air_dto.air_price}원</Strong></div>";
 				list+="</div>";
-				list+="<div id='priceBtn_"+i+"' class='col-sm-2' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-				list+="<button style='margin-top:25px' onclick='airReservation(this)' data-number="+i+" type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
+				list+="<div id='AirRpriceBtn_${i.index}' class='col-sm-2' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+				list+="<button style='margin-top:25px' onclick='airReservation(this)' data-number=${i.index} type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
 				list+="</div>";
 				list+="</div>";
 				list+="</div>";
@@ -1346,6 +1371,8 @@
 			</c:forEach>
 			$('#air_body').html(list);
 		</c:if>
+		})		
+
 	</script>
 </body>
 </html>

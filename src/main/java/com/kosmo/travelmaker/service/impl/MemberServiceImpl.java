@@ -107,4 +107,9 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return memberDAO.selectAllowedByPlannerNo(planner_no);
 	}
+	@Override
+	public List<MemberDTO> selectMemberDTOListByAccAllow(int planner_no) {
+		// TODO Auto-generated method stub
+		return memberDAO.selectMemberDTOListByAccAllow(planner_no);
+	}
 }

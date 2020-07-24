@@ -1,8 +1,10 @@
 
 /* Drop Tables */
 
+DROP TABLE chat CASCADE CONSTRAINTS;
 DROP TABLE accompany CASCADE CONSTRAINTS;
 DROP TABLE air CASCADE CONSTRAINTS;
+DROP TABLE review_like CASCADE CONSTRAINTS;
 DROP TABLE review CASCADE CONSTRAINTS;
 DROP TABLE auto_spots CASCADE CONSTRAINTS;
 DROP TABLE auto_plan CASCADE CONSTRAINTS;
@@ -27,6 +29,7 @@ DROP TABLE userinfo CASCADE CONSTRAINTS;
 DROP SEQUENCE seq_acc;
 DROP SEQUENCE seq_air;
 DROP SEQUENCE seq_auto_plan;
+DROP SEQUENCE seq_chat;
 DROP SEQUENCE seq_cities;
 DROP SEQUENCE seq_city;
 DROP SEQUENCE seq_festival;
@@ -36,6 +39,7 @@ DROP SEQUENCE seq_plan;
 DROP SEQUENCE seq_planner;
 DROP SEQUENCE seq_res;
 DROP SEQUENCE seq_review;
+DROP SEQUENCE seq_review_like;
 DROP SEQUENCE seq_spot_auto;
 DROP SEQUENCE seq_spot_save;
 DROP SEQUENCE seq_tag;
@@ -49,6 +53,7 @@ DROP SEQUENCE seq_tag_rel;
 CREATE SEQUENCE seq_acc;
 CREATE SEQUENCE seq_air;
 CREATE SEQUENCE seq_auto_plan;
+CREATE SEQUENCE seq_chat;
 CREATE SEQUENCE seq_cities;
 CREATE SEQUENCE seq_city;
 CREATE SEQUENCE seq_festival;
@@ -58,6 +63,7 @@ CREATE SEQUENCE seq_plan;
 CREATE SEQUENCE seq_planner;
 CREATE SEQUENCE seq_res;
 CREATE SEQUENCE seq_review;
+CREATE SEQUENCE seq_review_like;
 CREATE SEQUENCE seq_spot_auto;
 CREATE SEQUENCE seq_spot_save;
 CREATE SEQUENCE seq_tag;
@@ -110,6 +116,17 @@ CREATE TABLE auto_spots
 	spot_latlng nvarchar2(200) NOT NULL,
 	auto_plan_no number NOT NULL,
 	PRIMARY KEY (auto_spot_no)
+);
+
+
+CREATE TABLE chat
+(
+	chat_no number NOT NULL,
+	acc_no number NOT NULL,
+	planner_no number NOT NULL,
+	chat_time date DEFAULT sysdate NOT NULL,
+	chat_text nvarchar2(2000),
+	PRIMARY KEY (chat_no)
 );
 
 
@@ -222,6 +239,16 @@ CREATE TABLE review
 );
 
 
+CREATE TABLE review_like
+(
+	re_likeno number NOT NULL,
+	user_id nvarchar2(200) NOT NULL,
+	review_no number NOT NULL,
+	re_hateno number NOT NULL,
+	PRIMARY KEY (re_likeno)
+);
+
+
 CREATE TABLE save_spots
 (
 	save_spot_no number NOT NULL,
@@ -264,6 +291,12 @@ CREATE TABLE userinfo
 
 
 /* Create Foreign Keys */
+
+ALTER TABLE chat
+	ADD FOREIGN KEY (acc_no)
+	REFERENCES accompany (acc_no)
+;
+
 
 ALTER TABLE auto_spots
 	ADD FOREIGN KEY (auto_plan_no)
@@ -343,9 +376,21 @@ ALTER TABLE air
 ;
 
 
+ALTER TABLE chat
+	ADD FOREIGN KEY (planner_no)
+	REFERENCES planner (planner_no)
+;
+
+
 ALTER TABLE cities
 	ADD FOREIGN KEY (planner_no)
 	REFERENCES planner (planner_no)
+;
+
+
+ALTER TABLE review_like
+	ADD FOREIGN KEY (review_no)
+	REFERENCES review (review_no)
 ;
 
 
@@ -374,6 +419,12 @@ ALTER TABLE reservation
 
 
 ALTER TABLE review
+	ADD FOREIGN KEY (user_id)
+	REFERENCES userinfo (user_id)
+;
+
+
+ALTER TABLE review_like
 	ADD FOREIGN KEY (user_id)
 	REFERENCES userinfo (user_id)
 ;

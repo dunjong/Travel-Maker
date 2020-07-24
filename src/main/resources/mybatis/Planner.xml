@@ -97,6 +97,9 @@
 	<delete id="deleteResByAirNo" parameterType="java.lang.String">
 		delete from reservation where h_a_no=#{h_a_no}
 	</delete>
+	<delete id="deleteChatByAccNo" parameterType="int">
+		delete from chat where acc_no=#{acc_no}
+	</delete>
 	
 	<update id="updatePlannerName" parameterType="java.util.Map">
 		UPDATE PLANNER SET planner_name=#{planner_name} WHERE planner_no=#{planner_no}

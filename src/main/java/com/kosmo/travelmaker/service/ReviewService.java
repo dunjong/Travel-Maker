@@ -14,4 +14,5 @@ public interface ReviewService {
 	int delete(Map map);
 	int insert(Map map);
 	int update(Map map);
+	List<ReviewDTO> selectReviewDTOListByCityNo(int city_no);
 }

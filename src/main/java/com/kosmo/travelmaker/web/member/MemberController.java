@@ -129,6 +129,13 @@ public class MemberController {
 			System.out.println("Cities들 삭제 완료");
 			
 		};
+		List<AccDTO> acc_dto_list=plannerService.selectAccNosByPlannerNo(planner_no);
+		for(AccDTO acc_dto:acc_dto_list) {
+			int acc_no=acc_dto.getAcc_no();
+			if(plannerService.deleteChatByAccNo(acc_no)) {
+				System.out.println("Chat들 삭제 완료");
+			};
+		}
 		if(plannerService.deleteAccByPlannerNo(planner_no)) {
 			System.out.println("Accompany들 삭제 완료");
 		}
@@ -229,7 +236,26 @@ public class MemberController {
 	    return JSONArray.toJSONString(collections);
 	}
 	
-	
+	@RequestMapping("ChatRoom.kosmo")
+	public String ChatRoom(@RequestParam Map map,Model model) {
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		PlannerDTO planner_dto=plannerService.selectPlannerDTOByNo(planner_no).get(0);
+		Map<String,String> map_owner_info=new HashMap<String,String>();
+		map_owner_info.put("user_id", planner_dto.getUser_id());
+		model.addAttribute("owner",map_owner_info);
+		List<MemberDTO> member_dto_list=memberService.selectMemberDTOListByAccAllow(planner_no);
+		List<Map<String,String>> map_user_info_list=new Vector<Map<String,String>>();
+		for(MemberDTO member_dto:member_dto_list) {
+			Map<String,String> map_user_info=new HashMap<String,String>();
+			map_user_info.put("user_id", member_dto.getUser_id());
+			map_user_info.put("user_gender", member_dto.getUser_gender());
+			map_user_info.put("user_rrn", member_dto.getUser_rrn());
+			map_user_info_list.add(map_user_info);
+		}
+		model.addAttribute("member_list",map_user_info_list);
+		model.addAttribute("planner_no",planner_no);
+		return "planner/chatRoom";
+	}
 	
 	@RequestMapping("ValidationCheck.do")
 	public String vali(MemberDTO dto,BindingResult errors,Model model) {//formcommand뒤에 bindingresult를 넣어야함
@@ -360,6 +386,16 @@ public class MemberController {
 		};
 		return flag;
 	}
+	@RequestMapping(value="updateChat.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String updateChat(@RequestParam Map map) {
+		
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		return "";
+	}
+
+	
+	
 	
 //	@RequestMapping("admin2.kosmo")
 //	public String memberList(Map map, Model model) {

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Select;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -146,10 +147,13 @@ public class AirController {
 			plannerService.insertRes(maps);
 			result = user_id+"님! "+departure+"에서 "+arrival+"로 "+ddate+" 일에 성인"+passenger+"명 의 항공권이 등록되었습니다. 가격은 "+price+"원 입니다";
 		};
+		net.sf.json.JSONObject ja = new net.sf.json.JSONObject();
+		
 		// 플래너에 항공권연결시 같은 플래너인지 확인하는 코드용 자리
 //		if(airService.CompareTimePlace(ddate,departure,arrival)>0) {}
 //		else {}
-		return result;
+		System.out.println(ja);
+		return ja.fromObject(dto).toString();
 	}
 
 	@RequestMapping("AirList.kosmo")

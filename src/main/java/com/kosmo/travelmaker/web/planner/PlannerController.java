@@ -105,6 +105,7 @@ public class PlannerController {
 		Map<String, Integer> maps=new HashMap<String, Integer>();
 		maps.put("planner_no", planner_no);
 		List<PlannerDTO> planner_dto_list=plannerService.selectPlannerDTOByNo(planner_no);
+		List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
 		planner_name=planner_dto_list.get(0).getPlanner_name();
 		for(int city_no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
 			System.out.println("planner_no:"+planner_no+"city_no:"+city_no);
@@ -123,7 +124,6 @@ public class PlannerController {
 			city_no_name.put(cityDTO.getCity_name(),cities_no);
 			city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
 		}
-		List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
 		if(air_dto_list.size()!=0)
@@ -152,7 +152,7 @@ public class PlannerController {
 		if(plannerService.updatePlannerName(map)) {
 			System.out.println("planner 저장 완료!");
 		}
-		return "forward:/";
+		return "forward:/TravelMaker/MyPlanner.kosmo";
 	}
 	@RequestMapping(value ="SaveDates.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
@@ -448,6 +448,27 @@ public class PlannerController {
 		}
 		return JSONArray.toJSONString(collections);
 	}
+	
+	@RequestMapping(value="CallSearchedCity.kosmo", produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String CallSearchedCity() {
+		List<Map> collections = new Vector<Map>();
+		for(int i=2;i<5;i++) {
+			int city_no=i;
+			Map<String, String> maps_cities=new HashMap<String, String>();
+			CityDTO dto_city= cityService.selectCityDTO(city_no);
+			maps_cities.put("img", dto_city.getCity_img());
+			maps_cities.put("name", dto_city.getCity_name());
+			maps_cities.put("intro", dto_city.getCity_intro());
+			maps_cities.put("city_no",Integer.toString(city_no));
+			maps_cities.put("city_count", Integer.toString(5));
+			collections.add(maps_cities);
+		}
+		return JSONArray.toJSONString(collections);
+	}
+	
+	
+	
 	@RequestMapping(value="CallPlannerList.kosmo", produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public String CallPlannerList(@RequestParam Map map,HttpSession sessionSccope) throws ParseException {
