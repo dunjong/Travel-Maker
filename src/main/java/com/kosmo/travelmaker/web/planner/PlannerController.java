@@ -101,31 +101,29 @@ public class PlannerController {
 		Map<String, String> city_hotel=new HashMap<String, String>();
 		Map<String,String> city_hotel_name=new HashMap<String,String>();
 		Map<String, String> city_plan_no=new HashMap<String,String>();
-		
-			planner_no=Integer.parseInt(map.get("planner_no").toString());
-			Map<String, Integer> maps=new HashMap<String, Integer>();
-			maps.put("planner_no", planner_no);
-			List<PlannerDTO> planner_dto_list=plannerService.selectPlannerDTOByNo(planner_no);
-			planner_name=planner_dto_list.get(0).getPlanner_name();
-			for(int city_no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
-				System.out.println("planner_no:"+planner_no+"city_no:"+city_no);
-				CityDTO cityDTO= cityService.selectCityDTO(city_no);
-				maps.put("city_no", city_no);
-				int cities_no=plannerService.selectCitiesNoByMap(maps);
-				List<Integer> plan_nos= plannerService.selectPlanNoByCitiesNo(cities_no);
-				if(plan_nos.size()!=0) {
-					city_plan_no.put(cityDTO.getCity_name(), "1");
-				}
-				List<HotelDTO> hotel_dto=hotelService.selectHotelDTOByCitiesNo(cities_no);
-				if(hotel_dto.size()!=0) {
-					city_hotel.put(cityDTO.getCity_name(),"1");
-					city_hotel_name.put(cityDTO.getCity_name(),hotel_dto.get(0).getHotel_name());
-					
-				}
-				city_no_name.put(cityDTO.getCity_name(),cities_no);
-				city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
+		planner_no=Integer.parseInt(map.get("planner_no").toString());
+		Map<String, Integer> maps=new HashMap<String, Integer>();
+		maps.put("planner_no", planner_no);
+		List<PlannerDTO> planner_dto_list=plannerService.selectPlannerDTOByNo(planner_no);
+		List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
+		planner_name=planner_dto_list.get(0).getPlanner_name();
+		for(int city_no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
+			System.out.println("planner_no:"+planner_no+"city_no:"+city_no);
+			CityDTO cityDTO= cityService.selectCityDTO(city_no);
+			maps.put("city_no", city_no);
+			int cities_no=plannerService.selectCitiesNoByMap(maps);
+			List<Integer> plan_nos= plannerService.selectPlanNoByCitiesNo(cities_no);
+			if(plan_nos.size()!=0) {
+				city_plan_no.put(cityDTO.getCity_name(), "1");
 			}
-			List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
+			List<HotelDTO> hotel_dto=hotelService.selectHotelDTOByCitiesNo(cities_no);
+			if(hotel_dto.size()!=0) {
+				city_hotel.put(cityDTO.getCity_name(),"1");
+				city_hotel_name.put(cityDTO.getCity_name(),hotel_dto.get(0).getHotel_name());
+			}
+			city_no_name.put(cityDTO.getCity_name(),cities_no);
+			city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
+		}
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
 		if(air_dto_list.size()!=0)
