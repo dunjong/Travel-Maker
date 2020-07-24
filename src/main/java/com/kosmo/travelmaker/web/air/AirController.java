@@ -116,18 +116,19 @@ public class AirController {
 	@ResponseBody
 	public String AirTest(@RequestParam Map map,HttpSession session) {
 		String user_id = (String)session.getAttribute("id");
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		int passenger = Integer.parseInt((String)map.get("passenger"));
 		String departure = (String)map.get("departure");
 		String arrival = (String)map.get("arrival");
 		String ddate = (String)map.get("ddate");
-		int planner_no=Integer.parseInt(map.get("planner_no").toString());
-		int passenger = Integer.parseInt((String)map.get("passenger"));
 		String price = (String)map.get("price");
 		String adate = (String)map.get("adate");
 		String time = (String)map.get("time");
 		String via = (String)map.get("via");
 		String result = "failure";
 		AirDTO dto = new AirDTO();
-		dto.setUser_id(user_id);
+		System.out.println("user_id"+user_id+", planner_no:"+planner_no+", passenger:"+passenger+", departure:"+departure+
+				", arrival:"+arrival+", ddate:"+ddate+", adate:"+adate+", price:"+price+", time:"+time+", via:"+via);
 		dto.setAir_adate(adate);
 		dto.setAir_time(time);
 		dto.setAir_via(via);
@@ -138,17 +139,13 @@ public class AirController {
 		dto.setAir_price(price);
 		dto.setPlanner_no(planner_no);
 		if(airService.insertAirDtoToRes(dto)) {
-			
 			int air_no=airService.selectAirNo();
 			Map<String,String> maps=new HashMap<String,String>();
-			maps.put("user_id", session.getAttribute("id").toString());
+			maps.put("user_id", user_id);
 			maps.put("h_a_no", "a_"+air_no);
 			plannerService.insertRes(maps);
-			
 			result = user_id+"님! "+departure+"에서 "+arrival+"로 "+ddate+" 일에 성인"+passenger+"명 의 항공권이 등록되었습니다. 가격은 "+price+"원 입니다";
-			
 		};
-		
 		// 플래너에 항공권연결시 같은 플래너인지 확인하는 코드용 자리
 //		if(airService.CompareTimePlace(ddate,departure,arrival)>0) {}
 //		else {}

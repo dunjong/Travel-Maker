@@ -995,7 +995,7 @@
 			}//settings
 			$.ajax(settings).done(
 				function(response) {
-					
+					console.log(air_res_list[0].totalPrice.replace('.0','')),
 					console.log(response)
 					var placesList = document.getElementById('h_places');
 					console.log(placesList)
@@ -1208,8 +1208,8 @@
 				}
 			}//settings
 			$.ajax(settings).done(function(res) {
-				console.log(res);
 				air_res_list = res;
+				console.log(air_res_list);
 				var list="<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>";
 				for(var i=0;i<res.length-1;i++){
 					if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
@@ -1248,7 +1248,10 @@
 			});//ajax.done()
 		}
 		function airReservation(btn){
-			
+			var time = air_res_list[btn.dataset.number].originToDestTime.replace('PT','').replace('H','시간');
+			if(time.endsWith('M')){
+				time.replace('M','분');
+			}
 			$.ajax({
 				url:'<c:url value="/TravelMaker/AirTest.kosmo"/>',
 				data:
@@ -1256,12 +1259,12 @@
 					"departure" : $('#departure').prop('value'),
 					"arrival":$('#arrival').prop('value'),
 					"passenger":($('#adult').prop('value')*1)+($('#children').prop('value')*1),
-					"price":$('#tp_'+btn.dataset.number).html().substring(5,$('#tp_'+btn.dataset.number).html().length-1),
 					"planner_no":'${planner_no}',
-					"via":"",
-					"time":"",
-					"ddate":"",
-					"adate":""
+					"price":air_res_list[btn.dataset.number].totalPrice.replace('.0',''),
+					"via":air_res_list[btn.dataset.number].segmentsList0[2],
+					"time":time,
+					"ddate":air_res_list[btn.dataset.number].segmentsList0[0].replace('T',','),
+					"adate":air_res_list[btn.dataset.number].segmentsList0[1].replace('T',','),
 				},
 				dataType:'text',
 				success:function(data){as_successAjax(data)},
@@ -1277,7 +1280,7 @@
 			alert(data);
 			var airMany = $('#airMany').prop('value');
 			$('#airMany').prop('value',airMany*1+1);
-			console.log(airMany);
+			
 		}
 		function ChangeMap(data){
 			console.log('data1:',data)
@@ -1316,12 +1319,7 @@
 		}////displayRoute
 		<c:if test="${air_dto_list!=null}">
 			var list="<h2 style='text-align:center;color:#58DE4D'>Reservation List</h2>";
-			<c:forEach items="${air_dto_list}" var="item" varStatus="loop">
-				if(res[i].segmentsList0[2]==0) var code = res[i].segmentsList0[3].code1
-				else if(res[i].segmentsList0[2]==1) var code = res[i].segmentsList0[3].code2;
-				else if(res[i].segmentsList0[2]==2) var code = res[i].segmentsList0[3].code3;
-				else if(res[i].segmentsList0[2]==3) var code = res[i].segmentsList0[3].code4;
-				else var code = "";
+			<c:forEach items="${air_dto_list}" var="air_dto" varStatus="loop">
 				list+="<div class='container'>";
 				list+="<div class='alert alert-success'>";
 				list+="<div class='row'>";
