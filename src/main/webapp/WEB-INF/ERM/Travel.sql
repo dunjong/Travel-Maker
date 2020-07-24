@@ -39,6 +39,7 @@ DROP SEQUENCE seq_plan;
 DROP SEQUENCE seq_planner;
 DROP SEQUENCE seq_res;
 DROP SEQUENCE seq_review;
+DROP SEQUENCE seq_review_like;
 DROP SEQUENCE seq_spot_auto;
 DROP SEQUENCE seq_spot_save;
 DROP SEQUENCE seq_tag;
@@ -62,6 +63,7 @@ CREATE SEQUENCE seq_plan;
 CREATE SEQUENCE seq_planner;
 CREATE SEQUENCE seq_res;
 CREATE SEQUENCE seq_review;
+CREATE SEQUENCE seq_review_like;
 CREATE SEQUENCE seq_spot_auto;
 CREATE SEQUENCE seq_spot_save;
 CREATE SEQUENCE seq_tag;
@@ -121,7 +123,7 @@ CREATE TABLE chat
 (
 	chat_no number NOT NULL,
 	acc_no number NOT NULL,
-	user_id nvarchar2(200) NOT NULL,
+	planner_no number NOT NULL,
 	chat_time date DEFAULT sysdate NOT NULL,
 	chat_text nvarchar2(2000),
 	PRIMARY KEY (chat_no)
@@ -374,6 +376,12 @@ ALTER TABLE air
 ;
 
 
+ALTER TABLE chat
+	ADD FOREIGN KEY (planner_no)
+	REFERENCES planner (planner_no)
+;
+
+
 ALTER TABLE cities
 	ADD FOREIGN KEY (planner_no)
 	REFERENCES planner (planner_no)
@@ -393,12 +401,6 @@ ALTER TABLE tag_rel
 
 
 ALTER TABLE accompany
-	ADD FOREIGN KEY (user_id)
-	REFERENCES userinfo (user_id)
-;
-
-
-ALTER TABLE chat
 	ADD FOREIGN KEY (user_id)
 	REFERENCES userinfo (user_id)
 ;

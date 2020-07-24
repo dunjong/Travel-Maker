@@ -389,6 +389,7 @@ public class MemberController {
 	@RequestMapping(value="updateChat.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public String updateChat(@RequestParam Map map) {
+		
 		int planner_no=Integer.parseInt(map.get("planner_no").toString());
 		return "";
 	}
