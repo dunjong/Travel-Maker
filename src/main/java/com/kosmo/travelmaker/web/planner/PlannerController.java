@@ -105,6 +105,7 @@ public class PlannerController {
 		Map<String, Integer> maps=new HashMap<String, Integer>();
 		maps.put("planner_no", planner_no);
 		List<PlannerDTO> planner_dto_list=plannerService.selectPlannerDTOByNo(planner_no);
+		List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
 		planner_name=planner_dto_list.get(0).getPlanner_name();
 		for(int city_no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
 			System.out.println("planner_no:"+planner_no+"city_no:"+city_no);
@@ -123,7 +124,6 @@ public class PlannerController {
 			city_no_name.put(cityDTO.getCity_name(),cities_no);
 			city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
 		}
-		List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
 		if(air_dto_list.size()!=0)
