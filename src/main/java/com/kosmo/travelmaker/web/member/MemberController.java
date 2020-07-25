@@ -174,6 +174,7 @@ public class MemberController {
 	         maps.put("planner_no", Integer.toString(planner_no));
 	         maps.put("planner_acc",  Integer.toString(dto_planner.getPlanner_acc()));
 	         maps.put("planner_name", dto_planner.getPlanner_name());
+	         maps.put("total_count",dto_planner.getTotal_count());
 	         int allowedCount=memberService.selectAllowedByPlannerNo(planner_no);
 	         maps.put("planner_allow",Integer.toString(allowedCount));
 	         list.add(maps);
@@ -187,6 +188,7 @@ public class MemberController {
 		         maps.put("planner_no", Integer.toString(planner_no));
 		         maps.put("planner_acc",  Integer.toString(dto_planner.getPlanner_acc()));
 		         maps.put("planner_name", dto_planner.getPlanner_name());
+		         maps.put("total_count", dto_planner.getTotal_count());
 		         int allowedCount=memberService.selectAllowedByPlannerNo(planner_no);
 		         maps.put("planner_allow",Integer.toString(allowedCount));
 		         acc_list.add(maps);

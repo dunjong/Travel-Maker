@@ -58,14 +58,13 @@
 								<input id='airMany' type='hidden' value='${air_size}'>
 								<div class="row">
 									<div class="col-md-1">
-									
 									</div>
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
 										<input class="form-control" type="text" value="${planner_name}" id="planner_name" name="planner_name" placeholder="이름을 작명해 주세요" >
+										<input class="form-control" type="number" value="${total_count}" id='total_count' name="total_count" placeholder="총 금액을 입력하세요 " >
 										<input hidden="true" type="text" name="planner_no" value="${planner_no}">
 									</div>
 									<div class="col-md-1">
-									
 									</div>
 									<div class="col-md-3">
 										<button class="btn btn-danger"  style="width:100%" >전체 저장</button>
@@ -526,23 +525,25 @@
 		}
 			
 	
-		$('#planner_name').change(function(){
-			$.ajax({
-				url:'<c:url value="SavePlannerName.kosmo"/>',
-				data:{
-					'planner_no':'${planner_no}',
-					'planner_name':$('#planner_name').val()
-				},
-				success:function(){console.log('아이디가 ',$('#planner_name').val()+'로 변경됨')},
-				error:function(request,error){
-					console.log('상태코드:',request.status);
-					console.log('서버로부터 받은 HTML데이타:',request.responseText);
-					console.log('에러:',error);
-				}
-				
-			});
-		});
-			
+		$('#planner_name').change(savePlannerNameCount());
+		$('#total_count').change(savePlannerNameCount());
+		function savePlannerNameCount(){
+				$.ajax({
+					url:'<c:url value="SavePlannerNameCount.kosmo"/>',
+					data:{
+						'planner_no':'${planner_no}',
+						'planner_name':$('#planner_name').val(),
+						'total_count':$('#total_count').val()
+					},
+					success:function(){console.log('아이디가 ',$('#planner_name').val()+'로 변경됨')},
+					error:function(request,error){
+						console.log('상태코드:',request.status);
+						console.log('서버로부터 받은 HTML데이타:',request.responseText);
+						console.log('에러:',error);
+					}
+					
+				});
+			}	
 			
 			
 		<c:forEach items="${city_hotel}" var="check" >

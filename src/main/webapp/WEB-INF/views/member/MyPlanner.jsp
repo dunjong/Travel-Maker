@@ -387,6 +387,7 @@ function ToPlannerView(data){
 								<div class="row">
 									<div class="col-lg-12">
 										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
+										${planner.total_count}
 										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${planner.planner_no}</span>
 										  ${planner.planner_name}
 										</button>	
@@ -425,6 +426,7 @@ function ToPlannerView(data){
 								<div class="row">
 									<div class="col-lg-12">
 										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
+										${acc_planner.total_count}:전체금액
 										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${acc_planner.planner_no}</span>
 										  ${acc_planner.planner_name}
 										</button>	

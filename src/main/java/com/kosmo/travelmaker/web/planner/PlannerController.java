@@ -94,6 +94,7 @@ public class PlannerController {
 	public String Planner(@RequestParam Map map,Model model,HttpSession session) {
 		int planner_no=0;
 		String planner_name="NoName";
+		String total_count=null;
 		String cities_date="";
 		System.out.println("map.get(\"planner_no\"):"+map.get("planner_no"));
 		Map<String,Integer> city_no_name=new HashMap<String, Integer>();
@@ -107,6 +108,7 @@ public class PlannerController {
 		List<PlannerDTO> planner_dto_list=plannerService.selectPlannerDTOByNo(planner_no);
 		List<AirDTO> air_dto_list=airService.selectAirDTOByplannerNo(planner_no);
 		planner_name=planner_dto_list.get(0).getPlanner_name();
+		total_count=planner_dto_list.get(0).getTotal_count();
 		for(int city_no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
 			System.out.println("planner_no:"+planner_no+"city_no:"+city_no);
 			CityDTO cityDTO= cityService.selectCityDTO(city_no);
@@ -134,6 +136,7 @@ public class PlannerController {
 		model.addAttribute("city_plan_no",city_plan_no);
 		model.addAttribute("city_hotel_name",city_hotel_name);
 		model.addAttribute("planner_name",planner_name);
+		model.addAttribute("total_count",total_count);
 		model.addAttribute("today",today);
 		model.addAttribute("planner_no",planner_no);
 		model.addAttribute("city_no_name",city_no_name);
@@ -486,7 +489,6 @@ public class PlannerController {
 					boolean flag=true;
 					PlannerDTO planner_dto=plannerService.selectPlannerDTOBycitiesNo(cities_no);
 					int planner_no=planner_dto.getPlanner_no();
-					System.out.println();
 					if(planner_dto.getUser_id().equals(user_id)) {
 						flag=false;
 					}
@@ -508,6 +510,7 @@ public class PlannerController {
 						maps.put("acc", Integer.toString(memberService.selectAllowedByPlannerNo(planner_no)));
 						maps.put("name", planner_dto.getPlanner_name());
 						maps.put("id", planner_dto.getUser_id());
+						maps.put("total_count",planner_dto.getTotal_count());
 						maps.put("no", Integer.toString(planner_dto.getPlanner_no()));
 						collections.add(maps);
 					}
@@ -524,6 +527,7 @@ public class PlannerController {
 	public String PlannerView(@RequestParam Map map, Model model) {
 		int planner_no=0;
 		String planner_name="NoName";
+		String total_count=null;
 		String cities_date="";
 		String city_no_from_home=null;
 		if(map.get("city_no")!=null) {
@@ -539,6 +543,7 @@ public class PlannerController {
 		maps.put("planner_no", planner_no);
 		List<PlannerDTO> planner_dto_list=plannerService.selectPlannerDTOByNo(planner_no);
 		planner_name=planner_dto_list.get(0).getPlanner_name();
+		total_count=planner_dto_list.get(0).getTotal_count();
 		for(int city_no:plannerService.selectPlannerList(Integer.parseInt(map.get("planner_no").toString()))) {
 			CityDTO cityDTO= cityService.selectCityDTO(city_no);
 			maps.put("city_no", city_no);
@@ -561,6 +566,7 @@ public class PlannerController {
 		model.addAttribute("city_plan_no",city_plan_no);
 		model.addAttribute("city_hotel_name",city_hotel_name);
 		model.addAttribute("planner_name",planner_name);
+		model.addAttribute("total_count",total_count);
 		model.addAttribute("today",today);
 		model.addAttribute("planner_no",planner_no);
 		model.addAttribute("city_no_name",city_no_name);
@@ -658,7 +664,7 @@ public class PlannerController {
 		return planner_no;
 	}
 	
-	@RequestMapping(value="SavePlannerName.kosmo", produces ="text/html; charset=UTF-8")
+	@RequestMapping(value="SavePlannerNameCount.kosmo", produces ="text/html; charset=UTF-8")
 	@ResponseBody
 	public void SavePlannerName(@RequestParam Map map){
 		plannerService.updatePlannerName(map);
@@ -680,25 +686,3 @@ public class PlannerController {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

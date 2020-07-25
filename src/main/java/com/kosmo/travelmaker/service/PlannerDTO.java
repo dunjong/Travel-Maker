@@ -10,7 +10,7 @@ public class PlannerDTO {
 	private int city_no;
 	private String user_id;
 	private String planner_name;
-	
+	private String total_count;
 	
 	
 	public String getPlanner_name() {
@@ -43,8 +43,10 @@ public class PlannerDTO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	
-	
-	
-	
+	public String getTotal_count() {
+		return total_count;
+	}
+	public void setTotal_count(String total_count) {
+		this.total_count = total_count;
+	}
 }

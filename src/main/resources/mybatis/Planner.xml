@@ -102,7 +102,7 @@
 	</delete>
 	
 	<update id="updatePlannerName" parameterType="java.util.Map">
-		UPDATE PLANNER SET planner_name=#{planner_name} WHERE planner_no=#{planner_no}
+		UPDATE PLANNER SET planner_name=#{planner_name},total_count=#{total_count} WHERE planner_no=#{planner_no}
 	</update>
 	<update id="updateAccNo" parameterType="java.util.Map">
 		UPDATE PLANNER SET planner_acc=#{planner_acc} WHERE planner_no=#{planner_no}
