@@ -60,8 +60,10 @@
 									<div class="col-md-1">
 									</div>
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;text-size:20px">Planner Name</h4>
 										<input class="form-control" type="text" value="${planner_name}" id="planner_name" name="planner_name" placeholder="이름을 작명해 주세요" >
-										<input class="form-control" type="number" value="${total_count}" id='total_count' name="total_count" placeholder="총 금액을 입력하세요 " >
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;margin-left:16px;text-size:20px">Total Count</h4>
+										<input class="form-control" type="text" value="${total_count}" id='total_count' name="total_count" placeholder="총 금액을 입력하세요 " >
 										<input hidden="true" type="text" name="planner_no" value="${planner_no}">
 									</div>
 									<div class="col-md-1">
