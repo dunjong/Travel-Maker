@@ -1,7 +1,6 @@
 
 /* Drop Tables */
 
-DROP TABLE chat CASCADE CONSTRAINTS;
 DROP TABLE accompany CASCADE CONSTRAINTS;
 DROP TABLE account_book CASCADE CONSTRAINTS;
 DROP TABLE air CASCADE CONSTRAINTS;
@@ -9,6 +8,7 @@ DROP TABLE review_like CASCADE CONSTRAINTS;
 DROP TABLE review CASCADE CONSTRAINTS;
 DROP TABLE auto_spots CASCADE CONSTRAINTS;
 DROP TABLE auto_plan CASCADE CONSTRAINTS;
+DROP TABLE chat CASCADE CONSTRAINTS;
 DROP TABLE hotel CASCADE CONSTRAINTS;
 DROP TABLE save_spots CASCADE CONSTRAINTS;
 DROP TABLE plan CASCADE CONSTRAINTS;
@@ -130,9 +130,9 @@ CREATE TABLE auto_spots
 CREATE TABLE chat
 (
 	chat_no number NOT NULL,
-	acc_no number NOT NULL,
 	planner_no number NOT NULL,
-	chat_time date DEFAULT sysdate NOT NULL,
+	user_id nvarchar2(200) NOT NULL,
+	chat_time timestamp DEFAULT sysdate NOT NULL,
 	chat_text nvarchar2(2000),
 	PRIMARY KEY (chat_no)
 );
@@ -273,12 +273,6 @@ CREATE TABLE userinfo
 
 /* Create Foreign Keys */
 
-ALTER TABLE chat
-	ADD FOREIGN KEY (acc_no)
-	REFERENCES accompany (acc_no)
-;
-
-
 ALTER TABLE auto_spots
 	ADD FOREIGN KEY (auto_plan_no)
 	REFERENCES auto_plan (auto_plan_no)
@@ -376,6 +370,12 @@ ALTER TABLE tag_rel
 
 
 ALTER TABLE accompany
+	ADD FOREIGN KEY (user_id)
+	REFERENCES userinfo (user_id)
+;
+
+
+ALTER TABLE chat
 	ADD FOREIGN KEY (user_id)
 	REFERENCES userinfo (user_id)
 ;

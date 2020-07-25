@@ -15,4 +15,8 @@ public interface ReviewService {
 	int insert(Map map);
 	int update(Map map);
 	List<ReviewDTO> selectReviewDTOListByCityNo(int city_no);
+	int likeSelect(Map<String, String> maps);
+	boolean Likeinsert(Map<String, String> maps);
+	boolean selectLikeByIdReviewNo(Map<String, String> maps);
+	boolean deleteLike(Map<String, String> maps);
 }

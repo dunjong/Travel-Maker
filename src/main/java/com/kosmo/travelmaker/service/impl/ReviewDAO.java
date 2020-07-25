@@ -57,4 +57,29 @@ public class ReviewDAO implements ReviewService {
 		return sqlMapper.selectList("selectReviewDTOListByCityNo", city_no);
 	}
 
+	@Override
+	public int likeSelect(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectOne("likeSelect",maps);
+	}
+
+	@Override
+	public boolean Likeinsert(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		System.out.println("maps:"+maps);
+		return sqlMapper.insert("Likeinsert", maps)==1?true:false;
+	}
+
+	@Override
+	public boolean selectLikeByIdReviewNo(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return Integer.parseInt(sqlMapper.selectOne("selectLikeByIdReviewNo", maps).toString())==0?true:false;
+	}
+
+	@Override
+	public boolean deleteLike(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteLike", maps)==1?true:false;
+	}
+
 }

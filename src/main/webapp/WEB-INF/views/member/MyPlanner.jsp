@@ -64,7 +64,7 @@ function detail(num){
 	  
 }////detail
 
-
+var planner_no;
 function acc_allow(num){
 	
 	 $.ajax({
@@ -227,10 +227,6 @@ function preImport(data){
 			}
 			
 		});
-}
-function chatRoom(num){
-	//window.location.replace('<c:url value="ChatRoom.kosmo?planner_no='+num+'" />')
-	$('#chat-modal').modal('show');
 }
 
 
@@ -417,15 +413,39 @@ function ToPlannerView(data){
 									      <ul class="dropdown-menu" style="margin-left:45px;"role="menu">
 									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;" >전체 동행자:<span id="planner_acc">${planner.planner_acc}</span>명</div></li>
 									        <li><div style="color:#8977ad;font-size:1.5em;text-align:center;" >수락 동행자:<span id="planner_allow">${planner.planner_allow}</span>명</div></li>
-									        <li><div style="color:black;font-size:1.5em;text-align:center;cursor:pointer;" onclick="chatRoom(${planner.planner_no})" >동행자 채팅방</div></li>
+									        <li><div class="btn btn-info"  onclick="chatRoom(${planner.planner_no})" >동행자 채팅방</div></li>
+									        <li><div class="btn btn-danger" onclick="deleteChat(${planner.planner_no})">채팅창 비우기</div></li>
 									      </ul>
 									</div>  
 								</div>
 							</div>
 						</c:forEach>
-						
-						
-					
+						<c:forEach items="${acc_planner}" var="acc_planner">
+							<div class="col-lg-3" id="${acc_planner.planner_no}" style="margin:20px;margin-bottom:100px;background-color:#e0f7fa;">
+								<div class="row">
+									<div class="col-lg-12">
+										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
+										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${acc_planner.planner_no}</span>
+										  ${acc_planner.planner_name}
+										</button>	
+									</div>
+									<div class="col-lg-12" style="text-align:center;">
+										  <button class="btn" type="button" style="background:#2196f3; color:white;" onclick='ToPlannerView(${acc_planner.planner_no})'>간단 보기</button>
+									</div>		
+									<div class="col-lg-12" >		  
+									      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width:100%; background:#80deea; color:white;">
+									        	동행자 보기
+									        <span class="caret"></span>
+									      </button>
+									      <ul class="dropdown-menu" style="margin-left:45px;"role="menu">
+									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;" >전체 동행자:<span id="planner_acc">${acc_planner.planner_acc}</span>명</div></li>
+									        <li><div style="color:#8977ad;font-size:1.5em;text-align:center;" >수락 동행자:<span id="planner_allow">${acc_planner.planner_allow}</span>명</div></li>
+									        <li><div class="btn btn-info"  onclick="chatRoom(${acc_planner.planner_no})" >동행자 채팅방</div></li>
+									      </ul>
+									</div>  
+								</div>
+							</div>
+						</c:forEach>
 					</div><!-- row -->
 					
 					
@@ -501,18 +521,61 @@ function ToPlannerView(data){
 	</div>
 <script>
 
+function deleteChat(num){
+	if(confirm('정말 채팅창을 비우시겠습니까?')){
+		$.ajax({
+			url:'<c:url value="DeleteChat.kosmo"/>',
+			data:{'planner_no':num},
+			success:function(data){
+				
+				console.log('삭제 성공');
+			},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+			
+		});
+	}
+	
+}
 
+function chatRoom(num){
+	//window.location.replace('<c:url value="ChatRoom.kosmo?planner_no='+num+'" />')
+	$('#chat-modal').modal('show');
+	planner_no=num;
+	resetChat()
+	CallChat(num);
+	
+	setTimeout(function(){
+		$("#chat-modal ul").scrollTop($("#chat-modal ul").height());
+		console.log('\$("#chat-modal ul").height():',$("#chat-modal ul").height());
+	},1000);
+	
+	timerId = setInterval(setIntervalForChat, 4000);
 
+	
+}
 
+function setIntervalForChat(){
+	resetChat()
+	CallChat(planner_no);
+	
+}
+
+function chatRoomInterval(num){
+	insertChat("me","여기까지 읽으셨습니다",0,"")
+}
 	        
-function callChats(num){
+function CallChat(num){
 	$.ajax({
-		url:'<c:url value="updateChat.kosmo"/>',
+		url:'<c:url value="CallChat.kosmo"/>',
 		data:{'planner_no':num},
 		dataType:'json',
 		success:function(data){
 			
-			successChatUpdate(data);
+			successChatCall(data);
 		},
 		error:function(request,error){
 			console.log('상태코드:',request.status);
@@ -522,18 +585,53 @@ function callChats(num){
 		
 	});
 }
-function successChatUpdate(data){
-	console.log(data);
+function PutChat(text){
+	$.ajax({
+		url:'<c:url value="PutChat.kosmo"/>',
+		data:{
+			'planner_no':planner_no,
+			'chat_text':text,
+			'user_id':'${user_id}'
+		},
+		dataType:'text',
+		success:function(data){
+			successChatPut(data);
+		},
+		error:function(request,error){
+			console.log('상태코드:',request.status);
+			console.log('서버로부터 받은 HTML데이타:',request.responseText);
+			console.log('에러:',error);
+		}
+		
+	});
 }
-	
+function successChatCall(data){
+	$.each(data,function(key,value){
+		if(value.user_id=='${user_id}'){
+			insertChat("me",value.chat_text,0,value.user_id);     
+		}
+		else{
+			insertChat("you",value.chat_text,0,value.user_id);     
+		}
+	})
+	console.log('\$("#chat-modal ul").height():',$("#chat-modal ul").height())
+}
+function successChatPut(data){
+	console.log(data);
+	if(data.includes('성공')){
+		resetChat()
+		CallChat(planner_no);
+		
+	}
+}
 	
 
 $(function(){
 	$(".mytext").on("keyup", function(e){
 	    if (e.which == 13){
-	        var text = $(this).val();
-	        if (text !== ""){
-	            insertChat("me", text);              
+	    	if (text !== ""){
+	    		var text = $(this).val(); 
+		        PutChat(text);   
 	            $(this).val('');
 	        }
 	    }
@@ -547,8 +645,8 @@ $(function(){
 	resetChat();
 
 	//-- Print Messages
-	insertChat("me", "Hello Tom...", 0);  
-	insertChat("you", "Hi, Pablo", 1500);
+	//insertChat("me", "Hello Tom...", 0);  
+	//insertChat("you", "Hi, Pablo", 1500);
 	/*
 	insertChat("me", "What would you like to talk about today?", 3500);
 	insertChat("you", "Tell me a joke",7000);
@@ -557,12 +655,12 @@ $(function(){
 	*/
 })
 	//-- No use time. It is a javaScript effect.
-function insertChat(who, text, time){
+function insertChat(who, text, time,id){
 	var me = {};
-	me.avatar = "https://lh6.googleusercontent.com/-lr2nyjhhjXw/AAAAAAAAAAI/AAAAAAAARmE/MdtfUmC0M4s/photo.jpg?sz=48";
+	me.avatar = "<c:url value='/images/foodIcon.png'/>";
 
 	var you = {};
-	you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
+	you.avatar = "<c:url value='/images/spotIcon.png'/>";
     if (time === undefined){
         time = 0;
     }
@@ -572,7 +670,7 @@ function insertChat(who, text, time){
     if (who == "me"){
         control = '<li style="width:100%;margin:5px;">' +
                         '<div class="msj macro">' +
-                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
+                        '<br><p>'+id+'</p><div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
                             '<div class="text text-l">' +
                                 '<p>'+ text +'</p>' +
                                 '<p><small>'+date+'</small></p>' +
@@ -586,7 +684,7 @@ function insertChat(who, text, time){
                                 '<p>'+text+'</p>' +
                                 '<p><small>'+date+'</small></p>' +
                             '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +                                
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div><br><p>'+id+'</p>' +                                
                   '</li>';
     }
     setTimeout(
@@ -595,11 +693,11 @@ function insertChat(who, text, time){
         }, time);
     
 }
-	
+
 function enter(){
    var text = $('.mytext').val();
    if (text !== ""){
-       insertChat("me", text);              
+	   PutChat(text);  
        $('.mytext').val('');
     }
 }
@@ -616,6 +714,11 @@ function formatAMPM(date) {
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
 }    
+function StopClock(){
+	 if(timerId != null) {
+	        clearInterval(timerId);
+	    }
+}
 
 </script>
 <style type="text/css">
@@ -726,7 +829,7 @@ function formatAMPM(date) {
 	    	<div class="modal-header">
 	         <p class="heading lead">채팅</p>	         		
 	         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	           <span aria-hidden="true" class="white-text">&times;</span>
+	           <span aria-hidden="true" class="white-text" onclick="StopClock()" style="background:blue">&times;</span>
 	         </button>
 	       </div>
 	    	<div class="modal-body" >	   		

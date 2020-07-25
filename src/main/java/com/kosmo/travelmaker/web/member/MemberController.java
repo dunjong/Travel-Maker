@@ -1,5 +1,7 @@
 package com.kosmo.travelmaker.web.member;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonArray;
 import com.kosmo.travelmaker.service.AccDTO;
 import com.kosmo.travelmaker.service.AirDTO;
+import com.kosmo.travelmaker.service.ChatDTO;
 import com.kosmo.travelmaker.service.CitiesDTO;
 import com.kosmo.travelmaker.service.CityDTO;
 import com.kosmo.travelmaker.service.HotelDTO;
@@ -162,9 +165,9 @@ public class MemberController {
 	//변경됨
 	@RequestMapping("MyPlanner.kosmo")
 	public String MyPlanner(@RequestParam Map map,Model model,HttpSession session) {
-		List<PlannerDTO> list_planner=memberService.plannerList(session.getAttribute("id").toString());
+		String user_id=session.getAttribute("id").toString();
 	      List<Map<String, String>> list=new Vector<Map<String,String>>();
-	      
+	      List<PlannerDTO> list_planner=memberService.plannerList(user_id);
 	      for(PlannerDTO dto_planner:list_planner) {
 	         Map<String ,String> maps=new HashMap<String, String>();
 	         int planner_no=dto_planner.getPlanner_no();
@@ -174,8 +177,23 @@ public class MemberController {
 	         int allowedCount=memberService.selectAllowedByPlannerNo(planner_no);
 	         maps.put("planner_allow",Integer.toString(allowedCount));
 	         list.add(maps);
+	         
 	      }
+	      List<Map<String, String>> acc_list=new Vector<Map<String,String>>();
+	      List<PlannerDTO> list_acc_planner=memberService.AccplannerList(user_id);
+	      for(PlannerDTO dto_planner:list_acc_planner) {
+	    	  Map<String ,String> maps=new HashMap<String, String>();
+		         int planner_no=dto_planner.getPlanner_no();
+		         maps.put("planner_no", Integer.toString(planner_no));
+		         maps.put("planner_acc",  Integer.toString(dto_planner.getPlanner_acc()));
+		         maps.put("planner_name", dto_planner.getPlanner_name());
+		         int allowedCount=memberService.selectAllowedByPlannerNo(planner_no);
+		         maps.put("planner_allow",Integer.toString(allowedCount));
+		         acc_list.add(maps);
+	      }
+	      model.addAttribute("user_id", user_id);
 	      model.addAttribute("list", list);
+	      model.addAttribute("acc_planner",acc_list);
 		return "member/MyPlanner.tiles";
 	}
 	
@@ -386,17 +404,49 @@ public class MemberController {
 		};
 		return flag;
 	}
-	@RequestMapping(value="updateChat.kosmo",produces ="text/html; charset=UTF-8")
+	@RequestMapping(value="CallChat.kosmo",produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public String updateChat(@RequestParam Map map) {
+	public String CallChat(@RequestParam Map map,Model model) {
 		List<Map> collections = new Vector<Map>();
+		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		int planner_no=Integer.parseInt(map.get("planner_no").toString());
-		
+		List<ChatDTO> chat_dto_list= memberService.selectChatDTOList(planner_no);
+		for(ChatDTO chat_dto:chat_dto_list) {
+			
+			Map<String,String>maps=new HashMap<String,String>();
+			maps.put("id", chat_dto.getUser_id());
+			maps.put("planner_no", Integer.toString(chat_dto.getPlanner_no()));
+			maps.put("user_id", chat_dto.getUser_id());
+			maps.put("chat_time", transFormat.format(chat_dto.getChat_time()));
+			maps.put("chat_text", chat_dto.getChat_text());
+			collections.add(maps);
+		}
 		
 		return JSONArray.toJSONString(collections);
 	}
+	@RequestMapping(value="PutChat.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public String PutChat(@RequestParam Map map,HttpSession session) {
+		String flag="입력 실패";
+		int planner_no=Integer.parseInt(map.get("planner_no").toString());
+		String user_id=session.getAttribute("id").toString();
+		String chat_text=map.get("chat_text").toString();
+		Map<String,String>maps=new HashMap<String,String>();
+		maps.put("user_id", user_id);
+		maps.put("planner_no", Integer.toString(planner_no));
+		maps.put("chat_text", chat_text);
+		if(memberService.inputChat(maps)) {
+			flag="입력 성공";
+		};
+		return flag;
+	}
 
 	
+	@RequestMapping(value="DeleteChat.kosmo",produces ="text/html; charset=UTF-8")
+	@ResponseBody
+	public void DeleteChat(@RequestParam Map map,HttpSession session) {
+		memberService.deleteChat(Integer.parseInt(map.get("planner_no").toString()));
+	}
 	
 	
 //	@RequestMapping("admin2.kosmo")

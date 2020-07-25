@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kosmo.travelmaker.service.AndroidMemberDTO;
+import com.kosmo.travelmaker.service.ChatDTO;
 import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.PlannerDTO;
 
@@ -86,5 +87,25 @@ public class MemberDAO {
 	public List<MemberDTO> selectMemberDTOListByAccAllow(int planner_no) {
 		// TODO Auto-generated method stub
 		return sqlMapper.selectList("selectMemberDTOListByAccAllow", planner_no);
+	}
+
+	public List<ChatDTO> selectChatDTOList(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("selectChatDTOList",planner_no);
+	}
+
+	public boolean inputChat(Map<String, String> maps) {
+		// TODO Auto-generated method stub
+		return sqlMapper.insert("inputChat", maps)==1?true:false;
+	}
+
+	public List<PlannerDTO> AccplannerList(String user_id) {
+		// TODO Auto-generated method stub
+		return sqlMapper.selectList("AccplannerList",user_id);
+	}
+
+	public void deleteChat(int planner_no) {
+		// TODO Auto-generated method stub
+		sqlMapper.delete("deleteChat", planner_no);
 	}
 }

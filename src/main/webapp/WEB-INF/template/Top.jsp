@@ -163,35 +163,34 @@
 
 
 	<div class="modal-chatbot">
-
-		<div class="modal fade bd-example-modal-lg" id="ChatModal"
-			tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-dialog modal-notify modal-info">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel" style="color: white;">
-								<i class="fa fa-fighter-jet"></i>TravelMaker
-							</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">
-
-							<iframe id="iframe" style="min-height: 60vh; border: none;"
-								width="100%" height="90%" src="https://727fc137a8ae.ngrok.io">
-							</iframe>
-						</div>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
-
-	</div>
+                              
+            <div class="modal fade bd-example-modal-lg" id="ChatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-notify modal-info">
+         <div class="modal-content">
+              <div class="modal-header">        
+                <h4 class="modal-title" id="myModalLabel" style="color:white;"><i class="fa fa-fighter-jet"></i>TravelMaker</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">
+      
+            <iframe
+                  id="iframe"            
+                  style="min-height: 60vh; border:none;"              
+                  width="100%"
+                  height="90%"
+                  src="https://bd1a84e68a0a.ngrok.io">                        
+              </iframe>
+              </div>
+               </div>
+         </div>
+             <!-- /.modal-content -->
+           </div>
+           <!-- /.modal-dialog -->
+         </div>
+         <!-- /.modal -->
+   
+      </div>
 
 </div>
 
@@ -476,10 +475,10 @@
 							<!--  가로 배치 -->
 							<div class="radio">
 								<label><input type="radio" value="남자" name="user_gender"
-									<c:if test="${param.user_gender=='male' }">checked</c:if>>male</label> <label>
-									<input
+									<c:if test="${param.user_gender=='male' }">checked</c:if>>male</label> <label><input
 									type="radio" value="여자" name="user_gender"
-									<c:if test="${param.user_gender=='female'}">checked</c:if>>female</label>
+									<c:if test="${param.user_gender=='female' }">checked</c:if>>female</label>
+
 							</div>
 							<span style="color: red; font-size: .8em">${genderError}<form:errors
 									path="memberDTO.user_gender" /></span>

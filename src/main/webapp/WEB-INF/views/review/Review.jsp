@@ -123,11 +123,11 @@
 								pattern="yyyy년 MM월 dd일 EEEE a HH:mm:ss" var="postdate" />
 						
 							<div class="reviewFooterUtil">
-								<button type="button" class="btn btn-info"><i style="color:red;" class="fas fa-heart fa-lg"></i></button> &nbsp;
-								<button type="button" class="btn btn-info"><i style="color:black;" class="fas fa-heart-broken fa-lg"></i></button>
+								<button onclick="likebtn()" type="button" class="btn btn-info"><i id="likebtn" style="color:red;" class="fas fa-heart fa-lg"></i></button> &nbsp;
+								<button onclick="hatebtn()" type="button" class="btn btn-info"><i id="hatebtn" style="color:black;" class="fas fa-heart-broken fa-lg"></i></button>
 								
-							 <br> <span>${record.review_no+1}</span> <span style="padding-right: 60px;">명</span> 
-							 <span>${record.review_no+1}</span> <span>명</span>
+							 <br> <span id="likecount">${record.like}</span> <span style="padding-right: 60px;">명</span> 
+							 <span id="hatecount">${record.hate}</span> <span>명</span>
 									<div style="" class="starRev">
 									  <span class="starR1 on">별1_왼쪽</span>
 									  <span class="starR2">별1_오른쪽</span>
@@ -187,6 +187,10 @@
 <div id=reviewBack>
 	<div id="reviewBackImage"></div>
 </div>
+<script
+		src='<c:url value="/plugins/cal_plugins/jquery/jquery.min.js"/>'></script>
+<script
+		src="<c:url value='/plugins/cal_plugins/jquery-ui/jquery-ui.min.js'/>"></script>
 <script>
 
 	function isDelete() {
@@ -195,9 +199,82 @@
 	}
 </script>
 <script>
+if('${record.flagLikeById}'==1){
+	$('#likebtn').attr('class','far fa-heart fa-lg');	
+};
+if('${record.flagHateById}'==1){
+	$('#hatebtn').attr('class','far fa-heart fa-lg');
+};
+
 $('.starRev span').click(function(){
 	  $(this).parent().children('span').removeClass('on');
 	  $(this).addClass('on').prevAll('span').addClass('on');
 	  return false;
 	});
+</script>
+<script>
+function likebtn(){
+	$.ajax({
+		url:'<c:url value="ReviewLike.kosmo"/>',
+		data:{
+			'review_no':'${record.review_no}',
+			'likeNo':'1'
+		},
+		dataType:'text',
+		success:function(data){
+			alert(data);
+			if(data.includes('성공')){
+				$('#likecount').html(parseInt($('#likecount').html())+1);
+				$('#likebtn').attr('class','fas fa-heart fa-lg')
+				//여기 가득찬 하트
+			}
+			else{
+				$('#likecount').html(parseInt($('#likecount').html())-1);	
+				$('#likebtn').attr('class','far fa-heart fa-lg')
+				//여기 빈 하트
+			}
+		},
+		error:function(request,error){
+			console.log('상태코드:',request.status);
+			console.log('서버로부터 받은 HTML데이타:',request.responseText);
+			console.log('에러:',error);
+		}
+		
+	});
+}
+function hatebtn(){
+	$.ajax({
+		url:'<c:url value="ReviewLike.kosmo"/>',
+		data:{
+			'review_no':'${record.review_no}',
+			'likeNo':'0'
+		},
+		dataType:'text',
+		success:function(data){
+			alert(data);
+			if(data.includes('성공')){
+				$('#hatecount').html(parseInt($('#hatecount').html())+1);
+				$('#hatebtn').attr('class','fas fa-heart-broken fa-lg')
+				//여기 가득찬 하트
+			}
+			else{
+				$('#hatecount').html(parseInt($('#hatecount').html())-1);
+				$('#hatebtn').attr('class','far fa-heart fa-lg')
+				//여기 빈 하트
+			}
+			
+			},
+		
+		error:function(request,error){
+			console.log('상태코드:',request.status);
+			console.log('서버로부터 받은 HTML데이타:',request.responseText);
+			console.log('에러:',error);
+		}
+		
+	});
+}
+
+function deleteLike(){
+	
+}
 </script>
