@@ -19,4 +19,5 @@ public interface ReviewService {
 	boolean Likeinsert(Map<String, String> maps);
 	boolean selectLikeByIdReviewNo(Map<String, String> maps);
 	boolean deleteLike(Map<String, String> maps);
+	void deleteAllLike(Map map);
 }

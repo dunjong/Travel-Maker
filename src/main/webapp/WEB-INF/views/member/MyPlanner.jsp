@@ -37,7 +37,7 @@ function successAjaxDelete(data,num){
 	console.log('data:',data,',num:',num)
 	if(data=="삭제 성공"){
 		alert(num+'번 planner가 삭제되었습니다')
-		$('#'+num).html('');
+		$('#'+num).attr('style','background-color:white').html('');
 		$('#cities').html('');
 	}
 	
@@ -177,6 +177,7 @@ function successAjaxPayFee(data){
 	 $.each(data,function(index,city){
 		 if(city.hotel_no!=undefined){
 			 tableString+="<div class='destination item'>";
+			 tableString+="<div class='destination_image'><img src='"+city.hotel_img+"' alt='no Image'></div>";
 			 if(city.paid!='yes'){
 			 	 tableString+="<div class='btn btn-info' id='h_"+city.hotel_no+"' onclick='preImport(this)'>호텔 결제하기</div>";
 			 }
@@ -190,6 +191,7 @@ function successAjaxPayFee(data){
 		 }
 		 else{
 			 tableString+="<div class='destination item'>";
+			 tableString+="<div class='destination_image'><img src='<c:url value='/images/travelmaker1.png'/>' alt='no Image'></div>";
 			 if(city.paid!='yes'){
 			 	tableString+="<div class='btn btn-warning' id='a_"+city.air_no+"' onclick='preImport(this)'>항공 결제하기</div>";
 			 }
@@ -387,10 +389,11 @@ function ToPlannerView(data){
 								<div class="row">
 									<div class="col-lg-12">
 										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
-										${planner.total_count}
+										
 										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${planner.planner_no}</span>
 										  ${planner.planner_name}
 										</button>	
+										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">예산: ${planner.total_count} 원</button>
 									</div>
 									<div class="col-lg-6" style="text-align:center;">
 										  <button type="button" style="background:#2196f3; color:white;" class="btn" onclick="detail(${planner.planner_no})">수정 하기</button>
@@ -426,10 +429,10 @@ function ToPlannerView(data){
 								<div class="row">
 									<div class="col-lg-12">
 										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
-										${acc_planner.total_count}:전체금액
 										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${acc_planner.planner_no}</span>
 										  ${acc_planner.planner_name}
 										</button>	
+										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">예산: ${acc_planner.total_count} 원</button>
 									</div>
 									<div class="col-lg-12" style="text-align:center;">
 										  <button class="btn" type="button" style="background:#2196f3; color:white;" onclick='ToPlannerView(${acc_planner.planner_no})'>간단 보기</button>

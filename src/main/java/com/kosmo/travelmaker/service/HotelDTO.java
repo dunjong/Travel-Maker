@@ -15,9 +15,17 @@ public class HotelDTO {
 	private int hotel_customer;
 	private int hotel_room;
 	private int cities_no;
+	private String hotel_img;
 	
 	
 	
+	
+	public String getHotel_img() {
+		return hotel_img;
+	}
+	public void setHotel_img(String hotel_img) {
+		this.hotel_img = hotel_img;
+	}
 	public int getCities_no() {
 		return cities_no;
 	}

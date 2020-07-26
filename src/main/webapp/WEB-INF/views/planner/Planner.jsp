@@ -60,8 +60,10 @@
 									<div class="col-md-1">
 									</div>
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;text-size:20px">Planner Name</h4>
 										<input class="form-control" type="text" value="${planner_name}" id="planner_name" name="planner_name" placeholder="이름을 작명해 주세요" >
-										<input class="form-control" type="number" value="${total_count}" id='total_count' name="total_count" placeholder="총 금액을 입력하세요 " >
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;margin-left:16px;text-size:20px">Total Count</h4>
+										<input class="form-control" type="text" value="${total_count}" id='total_count' name="total_count" placeholder="총 금액을 입력하세요 " >
 										<input hidden="true" type="text" name="planner_no" value="${planner_no}">
 									</div>
 									<div class="col-md-1">
@@ -1003,6 +1005,7 @@
 					var img;
 					for (var i = 0; i < response.data.length; i++) {
 						img = document.createElement('img');
+						img.setAttribute('id','h_img_'+i)
 						img.style.height='167px';
 						img.style.width='250px';
 						img.alt = 'no image';
@@ -1092,7 +1095,7 @@
 		function getHotelDetails(data){
 			console.log('data',data);
 			console.log('getHotelDetails.data',data.getAttribute('name'));
-			
+			console.log('hotel_img:',$('#h_img_'+data.getAttribute('name')).attr('src'))
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(2)').html());
@@ -1113,6 +1116,7 @@
 				"hotel_price":$('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html().split(":")[1],
 				"hotel_latlng":latlng.split(",")[0].split(":")[1].trim()+","+latlng.split(",")[1].split(":")[1].trim(),
 				"hotel_score":$('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html().split(":")[1],
+				"hotel_img":$('#h_img_'+data.getAttribute('name')).attr('src'),
 				"cities_no":$('#h_cities_no').prop('value') ,
 				"city_name":$('#city_name').html()
 				},
@@ -1218,7 +1222,7 @@
 					else if(res[i].segmentsList0[2]==3) var code = res[i].segmentsList0[3].code4;
 					else var code = "";
 					list+="<div class='container'>";
-					list+="<div class='alert alert-success'>";
+					list+="<div class='alert alert-success' style='background-color:rgb(51, 137, 179)'>";
 					list+="<div class='row'>";
 					list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
 					list+="<div id='AirList_"+i+"' class='row' style='text-align:center'>";
@@ -1284,7 +1288,7 @@
 			var ind = $('#air_body > div[class=container]').length;
 			var list="";
 			list+="<div class='container'>";
-			list+="<div class='alert alert-success'>";
+			list+="<div class='alert alert-success' style='background-color:rgb(51, 137, 179)'>";
 			list+="<div class='row'>";
 			list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
 			list+="<div id='AirRList_"+ind+"' class='row' style='text-align:center'>";
@@ -1343,10 +1347,10 @@
 		}////displayRoute
 		$(function(){
 			<c:if test="${air_dto_list!=null}">
-			var list="<h2 style='text-align:center;color:#58DE4D'>Reservation List</h2>";
+			var list="<h2 style='text-align:center;color:#3389b3'>항공권 예약 현황</h2>";
 			<c:forEach items="${air_dto_list}" var="air_dto" varStatus="i">
 				list+="<div class='container'>";
-				list+="<div class='alert alert-success'>";
+				list+="<div class='alert alert-success' style='background-color:rgb(51, 137, 179)'>";
 				list+="<div class='row'>";
 				list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
 				list+="<div id='AirRList_${i.index}' class='row' style='text-align:center'>";

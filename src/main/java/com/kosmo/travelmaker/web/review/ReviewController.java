@@ -175,7 +175,7 @@ public class ReviewController {
 	@RequestMapping("ReviewDelete.kosmo")
 	public String delete(@RequestParam Map map) {
 		// 서비스 호출		
-		
+		reviewService.deleteAllLike(map);
 		reviewService.delete(map);
 		// 뷰정보 반환]
 		return "forward:/TravelMaker/ReviewSearch.kosmo";

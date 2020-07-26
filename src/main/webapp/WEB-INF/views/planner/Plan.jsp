@@ -285,7 +285,7 @@
 }
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 .snip1535 {
-  background-color: rgba(0, 188, 212, 0.7);
+  background-color: #5C6BC0;
   border: none;
   color: #ffffff;
   cursor: pointer;
@@ -969,10 +969,10 @@ $(function(){
 	  var logo;
 	  
 	  if(nearSearchType=='restaurant'){
-		logo='<c:url value="/images/foodIcon.png"/>';
+		logo='<c:url value="/images/icons/incon2.png"/>';
 	  }
 	  else{
-		logo='<c:url value="/images/spotIcon.png"/>';
+		logo='<c:url value="/images/icons/tower.png"/>';
 	  }
 	  
       
@@ -984,7 +984,7 @@ $(function(){
           size: new google.maps.Size(71, 71),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(25, 25)
+          scaledSize: new google.maps.Size(50, 50)
         };
 		  
           marker = new google.maps.Marker({
@@ -1000,17 +1000,24 @@ $(function(){
          markers.push(marker)
          var div = document.createElement("div");
          div.setAttribute('id',place.place_id)
-         div.setAttribute('class','btn btn-info col-sm-12')
+         div.setAttribute('class','btn col-sm-12')
          div.setAttribute('onclick','searchedSpotBtn(this)')
          div.textContent = place.name;
-         var img = document.createElement("img");
+         
+         if(place.photos!==undefined){
+        	var img = document.createElement("img");
+        	img.src=place.photos[0].getUrl();
+        	img.setAttribute('style','width:500px;height:200px')
+        	placesList.appendChild(img);
+
+         }
          
          //if(place.photos!=undefined){
          //img.setAttribute('src',place.photos[0].getUrl());
          //img.setAttribute('style','width:350px;height:200px')
          //placesList.appendChild(img);
          //}
-         
+         //placesList.appendChild(img);
          placesList.appendChild(div);
          div = document.createElement("div");
          div.setAttribute('class','col-sm-12')
@@ -1035,17 +1042,17 @@ $(function(){
 	 var logo;
 	  
 	  if(nearSearchType=='restaurant'){
-		logo='<c:url value="/images/foodIcon.png"/>';
+		logo='<c:url value="/images/icons/incon2.png"/>';
 	  }
 	  else{
-		logo='<c:url value="/images/spotIcon.png"/>';
+		logo='<c:url value="/images/icons/tower.png"/>';
 	  }
 	  var image = {
 	          url: logo,
 	          size: new google.maps.Size(71, 71),
 	          origin: new google.maps.Point(0, 0),
 	          anchor: new google.maps.Point(17, 34),
-	          scaledSize: new google.maps.Size(25, 25)
+	          scaledSize: new google.maps.Size(50, 50)
 	        };
 	 
 	 servicePlace.getDetails({placeId: data.getAttribute('id')},
@@ -1358,22 +1365,6 @@ async function streetView(){
 			
 		});
 	}
- function AddDayPlan(){
-	 var div=document.createElement('div');
-	 var div2=document.createElement('div');
-	 var i=document.createElement('i');
-	 div.setAttribute('class','col-sm-2')
-	 div2.setAttribute('class','planview')
-	 div2.setAttribute('id','day.${gap+1}')
-	 div2.setAttribute('onclick','DayPlan(this)')
-	 i.setAttribute('class','fas fa-bookmark)')
-	 i.textContent=' ${gap+1}일차 플랜'
-	 
-	 div2.appendChild(i)
-	 div.appendChild(div2)
-	 
-	 $('#dayPlanRow').append(div);
- }
  function autoComplete(){
 	 $('#autocomplete').val('')
 		
@@ -1411,26 +1402,18 @@ async function streetView(){
 							</c:forEach>
 							<div class="btn btn-danger waves-effect" style="border-radius: 9px;" onclick="clearBox();"><i class="far fa-trash-alt"> 현재 삭제</i></div>
 							<div class="btn btn-danger btn-rounded waves-effect" style="border-radius: 9px;" onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
-							<button class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">하나투어 패키지 불러오기</button>
+							<button class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">자동 완성</button>
+							<div class="planview" onclick="back()">저장후 planner로 이동 <i class="fas fa-download"></i></div>	
 						</div>
 						
 					</div>
-					<div id="rightBottom-panel">
-						<div class="planview" onclick="back()">전체 저장후 planner로 이동 <i class="fas fa-download"></i></div>	
-					</div>
-					<div id="callSpot-panel">
-						
-					</div>
 					<div id="watchNowPlan">
-						<div class="planview" style="background-color:#ff9999" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜  상세 보기</i></div>
+						<div class="planview" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜  상세 보기</i></div>
 					</div>
 					<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 				</div>
 				 
-				<div class="col-sm-12" id="distance">
-					<h2>현재 플랜에대한 상세 정보</h2>
-					<h4>전체 이동 거리: <span id="total"></span></h4>
-				</div>
+				
 				
 			</div>	
 					
@@ -1528,6 +1511,9 @@ async function streetView(){
 		    		<div class="col-sm-12" id="sp-origin"></div>
 		    		<div class="col-sm-12" id="sp-waypoints" style="overflow-y:scroll"></div>
 		    		<div class="col-sm-12" id="sp-destination"></div>
+		    		<div class="col-sm-12" id="distance">
+						<h4>전체 이동 거리: <span id="total"></span></h4>
+					</div>
 	    		</div>
 	    	</div>
 	    </div>

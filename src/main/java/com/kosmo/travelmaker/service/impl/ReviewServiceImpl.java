@@ -74,4 +74,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.deleteLike(maps);
 	}
 
+	@Override
+	public void deleteAllLike(Map map) {
+		// TODO Auto-generated method stub
+		dao.deleteAllLike(map);
+	}
+
 }

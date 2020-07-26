@@ -206,7 +206,7 @@ text-align:center;
 											<i style="color:red;" class="fas fa-heart"></i> &nbsp;
 											<i style="color:black;" class="fas fa-heart-broken"></i>
 									
-											<br> <span>${item.like}</span>
+											<br> <span style="padding-right: 20px;">${item.like}</span>
 											&nbsp;<span>${item.hate}</span>
 										
 										</div>

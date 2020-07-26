@@ -171,6 +171,7 @@ CREATE TABLE hotel
 	hotel_price nvarchar2(200) NOT NULL,
 	hotel_latlng nvarchar2(200) NOT NULL,
 	hotel_score nvarchar2(50) NOT NULL,
+	hotel_img nvarchar2(500),
 	cities_no number NOT NULL,
 	PRIMARY KEY (hotel_no)
 );

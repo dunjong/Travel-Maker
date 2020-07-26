@@ -241,6 +241,7 @@ public class MemberController {
 		    		map_h.put("hotel_name", hotel_dto.getHotel_name());
 		    		map_h.put("hotel_in", hotel_dto.getHotel_in());
 		    		map_h.put("hotel_out", hotel_dto.getHotel_out());
+		    		map_h.put("hotel_img", hotel_dto.getHotel_img());
 		    		System.out.println("OK?:"+res_dto.getRes_ok());
 		    		if(res_dto.getRes_ok()==1) {
 		    			map_h.put("paid","yes");

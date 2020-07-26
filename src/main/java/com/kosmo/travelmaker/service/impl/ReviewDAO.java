@@ -82,4 +82,10 @@ public class ReviewDAO implements ReviewService {
 		return sqlMapper.delete("deleteLike", maps)==1?true:false;
 	}
 
+	@Override
+	public void deleteAllLike(Map map) {
+		// TODO Auto-generated method stub
+		sqlMapper.delete("deleteAllLike", map);
+	}
+
 }
