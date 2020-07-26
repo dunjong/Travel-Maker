@@ -222,15 +222,17 @@ function likebtn(){
 		},
 		dataType:'text',
 		success:function(data){
-			alert(data);
+			
 			if(data.includes('성공')){
 				$('#likecount').html(parseInt($('#likecount').html())+1);
 				$('#likebtn').attr('class','fas fa-heart fa-lg')
+				alert('좋아요를 눌렀습니다');
 				//여기 가득찬 하트
 			}
 			else{
 				$('#likecount').html(parseInt($('#likecount').html())-1);	
 				$('#likebtn').attr('class','far fa-heart fa-lg')
+				alert('좋아요를 취소합니다');
 				//여기 빈 하트
 			}
 		},
@@ -251,15 +253,16 @@ function hatebtn(){
 		},
 		dataType:'text',
 		success:function(data){
-			alert(data);
 			if(data.includes('성공')){
 				$('#hatecount').html(parseInt($('#hatecount').html())+1);
 				$('#hatebtn').attr('class','fas fa-heart-broken fa-lg')
+				alert('싫어요를 눌렀습니다')
 				//여기 가득찬 하트
 			}
 			else{
 				$('#hatecount').html(parseInt($('#hatecount').html())-1);
 				$('#hatebtn').attr('class','far fa-heart fa-lg')
+				alert('싫어요를 취소합니다')
 				//여기 빈 하트
 			}
 			
