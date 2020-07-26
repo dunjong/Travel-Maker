@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2020-05-01 18:25:33</creation_date>
-			<updated_date>2020-07-26 14:49:12</updated_date>
+			<updated_date>2020-07-26 15:50:02</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -1938,7 +1938,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>58</word_id>
+					<word_id>57</word_id>
 					<id>14</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3924,7 +3924,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>57</word_id>
+					<word_id>58</word_id>
 					<id>59</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
