@@ -389,10 +389,11 @@ function ToPlannerView(data){
 								<div class="row">
 									<div class="col-lg-12">
 										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
-										${planner.total_count}
+										
 										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${planner.planner_no}</span>
 										  ${planner.planner_name}
 										</button>	
+										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">예산: ${planner.total_count} 원</button>
 									</div>
 									<div class="col-lg-6" style="text-align:center;">
 										  <button type="button" style="background:#2196f3; color:white;" class="btn" onclick="detail(${planner.planner_no})">수정 하기</button>
@@ -428,10 +429,10 @@ function ToPlannerView(data){
 								<div class="row">
 									<div class="col-lg-12">
 										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
-										${acc_planner.total_count}:전체금액
 										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${acc_planner.planner_no}</span>
 										  ${acc_planner.planner_name}
 										</button>	
+										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">예산: ${acc_planner.total_count} 원</button>
 									</div>
 									<div class="col-lg-12" style="text-align:center;">
 										  <button class="btn" type="button" style="background:#2196f3; color:white;" onclick='ToPlannerView(${acc_planner.planner_no})'>간단 보기</button>

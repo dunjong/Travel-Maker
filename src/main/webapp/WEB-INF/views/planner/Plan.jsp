@@ -1427,10 +1427,7 @@ async function streetView(){
 					<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 				</div>
 				 
-				<div class="col-sm-12" id="distance">
-					<h2>현재 플랜에대한 상세 정보</h2>
-					<h4>전체 이동 거리: <span id="total"></span></h4>
-				</div>
+				
 				
 			</div>	
 					
@@ -1528,6 +1525,9 @@ async function streetView(){
 		    		<div class="col-sm-12" id="sp-origin"></div>
 		    		<div class="col-sm-12" id="sp-waypoints" style="overflow-y:scroll"></div>
 		    		<div class="col-sm-12" id="sp-destination"></div>
+		    		<div class="col-sm-12" id="distance">
+						<h4>전체 이동 거리: <span id="total"></span></h4>
+					</div>
 	    		</div>
 	    	</div>
 	    </div>
