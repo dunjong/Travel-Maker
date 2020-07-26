@@ -285,7 +285,7 @@
 }
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 .snip1535 {
-  background-color: rgba(0, 188, 212, 0.7);
+  background-color: #5C6BC0;
   border: none;
   color: #ffffff;
   cursor: pointer;

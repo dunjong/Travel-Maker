@@ -44,7 +44,7 @@
 		SELECT count(*) FROM review_like WHERE review_no=#{review_no} and re_hateno=#{re_hateno}
 	</select>
 	<select id="selectLikeByIdReviewNo" parameterType="java.util.Map" resultType="int">
-		SELECT count(*) FROM review_like WHERE review_no=#{review_no} and re_hateno=#{re_hateno} and user_id=#{user_id}
+		SELECT count(*) FROM review_like WHERE review_no=#{review_no} and user_id=#{user_id} and re_hateno=#{re_hateno}
 	</select>
 	
 	<insert id = "Likeinsert" parameterType="java.util.Map">
@@ -53,8 +53,10 @@
 	
 	
 	<delete id ="deleteLike" parameterType="java.util.Map">
-		DELETE FROM review_like WHERE review_no=#{review_no} and re_hateno=#{re_hateno} and user_id=#{user_id}
+		DELETE FROM review_like WHERE user_id=#{user_id} and review_no=#{review_no} and re_hateno=#{re_hateno}
 	</delete>
-		
+	<delete id="deleteAllLike" parameterType="java.util.Map">
+		DELETE FROM review_like where review_no=#{review_no}
+	</delete>
 	
 </mapper>
