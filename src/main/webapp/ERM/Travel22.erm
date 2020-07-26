@@ -135,7 +135,11 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2020-05-01 18:25:33</creation_date>
+<<<<<<< HEAD
 			<updated_date>2020-07-26 15:32:45</updated_date>
+=======
+			<updated_date>2020-07-26 15:50:02</updated_date>
+>>>>>>> branch 'master' of https://github.com/dunjong/Travel-Maker.git
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
