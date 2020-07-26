@@ -55,6 +55,7 @@
 									</div>
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
 										<div class="form-control"  id="planner_name">${planner_name}</div>
+										<div class="form-control" id='total_count'>${total_count}</div>
 										<input hidden="true" type="text" name="planner_no" value="${planner_no}">
 										<input hidden="true" type="text" name="city_no" value="${city_no}">
 									</div>

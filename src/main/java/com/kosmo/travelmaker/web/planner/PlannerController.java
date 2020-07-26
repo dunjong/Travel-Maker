@@ -132,6 +132,7 @@ public class PlannerController {
 			model.addAttribute("air_size", air_dto_list.size());
 		else
 			model.addAttribute("air_size", 0);
+		
 		model.addAttribute("air_dto_list", air_dto_list);
 		model.addAttribute("city_plan_no",city_plan_no);
 		model.addAttribute("city_hotel_name",city_hotel_name);
@@ -666,8 +667,9 @@ public class PlannerController {
 	
 	@RequestMapping(value="SavePlannerNameCount.kosmo", produces ="text/html; charset=UTF-8")
 	@ResponseBody
-	public void SavePlannerName(@RequestParam Map map){
+	public String SavePlannerName(@RequestParam Map map){
 		plannerService.updatePlannerName(map);
+		return "저장됨";
 	}
 	@RequestMapping(value="updateIdNoById.kosmo", produces ="text/html; charset=UTF-8")
 	public String updateIdNoById(@RequestParam Map map,HttpSession session) {

@@ -2,7 +2,6 @@
 /* Drop Tables */
 
 DROP TABLE accompany CASCADE CONSTRAINTS;
-DROP TABLE account_book CASCADE CONSTRAINTS;
 DROP TABLE air CASCADE CONSTRAINTS;
 DROP TABLE review_like CASCADE CONSTRAINTS;
 DROP TABLE review CASCADE CONSTRAINTS;
@@ -78,16 +77,6 @@ CREATE TABLE accompany
 	user_id nvarchar2(200) NOT NULL,
 	allow number,
 	PRIMARY KEY (acc_no)
-);
-
-
-CREATE TABLE account_book
-(
-	count_no number NOT NULL,
-	case nvarchar2(200) NOT NULL,
-	money number NOT NULL,
-	plan_no number,
-	PRIMARY KEY (count_no)
 );
 
 
@@ -319,12 +308,6 @@ ALTER TABLE review
 ALTER TABLE tag_rel
 	ADD FOREIGN KEY (city_no)
 	REFERENCES city (city_no)
-;
-
-
-ALTER TABLE account_book
-	ADD FOREIGN KEY (plan_no)
-	REFERENCES plan (plan_no)
 ;
 
 
