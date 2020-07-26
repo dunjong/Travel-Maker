@@ -1005,6 +1005,7 @@
 					var img;
 					for (var i = 0; i < response.data.length; i++) {
 						img = document.createElement('img');
+						img.setAttribute('id','h_img_'+i)
 						img.style.height='167px';
 						img.style.width='250px';
 						img.alt = 'no image';
@@ -1094,7 +1095,7 @@
 		function getHotelDetails(data){
 			console.log('data',data);
 			console.log('getHotelDetails.data',data.getAttribute('name'));
-			
+			console.log('hotel_img:',$('#h_img_'+data.getAttribute('name')).attr('src'))
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(0)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html());
 			console.log($('#hotel_'+data.getAttribute('name')+' > div:eq(2)').html());
@@ -1115,6 +1116,7 @@
 				"hotel_price":$('#hotel_'+data.getAttribute('name')+' > div:eq(3)').html().split(":")[1],
 				"hotel_latlng":latlng.split(",")[0].split(":")[1].trim()+","+latlng.split(",")[1].split(":")[1].trim(),
 				"hotel_score":$('#hotel_'+data.getAttribute('name')+' > div:eq(1)').html().split(":")[1],
+				"hotel_img":$('#h_img_'+data.getAttribute('name')).attr('src'),
 				"cities_no":$('#h_cities_no').prop('value') ,
 				"city_name":$('#city_name').html()
 				},

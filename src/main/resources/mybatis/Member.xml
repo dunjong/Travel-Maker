@@ -60,7 +60,7 @@
 		INSERT INTO chat values(seq_chat.nextval,#{planner_no},#{user_id},default,#{chat_text})
 	</insert>
 	<select id="AccplannerList" parameterType="java.lang.String" resultType="PlannerDTO">
-		select p.* from accompany a join planner p on a.planner_no=p.planner_no where a.user_id=#{user_id} and a.allow='1'
+		select p.* from accompany a join planner p on a.planner_no=p.planner_no where a.user_id=#{user_id}
 	</select>
 	<delete id="deleteChat" parameterType="int">
 		delete from chat where planner_no=#{planner_no}

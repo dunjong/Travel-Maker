@@ -11,7 +11,7 @@
 		INSERT INTO hotel values(seq_hotel.nextval,
 		#{hotel_name},#{hotel_city},#{hotel_in},#{hotel_out},
 		#{hotel_customer},#{hotel_room},#{hotel_price},
-		#{hotel_latlng},#{hotel_score},#{cities_no})
+		#{hotel_latlng},#{hotel_score},#{hotel_img},#{cities_no})
 	</insert>
 	<select id="selectHotelDTOByCitiesNo" parameterType="int" resultType="HotelDTO">
 		SELECT * FROM hotel WHERE cities_no=#{cities_no}
@@ -24,7 +24,7 @@
 		UPDATE hotel SET hotel_name=#{hotel_name},hotel_city=#{hotel_city},
 		hotel_in=#{hotel_in},hotel_out=#{hotel_out},hotel_customer=#{hotel_customer},
 		hotel_room=#{hotel_room},hotel_price=#{hotel_price},hotel_latlng=#{hotel_latlng},
-		hotel_score=#{hotel_score} where cities_no=#{cities_no}
+		hotel_score=#{hotel_score},hotel_img=#{hotel_img} where cities_no=#{cities_no}
 	</update>
 	<select id="selectHotelDTO" parameterType="int" resultType="HotelDTO">
 		SELECT * FROM HOTEL WHERE hotel_no=#{hotel_no}

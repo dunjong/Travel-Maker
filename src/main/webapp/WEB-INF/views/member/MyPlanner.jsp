@@ -37,7 +37,7 @@ function successAjaxDelete(data,num){
 	console.log('data:',data,',num:',num)
 	if(data=="삭제 성공"){
 		alert(num+'번 planner가 삭제되었습니다')
-		$('#'+num).html('');
+		$('#'+num).attr('style','background-color:white').html('');
 		$('#cities').html('');
 	}
 	
@@ -177,6 +177,7 @@ function successAjaxPayFee(data){
 	 $.each(data,function(index,city){
 		 if(city.hotel_no!=undefined){
 			 tableString+="<div class='destination item'>";
+			 tableString+="<div class='destination_image'><img src='"+city.hotel_img+"' alt='no Image'></div>";
 			 if(city.paid!='yes'){
 			 	 tableString+="<div class='btn btn-info' id='h_"+city.hotel_no+"' onclick='preImport(this)'>호텔 결제하기</div>";
 			 }
@@ -190,6 +191,7 @@ function successAjaxPayFee(data){
 		 }
 		 else{
 			 tableString+="<div class='destination item'>";
+			 tableString+="<div class='destination_image'><img src='<c:url value='/images/travelmaker1.png'/>' alt='no Image'></div>";
 			 if(city.paid!='yes'){
 			 	tableString+="<div class='btn btn-warning' id='a_"+city.air_no+"' onclick='preImport(this)'>항공 결제하기</div>";
 			 }

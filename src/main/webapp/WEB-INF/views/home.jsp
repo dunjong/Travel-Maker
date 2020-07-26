@@ -171,6 +171,7 @@ function successAjaxPlanner(data){
 						tableString+="<div class='btn btn-danger' onclick='CancelAcc(this)' id='acc_"+planner.no+"' >동행 취소하기</div>"
 					}
 					else{
+						console.log('planner_nos:${planner_nos}')
 						tableString+="<div class='btn btn-info' onclick='AddAcc(this)' id='acc_"+planner.no+"' >동행하기!</div>"
 					}
 					tableString+="</div></div></div>";
