@@ -1178,7 +1178,7 @@ $(function(){
 		   
 		   md_review.appendChild(span)
 		   span=document.createElement('h5')
-		   span.setAttribute('style','background-color:#0099CC;border-radius:6px')
+		   span.setAttribute('style','background-color:#0099CC;border-radius:6px;color:white;')
 		   span.textContent=place.reviews[i].text
 		   md_review.appendChild(span)
 		   }
@@ -1389,8 +1389,8 @@ async function streetView(){
 					</div>
 					<div id="left-panel">
 						<button class="planview" data-toggle="collapse" data-target="#right-panel" aria-expanded="false">주변 검색 목록</button>
-						<input type="text" id="autocomplete" class="form-control" placeholder="찾는 명소이름 직접 입력" onfocus="autoComplete()" >
-						<div class="collapse" id="right-panel">
+						<input type="text" style="margin-left:4px;" id="autocomplete" class="form-control" placeholder="찾는 명소이름 직접 입력" onfocus="autoComplete()" >
+						<div class="collapse" style="margin-left:3px;" id="right-panel">
 							
 							
 							<div class="row" id="places"></div>
