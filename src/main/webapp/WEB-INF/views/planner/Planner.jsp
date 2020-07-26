@@ -524,11 +524,13 @@
 			$('div.pac-container')['${h_i.index}'].style.zIndex=2000;
 		})
 		</c:forEach>
+		
+		
+		
 		}
-			
-	
 		$('#planner_name').change(savePlannerNameCount());
 		$('#total_count').change(savePlannerNameCount());
+		
 		function savePlannerNameCount(){
 				$.ajax({
 					url:'<c:url value="SavePlannerNameCount.kosmo"/>',
@@ -537,7 +539,8 @@
 						'planner_name':$('#planner_name').val(),
 						'total_count':$('#total_count').val()
 					},
-					success:function(){console.log('아이디가 ',$('#planner_name').val()+'로 변경됨')},
+					dataType:'text',
+					success:function(data){console.log('아이디가 ',$('#planner_name').val()+'로'+data)},
 					error:function(request,error){
 						console.log('상태코드:',request.status);
 						console.log('서버로부터 받은 HTML데이타:',request.responseText);

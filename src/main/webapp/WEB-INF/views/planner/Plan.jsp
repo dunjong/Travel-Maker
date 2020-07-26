@@ -29,7 +29,7 @@
 	  }
 	  #left-panel{
 	  	position: absolute;
-        top: 10%;
+        top: 8%;
         left:1%;
         z-index: 5;
         
@@ -51,7 +51,7 @@
         font-family: 'Roboto','sans-serif';
         line-height: 30px;
         overflow-y:scroll;
-         overflow-x:hidden;
+        overflow-x:hidden;
 	  	width:350px;
 	  	background-color:white;
 	  	height:650px;
@@ -285,7 +285,7 @@
 }
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 .snip1535 {
-  background-color: #5C6BC0;
+  background-color: #aa66cc;
   border: none;
   color: #ffffff;
   cursor: pointer;
@@ -329,7 +329,7 @@
 }
 .snip1535:hover,
 .snip1535.hover {
-  background-color: rgba(0, 188, 212, 0.7);
+  background-color: #aa66cc;
 }
 .snip1535:hover:before,
 .snip1535.hover:before,
@@ -422,7 +422,6 @@ var streetFlag=false;
 var walkDrive='DRIVING'
 
 function initMap() {
-	
 	
 	 infoWindow = new google.maps.InfoWindow({
         content: document.getElementById('info-content')
@@ -969,10 +968,10 @@ $(function(){
 	  var logo;
 	  
 	  if(nearSearchType=='restaurant'){
-		logo='<c:url value="/images/icons/incon2.png"/>';
+		logo='<c:url value="/images/icons/foodIcon.png"/>';
 	  }
 	  else{
-		logo='<c:url value="/images/icons/tower.png"/>';
+		logo='<c:url value="/images/icons/spotIcon.png"/>';
 	  }
 	  
       
@@ -1042,10 +1041,10 @@ $(function(){
 	 var logo;
 	  
 	  if(nearSearchType=='restaurant'){
-		logo='<c:url value="/images/icons/incon2.png"/>';
+		logo='<c:url value="/images/icons/foodIcon.png"/>';
 	  }
 	  else{
-		logo='<c:url value="/images/icons/tower.png"/>';
+		logo='<c:url value="/images/icons/spotIcon.png"/>';
 	  }
 	  var image = {
 	          url: logo,
@@ -1179,7 +1178,7 @@ $(function(){
 		   
 		   md_review.appendChild(span)
 		   span=document.createElement('h5')
-		   span.setAttribute('style','background-color:#ff9999;border-radius:6px')
+		   span.setAttribute('style','background-color:#0099CC;border-radius:6px')
 		   span.textContent=place.reviews[i].text
 		   md_review.appendChild(span)
 		   }
@@ -1386,11 +1385,14 @@ async function streetView(){
 					<div id="pano"></div>
 					<div id="map"></div>
 					<div id="autocomplete_box" class="input-group input-group-lg col-sm-3">
-						<input type="text" id="autocomplete" class="form-control" placeholder="찾는 명소이름 직접 입력" onfocus="autoComplete()" >
+						
 					</div>
 					<div id="left-panel">
-						<button class="btn btn-normal" data-toggle="collapse" data-target="#right-panel" aria-expanded="false">주변 검색 목록</button>
+						<button class="planview" data-toggle="collapse" data-target="#right-panel" aria-expanded="false">주변 검색 목록</button>
+						<input type="text" id="autocomplete" class="form-control" placeholder="찾는 명소이름 직접 입력" onfocus="autoComplete()" >
 						<div class="collapse" id="right-panel">
+							
+							
 							<div class="row" id="places"></div>
 						</div>
 					</div>
@@ -1400,15 +1402,16 @@ async function streetView(){
 									<div class="planview" id="day.${days}" onclick="DayPlan(this)"><i class="fas fa-bookmark"> ${days}일차 플랜</i></div>
 									
 							</c:forEach>
-							<div class="btn btn-danger waves-effect" style="border-radius: 9px;" onclick="clearBox();"><i class="far fa-trash-alt"> 현재 삭제</i></div>
-							<div class="btn btn-danger btn-rounded waves-effect" style="border-radius: 9px;" onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
-							<button class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;">자동 완성</button>
+							<div class="btn btn-danger waves-effect" style="border-radius: 9px;width:100%;" onclick="clearBox();"><i class="far fa-trash-alt"> 현재 삭제</i></div>
+							<div class="btn btn-danger btn-rounded waves-effect" style="border-radius: 9px;width:100%;" onclick="clearPlanBox()"><i class="fas fa-trash"> 전체 삭제</i></div>
+							<button class="btn aqua-gradient" id="auto-spots" style="border-radius: 9px;width:100%;">자동 완성</button>
+							<div class="planview" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜  상세 보기</i></div>
 							<div class="planview" onclick="back()">저장후 planner로 이동 <i class="fas fa-download"></i></div>	
 						</div>
 						
 					</div>
 					<div id="watchNowPlan">
-						<div class="planview" data-toggle="modal" data-target="#sp-modal" onclick="showPlan()"><i class="fas fa-eye"> 현재 플랜  상세 보기</i></div>
+						
 					</div>
 					<img id="loadingImg" src="<c:url value="/images/loading.gif"/>"></img>
 				</div>
@@ -1445,11 +1448,11 @@ async function streetView(){
 	          		<div class="col-sm-3">웹사이트:</div>
 	          		<div id="iw-website" class="col-sm-9"></div>
 	          	</div>
-	          	<div class="row" id="iw-lanlng-row">
+	          	<div hidden="true" class="row" id="iw-lanlng-row">
 	          		<div class="col-sm-3">위도경도:</div>
 	          		<div id="iw-lanlng" class="col-sm-9"></div>
 	          	</div>
-	          	<div class="row">
+	          	<div hidden="true" class="row">
 	          		<div class="col-sm-3">위치 아이디:</div>
 	          		<div id="iw-id" class="col-sm-9"></div>
 	          	</div>
