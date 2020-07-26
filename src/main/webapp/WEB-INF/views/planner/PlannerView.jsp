@@ -54,7 +54,16 @@
 									
 									</div>
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
-										<div class="form-control"  id="planner_name">${planner_name}</div>
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;text-size:20px">Planner Name</h4>
+										<div class="form-control">${planner_name}</div>
+									</div>
+									<div class="col-md-4">
+									</div>
+									<div class="col-md-1">
+									
+									</div>
+									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;margin-left:16px;text-size:20px">Total Count</h4>
 										<div class="form-control" id='total_count'>${total_count}</div>
 										<input hidden="true" type="text" name="planner_no" value="${planner_no}">
 										<input hidden="true" type="text" name="city_no" value="${city_no}">
@@ -75,13 +84,23 @@
 									
 									</div>
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
-										<div class="form-control"  id="planner_name">${planner_name}</div>
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;text-size:20px">Plan Name</h4>
+										<div class="form-control">${planner_name}</div>
+									</div>
+									<div class="col-md-4">
 									</div>
 									<div class="col-md-1">
 									
 									</div>
-									<div class="col-md-3">
-										<button class="btn btn-info" style="width:100%" >MyPlanner로</button>
+									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;margin-left:16px;text-size:20px">Total Count</h4>
+										<div class="form-control" id='total_count'>${total_count}</div>
+									</div>
+									<div class="col-md-1">
+									
+									</div>
+									<div class="col-md-3 col-sm-0">
+										<button id="myPlanner" class="btn btn-info" style="width:100%" >MyPlanner로</button>
 									</div>
 								</div>
 							</form>
@@ -265,6 +284,17 @@
 		
 		var lat,lng;//호텔용
 		$(function() {
+			
+			window.onresize=function(event){
+				console.log('window.outerWidth:',window.outerWidth);
+				if(window.outerWidth<1000){
+					$('#myPlanner').prop('hidden','true')
+				}
+				else{
+					$('#myPlanner').prop('hidden','')
+				}
+			}
+			
 			<c:forEach items="${city_hotel}" var="check" >
 			console.log('${check}')
 			if('${check.value}'=='1')
