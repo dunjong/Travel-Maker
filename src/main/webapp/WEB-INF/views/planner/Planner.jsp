@@ -1222,7 +1222,7 @@
 					else if(res[i].segmentsList0[2]==3) var code = res[i].segmentsList0[3].code4;
 					else var code = "";
 					list+="<div class='container'>";
-					list+="<div class='alert alert-success'>";
+					list+="<div class='alert alert-success' style='background-color:rgb(51, 137, 179)'>";
 					list+="<div class='row'>";
 					list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
 					list+="<div id='AirList_"+i+"' class='row' style='text-align:center'>";
@@ -1288,7 +1288,7 @@
 			var ind = $('#air_body > div[class=container]').length;
 			var list="";
 			list+="<div class='container'>";
-			list+="<div class='alert alert-success'>";
+			list+="<div class='alert alert-success' style='background-color:rgb(51, 137, 179)'>";
 			list+="<div class='row'>";
 			list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
 			list+="<div id='AirRList_"+ind+"' class='row' style='text-align:center'>";
@@ -1347,10 +1347,10 @@
 		}////displayRoute
 		$(function(){
 			<c:if test="${air_dto_list!=null}">
-			var list="<h2 style='text-align:center;color:#58DE4D'>Reservation List</h2>";
+			var list="<h2 style='text-align:center;color:#3389b3'>항공권 예약 현황</h2>";
 			<c:forEach items="${air_dto_list}" var="air_dto" varStatus="i">
 				list+="<div class='container'>";
-				list+="<div class='alert alert-success'>";
+				list+="<div class='alert alert-success' style='background-color:rgb(51, 137, 179)'>";
 				list+="<div class='row'>";
 				list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
 				list+="<div id='AirRList_${i.index}' class='row' style='text-align:center'>";
