@@ -285,7 +285,7 @@
 }
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 .snip1535 {
-  background-color: #5C6BC0;
+  background-color: #aa66cc;
   border: none;
   color: #ffffff;
   cursor: pointer;
@@ -329,7 +329,7 @@
 }
 .snip1535:hover,
 .snip1535.hover {
-  background-color: rgba(0, 188, 212, 0.7);
+  background-color: #aa66cc;
 }
 .snip1535:hover:before,
 .snip1535.hover:before,
@@ -1178,7 +1178,7 @@ $(function(){
 		   
 		   md_review.appendChild(span)
 		   span=document.createElement('h5')
-		   span.setAttribute('style','background-color:#ff9999;border-radius:6px')
+		   span.setAttribute('style','background-color:#0099CC;border-radius:6px;color:white;')
 		   span.textContent=place.reviews[i].text
 		   md_review.appendChild(span)
 		   }
@@ -1389,8 +1389,8 @@ async function streetView(){
 					</div>
 					<div id="left-panel">
 						<button class="planview" data-toggle="collapse" data-target="#right-panel" aria-expanded="false">주변 검색 목록</button>
-						<input type="text" id="autocomplete" class="form-control" placeholder="찾는 명소이름 직접 입력" onfocus="autoComplete()" >
-						<div class="collapse" id="right-panel">
+						<input type="text" style="margin-left:4px;" id="autocomplete" class="form-control" placeholder="찾는 명소이름 직접 입력" onfocus="autoComplete()" >
+						<div class="collapse" style="margin-left:3px;" id="right-panel">
 							
 							
 							<div class="row" id="places"></div>
