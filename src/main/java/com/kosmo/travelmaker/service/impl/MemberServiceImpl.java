@@ -133,4 +133,8 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		memberDAO.deleteChat(planner_no);
 	}
+
+	public int userBlackUpdate(String id) {
+		return memberDAO.userBlackUpdate(id);
+	}
 }

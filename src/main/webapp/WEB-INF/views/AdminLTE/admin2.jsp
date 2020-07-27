@@ -39,6 +39,14 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
+<script>
+/* $(function){ */
+	if(${check}!=null){
+		alert(${check});
+	}
+/* } */
+	
+</script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
@@ -191,7 +199,7 @@
 														<td>${item.user_pwd}</td>
 														<td>${item.user_rrn}</td>
 														<td>${item.user_gender}</td>
-														<td><button class="btn btn-info">회원 삭제</button></td>
+														<td><a href="<c:url value='/TravelMaker/userBlack.kosmo?id=${item.user_id}'/>" class="btn btn-info" id="userctr">회원제재</a></td>
 													</tr>
 												</c:forEach> 
 											</c:if>

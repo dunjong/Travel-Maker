@@ -38,6 +38,7 @@ public class AdminController {
 	public String admin2(Model model) {
 		List<MemberDTO> list = memberService.selectMemberList();
 		model.addAttribute("list", list);
+		
 		return "AdminLTE/admin2";
 	}
 
@@ -80,6 +81,22 @@ public class AdminController {
 		}
 		return mav;
 
+	}
+	
+	@RequestMapping("userBlack.kosmo")
+	public String userBlack(@RequestParam String id,Model model) {
+		int i = memberService.userBlackUpdate(id);
+		String check=null;
+		if(i==1) {
+			check="수정 되었습니다";
+		}
+		else {
+			check="수정에 실패하였습니다";
+		}
+		List<MemberDTO> list = memberService.selectMemberList();
+		model.addAttribute("check", check);
+		model.addAttribute("list", list);
+		return "AdminLTE/admin2";
 	}
 
 }

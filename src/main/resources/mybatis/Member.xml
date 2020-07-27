@@ -66,8 +66,10 @@
 		delete from chat where planner_no=#{planner_no}
 	</delete>
 	
-	<delete id="deleteuser" parameterType="java.lang.String">
-		 delete from userinfo where user_id = #{user_id}	
-	</delete>
+	
+	<update id="userBlack" parameterType="java.lang.String">
+		UPDATE userinfo SET user_pwd='9999' WHERE user_id=#{id}
+	</update>
+	
 </mapper>
 

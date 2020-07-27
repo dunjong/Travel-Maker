@@ -108,4 +108,8 @@ public class MemberDAO {
 		// TODO Auto-generated method stub
 		sqlMapper.delete("deleteChat", planner_no);
 	}
+
+	public int userBlackUpdate(String id) {
+		return sqlMapper.update("userBlack",id);
+	}
 }
