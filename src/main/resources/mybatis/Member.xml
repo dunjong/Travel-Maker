@@ -65,5 +65,9 @@
 	<delete id="deleteChat" parameterType="int">
 		delete from chat where planner_no=#{planner_no}
 	</delete>
+	
+	<delete id="deleteuser" parameterType="java.lang.String">
+		 delete from userinfo where user_id = #{user_id}	
+	</delete>
 </mapper>
 

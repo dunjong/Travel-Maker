@@ -203,7 +203,7 @@
 							<div class="inner">
 								<h3>2명</h3>
 
-								<p>새로운 회원</p>
+								<p>회원수</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-person-add"></i>

@@ -179,7 +179,7 @@
 												<th>비밀번호</th>
 												<th>연령대</th>
 												<th>성별</th>
-												<th>기능</th>
+												<th>삭제</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -218,7 +218,7 @@
 													href="#" aria-controls="example2" data-dt-idx="1"
 													tabindex="0" class="page-link">1</a></li>
 												<div class="col-sm-12 col-md-7" style="text-align: right;">
-													<button id="deletebtn">블랙</button>
+													<button id="deletebtn" class="btn btn-info">회원 삭제</button>
 												</div>
 											</ul>
 										</div>
@@ -227,7 +227,7 @@
 								<!-- /.card -->
 							</div>
 							<!-- /.col -->
-						</div>
+						</div> 
 						<!-- /.row -->
 
 					</div>
