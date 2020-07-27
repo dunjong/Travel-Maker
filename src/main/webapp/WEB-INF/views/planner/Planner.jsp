@@ -1312,6 +1312,7 @@
 			list+="</div>";
 			list+="</div>";
 			$('#air_body').append(list);
+			$('#a_modal_result').modal('hide');
 		}
 		function ChangeMap(data){
 			console.log('data1:',data)

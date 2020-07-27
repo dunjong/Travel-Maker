@@ -7,7 +7,7 @@ public class AndroidPlanDTO {
 	
 	private String planner_no;
 	private String planner_name;
-	
+	private String total_count;
 	public String getPlanner_no() {
 		return planner_no;
 	}
@@ -23,6 +23,12 @@ public class AndroidPlanDTO {
 	@Override
 	public String toString() {
 		return "AndroidPlanDTO [planner_no=" + planner_no + ", planner_name=" + planner_name + "]";
+	}
+	public String getTotal_count() {
+		return total_count;
+	}
+	public void setTotal_count(String total_count) {
+		this.total_count = total_count;
 	}
 	
 	

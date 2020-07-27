@@ -4,7 +4,7 @@
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 <mapper namespace="mybatis.Android">
 	<select id="plannameGet" parameterType="java.lang.String" resultType="AndroidPlanDTO">
-		SELECT PLANNER_NO,PLANNER_NAME FROM planner WHERE user_id=#{user_id}
+		SELECT PLANNER_NO,PLANNER_NAME,TOTAL_COUNT FROM planner WHERE user_id=#{user_id}
 	</select>
 	
 	<select id="planCityGet" parameterType="java.lang.String" resultType="AndroidCityDTO">
