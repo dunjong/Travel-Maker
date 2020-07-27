@@ -375,9 +375,8 @@ function ToPlannerView(data){
 
 
 
-<div class="intro">
-	<div class="intro_background"></div>
-	<div class="container">
+<div class="intro" style="background-image: url('<c:url value='/images/reviewBackLarge.jpg'/>')">
+	<div class="container" >
 		<div class="row">
 			<div class="col">
 				<div class="intro_container">
@@ -425,17 +424,17 @@ function ToPlannerView(data){
 							</div>
 						</c:forEach>
 						<c:forEach items="${acc_planner}" var="acc_planner">
-							<div class="col-lg-3" id="${acc_planner.planner_no}" style="margin:20px;margin-bottom:100px;background-color:#e0f7fa;">
+							<div class="col-lg-3" id="${acc_planner.planner_no}" style="margin:20px;margin-bottom:100px; box-shadow:0 0 0 0 rgba(0,0,0,0); background: #f5f5f5; padding: 20px; border: #e0e0e0 solid 1px;">
 								<div class="row">
 									<div class="col-lg-12">
-										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
+										<button class="btn" type="button" style="width:100%; background:#80deea; margin-bottom:-6px; color:white; font-weight: bold;">
 										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${acc_planner.planner_no}</span>
 										  ${acc_planner.planner_name}
 										</button>	
 										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">예산: ${acc_planner.total_count} 원</button>
 									</div>
 									<div class="col-lg-12" style="text-align:center;">
-										  <button class="btn" type="button" style="background:#2196f3; color:white;" onclick='ToPlannerView(${acc_planner.planner_no})'>간단 보기</button>
+										  <button class="col-lg-12 btn" type="button" style="color:gray; font-size:0.9em; font-weight:bold;" class="btn" onclick='ToPlannerView(${acc_planner.planner_no})'>간단 보기</button>
 									</div>		
 									<div class="col-lg-12" >		  
 									      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width:100%; background:#80deea; color:white;">
