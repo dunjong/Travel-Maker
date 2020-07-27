@@ -98,13 +98,7 @@
 										</c:if>
 
 									</ul></li>
-								<li><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown">Customer Service<span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a
-											href="<c:url value='/TravelMaker/CustomerService.kosmo'/>">공지사항</a></li>
-										<li><a href="#">QnA</a></li>
-									</ul></li>
+								
 							</ul>
 							<button id="chatbtn" class="rounded-circle" type="button"
 								data-toggle="modal" data-target="#ChatModal"
@@ -178,8 +172,9 @@
                   id="iframe"            
                   style="min-height: 60vh; border:none;"              
                   width="100%"
+                  scrolling="no" 
                   height="90%"
-                  src="https://8ebf78e110af.ngrok.io">                        
+                  src="https://364846b0d467.ngrok.io">                        
               </iframe>
               </div>
                </div>

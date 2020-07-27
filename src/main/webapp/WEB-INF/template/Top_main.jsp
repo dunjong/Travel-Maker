@@ -63,14 +63,15 @@
                 <h4 class="modal-title" id="myModalLabel" style="color:white;"><i class="fa fa-fighter-jet"></i>TravelMaker</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" >
       
             <iframe
                   id="iframe"            
-                  style="min-height: 60vh; border:none;"              
+                  style="min-height: 60vh; border:none;"
+                  scrolling="no"              
                   width="100%"
                   height="90%"
-                  src="https://8ebf78e110af.ngrok.io">                        
+                  src="https://364846b0d467.ngrok.io">                        
               </iframe>
               </div>
                </div>
