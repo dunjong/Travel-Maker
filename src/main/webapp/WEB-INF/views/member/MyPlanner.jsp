@@ -385,10 +385,10 @@ function ToPlannerView(data){
 
 						<!-- Intro Item -->
 						<c:forEach items="${list}" var="planner">
-							<div class="col-lg-3" id="${planner.planner_no}" style="margin:20px;margin-bottom:100px;background-color:#e0f7fa;">
+							<div class="col-lg-3" id="${planner.planner_no}" style="margin:20px;margin-bottom:100px; background: #f5f5f5; padding: 20px; border: #e0e0e0 solid 1px;">
 								<div class="row">
 									<div class="col-lg-12">
-										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
+										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold; margin-bottom: -6px;">
 										
 										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${planner.planner_no}</span>
 										  ${planner.planner_name}
@@ -396,13 +396,13 @@ function ToPlannerView(data){
 										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">예산: ${planner.total_count} 원</button>
 									</div>
 									<div class="col-lg-6" style="text-align:center;">
-										  <button type="button" style="background:#2196f3; color:white;" class="btn" onclick="detail(${planner.planner_no})">수정 하기</button>
-										  <button class="btn" type="button" style="background:#2196f3; color:white;" onclick='ToPlannerView(${planner.planner_no})'>간단 보기</button>
+										  <button type="button" style="color:gray; font-size:0.9em; font-weight:bold; padding-left:31px; margin-right:-13px; margin-bottom:-8px;" class="btn" onclick="detail(${planner.planner_no})">수정하기</button>
+										  <button type="button" style="color:gray; font-size:0.9em; font-weight:bold; padding-left:31px; margin-right:-13px;" class="btn" onclick='ToPlannerView(${planner.planner_no})'>간단보기</button>
 									
 									</div>	
 									<div class="col-lg-6" style="text-align:center;">	
-										  <button type="button" style="background:#2196f3; color:white; " class="btn" onclick="payFees(${planner.planner_no})" id="payment" >결제 하기</button>
-										  <button type="button" style="background:#2196f3; color:white; " class="btn" onclick="acc_allow(${planner.planner_no})"id="acc_allow" >동행 수락</button>
+										  <button type="button" style="font-weight:bold; border-right:12px; font-size:0.9em; padding-right:29px; margin-left:-12px; margin-bottom:-8px; color:gray; " class="btn" onclick="payFees(${planner.planner_no})" id="payment" >결제하기</button>
+										  <button type="button" style="font-weight:bold; margin-left:-12px; font-size:0.9em; padding-right:29px; color:gray; " class="btn" onclick="acc_allow(${planner.planner_no})"id="acc_allow" >동행수락</button>
 										
 									</div>	
 									<div class="col-lg-12" style="text-align:center;">	
@@ -417,7 +417,7 @@ function ToPlannerView(data){
 									      <ul class="dropdown-menu" style="margin-left:45px;"role="menu">
 									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;" >전체 동행자:<span id="planner_acc">${planner.planner_acc}</span>명</div></li>
 									        <li><div style="color:#8977ad;font-size:1.5em;text-align:center;" >수락 동행자:<span id="planner_allow">${planner.planner_allow}</span>명</div></li>
-									        <li><div class="btn btn-info"  onclick="chatRoom(${planner.planner_no})" >동행자 채팅방</div></li>
+									        <li><div class="btn btn-info"   onclick="chatRoom(${planner.planner_no})" >동행자 채팅방</div></li>
 									        <li><div class="btn btn-danger" onclick="deleteChat(${planner.planner_no})">채팅창 비우기</div></li>
 									      </ul>
 									</div>  

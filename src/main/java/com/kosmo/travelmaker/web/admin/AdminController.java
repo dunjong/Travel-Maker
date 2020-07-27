@@ -30,13 +30,14 @@ public class AdminController {
 	private String GoogleMapApiKey;
 
 	@RequestMapping("admin1.kosmo")
-	public String admin1() {
+	public String admin1(Model model) {
+		int memberCount=memberService.selectMemberCount();
+		model.addAttribute("memberCount", memberCount);
 		return "AdminLTE/admin1";
 	}
 
 	@RequestMapping("admin2.kosmo")
 	public String admin2(Model model) {
-		
 		List<MemberDTO> list = memberService.selectMemberList();
 		model.addAttribute("list", list);
 
@@ -62,6 +63,8 @@ public class AdminController {
 		return "AdminLTE/adminCity";
 	}
 
+
+	
 	@RequestMapping("userBlack.kosmo")
 	public String userBlack(@RequestParam String id, Model model) {
 		int i = memberService.userBlackUpdate(id);

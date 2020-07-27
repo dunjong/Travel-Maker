@@ -137,6 +137,7 @@ public class MemberServiceImpl implements MemberService{
 	public int userBlackUpdate(String id) {
 		return memberDAO.userBlackUpdate(id);
 	}
+
 	
 	public int usersafeUpdate(String id) {
 		return memberDAO.userSafeUpdate(id);
@@ -146,5 +147,13 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.selectBlack();
 	}
 	
+
+
+
+	@Override
+	public int selectMemberCount() {
+		//어드민1 인원수 가져오기
+		return memberDAO.memberCount();
+	}
 
 }

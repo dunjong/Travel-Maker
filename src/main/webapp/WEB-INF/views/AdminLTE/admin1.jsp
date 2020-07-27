@@ -201,7 +201,7 @@
 						<!-- small box -->
 						<div class="small-box bg-warning">
 							<div class="inner">
-								<h3>2명</h3>
+								<h3>${memberCount}명</h3>
 
 								<p>회원수</p>
 							</div>

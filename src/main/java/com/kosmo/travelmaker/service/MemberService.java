@@ -31,9 +31,9 @@ public interface MemberService {
 	boolean inputChat(Map<String, String> maps);
 	List<PlannerDTO> AccplannerList(String user_id);
 	void deleteChat(int planner_no);
-	
-	
-	
-	
+
+	//어드민1 인원수 가져오기
+	int selectMemberCount();
+
 }
 
