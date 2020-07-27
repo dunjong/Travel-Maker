@@ -56,6 +56,7 @@ public class MemberDAO {
 	public MemberDTO selectMember(String id) {
 		return sqlMapper.selectOne("selectMember",id);
 	}
+	//어드민2 멤버리스트용
 	public List<MemberDTO> selectMemberList(){
 		return sqlMapper.selectList("selectMemberList");
 	}
@@ -111,5 +112,9 @@ public class MemberDAO {
 
 	public int userBlackUpdate(String id) {
 		return sqlMapper.update("userBlack",id);
+	}
+	//어드민1 인원수 가져오기
+	public int memberCount() {
+		return sqlMapper.selectOne("memberCount");
 	}
 }

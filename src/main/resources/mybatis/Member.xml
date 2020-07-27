@@ -70,6 +70,8 @@
 	<update id="userBlack" parameterType="java.lang.String">
 		UPDATE userinfo SET user_pwd='9999' WHERE user_id=#{id}
 	</update>
-	
+	<select id="memberCount" resultType="int">
+		SELECT COUNT(*) FROM userinfo
+	</select>
 </mapper>
 
