@@ -154,4 +154,8 @@ public class PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlMapper.delete("deleteChatByAccNo",acc_no)==1?true:false;
 	}
+	public boolean deleteChatByPlannerNo(int planner_no) {
+		// TODO Auto-generated method stub
+		return sqlMapper.delete("deleteChatByPlannerNo", planner_no)==1?true:false;
+	}
 }

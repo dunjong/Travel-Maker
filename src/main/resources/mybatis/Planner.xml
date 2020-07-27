@@ -69,6 +69,9 @@
 		SELECT planner_no from cities where cities_no=#{cities_no}
 	</select>
 	
+	<delete id="deleteChatByPlannerNo" parameterType="int">
+		delete from chat where planner_no=#{planner_no}
+	</delete>
 	
 	<delete id="deletePlanByNo" parameterType="int">
 		DELETE FROM plan WHERE plan_no=#{plan_no}

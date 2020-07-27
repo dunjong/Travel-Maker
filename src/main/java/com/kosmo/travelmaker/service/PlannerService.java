@@ -39,4 +39,5 @@ public interface PlannerService {
 	boolean updateResOk(String h_a_no);
 	int selectOnePlannerNoByCitiesNo(int cities_no);
 	boolean deleteChatByAccNo(int acc_no);
+	boolean deleteChatByPlannerNo(int planner_no);
 }
