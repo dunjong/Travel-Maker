@@ -199,9 +199,11 @@
 														<td>${item.user_pwd}</td>
 														<td>${item.user_rrn}</td>
 														<td>${item.user_gender}</td>
-														<td><a href="<c:url value='/TravelMaker/userBlack.kosmo?id=${item.user_id}'/>" class="btn btn-info" id="userctr">회원제재</a></td>
+														<td><a
+															href="<c:url value='/TravelMaker/userBlack.kosmo?id=${item.user_id}'/>"
+															class="btn btn-info" id="userctr">회원제재</a></td>
 													</tr>
-												</c:forEach> 
+												</c:forEach>
 											</c:if>
 
 										</tbody>
@@ -224,7 +226,7 @@
 													class="page-link">Previous</a></li>
 												<li class="paginate_button page-item active"><a
 													href="#" aria-controls="example2" data-dt-idx="1"
-													tabindex="0" class="page-link">1</a></li>								
+													tabindex="0" class="page-link">1</a></li>
 											</ul>
 										</div>
 									</div>
@@ -232,7 +234,78 @@
 								<!-- /.card -->
 							</div>
 							<!-- /.col -->
-						</div> 
+						</div>
+						<!-- /.row -->
+
+					</div>
+					<!-- /.container-fluid -->
+			</section>
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">BLACK LIST</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<table id="example2" class="table table-bordered table-hover">
+										<thead>
+											<tr>
+												<th>이름</th>
+												<th>아이디</th>
+												<th>비밀번호</th>
+												<th>연령대</th>
+												<th>성별</th>
+												<th>삭제</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:if test="${not isEmpty}">
+												<c:forEach items="${black}" var="item" varStatus="loop">
+													<tr>
+														<td>${item.user_name}</td>
+														<td>${item.user_id}</td>
+														<td>${item.user_pwd}</td>
+														<td>${item.user_rrn}</td>
+														<td>${item.user_gender}</td>
+														<td><a
+															href="<c:url value='/TravelMaker/userSafe.kosmo?id=${item.user_id}'/>"
+															class="btn btn-info" id="usersafe">해제</a></td>
+													</tr>
+												</c:forEach>
+											</c:if>
+
+										</tbody>
+										<tfoot>
+									</table>
+								</div>
+								<!-- /.card-body -->
+								<div class="row" style="text-align: right;">
+									<div class="col-sm-12 col-md-5">
+										<div class="dataTables_info" id="example2_info" role="status"
+											aria-live="polite">1/10 page</div>
+									</div>
+									<div class="col-sm-12 col-md-7" style="text-align: right;">
+										<div class="dataTables_paginate paging_simple_numbers"
+											id="example2_paginate">
+											<ul class="pagination">
+												<li class="paginate_button page-item previous disabled"
+													id="example2_previous"><a href="#"
+													aria-controls="example2" data-dt-idx="0" tabindex="0"
+													class="page-link">Previous</a></li>
+												<li class="paginate_button page-item active"><a
+													href="#" aria-controls="example2" data-dt-idx="1"
+													tabindex="0" class="page-link">1</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- /.card -->
+							</div>
+							<!-- /.col -->
+						</div>
 						<!-- /.row -->
 
 					</div>
@@ -240,6 +313,10 @@
 			</section>
 			<!-- /.content -->
 		</div>
+
+		<!-- /.content -->
+	</div>
+
 
 	</div>
 	<!-- /.content-wrapper -->

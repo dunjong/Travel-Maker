@@ -36,9 +36,12 @@ public class AdminController {
 
 	@RequestMapping("admin2.kosmo")
 	public String admin2(Model model) {
+		
 		List<MemberDTO> list = memberService.selectMemberList();
 		model.addAttribute("list", list);
-		
+
+		List<MemberDTO> black = memberService.selectBlack();
+		model.addAttribute("black", black);
 		return "AdminLTE/admin2";
 	}
 
@@ -59,41 +62,35 @@ public class AdminController {
 		return "AdminLTE/adminCity";
 	}
 
-//관리자로 로그인 후에 강제 탈퇴시킬 회원의 아이디를 입력후 강제탈퇴 버튼을 누르면 연결되는 메소드
-	@RequestMapping("/admin/admin_member_forced_eviction.do")
-	public ModelAndView admin_member_forced_eviction(String user_id) throws Exception {
-
-		// 유저의 아이디를 삭제 (강제탈퇴) 시키기위해서 dto에 담는다.
-		MemberDTO dto = new MemberDTO();
-		dto.setUser_id(user_id);
-
-		// 회원탈퇴 체크를 하기위한 메소드, 탈퇴 시키려는 회원의 아이디가 있는지 검사한후에 result 변수에 저장한다.
-		Adminservice.admin_member_forced_evictionCheck(dto);
-
-		ModelAndView mav = new ModelAndView();
-
-		if (dto.getUser_id() != null) { // 회원 강제탈퇴가 성공했을시 출력되는 뷰
-
-			mav.setViewName("home");
-
-			mav.addObject("message", "회원이 정상적으로 강제탈퇴 처리 되었습니다.");
-
-		}
-		return mav;
-
-	}
-	
 	@RequestMapping("userBlack.kosmo")
-	public String userBlack(@RequestParam String id,Model model) {
+	public String userBlack(@RequestParam String id, Model model) {
 		int i = memberService.userBlackUpdate(id);
-		String check=null;
-		if(i==1) {
-			check="수정 되었습니다";
-		}
-		else {
-			check="수정에 실패하였습니다";
+		String check = null;
+		if (i == 1) {
+			check = "수정 되었습니다";
+		} else {
+			check = "수정에 실패하였습니다";
 		}
 		List<MemberDTO> list = memberService.selectMemberList();
+		List<MemberDTO> black = memberService.selectBlack();
+		model.addAttribute("black", black);
+		model.addAttribute("check", check);
+		model.addAttribute("list", list);
+		return "AdminLTE/admin2";
+	}
+
+	@RequestMapping("userSafe.kosmo")
+	public String userSafe(@RequestParam String id, Model model) {
+		int i = memberService.usersafeUpdate(id);
+		String check = null;
+		if (i == 1) {
+			check = "수정 되었습니다";
+		} else {
+			check = "수정에 실패하였습니다";
+		}
+		List<MemberDTO> list = memberService.selectMemberList();
+		List<MemberDTO> black = memberService.selectBlack();
+		model.addAttribute("black", black);
 		model.addAttribute("check", check);
 		model.addAttribute("list", list);
 		return "AdminLTE/admin2";

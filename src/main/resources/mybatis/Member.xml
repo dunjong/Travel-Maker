@@ -32,8 +32,14 @@
 		SELECT * FROM userinfo 
 	</select>
 	<select id="selectMemberList" resultType="MemberDTO">
-		SELECT * FROM userinfo
+		SELECT * FROM userinfo WHERE user_pwd='1234'
 	</select>
+	
+	
+	<select id="selectBlack" resultType="MemberDTO">
+		SELECT * FROM userinfo WHERE user_pwd='9999'
+	</select>
+	
 	<select id="checkAccByNo" parameterType="int" resultType="int">
 		SELECT ALLOW FROM ACCOMPANY WHERE ACC_NO=#{acc_no}
 	</select>
@@ -69,6 +75,10 @@
 	
 	<update id="userBlack" parameterType="java.lang.String">
 		UPDATE userinfo SET user_pwd='9999' WHERE user_id=#{id}
+	</update>
+	
+	<update id="userSafe" parameterType="java.lang.String"> 
+		UPDATE userinfo SET user_pwd='1234' WHERE user_id=#{id}	
 	</update>
 	
 </mapper>

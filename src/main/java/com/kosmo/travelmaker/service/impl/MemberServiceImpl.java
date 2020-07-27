@@ -137,4 +137,14 @@ public class MemberServiceImpl implements MemberService{
 	public int userBlackUpdate(String id) {
 		return memberDAO.userBlackUpdate(id);
 	}
+	
+	public int usersafeUpdate(String id) {
+		return memberDAO.userSafeUpdate(id);
+	}
+
+	public List<MemberDTO> selectBlack() {
+		return memberDAO.selectBlack();
+	}
+	
+
 }

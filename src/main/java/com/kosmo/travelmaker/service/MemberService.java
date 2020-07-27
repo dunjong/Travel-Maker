@@ -18,6 +18,9 @@ public interface MemberService {
 	MemberDTO selectMember(String id);
 	//어드민2 멤버리스트용
 	List<MemberDTO> selectMemberList();
+	
+	List<MemberDTO> selectBlack();
+	
 	int checkAccByNo(int acc_no);
 	void updateAccYes(int acc_no);
 	void updateAccNo(int acc_no);
@@ -28,5 +31,9 @@ public interface MemberService {
 	boolean inputChat(Map<String, String> maps);
 	List<PlannerDTO> AccplannerList(String user_id);
 	void deleteChat(int planner_no);
+	
+	
+	
+	
 }
 
