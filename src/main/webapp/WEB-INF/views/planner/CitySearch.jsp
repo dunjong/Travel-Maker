@@ -743,7 +743,7 @@
 						</ul>
 					</div>
 					<div class="modal-footer">
-						<a href="#">리뷰이동</a>
+						<!-- <a href="#">리뷰이동</a> -->
 						<button class="btn btn-info" data-dismiss="modal">닫기</button>
 					</div>
 				</div>
