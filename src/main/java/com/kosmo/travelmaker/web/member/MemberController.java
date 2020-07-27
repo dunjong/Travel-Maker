@@ -422,6 +422,7 @@ public class MemberController {
 			maps.put("user_id", chat_dto.getUser_id());
 			maps.put("chat_time", transFormat.format(chat_dto.getChat_time()));
 			maps.put("chat_text", chat_dto.getChat_text());
+			maps.put("chat_no", Integer.toString(chat_dto.getChat_no()));
 			collections.add(maps);
 		}
 		

@@ -613,12 +613,13 @@ function PutChat(text){
 function successChatCall(data){
 	$.each(data,function(key,value){
 		if(value.user_id=='${user_id}'){
-			insertChat("me",value.chat_text,0,value.user_id);     
+			insertChat("me",value.chat_text,value.user_id,value.chat_time);     
 		}
 		else{
-			insertChat("you",value.chat_text,0,value.user_id);     
+			insertChat("you",value.chat_text,value.user_id,value.chat_time);     
 		}
 	})
+	$("#chat-modal ul").scrollTop($("#chat-modal ul").height());
 	console.log('\$("#chat-modal ul").height():',$("#chat-modal ul").height())
 }
 function successChatPut(data){
@@ -660,15 +661,13 @@ $(function(){
 	*/
 })
 	//-- No use time. It is a javaScript effect.
-function insertChat(who, text, time,id){
+function insertChat(who, text,id,chat_time){
 	var me = {};
 	me.avatar = "<c:url value='/images/foodIcon.png'/>";
 
 	var you = {};
 	you.avatar = "<c:url value='/images/spotIcon.png'/>";
-    if (time === undefined){
-        time = 0;
-    }
+    
     var control = "";
     var date = formatAMPM(new Date());
     
@@ -678,7 +677,7 @@ function insertChat(who, text, time,id){
                         '<br><p>'+id+'</p><div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
                             '<div class="text text-l">' +
                                 '<p>'+ text +'</p>' +
-                                '<p><small>'+date+'</small></p>' +
+                                '<p><small>'+chat_time+'</small></p>' +
                             '</div>' +
                         '</div>' +
                     '</li>';                    
@@ -687,7 +686,7 @@ function insertChat(who, text, time,id){
                         '<div class="msj-rta macro">' +
                             '<div class="text text-r">' +
                                 '<p>'+text+'</p>' +
-                                '<p><small>'+date+'</small></p>' +
+                                '<p><small>'+chat_time+'</small></p>' +
                             '</div>' +
                         '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div><br><p>'+id+'</p>' +                                
                   '</li>';
@@ -695,7 +694,7 @@ function insertChat(who, text, time,id){
     setTimeout(
         function(){                        
             $("#chat-modal ul").append(control).scrollTop($("#chat-modal ul").prop('scrollHeight'));
-        }, time);
+        }, 0);
     
 }
 
