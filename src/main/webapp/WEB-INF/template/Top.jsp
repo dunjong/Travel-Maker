@@ -300,7 +300,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<div class="text-center mb-3" style="width: 100%; height: 100%">
+				<div class="text-center mb-3" style="width: 100%; height: 100%;" >
 					<a href="#" id='loginsubmit'
 						class="btn blue-gradient btn-block btn-rounded z-depth-1a">로그인</a>
 					<p class="font-small grey-text d-flex justify-content-end">

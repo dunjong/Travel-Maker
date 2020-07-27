@@ -179,7 +179,7 @@
 												<th>비밀번호</th>
 												<th>연령대</th>
 												<th>성별</th>
-												<th>기능</th>
+												<th>삭제</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -191,9 +191,9 @@
 														<td>${item.user_pwd}</td>
 														<td>${item.user_rrn}</td>
 														<td>${item.user_gender}</td>
-														<td><input type="checkbox"></td>
+														<td><button class="btn btn-info">회원 삭제</button></td>
 													</tr>
-												</c:forEach>
+												</c:forEach> 
 											</c:if>
 
 										</tbody>
@@ -216,10 +216,7 @@
 													class="page-link">Previous</a></li>
 												<li class="paginate_button page-item active"><a
 													href="#" aria-controls="example2" data-dt-idx="1"
-													tabindex="0" class="page-link">1</a></li>
-												<div class="col-sm-12 col-md-7" style="text-align: right;">
-													<button id="deletebtn">블랙</button>
-												</div>
+													tabindex="0" class="page-link">1</a></li>								
 											</ul>
 										</div>
 									</div>
@@ -227,7 +224,7 @@
 								<!-- /.card -->
 							</div>
 							<!-- /.col -->
-						</div>
+						</div> 
 						<!-- /.row -->
 
 					</div>

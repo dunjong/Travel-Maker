@@ -189,7 +189,7 @@ text-align:center;
 								<div class="reviewTextInformation">
 									<br>
 									<h4></h4>
-									<p>등록된 게시물이 없습니다.</p>
+									<h3 style="color:gray; text-align: center;">&nbsp;등록된 게시물이 없습니다.</h3>
 									<h5 class="reviewPlaceInfomation"></h5>
 								</div>
 								<div class="reviewMapOrImage">
