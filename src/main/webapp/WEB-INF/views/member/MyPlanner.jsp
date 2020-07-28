@@ -6,7 +6,19 @@
 	height: 261.37px;
 	width: 360px;
 }
-
+.background_image2
+{
+	position: absolute;
+	top: 10%;
+	left: 0;
+	width: 100%;
+	height: 80%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	opacity:0.5;
+	background-image:url('/travelmaker/images/myplanner2.jpg');
+}
 </style>
 <script type="text/javascript"
    src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -37,7 +49,7 @@ function successAjaxDelete(data,num){
 	console.log('data:',data,',num:',num)
 	if(data=="삭제 성공"){
 		alert(num+'번 planner가 삭제되었습니다')
-		$('#'+num).attr('style','background-color:white').html('');
+		$('#'+num).attr('style','z-index:0').html('');
 		$('#cities').html('');
 	}
 	
@@ -375,7 +387,8 @@ function ToPlannerView(data){
 
 
 
-<div class="intro" style="background-image: url('<c:url value='/images/reviewBackLarge.jpg'/>')">
+<div class="intro">
+	<div class="background_image2"></div>
 	<div class="container" >
 		<div class="row">
 			<div class="col">
