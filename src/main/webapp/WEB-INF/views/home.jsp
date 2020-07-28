@@ -265,7 +265,7 @@ if('${city_no}'!=''){
 }
 </script>
 <div class="intro">
-	<div class="intro_background"></div>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col">

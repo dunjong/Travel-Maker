@@ -6,14 +6,29 @@
 	height: 261.37px;
 	width: 360px;
 }
-
+.background_image2
+{
+	position: absolute;
+	top: 10%;
+	left: 0;
+	width: 100%;
+	height: 80%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	opacity:0.5;
+	background-image:url('/travelmaker/images/myplanner2.jpg');
+}
 </style>
 <script type="text/javascript"
    src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <link rel="stylesheet"
 	href="<c:url value='/plugins/cal_plugins/fontawesome-free/css/all.min.css'/>">
 <script>
-
+$(function(){
+	 var offset=$('#intro').offset();
+	  $('html, body').animate({scrollTop : offset.top}, 400);
+})
 function deleteFunc(num){
 	if(confirm('정말로'+num+'번 일정을 삭제하시겠습니까?')){
 	
@@ -37,7 +52,7 @@ function successAjaxDelete(data,num){
 	console.log('data:',data,',num:',num)
 	if(data=="삭제 성공"){
 		alert(num+'번 planner가 삭제되었습니다')
-		$('#'+num).attr('style','background-color:white').html('');
+		$('#'+num).attr('style','z-index:0').html('');
 		$('#cities').html('');
 	}
 	
@@ -59,8 +74,7 @@ function detail(num){
 		});
 	*/
 	window.location.replace('<c:url value="Planner.kosmo?planner_no='+num+'" />')
-	  var offset=$('#destinations').offset();
-	  $('html, body').animate({scrollTop : offset.top}, 400);
+	 
 	  
 }////detail
 
@@ -375,9 +389,9 @@ function ToPlannerView(data){
 
 
 
-<div class="intro">
-	<div class="intro_background"></div>
-	<div class="container">
+<div class="intro" id="intro">
+	<div class="background_image2"></div>
+	<div class="container" >
 		<div class="row">
 			<div class="col">
 				<div class="intro_container">
@@ -425,17 +439,17 @@ function ToPlannerView(data){
 							</div>
 						</c:forEach>
 						<c:forEach items="${acc_planner}" var="acc_planner">
-							<div class="col-lg-3" id="${acc_planner.planner_no}" style="margin:20px;margin-bottom:100px;background-color:#e0f7fa;">
+							<div class="col-lg-3" id="${acc_planner.planner_no}" style="margin:20px;margin-bottom:100px; box-shadow:0 0 0 0 rgba(0,0,0,0); background: #f5f5f5; padding: 20px; border: #e0e0e0 solid 1px;">
 								<div class="row">
 									<div class="col-lg-12">
-										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">
+										<button class="btn" type="button" style="width:100%; background:#80deea; margin-bottom:-6px; color:white; font-weight: bold;">
 										<span class="badge" style="margin-right:5px; font-size: 1.2em;">${acc_planner.planner_no}</span>
 										  ${acc_planner.planner_name}
 										</button>	
 										<button class="btn" type="button" style="width:100%; background:#80deea; color:white; font-weight: bold;">예산: ${acc_planner.total_count} 원</button>
 									</div>
 									<div class="col-lg-12" style="text-align:center;">
-										  <button class="btn" type="button" style="background:#2196f3; color:white;" onclick='ToPlannerView(${acc_planner.planner_no})'>간단 보기</button>
+										  <button class="col-lg-12 btn" type="button" style="color:gray; font-size:0.9em; font-weight:bold;" class="btn" onclick='ToPlannerView(${acc_planner.planner_no})'>간단 보기</button>
 									</div>		
 									<div class="col-lg-12" >		  
 									      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width:100%; background:#80deea; color:white;">
@@ -558,7 +572,7 @@ function chatRoom(num){
 		console.log('\$("#chat-modal ul").height():',$("#chat-modal ul").height());
 	},1000);
 	
-	timerId = setInterval(setIntervalForChat, 4000);
+	timerId = setInterval(setIntervalForChat, 20000);
 
 	
 }
@@ -674,7 +688,7 @@ function insertChat(who, text,id,chat_time){
     if (who == "me"){
         control = '<li style="width:100%;margin:5px;">' +
                         '<div class="msj macro">' +
-                        '<br><p>'+id+'</p><div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
+                        '<br><p>'+id+'</p><div class="avatar"></div>' +
                             '<div class="text text-l">' +
                                 '<p>'+ text +'</p>' +
                                 '<p><small>'+chat_time+'</small></p>' +
@@ -688,7 +702,7 @@ function insertChat(who, text,id,chat_time){
                                 '<p>'+text+'</p>' +
                                 '<p><small>'+chat_time+'</small></p>' +
                             '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div><br><p>'+id+'</p>' +                                
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><br><p>'+id+'</p>' +                                
                   '</li>';
     }
     setTimeout(

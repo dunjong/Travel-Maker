@@ -51,19 +51,19 @@
 							<form action="<c:url value='/' />">
 								<div class="row">
 									<div class="col-md-1">
-									
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;text-size:20px">Plan Name</h4>
 									</div>
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
-										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;text-size:20px">Planner Name</h4>
+										
 										<div class="form-control">${planner_name}</div>
 									</div>
 									<div class="col-md-4">
 									</div>
 									<div class="col-md-1">
-									
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;margin-left:16px;text-size:20px">Total Count</h4>
 									</div>
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
-										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;margin-left:16px;text-size:20px">Total Count</h4>
+										
 										<div class="form-control" id='total_count'>${total_count}</div>
 										<input hidden="true" type="text" name="planner_no" value="${planner_no}">
 										<input hidden="true" type="text" name="city_no" value="${city_no}">
@@ -81,19 +81,19 @@
 							<form action="<c:url value='/TravelMaker/MyPlanner.kosmo'/>">
 								<div class="row">
 									<div class="col-md-1">
-									
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;text-size:20px">Plan Name</h4>
 									</div>
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
-										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;text-size:20px">Plan Name</h4>
+										
 										<div class="form-control">${planner_name}</div>
 									</div>
 									<div class="col-md-4">
 									</div>
 									<div class="col-md-1">
-									
+										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;margin-left:16px;text-size:20px">Total Count</h4>
 									</div>
 									<div class="input-group input-group-lg col-md-7" style="text-align: center;">
-										<h4 style="padding-top:8px;padding-bottom:8px;padding-right:16px;margin-left:16px;text-size:20px">Total Count</h4>
+										
 										<div class="form-control" id='total_count'>${total_count}</div>
 									</div>
 									<div class="col-md-1">
