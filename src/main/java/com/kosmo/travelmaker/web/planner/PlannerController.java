@@ -539,6 +539,7 @@ public class PlannerController {
 		Map<String, String> city_hotel=new HashMap<String, String>();
 		Map<String,String> city_hotel_name=new HashMap<String,String>();
 		Map<String, String> city_plan_no=new HashMap<String,String>();
+		Map<String, String> city_hotel_img=new HashMap<String,String>();
 		planner_no=Integer.parseInt(map.get("planner_no").toString());
 		Map<String, Integer> maps=new HashMap<String, Integer>();
 		maps.put("planner_no", planner_no);
@@ -557,6 +558,7 @@ public class PlannerController {
 			if(hotel_dto.size()!=0) {
 				city_hotel.put(cityDTO.getCity_name(),"1");
 				city_hotel_name.put(cityDTO.getCity_name(),hotel_dto.get(0).getHotel_name());
+				city_hotel_img.put(cityDTO.getCity_name(), hotel_dto.get(0).getHotel_img());
 			}
 			city_no_name.put(cityDTO.getCity_name(),cities_no);
 			city_name_date.put(cityDTO.getCity_name(),cityService.selectCitiesDate(cities_no));
@@ -573,6 +575,7 @@ public class PlannerController {
 		model.addAttribute("city_no_name",city_no_name);
 		model.addAttribute("city_name_date",city_name_date);
 		model.addAttribute("city_hotel",city_hotel);
+		model.addAttribute("city_hotel_img",city_hotel_img);
 		//String user_id=session.getAttribute("id").toString();
 		//cityService.makingplanner(user_id);
 		model.addAttribute("TripAdviserHotelApiKey",TripAdviserHotelApiKey);
