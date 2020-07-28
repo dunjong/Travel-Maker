@@ -1293,7 +1293,7 @@
 			list+="<div class='container'>";
 			list+="<div class='alert alert-success' style='background-color:rgb(51, 137, 179)'>";
 			list+="<div class='row'>";
-			list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+			list+="<div class='col-sm-7' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
 			list+="<div id='AirRList_"+ind+"' class='row' style='text-align:center'>";
 			list+="<div class='col-md-2' style='height: 40px; width: 40px'>";
 			list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
@@ -1302,11 +1302,8 @@
 			list+="<div class='col-md-2' style='color:black; height: 40px; width: 40px; text-align:left'>"+data.air_adate.split(',')[0].substr(5,5)+"<br><Strong>"+data.air_adate.split(',')[1].substr(11,5)+"</Strong><br>"+data.air_arr+"</div>";
 			list+="</div>";
 			list+="</div>";
-			list+="<div class='col-sm-4' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+			list+="<div class='col-sm-5' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
 			list+="<div class='col-md-12' style='color:black; height: 100px; margin-top:25px; font-size:1.7em;text-align:center;'><Strong>￦"+data.air_price+"원</Strong></div>";
-			list+="</div>";
-			list+="<div id='AirRpriceBtn_"+ind+"' class='col-sm-2' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-			list+="<button style='margin-top:25px' onclick='airReservation(this)' data-number="+ind+" type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
 			list+="</div>";
 			list+="</div>";
 			list+="</div>";
@@ -1356,7 +1353,7 @@
 				list+="<div class='container'>";
 				list+="<div class='alert alert-success' style='background-color:rgb(51, 137, 179)'>";
 				list+="<div class='row'>";
-				list+="<div class='col-sm-6' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
+				list+="<div class='col-sm-7' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>";
 				list+="<div id='AirRList_${i.index}' class='row' style='text-align:center'>";
 				list+="<div class='col-md-2' style='height: 40px; width: 40px'>";
 				list+="<img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>";
@@ -1367,11 +1364,9 @@
 				
 				list+="</div>";
 				list+="</div>";
-				list+="<div class='col-sm-4' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
+				list+="<div class='col-sm-5' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
 				list+="<div class='col-md-12' style='color:black; height: 100px; margin-top:25px; font-size:1.7em;text-align:center;'><Strong>￦${air_dto.air_price}원</Strong></div>";
 				list+="</div>";
-				list+="<div id='AirRpriceBtn_${i.index}' class='col-sm-2' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>";
-				list+="<button style='margin-top:25px' onclick='airReservation(this)' data-number=${i.index} type='button' class='btn btn-success btn-lg' style='cursor:pointer; border-radius:6px;'><Strong>선택 →</Strong></button>";
 				list+="</div>";
 				list+="</div>";
 				list+="</div>";
