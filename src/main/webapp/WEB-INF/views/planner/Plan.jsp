@@ -1230,9 +1230,9 @@ $(function(){
 	 var sp_waypoints=document.getElementById('sp-waypoints');
 	 
 	 sp_destination.textContent='도착지:'+hotelname
-	 sp_destination.setAttribute('style','background-color:#ffff66;border-radius:9px')
+	 sp_destination.setAttribute('style','background-color:#f5f5f5;border-radius:9px')
 	 sp_origin.textContent='출발지:'+hotelname
-	 sp_origin.setAttribute('style','background-color:#ffff66;border-radius:9px')
+	 sp_origin.setAttribute('style','background-color:#f5f5f5;border-radius:9px')
 	 
 	 
 	//확인용
@@ -1255,7 +1255,7 @@ $(function(){
 			h4.setAttribute('style','font-weight:bolder;')
 			div.appendChild(h4)
 			h4=document.createElement('h4')
-			h4.setAttribute('style','color:#e85977;border-radius:9px')
+			h4.setAttribute('style','color:#0080ff;border-radius:9px')
 			h4.textContent=spotArr[i].spot.name
 			h4.setAttribute('id',spotArr[i].spot.place_id)
 			h4.setAttribute('onclick','searchedSpotBtn(this)')
