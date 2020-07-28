@@ -536,11 +536,11 @@
 					label : "방문자:",
 					backgroundColor : [ "#0fc6fe", "#0faafe", "#0f7bfe",
 							"#0f67fe", "#0f4ffe", "#0f33fe", "#170ffe" ],
-					data : [ 1, 10, 18, 15, 16, 21, 24 ]
+					data : [  3, 10, 18, 15, 16, 21, 25 ]
 				} ]
 			},
 			options : {
-				legend : {
+				legend : { 
 					display : false
 				},
 				title : {
@@ -552,13 +552,13 @@
 		//방문자 도넛
 		new Chart(document.getElementById("pie-chart"), {
 			type : 'pie',
-			data : {
+			data : { 
 				labels : [ "SUN", "MON", "THUE", "WED", "THUR", "FRI", "SAT" ],
 				datasets : [ {
 					label : "Population",
 					backgroundColor : [ "#0fc6fe", "#0faafe", "#0f7bfe",
 							"#0f67fe", "#0f4ffe", "#0f33fe", "#170ffe" ],
-					data : [ 0, 10, 18, 15, 16, 21, 25 ]
+					data : [ 3, 10, 18, 15, 16, 21, 25 ] 
 				} ]
 			},
 			options : {
@@ -577,7 +577,7 @@
 				{
 					type : 'line',
 					data : {
-						labels : [ '오사카', '세부', '오사카', '다낭', '방콕', '발리', '사이판',
+						labels : [ '룸복', '세부', '오사카', '다낭', '방콕', '발리', '사이판',
 								'하와이' ],
 						datasets : [ {
 							label : '예약자 수',
