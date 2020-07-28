@@ -244,7 +244,10 @@ function preImport(data){
 			
 		});
 }
-
+function moveToUp(){
+	var offset=$('#intro').offset();
+	  $('html, body').animate({scrollTop : offset.top}, 400);
+}
 
 function Import(data){
 	 console.log('Import data:',data);
@@ -308,7 +311,7 @@ function fnMove(data){
 function fitting(){
 	var size=$('#cities > div').length;
 	if(size==0){
-		var tableString="<h2 style='text-align:center;'>확인하실 정보가 없습니다.</h2>";
+		var tableString="<h2 style='text-align:center;'>확인하실 정보가 없습니다.</h2><div style='text-align:center;'><button class='btn btn-info' onclick='moveToUp()'>상단으로 이동</button></div>";
 		$('#cities').html(tableString);
 	}
 	console.log('size',size);
@@ -688,9 +691,9 @@ function insertChat(who, text,id,chat_time){
     if (who == "me"){
         control = '<li style="width:100%;margin:5px;">' +
                         '<div class="msj macro">' +
-                        '<br><p>'+id+'</p><div class="avatar"></div>' +
+                        '<br><p style="color:#0080ff">'+id+'</p><div class="avatar"></div>' +
                             '<div class="text text-l">' +
-                                '<p>'+ text +'</p>' +
+                                '<p style="margin-top:10px">'+ text +'</p>' +
                                 '<p><small>'+chat_time+'</small></p>' +
                             '</div>' +
                         '</div>' +
@@ -699,10 +702,10 @@ function insertChat(who, text,id,chat_time){
         control = '<li style="width:100%;margin:5px;">' +
                         '<div class="msj-rta macro">' +
                             '<div class="text text-r">' +
-                                '<p>'+text+'</p>' +
+                                '<p style="margin-top:10px">'+text+'</p>' +
                                 '<p><small>'+chat_time+'</small></p>' +
                             '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><br><p>'+id+'</p>' +                                
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><br><p style="color:#ff9999">'+id+'</p>' +                                
                   '</li>';
     }
     setTimeout(
