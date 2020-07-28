@@ -231,6 +231,52 @@
 								<div class="col-md-12">
 									<div class="card card-primary">
 										<div class="card-header">
+											<h4 class="card-title">항공권 확인</h4>
+										</div>
+										<div class="card-body">	
+											<button class="btn btn-info" type="button" data-toggle="modal" data-target="#air_result_modal" style="width:100%">총 <span id='air_size'>${air_size}</span>회 항공권 목록</button>
+											<div class="modal fade" id="air_result_modal">
+												<div class="modal-dialog modal-lg">
+													<div class="modal-content">
+														<div class="modal-header bg-info ">
+															<h2>항공권 예약 현황</h2>
+														</div>
+														<div class="modal-body" id='air_body'>
+															<h2 style='text-align:center;color:#58DE4D'>Ticket List</h2>
+															<c:forEach items="air_list" var="a_i">
+																<div class='container'>
+																	<div class='alert alert-success' style='background-color:rgb(51, 137, 179)'>
+																		<div class='row'>
+																			<div class='col-sm-7' style='height: 100px; width: 100px; padding:15px; background-color: white; box-shadow: 1px 1px 1px 1px gray;border-radius: 11px /11px;'>
+																				<div id='AirList_"+i+"' class='row' style='text-align:center'>
+																					<div class='col-md-2' style='height: 40px; width: 40px'><img src='<c:url value="/images/travelmaker1.png"/>' style='height:60px;width:130px'></div>
+																					<div class='col-md-5' style='color:black; height: 40px; width: 40px; text-align:right'>"+res[i].segmentsList0[0].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[0].substr(11,5)+"</Strong><br>"+res[i].segmentsList0[3].code0+"</div>
+																					<div class='col-md-3' style='color:black; height: 40px; width: 40px'><small>"+res[i].originToDestTime.substring(2,res[i].originToDestTime.length).replace('H','시간').replace('M','분')+"</small><br><img src='<c:url value="/images/줄비행기.PNG"/>'/><br>
+																						<div style='color:sandybrown'><Strong>"+res[i].segmentsList0[2]+"회 경유</Strong></div>
+																					</div>
+																					<div class='col-md-2' style='color:black; height: 40px; width: 40px; text-align:left'>"+res[i].segmentsList0[1].substr(5,5)+"<br><Strong>"+res[i].segmentsList0[1].substr(11,5)+"</Strong><br>"+code+"</div>
+																				</div>
+																			</div>
+																			<div class='col-sm-5' style='color:black; height: 100px; width: 100px; text-align:center; background-color: white; box-shadow: 1px 1px 1px 1px gray; border-radius: 11px / 11px;'>
+																				<div class='col-md-12' style='color:black; height: 100px; padding:15px; font-size:1.7em;text-align:center;'><Strong>￦"+(res[i].basePrice.split('.')[0]*1).toLocaleString()+"원</Strong><div><small id='tp_"+i+"'>총 가격 "+(res[i].totalPrice.split('.')[0]*1).toLocaleString()+"원</small></div></div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</c:forEach>
+														</div>
+														<div class="modal-footer justify-content-between bg-info">
+												            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+											            </div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="card card-primary">
+										<div class="card-header">
 											<h4 class="card-title" id="map_title">지도</h4>
 										</div>
 										<div class="card-body" id="map">	
