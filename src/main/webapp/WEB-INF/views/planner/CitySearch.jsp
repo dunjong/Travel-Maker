@@ -157,7 +157,7 @@
                     			}
                     		}
                     		$('.count-box:eq('+k+') p').html(tag);
-                    		$('.count-box:eq('+k+') span').html(tagper);
+                    		$('.count-box:eq('+k+') .tagper').html(tagper);
                     		k++;
                     	});
                     	
@@ -642,32 +642,32 @@
 			<div class="row search" style="padding-bottom:200px;">
 				<div class="col-lg-3 col-md-6">
 					<div class="count-box">
-						<i class="icofont-simple-smile"></i> <span
-							data-toggle="counter-up">100</span>%
-						<p><strong>사진을</strong></p>
+						<i class="icofont-simple-smile"></i> <span class="tagper"
+							data-toggle="counter-up">100</span><span>%</span>
+						<p>사진을</p>
 					</div>
 				</div>
 
 				<div class="col-lg-3 col-md-6 mt-5 mt-md-0">
 					<div class="count-box">
-						<i class="icofont-simple-smile"></i> <span
-							data-toggle="counter-up">100</span>%
+						<i class="icofont-simple-smile"></i> <span class="tagper"
+							data-toggle="counter-up">100</span><span>%</span>
 						<p>등록해보세요</p>
 					</div>
 				</div>
 
 				<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 					<div class="count-box">
-						<i class="icofont-simple-smile"></i> <span
-							data-toggle="counter-up">100</span>%
+						<i class="icofont-simple-smile"></i> <span class="tagper"
+							data-toggle="counter-up">100</span><span>%</span>
 						<p>데이타가</p>
 					</div>
 				</div>
 
 				<div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
 					<div class="count-box">
-						<i class="icofont-simple-smile"></i> <span
-							data-toggle="counter-up">100</span>%
+						<i class="icofont-simple-smile"></i> <span class="tagper"
+							data-toggle="counter-up">100</span><span>%</span>
 						<p>바뀝니다</p>
 					</div>
 				</div>
