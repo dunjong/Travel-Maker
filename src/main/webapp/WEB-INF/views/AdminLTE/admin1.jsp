@@ -542,7 +542,7 @@
 			options : {
 				legend : { 
 					display : false
-				},
+				}, 
 				title : {
 					display : true,
 					text : '7월 2째주 방문자 그래프'
