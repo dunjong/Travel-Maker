@@ -177,7 +177,6 @@ function successAjaxPlanner(data){
 					tableString+="</div></div></div>";
 				
 					});
-				tableString+="<a href='#' class='btn btn-info'>상단으로 이동</a>";
 				$('#planners').html(tableString);
 				var offset=$('#news').offset();
 				$('html, body').animate({scrollTop : offset.top}, 400);
@@ -290,7 +289,7 @@ if('${city_no}'!=''){
 								<div class="intro_content">
 									<div style="color:#2e63bf; cursor:pointer;"  class="intro_title" onclick="CallCity()">Travel Maker인기 여행지</div>
 									<div class="intro_subtitle">
-										<p>#여행</p>
+										<p>#여행#TravelMaker</p>
 									</div>
 								</div>
 							</div>
@@ -306,7 +305,7 @@ if('${city_no}'!=''){
 								<div class="intro_content">
 									<div style="color:#2e63bf; cursor:pointer;" class="intro_title" onclick="CallSearchedCity()">해외 인기여행지</div>
 									<div class="intro_subtitle">
-										<p>Best Price</p>
+										<p>#wemakeprice#crawling</p>
 									</div>
 								</div>
 							</div>
@@ -320,9 +319,9 @@ if('${city_no}'!=''){
 									<img src="<c:url value='/images/suitcase.svg'/>" alt="">
 								</div>
 								<div class="intro_content">
-									<div style="color:#2e63bf" class="intro_title">놀라운 서비스</div>
+									<a style="color:#2e63bf" class="intro_title" href="<c:url value='/TravelMaker/ReviewSearch.kosmo'/>">리뷰 보기</a>
 									<div class="intro_subtitle">
-										<p>Amazing Service</p>
+										<p>#review</p>
 									</div>
 								</div>
 							</div>
@@ -455,7 +454,6 @@ if('${city_no}'!=''){
 							</div>
 						</div>
 		
-						<a href='#' class='btn btn-info'>상단으로 이동</a>
 					</div>
 
 				</div>
@@ -463,7 +461,7 @@ if('${city_no}'!=''){
 				<!-- News Sidebar -->
 				<div class="col-xl-4">
 					<div class="travello">
-						<div class="background_image" style="background-image:url(<c:url value='/images/travello.jpg'/>)"></div>
+						<div class="background_image" style="background-image:url(<c:url value='/images/adver.jpg'/>)"></div>
 						<div class="travello_content">
 							<div class="travello_content_inner">
 								<div></div>
@@ -472,10 +470,7 @@ if('${city_no}'!=''){
 						</div>
 						<div class="travello_container">
 							<div class="d-flex flex-column align-items-center justify-content-end">
-								<a href="#">
-									<span class="travello_title">Get a 20% Discount</span>
-									<span class="travello_subtitle">Buy Your Vacation Online Now</span>
-								</a>
+								<a href='#' class='btn btn-info'>상단으로 이동</a>
 							</div>
 						</div>
 					</div>

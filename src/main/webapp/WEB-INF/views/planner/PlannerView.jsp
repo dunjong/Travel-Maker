@@ -168,9 +168,14 @@
 																		<h2>${name.key}호텔</h2>
 																		
 																	</div>
-																	<div class="modal-body">
+																	<div class="modal-body" style="text-align:center;">
 																	<h4 id="h_modal_hotelName_${name.key}"></h4>
-														              	
+																	<c:if test="${not empty city_hotel_img}" var="hotel_empty">
+														            	<img id="h_modal_hotelImg_${name.key}"alt="NoImage" src="">
+														            </c:if>
+														            <c:if test="${!hotel_empty}">
+														            	<h4>예약된 호텔이 없습니다.</h4>
+														            </c:if> 	
 																	</div>
 																	<div class="modal-footer justify-content-between bg-info">
 														            	<button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
@@ -304,6 +309,9 @@
 			
 			<c:forEach items="${city_hotel_name}" var="hotelName">
 				$('#h_modal_hotelName_${hotelName.key}').html('예약된 호텔:${hotelName.value}');
+			</c:forEach>
+			<c:forEach items="${city_hotel_img}" var="hotelImg">
+				$('#h_modal_hotelImg_${hotelImg.key}').attr('src','${hotelImg.value}')
 			</c:forEach>
 			<c:forEach items="${city_plan_no}" var="plan_check" >
 				if('${plan_check.value ==1}')
