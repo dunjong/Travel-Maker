@@ -664,17 +664,17 @@ function initMap() {
 			 var logo;
 			  
 			 if(nearSearchType=='restaurant'){
-				logo='<c:url value="/images/foodIcon.png"/>';
+				logo='<c:url value="/images/icons/foodIcon.png"/>';
 			 }
 			 else{
-				logo='<c:url value="/images/spotIcon.png"/>';
+				logo='<c:url value="/images/icons/spotIcon.png"/>';
 			 }
 			 var image = {
 			          url: logo,
 			          size: new google.maps.Size(71, 71),
 			          origin: new google.maps.Point(0, 0),
 			          anchor: new google.maps.Point(17, 34),
-			          scaledSize: new google.maps.Size(25, 25)
+			          scaledSize: new google.maps.Size(50, 50)
 			       };
 			 marker = new google.maps.Marker({
 		          map: map,
