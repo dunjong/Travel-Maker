@@ -565,6 +565,9 @@ public class PlannerController {
 		}
 		SimpleDateFormat transFormat=new SimpleDateFormat("yyyy-MM-dd");
 		String today=transFormat.format(new Date());
+		if(map.get("android")!=null) {
+			model.addAttribute("android","yes");
+		}
 		model.addAttribute("city_no",city_no_from_home);
 		model.addAttribute("city_plan_no",city_plan_no);
 		model.addAttribute("city_hotel_name",city_hotel_name);

@@ -100,7 +100,9 @@
 									
 									</div>
 									<div class="col-md-3 col-sm-0">
+										<c:if test='${empty android}'>
 										<button id="myPlanner" class="btn btn-info" style="width:100%" >MyPlanner로</button>
+										</c:if>
 									</div>
 								</div>
 							</form>
