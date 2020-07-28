@@ -428,11 +428,11 @@ function ToPlannerView(data){
 									        	동행자 보기
 									        <span class="caret"></span>
 									      </button>
-									      <ul class="dropdown-menu" style="margin-left:45px;"role="menu">
-									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;" >전체 동행자:<span id="planner_acc">${planner.planner_acc}</span>명</div></li>
-									        <li><div style="color:#8977ad;font-size:1.5em;text-align:center;" >수락 동행자:<span id="planner_allow">${planner.planner_allow}</span>명</div></li>
-									        <li><div class="btn btn-info"   onclick="chatRoom(${planner.planner_no})" >동행자 채팅방</div></li>
-									        <li><div class="btn btn-danger" onclick="deleteChat(${planner.planner_no})">채팅창 비우기</div></li>
+									      <ul class="dropdown-menu" style="margin-left:45px;background:#f5f5f5;"role="menu">
+									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;width:100%;" >전체 동행자:<span id="planner_acc">${planner.planner_acc}</span>명</div></li>
+									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;width:100%;" >수락 동행자:<span id="planner_allow">${planner.planner_allow}</span>명</div></li>
+									        <li style="text-align:center;"><div class="btn btn-info"   onclick="chatRoom(${planner.planner_no})" >동행자 채팅방</div></li>
+									        <li style="text-align:center;"><div class="btn btn-danger" onclick="deleteChat(${planner.planner_no})">채팅창 비우기</div></li>
 									      </ul>
 									</div>  
 								</div>
@@ -456,10 +456,10 @@ function ToPlannerView(data){
 									        	동행자 보기
 									        <span class="caret"></span>
 									      </button>
-									      <ul class="dropdown-menu" style="margin-left:45px;"role="menu">
-									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;" >전체 동행자:<span id="planner_acc">${acc_planner.planner_acc}</span>명</div></li>
-									        <li><div style="color:#8977ad;font-size:1.5em;text-align:center;" >수락 동행자:<span id="planner_allow">${acc_planner.planner_allow}</span>명</div></li>
-									        <li><div class="btn btn-info"  onclick="chatRoom(${acc_planner.planner_no})" >동행자 채팅방</div></li>
+									      <ul class="dropdown-menu" style="margin-left:45px;background:#f5f5f5;"role="menu">
+									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;width:100%;" >전체 동행자:<span id="planner_acc">${acc_planner.planner_acc}</span>명</div></li>
+									        <li><div style="color:#0080ff;font-size:1.5em;text-align:center;width:100%;" >수락 동행자:<span id="planner_allow">${acc_planner.planner_allow}</span>명</div></li>
+									        <li style="text-align:center;"><div class="btn btn-info"  onclick="chatRoom(${acc_planner.planner_no})" >동행자 채팅방</div></li>
 									      </ul>
 									</div>  
 								</div>

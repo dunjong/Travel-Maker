@@ -1284,7 +1284,7 @@
 		}
 		function as_successAjax(data) {
 			console.log(data);
-			alert(data);
+			alert('항공권 등록이 완료되었습니다.');
 			var airMany = $('#airMany').prop('value');
 			$('#airMany').prop('value',airMany*1+1);
 			$('#air_size').html(airMany*1+1);

@@ -187,7 +187,14 @@ function successAjaxPlanner(data){
 		}
 	}
 }
-
+function paging(flag){
+	if(flag=='prev'){
+		
+	}
+	else{
+		
+	}
+}
 
 function successAjaxCity(data){
 	console.log('city data:',data)
