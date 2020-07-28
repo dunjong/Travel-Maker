@@ -25,7 +25,10 @@
 <link rel="stylesheet"
 	href="<c:url value='/plugins/cal_plugins/fontawesome-free/css/all.min.css'/>">
 <script>
-
+$(function(){
+	 var offset=$('#intro').offset();
+	  $('html, body').animate({scrollTop : offset.top}, 400);
+})
 function deleteFunc(num){
 	if(confirm('정말로'+num+'번 일정을 삭제하시겠습니까?')){
 	
@@ -71,8 +74,7 @@ function detail(num){
 		});
 	*/
 	window.location.replace('<c:url value="Planner.kosmo?planner_no='+num+'" />')
-	  var offset=$('#destinations').offset();
-	  $('html, body').animate({scrollTop : offset.top}, 400);
+	 
 	  
 }////detail
 
@@ -387,7 +389,7 @@ function ToPlannerView(data){
 
 
 
-<div class="intro">
+<div class="intro" id="intro">
 	<div class="background_image2"></div>
 	<div class="container" >
 		<div class="row">
@@ -570,7 +572,7 @@ function chatRoom(num){
 		console.log('\$("#chat-modal ul").height():',$("#chat-modal ul").height());
 	},1000);
 	
-	timerId = setInterval(setIntervalForChat, 4000);
+	timerId = setInterval(setIntervalForChat, 20000);
 
 	
 }
@@ -686,7 +688,7 @@ function insertChat(who, text,id,chat_time){
     if (who == "me"){
         control = '<li style="width:100%;margin:5px;">' +
                         '<div class="msj macro">' +
-                        '<br><p>'+id+'</p><div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
+                        '<br><p>'+id+'</p><div class="avatar"></div>' +
                             '<div class="text text-l">' +
                                 '<p>'+ text +'</p>' +
                                 '<p><small>'+chat_time+'</small></p>' +
@@ -700,7 +702,7 @@ function insertChat(who, text,id,chat_time){
                                 '<p>'+text+'</p>' +
                                 '<p><small>'+chat_time+'</small></p>' +
                             '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div><br><p>'+id+'</p>' +                                
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><br><p>'+id+'</p>' +                                
                   '</li>';
     }
     setTimeout(
