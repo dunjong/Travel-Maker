@@ -173,7 +173,9 @@
 																	<div class="modal-body" style="text-align:center;">
 																	<h4 id="h_modal_hotelName_${name.key}"></h4>
 																	<c:if test="${not empty city_hotel_img}" var="hotel_empty">
-														            	<img id="h_modal_hotelImg_${name.key}"alt="NoImage" src="">
+																		<div id="h_modal_hotelImg_${name.key}">
+																			<h4>예약된 호텔이 없습니다.</h4>
+														            	</div>
 														            </c:if>
 														            <c:if test="${!hotel_empty}">
 														            	<h4>예약된 호텔이 없습니다.</h4>
@@ -359,7 +361,7 @@
 				$('#h_modal_hotelName_${hotelName.key}').html('예약된 호텔:${hotelName.value}');
 			</c:forEach>
 			<c:forEach items="${city_hotel_img}" var="hotelImg">
-				$('#h_modal_hotelImg_${hotelImg.key}').attr('src','${hotelImg.value}')
+				$('#h_modal_hotelImg_${hotelImg.key}').html('<img src="${hotelImg.value}" alt="NoImage" >')
 			</c:forEach>
 			<c:forEach items="${city_plan_no}" var="plan_check" >
 				if('${plan_check.value ==1}')
