@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kosmo.travelmaker.service.Adminservice;
 import com.kosmo.travelmaker.service.MemberDTO;
 import com.kosmo.travelmaker.service.ReviewDTO;
 import com.kosmo.travelmaker.service.impl.MemberServiceImpl;
