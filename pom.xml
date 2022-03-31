@@ -12,7 +12,7 @@
 		<!-- JDK버전 -->
 		<java-version>1.8</java-version>
 		<!-- 스프링 프레임워크 버전 변경 -->
-		<org.springframework-version>4.3.9.RELEASE</org.springframework-version>
+		<org.springframework-version>5.3.18</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
